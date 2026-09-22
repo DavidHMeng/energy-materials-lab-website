@@ -2,9 +2,21 @@
 <article class="event-card">
   {% if item.cover_image %}<img src="{{ item.cover_image | relative_url }}" alt="{% if page.lang == 'zh' %}{{ item.alt_zh | default: item.title_zh }}{% else %}{{ item.alt_en | default: item.title_en }}{% endif %}" loading="lazy">{% endif %}
   <div class="event-card-body">
-    <div class="card-meta"><span>{{ item.type }} · {{ item.category }}</span><time datetime="{{ item.date | date: '%Y-%m-%d' }}">{{ item.date | date: "%Y.%m.%d" }}</time></div>
+    <div class="card-meta">
+      <span>{% if page.lang == "zh" %}{{ item.type | ui_label_zh }} · {{ item.category | ui_label_zh }}{% else %}{{ item.type }} · {{ item.category }}{% endif %}</span>
+      <span><time datetime="{{ item.date | date: '%Y-%m-%d' }}">{{ item.date | date: "%Y.%m.%d" }}</time>{% if item.end_date and item.end_date != item.date %}–<time datetime="{{ item.end_date | date: '%Y-%m-%d' }}">{{ item.end_date | date: "%Y.%m.%d" }}</time>{% endif %}</span>
+    </div>
     <h3>{% if page.lang == "zh" %}{{ item.title_zh }}{% else %}{{ item.title_en }}{% endif %}</h3>
     {% if item.location_en or item.location_zh %}<p class="event-location">{% if page.lang == "zh" %}{{ item.location_zh }}{% else %}{{ item.location_en }}{% endif %}</p>{% endif %}
+    {% if include.archive %}
+      {% assign event_description = item.description_en %}{% if page.lang == "zh" %}{% assign event_description = item.description_zh %}{% endif %}
+      {% if event_description %}<div class="event-description">{{ event_description | markdownify }}</div>{% endif %}
+      {% if item.gallery and item.gallery.size > 0 %}
+        <div class="event-gallery" aria-label="{% if page.lang == 'zh' %}活动图片{% else %}Event gallery{% endif %}">
+          {% for image in item.gallery %}<img src="{{ image | relative_url }}" alt="{% if page.lang == 'zh' %}{{ item.title_zh }}活动图片 {{ forloop.index }}{% else %}{{ item.title_en }} gallery image {{ forloop.index }}{% endif %}" loading="lazy">{% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
     {% if item.external_link %}<a class="text-link" href="{{ item.external_link }}">{% if page.lang == "zh" %}活动详情{% else %}Event details{% endif %}<span aria-hidden="true"> →</span></a>{% endif %}
   </div>
 </article>

@@ -24,7 +24,7 @@ content:
     type: collection
     path: _news
     format: yaml-frontmatter
-    filename: "{year}-{month}-{day}-{title_en}.md"
+    filename: "{date}-{title_en}.md"
     view:
       fields: [title_en, category, date, display]
       primary: title_en
@@ -53,7 +53,7 @@ content:
     type: collection
     path: _events
     format: yaml-frontmatter
-    filename: "{year}-{month}-{day}-{title_en}.md"
+    filename: "{date}-{title_en}.md"
     view:
       fields: [title_en, type, category, date, display]
       primary: title_en
@@ -78,8 +78,7 @@ content:
       - name: gallery
         label: Gallery
         type: image
-        list: true
-        options: { media: images, unique: true }
+        options: { media: images, multiple: true, unique: true }
       - { name: description_en, label: Description EN, type: rich-text, options: { media: false } }
       - { name: description_zh, label: Description ZH, type: rich-text, options: { media: false } }
       - { name: external_link, label: External link, type: string }
@@ -251,6 +250,8 @@ content:
       - { name: school_logo, label: School logo, type: image, required: true, options: { media: images } }
       - { name: copyright_en, label: Copyright EN, type: string, required: true }
       - { name: copyright_zh, label: Copyright ZH, type: string, required: true }
+      - { name: description_en, label: Site description EN, type: text, required: true }
+      - { name: description_zh, label: Site description ZH, type: text, required: true }
 
 settings:
   content:

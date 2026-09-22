@@ -1,9 +1,7 @@
-name: Refresh DOI citations
+name: Refresh DOI citations (manual until repository confirmation)
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "17 3 1 * *"
 
 permissions:
   actions: read

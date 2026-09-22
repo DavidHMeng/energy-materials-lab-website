@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BUNDLER_VERSION="2.5.6"
+
+python scripts/validate_content.py
+bundle _${BUNDLER_VERSION}_ exec jekyll serve --livereload "$@"

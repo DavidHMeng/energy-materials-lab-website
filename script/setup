@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BUNDLER_VERSION="2.5.6"
+
+gem install bundler --version "$BUNDLER_VERSION" --no-document
+bundle _${BUNDLER_VERSION}_ config set path vendor/bundle
+bundle _${BUNDLER_VERSION}_ install
+python -m pip install "PyYAML==6.0.3"

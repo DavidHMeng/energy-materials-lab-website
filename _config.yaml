@@ -77,6 +77,8 @@ exclude:
   - AGENTS.md
   - BUILD_SPEC.md
   - CONTENT_SCHEMA.md
+  - IMPLEMENTATION_AUDIT.md
+  - PROJECT_STATUS.md
   - README.md
   - LICENSE-UPSTREAM.md
   - UPSTREAM_CHANGELOG.md
@@ -84,6 +86,9 @@ exclude:
   - scripts
   - upstream-v1.4.0.zip
   - .upstream-extract
+  - .ruby-version
+  - Makefile
+  - script
 
 jekyll-spaceship:
   mathjax-processor:

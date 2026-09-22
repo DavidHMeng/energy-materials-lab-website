@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 try:
@@ -58,6 +59,12 @@ def check_image(path_value: str, source: Path):
         ERRORS.append(f"{source.relative_to(ROOT)}: missing image {path_value}")
 
 
+def iso_date(value) -> str:
+    if isinstance(value, date):
+        return value.isoformat()
+    return str(value or "")
+
+
 records: dict[str, list[tuple[Path, dict]]] = {}
 for folder, required in SCHEMAS.items():
     records[folder] = []
@@ -72,6 +79,8 @@ for path, data in records["_news"]:
     if data.get("category") not in NEWS_CATEGORIES:
         ERRORS.append(f"{path.relative_to(ROOT)}: invalid news category")
     check_image(data.get("image", ""), path)
+    if data.get("image") and not (data.get("alt_en") and data.get("alt_zh")):
+        ERRORS.append(f"{path.relative_to(ROOT)}: news image requires EN/ZH alt")
 
 for path, data in records["_events"]:
     if data.get("type") not in EVENT_TYPES:
@@ -79,6 +88,8 @@ for path, data in records["_events"]:
     check_image(data.get("cover_image", ""), path)
     if data.get("cover_image") and not (data.get("alt_en") and data.get("alt_zh")):
         ERRORS.append(f"{path.relative_to(ROOT)}: cover image requires EN/ZH alt")
+    if data.get("end_date") and iso_date(data.get("end_date")) < iso_date(data.get("date")):
+        ERRORS.append(f"{path.relative_to(ROOT)}: end_date precedes date")
 
 member_ids = set()
 for path, data in records["_members"]:
@@ -95,6 +106,10 @@ for path, data in records["_opportunities"]:
         ERRORS.append(f"{path.relative_to(ROOT)}: invalid opportunity category")
     if data.get("active_override") not in {"auto", "force_show", "force_hide"}:
         ERRORS.append(f"{path.relative_to(ROOT)}: active_override must be auto, force_show, or force_hide")
+    opening = iso_date(data.get("opening_date"))
+    closing = iso_date(data.get("closing_date"))
+    if opening and closing and closing < opening:
+        ERRORS.append(f"{path.relative_to(ROOT)}: closing_date precedes opening_date")
 
 sources = load_yaml(ROOT / "_data" / "sources.yaml") or []
 citations = load_yaml(ROOT / "_data" / "citations.yaml") or []
@@ -112,12 +127,21 @@ for index, source in enumerate(sources):
             ERRORS.append(f"_data/sources.yaml: unknown member_id {member_id}")
 
 citation_dois = {str(item.get("id", "")).lower().removeprefix("doi:") for item in citations}
+source_doi_set = set(source_dois)
+for doi in source_doi_set - citation_dois:
+    ERRORS.append(f"_data/sources.yaml: DOI {doi} has not been resolved into citations.yaml")
+for citation in citations:
+    for member_id in citation.get("member_ids", []) or []:
+        if member_id not in member_ids:
+            ERRORS.append(f"_data/citations.yaml: unknown member_id {member_id}")
 for path, data in records["_research"]:
     check_image(data.get("graphical_abstract", ""), path)
     for doi in data.get("doi_list", []) or []:
         normalized = str(doi).lower().removeprefix("doi:")
         if normalized not in citation_dois:
             ERRORS.append(f"{path.relative_to(ROOT)}: DOI {doi} is absent from citations.yaml")
+        if normalized not in source_doi_set:
+            ERRORS.append(f"{path.relative_to(ROOT)}: DOI {doi} is absent from sources.yaml")
 
 cms = load_yaml(ROOT / ".pages.yml") or {}
 cms_names = {entry.get("name") for entry in cms.get("content", [])}
@@ -127,6 +151,10 @@ if missing:
     ERRORS.append(f".pages.yml: missing CMS sections {sorted(missing)}")
 if not cms.get("media"):
     ERRORS.append(".pages.yml: media library is not configured")
+else:
+    media = cms["media"][0]
+    if media.get("input") != "images/uploads" or media.get("output") != "/images/uploads":
+        ERRORS.append(".pages.yml: Media must map images/uploads to /images/uploads")
 
 cms_entries = {entry.get("name"): entry for entry in cms.get("content", [])}
 for collection_name, folder in {"news": "_news", "events": "_events", "research": "_research", "team": "_members", "opportunities": "_opportunities"}.items():
@@ -135,14 +163,47 @@ for collection_name, folder in {"news": "_news", "events": "_events", "research"
     if missing_fields:
         ERRORS.append(f".pages.yml {collection_name}: missing schema fields {sorted(missing_fields)}")
 
+homepage = load_yaml(ROOT / "_data" / "homepage.yaml") or {}
+for key in ("highlights_heading_en", "highlights_heading_zh", "events_heading_en", "events_heading_zh"):
+    if not homepage.get(key):
+        ERRORS.append(f"_data/homepage.yaml: missing {key}")
+for key in ("news_limit", "events_limit"):
+    if not isinstance(homepage.get(key), int) or homepage[key] < 1:
+        ERRORS.append(f"_data/homepage.yaml: {key} must be a positive integer")
+
+site_data = load_yaml(ROOT / "_data" / "site.yaml") or {}
+site_required = {
+    "lab_name_en", "lab_name_zh", "school_en", "school_zh", "college_en", "college_zh",
+    "address_en", "address_zh", "email", "header_image", "lab_logo", "school_logo",
+    "copyright_en", "copyright_zh", "description_en", "description_zh"
+}
+for key in site_required:
+    if not site_data.get(key):
+        ERRORS.append(f"_data/site.yaml: missing {key}")
+for key in ("header_image", "lab_logo", "school_logo"):
+    check_image(site_data.get(key, ""), ROOT / "_data" / "site.yaml")
+site_cms_fields = {field.get("name") for field in cms_entries.get("site", {}).get("fields", [])}
+missing_site_fields = site_required - site_cms_fields
+if missing_site_fields:
+    ERRORS.append(f".pages.yml site: missing schema fields {sorted(missing_site_fields)}")
+
 for forbidden in ("projects", "blog", "alumni"):
     if (ROOT / forbidden).exists():
         ERRORS.append(f"forbidden route directory exists: {forbidden}")
 
 nav = (ROOT / "_includes" / "header.html").read_text(encoding="utf-8")
-for label in ("RESEARCH", "PUBLICATIONS", "TEAM", "OPPORTUNITIES"):
-    if nav.count(f">{label}<") != 1:
-        ERRORS.append(f"header navigation must contain exactly one {label} entry")
+expected_nav = [
+    ("/research/", "RESEARCH"),
+    ("/publications/", "PUBLICATIONS"),
+    ("/team/", "TEAM"),
+    ("/opportunities/", "OPPORTUNITIES"),
+]
+primary_nav = re.findall(
+    r'<a href="\{\{ prefix \| append: \'([^\']+)\' \| relative_url \}\}">([A-Z]+)</a>',
+    nav,
+)
+if primary_nav != expected_nav:
+    ERRORS.append(f"header primary navigation mismatch: expected {expected_nav}, got {primary_nav}")
 
 if ERRORS:
     print("Content validation failed:")

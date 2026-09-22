@@ -29,10 +29,14 @@
 {% endif %}
 {% assign fulltitle = fulltitle | join: " | " %}
 
-{% assign description = page.description | default: site.description %}
-{% if site.subtitle %}
+{% assign site_description = site.data.site.description_en | default: site.description %}
+{% if page.lang == "zh" %}
+  {% assign site_description = site.data.site.description_zh | default: site.description %}
+{% endif %}
+{% assign description = page.description | default: site_description %}
+{% if subtitle %}
   {% capture description -%}
-    {{ site.subtitle }}. {{ description }}
+    {{ subtitle }}. {{ description }}
   {%- endcapture %}
 {% endif %}
 {% capture url -%}
@@ -44,11 +48,18 @@
 {% assign svg = "images/icon.svg" | file_exists %}
 {% assign png = "images/icon.png" | file_exists %}
 {% assign jpg = "images/icon.jpg" | file_exists %}
-{% assign icon = svg | default: png | default: jpg | relative_url %}
+{% assign icon_source = svg | default: png | default: jpg %}
+{% assign icon = icon_source | relative_url %}
+{% assign icon_absolute = icon_source | absolute_url %}
 
 {% assign jpg = "images/share.jpg" | file_exists %}
 {% assign png = "images/share.png" | file_exists %}
-{% assign share = jpg | default: png | relative_url %}
+{% assign share_source = jpg | default: png %}
+{% if share_source %}
+  {% assign share = share_source | absolute_url %}
+{% else %}
+  {% assign share = nil %}
+{% endif %}
 
 {% assign published = page.date | date_to_xmlschema %}
 {% assign updated = page.last_modified_at | date_to_xmlschema %}
@@ -65,17 +76,21 @@
 <meta name="description" content="{{ description }}">
 
 <meta property="og:title" content="{{ title }}">
-<meta property="og:site_title" content="{{ site_title | xml_escape }}">
+<meta property="og:site_name" content="{{ site_title | xml_escape }}">
 <meta property="og:description" content="{{ description }}">
 <meta property="og:url" content="{{ url }}">
 {% if share %}<meta property="og:image" content="{{ share }}">{% endif %}
 <meta property="og:locale" content="{% if page.lang == 'zh' %}zh_CN{% else %}en_US{% endif %}">
 
-<meta property="twitter:title" content="{{ title }}">
-<meta property="twitter:description" content="{{ description }}">
-<meta property="twitter:url" content="{{ url }}">
-<meta property="twitter:card" content="summary_large_image">
-{% if share %}<meta property="twitter:image" content="{{ share }}">{% endif %}
+<meta name="twitter:title" content="{{ title }}">
+<meta name="twitter:description" content="{{ description }}">
+<meta name="twitter:url" content="{{ url }}">
+{% if share %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ share }}">
+{% else %}
+  <meta name="twitter:card" content="summary">
+{% endif %}
 
 <link rel="canonical" href="{{ url }}">
 {% assign alternate_path = page.url %}
@@ -115,7 +130,7 @@
     "headline": "{{ title }}",
     "publisher": {
       "@type": "Organization",
-      "logo": { "@type": "ImageObject", "url": "{{ icon }}" }
+      "logo": { "@type": "ImageObject", "url": "{{ icon_absolute }}" }
     },
     "url": "{{ url }}"
   }

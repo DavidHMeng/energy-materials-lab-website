@@ -213,6 +213,22 @@ header nav > a {
   color: var(--muted);
 }
 
+.event-description > :last-child {
+  margin-bottom: 0;
+}
+
+.event-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.event-gallery img {
+  aspect-ratio: 1;
+  border-radius: calc(var(--card-radius) / 2);
+}
+
 .research-list {
   display: grid;
   gap: 3rem;

@@ -32,6 +32,6 @@ layout: default
 
   {% assign publications = site.data.citations | citations_for_member: member.slug %}
   {% if publications.size > 0 %}
-    <section class="profile-publications"><h2>Publications</h2>{% for citation in publications %}{% include citation.html lookup=citation.id style="rich" %}{% endfor %}</section>
+    <section class="profile-publications"><h2>{% if page.lang == "zh" %}论文发表{% else %}Publications{% endif %}</h2>{% for citation in publications %}{% include citation.html lookup=citation.id style="rich" %}{% endfor %}</section>
   {% endif %}
 </article>

@@ -1,6 +1,23 @@
 # frozen_string_literal: true
 
 module LabCustomFilters
+  ZH_UI_LABELS = {
+    "Publication" => "论文发表",
+    "Award" => "获奖",
+    "Member" => "成员动态",
+    "Academic Achievement" => "学术成果",
+    "Funding" => "科研项目",
+    "Announcement" => "通知",
+    "Academic" => "学术活动",
+    "Group" => "组内活动",
+    "Seminar" => "学术报告",
+    "Group Meeting" => "组会"
+  }.freeze
+
+  def ui_label_zh(value)
+    ZH_UI_LABELS.fetch(value.to_s, value.to_s)
+  end
+
   def find_citation_by_doi(doi, citations)
     needle = doi.to_s.downcase.sub(%r{^https?://(dx\.)?doi\.org/}, "").sub(/^doi:/, "")
     Array(citations).find do |citation|

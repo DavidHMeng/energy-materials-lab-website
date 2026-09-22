@@ -1,47 +1,139 @@
 #!/usr/bin/env python3
-"""Check required routes and internal links in a generated Jekyll site."""
+"""Check required routes, internal links, assets, and key rendered invariants."""
 
 from __future__ import annotations
 
-import sys
+import argparse
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 
-class LinkParser(HTMLParser):
+class SiteHTMLParser(HTMLParser):
     def __init__(self):
         super().__init__()
-        self.links: list[str] = []
+        self.references: list[tuple[str, str]] = []
+        self.image_alts: list[str | None] = []
+        self.html_lang: str | None = None
+        self.nav_depth = 0
+        self.footer_depth = 0
+        self.footer_has_nav = False
+        self.current_nav_link = False
+        self.nav_text: list[str] = []
 
     def handle_starttag(self, tag, attrs):
+        values = dict(attrs)
+        if tag == "html":
+            self.html_lang = values.get("lang")
+        if tag == "nav":
+            self.nav_depth += 1
+            if self.footer_depth:
+                self.footer_has_nav = True
+        if tag == "footer":
+            self.footer_depth += 1
+        if tag == "a" and values.get("href"):
+            self.references.append(("link", values["href"]))
+            classes = set(values.get("class", "").split())
+            self.current_nav_link = self.nav_depth > 0 and "language-toggle" not in classes
+        if tag in {"img", "script"} and values.get("src"):
+            self.references.append(("asset", values["src"]))
+        if tag == "link" and values.get("href"):
+            rel = set(values.get("rel", "").split())
+            if rel & {"stylesheet", "icon"}:
+                self.references.append(("asset", values["href"]))
+        if tag == "img":
+            self.image_alts.append(values.get("alt"))
+
+    def handle_endtag(self, tag):
         if tag == "a":
-            href = dict(attrs).get("href")
-            if href:
-                self.links.append(href)
+            self.current_nav_link = False
+        elif tag == "nav":
+            self.nav_depth = max(0, self.nav_depth - 1)
+        elif tag == "footer":
+            self.footer_depth = max(0, self.footer_depth - 1)
+
+    def handle_data(self, data):
+        if self.current_nav_link and data.strip():
+            self.nav_text.append(data.strip())
 
 
-site = Path(sys.argv[1] if len(sys.argv) > 1 else "_site").resolve()
-required = ["index.html", "research/index.html", "publications/index.html", "team/index.html", "opportunities/index.html", "news/index.html", "events/index.html", "zh/index.html", "zh/research/index.html", "zh/publications/index.html", "zh/team/index.html", "zh/opportunities/index.html", "zh/news/index.html", "zh/events/index.html", "team/mei-li/index.html", "zh/team/mei-li/index.html", "404.html"]
-errors = [f"missing route: /{path}" for path in required if not (site / path).is_file()]
+def normalize_baseurl(value: str) -> str:
+    value = value.strip()
+    if not value or value == "/":
+        return ""
+    return "/" + value.strip("/")
+
+
+def local_target(site: Path, source: Path, raw: str, baseurl: str) -> Path | None:
+    if raw.startswith(("mailto:", "tel:", "#", "javascript:", "data:")):
+        return None
+    parsed = urlparse(raw)
+    if parsed.scheme or parsed.netloc:
+        return None
+    clean = unquote(parsed.path)
+    if not clean:
+        return None
+    if clean.startswith("/"):
+        if baseurl and (clean == baseurl or clean.startswith(baseurl + "/")):
+            clean = clean[len(baseurl):] or "/"
+        target = site / clean.lstrip("/")
+    else:
+        target = source.parent / clean
+    if clean.endswith("/"):
+        target /= "index.html"
+    elif target.suffix == "":
+        target /= "index.html"
+    return target
+
+
+cli = argparse.ArgumentParser()
+cli.add_argument("site", nargs="?", default="_site")
+cli.add_argument("--baseurl", default="")
+args = cli.parse_args()
+
+site = Path(args.site).resolve()
+baseurl = normalize_baseurl(args.baseurl)
+required = [
+    "index.html", "research/index.html", "publications/index.html", "team/index.html",
+    "opportunities/index.html", "news/index.html", "events/index.html", "zh/index.html",
+    "zh/research/index.html", "zh/publications/index.html", "zh/team/index.html",
+    "zh/opportunities/index.html", "zh/news/index.html", "zh/events/index.html",
+    "team/mei-li/index.html", "zh/team/mei-li/index.html", "404.html", "zh/404.html",
+    "images/icon.svg", "_styles/custom.css", "_scripts/dark-mode.js"
+]
+errors = [f"missing route or asset: /{path}" for path in required if not (site / path).is_file()]
+expected_nav = ["RESEARCH", "PUBLICATIONS", "TEAM", "OPPORTUNITIES"]
 
 for html in site.rglob("*.html"):
-    parser = LinkParser()
-    parser.feed(html.read_text(encoding="utf-8", errors="replace"))
-    for href in parser.links:
-        parsed = urlparse(href)
-        if parsed.scheme or parsed.netloc or href.startswith(("mailto:", "tel:", "#", "javascript:")):
-            continue
-        clean = unquote(parsed.path)
-        if not clean:
-            continue
-        target = (site / clean.lstrip("/")) if clean.startswith("/") else (html.parent / clean)
-        if clean.endswith("/"):
-            target = target / "index.html"
-        elif target.suffix == "":
-            target = target / "index.html"
-        if not target.exists():
-            errors.append(f"broken internal link in {html.relative_to(site)}: {href}")
+    page = SiteHTMLParser()
+    page.feed(html.read_text(encoding="utf-8", errors="replace"))
+    relative = html.relative_to(site).as_posix()
+    expected_lang = "zh" if relative.startswith("zh/") else "en"
+    if page.html_lang != expected_lang:
+        errors.append(f"wrong html lang in {relative}: expected {expected_lang}, got {page.html_lang}")
+    if page.nav_text != expected_nav:
+        errors.append(f"primary navigation mismatch in {relative}: {page.nav_text}")
+    if page.footer_has_nav:
+        errors.append(f"footer navigation is forbidden in {relative}")
+    if any(alt is None or not alt.strip() for alt in page.image_alts):
+        errors.append(f"empty image alt in {relative}")
+    for kind, reference in page.references:
+        parsed_reference = urlparse(reference)
+        reference_path = parsed_reference.path
+        is_local = not parsed_reference.scheme and not parsed_reference.netloc
+        if is_local and any(f"/{name}/" in reference_path.lower() for name in ("projects", "blog", "alumni")):
+            errors.append(f"forbidden route reference in {relative}: {reference}")
+        if (
+            baseurl
+            and is_local
+            and reference_path.startswith("/")
+            and reference_path != baseurl
+            and not reference_path.startswith(baseurl + "/")
+        ):
+            errors.append(f"root-relative {kind} is missing baseurl in {relative}: {reference}")
+        target = local_target(site, html, reference, baseurl)
+        if target is not None and not target.exists():
+            errors.append(f"broken internal {kind} in {relative}: {reference}")
 
 if errors:
     print("Generated-site checks failed:")
@@ -49,4 +141,4 @@ if errors:
         print(f"- {error}")
     raise SystemExit(1)
 
-print(f"Generated-site checks passed for {len(list(site.rglob('*.html')))} HTML files.")
+print(f"Generated-site checks passed for {len(list(site.rglob('*.html')))} HTML files (baseurl={baseurl or '/'}).")
