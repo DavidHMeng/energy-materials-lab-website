@@ -1,0 +1,25 @@
+name: Refresh Ruby lockfile (temporary)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.12"
+          bundler: "2.5.6"
+      - name: Update incompatible Sass runtime
+        run: bundle _2.5.6_ update sass-embedded
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ruby-lockfile
+          path: Gemfile.lock
+          if-no-files-found: error
+          retention-days: 1
