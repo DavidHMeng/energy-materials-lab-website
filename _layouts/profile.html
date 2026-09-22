@@ -10,12 +10,12 @@ layout: default
       <h1>{% if page.lang == "zh" %}{{ member.name_zh }}{% else %}{{ member.name_en }}{% endif %}</h1>
       <p class="profile-position">{% if page.lang == "zh" %}{{ member.position_zh }}{% else %}{{ member.position_en }}{% endif %}</p>
       <div class="profile-links">
-        {% if member.email %}<a href="mailto:{{ member.email }}">Email</a>{% endif %}
-        {% if member.google_scholar %}<a href="{{ member.google_scholar }}">Google Scholar</a>{% endif %}
-        {% if member.orcid %}<a href="https://orcid.org/{{ member.orcid }}">ORCID</a>{% endif %}
-        {% if member.researchgate %}<a href="{{ member.researchgate }}">ResearchGate</a>{% endif %}
-        {% if member.personal_website %}<a href="{{ member.personal_website }}">{% if page.lang == "zh" %}个人网站{% else %}Personal website{% endif %}</a>{% endif %}
-        {% if member.github %}<a href="{{ member.github }}">GitHub</a>{% endif %}
+        {% if member.email and member.email != "" %}<a href="mailto:{{ member.email }}">Email</a>{% endif %}
+        {% if member.google_scholar and member.google_scholar != "" %}<a href="{{ member.google_scholar }}">Google Scholar</a>{% endif %}
+        {% if member.orcid and member.orcid != "" %}<a href="https://orcid.org/{{ member.orcid }}">ORCID</a>{% endif %}
+        {% if member.researchgate and member.researchgate != "" %}<a href="{{ member.researchgate }}">ResearchGate</a>{% endif %}
+        {% if member.personal_website and member.personal_website != "" %}<a href="{{ member.personal_website }}">{% if page.lang == "zh" %}个人网站{% else %}Personal website{% endif %}</a>{% endif %}
+        {% if member.github and member.github != "" %}<a href="{{ member.github }}">GitHub</a>{% endif %}
       </div>
     </div>
   </header>
