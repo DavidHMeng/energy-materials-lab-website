@@ -7,4 +7,9 @@ BASEURL="${BASEURL:-}"
 python scripts/validate_content.py
 JEKYLL_ENV=production bundle _${BUNDLER_VERSION}_ exec jekyll build --trace "$@"
 python scripts/check_generated_site.py _site --baseurl "$BASEURL"
-bundle _${BUNDLER_VERSION}_ exec htmlproofer _site --disable-external --ignore-urls "/example\\.edu/"
+
+htmlproofer_args=(_site --disable-external --ignore-urls "/example\\.edu/")
+if [[ -n "$BASEURL" && "$BASEURL" != "/" ]]; then
+  htmlproofer_args+=(--swap-urls "^${BASEURL}/:/")
+fi
+bundle _${BUNDLER_VERSION}_ exec htmlproofer "${htmlproofer_args[@]}"
