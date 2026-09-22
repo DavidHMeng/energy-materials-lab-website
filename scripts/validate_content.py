@@ -1,0 +1,153 @@
+#!/usr/bin/env python3
+"""Validate editable collections and cross-record references."""
+
+from __future__ import annotations
+
+import re
+import sys
+from pathlib import Path
+
+try:
+    import yaml
+except ImportError:
+    raise SystemExit("PyYAML is required: py -m pip install PyYAML")
+
+ROOT = Path(__file__).resolve().parents[1]
+ERRORS: list[str] = []
+
+SCHEMAS = {
+    "_research": ["title_en", "title_zh", "graphical_abstract", "alt_en", "alt_zh", "short_intro_en", "short_intro_zh", "doi_list", "display", "order"],
+    "_news": ["category", "title_en", "title_zh", "summary_en", "summary_zh", "date", "display"],
+    "_events": ["type", "category", "title_en", "title_zh", "date", "description_en", "description_zh", "display"],
+    "_members": ["slug", "role", "name_en", "name_zh", "position_en", "position_zh", "portrait", "portrait_alt_en", "portrait_alt_zh", "research_summary_en", "research_summary_zh", "active", "display", "order"],
+    "_opportunities": ["category", "title_en", "title_zh", "content_en", "content_zh", "links", "active_override", "display_order", "display"],
+}
+
+ROLES = {"pi", "postdoctoral-researchers", "phd-students", "master-students", "undergraduate-students", "visiting-students", "research-staff", "administrative-staff"}
+NEWS_CATEGORIES = {"Publication", "Award", "Member", "Academic Achievement", "Funding", "Announcement"}
+EVENT_TYPES = {"Academic", "Group"}
+OPPORTUNITY_CATEGORIES = {"PhD Students", "Research Assistants", "Administrative Assistants", "Assistant Professors", "Postdoctoral Researchers", "Visiting Students", "Other"}
+
+
+def load_yaml(path: Path):
+    try:
+        return yaml.safe_load(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        ERRORS.append(f"{path.relative_to(ROOT)}: invalid YAML: {exc}")
+        return None
+
+
+def frontmatter(path: Path) -> dict:
+    text = path.read_text(encoding="utf-8")
+    match = re.match(r"\A---\s*\n(.*?)\n---\s*(?:\n|\Z)", text, re.S)
+    if not match:
+        ERRORS.append(f"{path.relative_to(ROOT)}: missing YAML front matter")
+        return {}
+    try:
+        return yaml.safe_load(match.group(1)) or {}
+    except Exception as exc:
+        ERRORS.append(f"{path.relative_to(ROOT)}: invalid front matter: {exc}")
+        return {}
+
+
+def check_image(path_value: str, source: Path):
+    if not path_value or path_value.startswith(("http://", "https://")):
+        return
+    target = ROOT / path_value.lstrip("/")
+    if not target.is_file():
+        ERRORS.append(f"{source.relative_to(ROOT)}: missing image {path_value}")
+
+
+records: dict[str, list[tuple[Path, dict]]] = {}
+for folder, required in SCHEMAS.items():
+    records[folder] = []
+    for path in sorted((ROOT / folder).glob("*.md")):
+        data = frontmatter(path)
+        records[folder].append((path, data))
+        for key in required:
+            if key not in data:
+                ERRORS.append(f"{path.relative_to(ROOT)}: missing field {key}")
+
+for path, data in records["_news"]:
+    if data.get("category") not in NEWS_CATEGORIES:
+        ERRORS.append(f"{path.relative_to(ROOT)}: invalid news category")
+    check_image(data.get("image", ""), path)
+
+for path, data in records["_events"]:
+    if data.get("type") not in EVENT_TYPES:
+        ERRORS.append(f"{path.relative_to(ROOT)}: invalid event type")
+    check_image(data.get("cover_image", ""), path)
+    if data.get("cover_image") and not (data.get("alt_en") and data.get("alt_zh")):
+        ERRORS.append(f"{path.relative_to(ROOT)}: cover image requires EN/ZH alt")
+
+member_ids = set()
+for path, data in records["_members"]:
+    member_id = data.get("slug")
+    if member_id in member_ids:
+        ERRORS.append(f"{path.relative_to(ROOT)}: duplicate member slug {member_id}")
+    member_ids.add(member_id)
+    if data.get("role") not in ROLES:
+        ERRORS.append(f"{path.relative_to(ROOT)}: invalid role {data.get('role')}")
+    check_image(data.get("portrait", ""), path)
+
+for path, data in records["_opportunities"]:
+    if data.get("category") not in OPPORTUNITY_CATEGORIES:
+        ERRORS.append(f"{path.relative_to(ROOT)}: invalid opportunity category")
+    if data.get("active_override") not in {"auto", "force_show", "force_hide"}:
+        ERRORS.append(f"{path.relative_to(ROOT)}: active_override must be auto, force_show, or force_hide")
+
+sources = load_yaml(ROOT / "_data" / "sources.yaml") or []
+citations = load_yaml(ROOT / "_data" / "citations.yaml") or []
+source_dois = []
+for index, source in enumerate(sources):
+    source_id = str(source.get("id", ""))
+    if not re.match(r"^doi:10\..+/.+$", source_id, re.I):
+        ERRORS.append(f"_data/sources.yaml item {index + 1}: id must use doi:10.x/... format")
+    normalized = source_id.lower().removeprefix("doi:")
+    if normalized in source_dois:
+        ERRORS.append(f"_data/sources.yaml: duplicate DOI {normalized}")
+    source_dois.append(normalized)
+    for member_id in source.get("member_ids", []) or []:
+        if member_id not in member_ids:
+            ERRORS.append(f"_data/sources.yaml: unknown member_id {member_id}")
+
+citation_dois = {str(item.get("id", "")).lower().removeprefix("doi:") for item in citations}
+for path, data in records["_research"]:
+    check_image(data.get("graphical_abstract", ""), path)
+    for doi in data.get("doi_list", []) or []:
+        normalized = str(doi).lower().removeprefix("doi:")
+        if normalized not in citation_dois:
+            ERRORS.append(f"{path.relative_to(ROOT)}: DOI {doi} is absent from citations.yaml")
+
+cms = load_yaml(ROOT / ".pages.yml") or {}
+cms_names = {entry.get("name") for entry in cms.get("content", [])}
+required_cms = {"homepage", "news", "events", "research", "publications", "team", "opportunities", "site"}
+missing = required_cms - cms_names
+if missing:
+    ERRORS.append(f".pages.yml: missing CMS sections {sorted(missing)}")
+if not cms.get("media"):
+    ERRORS.append(".pages.yml: media library is not configured")
+
+cms_entries = {entry.get("name"): entry for entry in cms.get("content", [])}
+for collection_name, folder in {"news": "_news", "events": "_events", "research": "_research", "team": "_members", "opportunities": "_opportunities"}.items():
+    cms_fields = {field.get("name") for field in cms_entries.get(collection_name, {}).get("fields", [])}
+    missing_fields = set(SCHEMAS[folder]) - cms_fields
+    if missing_fields:
+        ERRORS.append(f".pages.yml {collection_name}: missing schema fields {sorted(missing_fields)}")
+
+for forbidden in ("projects", "blog", "alumni"):
+    if (ROOT / forbidden).exists():
+        ERRORS.append(f"forbidden route directory exists: {forbidden}")
+
+nav = (ROOT / "_includes" / "header.html").read_text(encoding="utf-8")
+for label in ("RESEARCH", "PUBLICATIONS", "TEAM", "OPPORTUNITIES"):
+    if nav.count(f">{label}<") != 1:
+        ERRORS.append(f"header navigation must contain exactly one {label} entry")
+
+if ERRORS:
+    print("Content validation failed:")
+    for error in ERRORS:
+        print(f"- {error}")
+    sys.exit(1)
+
+print(f"Content validation passed: {sum(len(items) for items in records.values())} collection records, {len(sources)} DOI source(s), {len(citations)} citation(s).")

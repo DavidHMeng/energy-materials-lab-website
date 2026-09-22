@@ -1,0 +1,37 @@
+---
+layout: default
+---
+{% assign member = page %}
+<article class="profile-page">
+  <header class="profile-intro">
+    <img src="{{ member.portrait | relative_url }}" alt="{% if page.lang == 'zh' %}{{ member.portrait_alt_zh }}{% else %}{{ member.portrait_alt_en }}{% endif %}">
+    <div>
+      <p class="eyebrow">{% if page.lang == "zh" %}课题组成员{% else %}Team member{% endif %}</p>
+      <h1>{% if page.lang == "zh" %}{{ member.name_zh }}{% else %}{{ member.name_en }}{% endif %}</h1>
+      <p class="profile-position">{% if page.lang == "zh" %}{{ member.position_zh }}{% else %}{{ member.position_en }}{% endif %}</p>
+      <div class="profile-links">
+        {% if member.email %}<a href="mailto:{{ member.email }}">Email</a>{% endif %}
+        {% if member.google_scholar %}<a href="{{ member.google_scholar }}">Google Scholar</a>{% endif %}
+        {% if member.orcid %}<a href="https://orcid.org/{{ member.orcid }}">ORCID</a>{% endif %}
+        {% if member.researchgate %}<a href="{{ member.researchgate }}">ResearchGate</a>{% endif %}
+        {% if member.personal_website %}<a href="{{ member.personal_website }}">{% if page.lang == "zh" %}个人网站{% else %}Personal website{% endif %}</a>{% endif %}
+        {% if member.github %}<a href="{{ member.github }}">GitHub</a>{% endif %}
+      </div>
+    </div>
+  </header>
+
+  <div class="profile-sections">
+    {% assign interests = member.research_interests_en %}{% if page.lang == "zh" %}{% assign interests = member.research_interests_zh %}{% endif %}
+    {% if interests %}<section><h2>{% if page.lang == "zh" %}研究兴趣{% else %}Research interests{% endif %}</h2><p>{{ interests }}</p></section>{% endif %}
+    {% assign biography = member.biography_en %}{% if page.lang == "zh" %}{% assign biography = member.biography_zh %}{% endif %}
+    {% if biography %}<section><h2>{% if page.lang == "zh" %}个人简介{% else %}Biography{% endif %}</h2>{{ biography | markdownify }}</section>{% endif %}
+    {% assign education = member.education_en %}{% if page.lang == "zh" %}{% assign education = member.education_zh %}{% endif %}
+    {% if education %}<section><h2>{% if page.lang == "zh" %}教育经历{% else %}Education{% endif %}</h2>{{ education | markdownify }}</section>{% endif %}
+    {% if member.office or member.phone %}<section><h2>{% if page.lang == "zh" %}联系信息{% else %}Contact{% endif %}</h2>{% if member.office %}<p><strong>{% if page.lang == "zh" %}办公室：{% else %}Office: {% endif %}</strong>{{ member.office }}</p>{% endif %}{% if member.phone %}<p><strong>{% if page.lang == "zh" %}电话：{% else %}Phone: {% endif %}</strong>{{ member.phone }}</p>{% endif %}</section>{% endif %}
+  </div>
+
+  {% assign publications = site.data.citations | citations_for_member: member.slug %}
+  {% if publications.size > 0 %}
+    <section class="profile-publications"><h2>Publications</h2>{% for citation in publications %}{% include citation.html lookup=citation.id style="rich" %}{% endfor %}</section>
+  {% endif %}
+</article>

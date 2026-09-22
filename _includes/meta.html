@@ -1,0 +1,124 @@
+{% assign filename = page.path | split: "/" | last %}
+{% if page.lang == "zh" and page.name_zh %}
+  {% assign title = page.name_zh %}
+{% elsif page.name_en %}
+  {% assign title = page.name_en %}
+{% elsif page.name and page.name != filename %}
+  {% assign title = page.name %}
+{% elsif page.title %}
+  {% assign title = page.title %}
+{% else %}
+  {% assign title = nil %}
+{% endif %}
+
+{% assign title = title | xml_escape %}
+
+{% assign site_title = site.data.site.lab_name_en %}
+{% assign subtitle = site.data.site.school_en %}
+{% if page.lang == "zh" %}
+  {% assign site_title = site.data.site.lab_name_zh %}
+  {% assign subtitle = site.data.site.school_zh %}
+{% endif %}
+
+{% assign fulltitle = "" | split: "," %}
+{% if title and title != "" %}
+  {% assign fulltitle = fulltitle | push: title %}
+{% endif %}
+{% if site_title and site_title != "" %}
+  {% assign fulltitle = fulltitle | push: site_title %}
+{% endif %}
+{% assign fulltitle = fulltitle | join: " | " %}
+
+{% assign description = page.description | default: site.description %}
+{% if site.subtitle %}
+  {% capture description -%}
+    {{ site.subtitle }}. {{ description }}
+  {%- endcapture %}
+{% endif %}
+{% capture url -%}
+  {{ site.url }}{{ site.baseurl }}{{ page.url }}
+{%- endcapture %}
+
+{% assign description = description | xml_escape %}
+
+{% assign svg = "images/icon.svg" | file_exists %}
+{% assign png = "images/icon.png" | file_exists %}
+{% assign jpg = "images/icon.jpg" | file_exists %}
+{% assign icon = svg | default: png | default: jpg | relative_url %}
+
+{% assign jpg = "images/share.jpg" | file_exists %}
+{% assign png = "images/share.png" | file_exists %}
+{% assign share = jpg | default: png | relative_url %}
+
+{% assign published = page.date | date_to_xmlschema %}
+{% assign updated = page.last_modified_at | date_to_xmlschema %}
+
+{% assign feed = "feed.xml" | absolute_url %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>{{ fulltitle }}</title>
+
+<link rel="icon" href="{{ icon }}">
+
+<meta name="title" content="{{ title }}">
+<meta name="description" content="{{ description }}">
+
+<meta property="og:title" content="{{ title }}">
+<meta property="og:site_title" content="{{ site_title | xml_escape }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ url }}">
+{% if share %}<meta property="og:image" content="{{ share }}">{% endif %}
+<meta property="og:locale" content="{% if page.lang == 'zh' %}zh_CN{% else %}en_US{% endif %}">
+
+<meta property="twitter:title" content="{{ title }}">
+<meta property="twitter:description" content="{{ description }}">
+<meta property="twitter:url" content="{{ url }}">
+<meta property="twitter:card" content="summary_large_image">
+{% if share %}<meta property="twitter:image" content="{{ share }}">{% endif %}
+
+<link rel="canonical" href="{{ url }}">
+{% assign alternate_path = page.url %}
+{% if page.lang == "zh" %}
+  {% assign alternate_path = page.url | remove_first: "/zh" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}{{ site.baseurl }}{{ alternate_path }}">
+  <link rel="alternate" hreflang="zh-CN" href="{{ url }}">
+{% else %}
+  <link rel="alternate" hreflang="en" href="{{ url }}">
+  <link rel="alternate" hreflang="zh-CN" href="{{ site.url }}{{ site.baseurl }}/zh{{ page.url }}">
+{% endif %}
+
+{% if page.author %}
+  <meta name="author" content="{{ page.author | xml_escape }}">
+  <meta property="og:type" content="article">
+  <meta property="og:updated_time" content="{{ updated }}">
+  <meta property="article:published_time" content="{{ published }}">
+  <meta property="article:modified_time" content="{{ updated }}">
+  <meta name="revised" content="{{ updated }}">
+{% else %}
+  <meta property="og:type" content="website">
+{% endif %}
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    {% if page.author %}
+      "@type": "BlogPosting",
+      "author": { "@type": "Person", "name": "{{ title }}" },
+      "datePublished": "{{ published }}",
+      "dateModified": "{{ updated }}",
+    {% else %}
+      "@type": "WebSite",
+    {% endif %}
+    "name": "{{ title }}",
+    "description": "{{ description }}",
+    "headline": "{{ title }}",
+    "publisher": {
+      "@type": "Organization",
+      "logo": { "@type": "ImageObject", "url": "{{ icon }}" }
+    },
+    "url": "{{ url }}"
+  }
+</script>
+
+<link rel="alternate" type="application/rss+xml" href="{{ feed }}">

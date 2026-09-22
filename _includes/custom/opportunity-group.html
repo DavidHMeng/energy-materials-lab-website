@@ -1,0 +1,24 @@
+{% assign items = site.opportunities | where: "category", include.category | sort: "display_order" %}
+{% capture cards %}
+  {% for item in items %}
+    {% assign visible = item | opportunity_visible: site.time %}
+    {% if visible %}
+      <article class="opportunity-card">
+        <div class="card-meta">
+          <span>{% if page.lang == "zh" %}{{ include.label_zh }}{% else %}{{ include.label_en }}{% endif %}</span>
+          {% if item.closing_date %}<span>{% if page.lang == "zh" %}截止：{% else %}Closes: {% endif %}<time datetime="{{ item.closing_date }}">{{ item.closing_date }}</time></span>{% endif %}
+        </div>
+        <h3>{% if page.lang == "zh" %}{{ item.title_zh }}{% else %}{{ item.title_en }}{% endif %}</h3>
+        <div>{% if page.lang == "zh" %}{{ item.content_zh | markdownify }}{% else %}{{ item.content_en | markdownify }}{% endif %}</div>
+        {% if item.links.size > 0 %}<div class="links">{% for link in item.links %}<a href="{{ link.url }}">{% if page.lang == "zh" %}{{ link.label_zh | default: link.label_en }}{% else %}{{ link.label_en }}{% endif %}<span aria-hidden="true"> →</span></a>{% endfor %}</div>{% endif %}
+      </article>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+{% assign cards_clean = cards | strip %}
+{% if cards_clean != "" %}
+  <section class="opportunity-group">
+    <h2>{% if page.lang == "zh" %}{{ include.label_zh }}{% else %}{{ include.label_en }}{% endif %}</h2>
+    <div class="opportunity-list">{{ cards }}</div>
+  </section>
+{% endif %}

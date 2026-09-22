@@ -1,0 +1,7 @@
+{% assign item = include.item %}
+<article class="news-card">
+  <div class="card-meta"><span>{{ item.category }}</span><time datetime="{{ item.date | date: '%Y-%m-%d' }}">{{ item.date | date: "%Y.%m.%d" }}</time></div>
+  <h3>{% if page.lang == "zh" %}{{ item.title_zh }}{% else %}{{ item.title_en }}{% endif %}</h3>
+  <p>{% if page.lang == "zh" %}{{ item.summary_zh }}{% else %}{{ item.summary_en }}{% endif %}</p>
+  {% if item.external_link %}<a class="text-link" href="{{ item.external_link }}">{% if page.lang == "zh" %}了解更多{% else %}Learn more{% endif %}<span aria-hidden="true"> →</span></a>{% endif %}
+</article>

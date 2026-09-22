@@ -1,0 +1,35 @@
+{% assign image = page.header | default: site.data.site.header_image | default: site.header %}
+{% assign is_zh = false %}{% if page.lang == "zh" %}{% assign is_zh = true %}{% endif %}
+{% assign home_path = "/" %}{% if is_zh %}{% assign home_path = "/zh/" %}{% endif %}
+{% assign toggle_path = page.url %}
+{% if is_zh %}
+  {% assign toggle_path = page.url | remove_first: "/zh" %}
+  {% if toggle_path == "" %}{% assign toggle_path = "/" %}{% endif %}
+{% else %}
+  {% assign toggle_path = "/zh" | append: page.url %}
+{% endif %}
+
+<header class="background" style="--image: url('{{ image | relative_url | uri_escape }}')" data-dark="true" {% if page.url == "/" or page.url == "/zh/" %}data-big{% endif %}>
+  <a href="{{ home_path | relative_url }}" class="home" aria-label="{% if is_zh %}返回首页{% else %}Home{% endif %}">
+    <span class="logo"><img src="{{ site.data.site.lab_logo | relative_url }}" alt="{% if is_zh %}课题组标志{% else %}Lab logo{% endif %}"></span>
+    <span class="title-text">
+      <span class="title">{% if is_zh %}{{ site.data.site.lab_name_zh }}{% else %}{{ site.data.site.lab_name_en }}{% endif %}</span>
+      <span class="subtitle">{% if is_zh %}{{ site.data.site.school_zh }}{% else %}{{ site.data.site.school_en }}{% endif %}</span>
+    </span>
+  </a>
+
+  <input class="nav-toggle" type="checkbox" aria-label="{% if is_zh %}显示或隐藏导航{% else %}Show or hide navigation{% endif %}">
+  <nav aria-label="{% if is_zh %}主导航{% else %}Primary navigation{% endif %}">
+    {% assign prefix = "" %}{% if is_zh %}{% assign prefix = "/zh" %}{% endif %}
+    <a href="{{ prefix | append: '/research/' | relative_url }}">RESEARCH</a>
+    <a href="{{ prefix | append: '/publications/' | relative_url }}">PUBLICATIONS</a>
+    <a href="{{ prefix | append: '/team/' | relative_url }}">TEAM</a>
+    <a href="{{ prefix | append: '/opportunities/' | relative_url }}">OPPORTUNITIES</a>
+    <span class="header-controls">
+      <a class="language-toggle" href="{{ toggle_path | relative_url }}" hreflang="{% if is_zh %}en{% else %}zh-CN{% endif %}">{% if is_zh %}EN{% else %}中文{% endif %}</a>
+      <button class="theme-button" type="button" aria-label="{% if is_zh %}切换明暗模式{% else %}Toggle light or dark mode{% endif %}" onclick="window.toggleTheme()">
+        <span aria-hidden="true">◐</span><span class="theme-label">{% if is_zh %}明暗{% else %}Theme{% endif %}</span>
+      </button>
+    </span>
+  </nav>
+</header>

@@ -1,0 +1,18 @@
+name: Refresh DOI citations
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 1 * *"
+
+permissions:
+  actions: read
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    uses: ./.github/workflows/update-citations.yaml
+    with:
+      open-pr: true
+    secrets: inherit

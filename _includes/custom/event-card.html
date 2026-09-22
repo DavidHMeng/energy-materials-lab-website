@@ -1,0 +1,10 @@
+{% assign item = include.item %}
+<article class="event-card">
+  {% if item.cover_image %}<img src="{{ item.cover_image | relative_url }}" alt="{% if page.lang == 'zh' %}{{ item.alt_zh | default: item.title_zh }}{% else %}{{ item.alt_en | default: item.title_en }}{% endif %}" loading="lazy">{% endif %}
+  <div class="event-card-body">
+    <div class="card-meta"><span>{{ item.type }} · {{ item.category }}</span><time datetime="{{ item.date | date: '%Y-%m-%d' }}">{{ item.date | date: "%Y.%m.%d" }}</time></div>
+    <h3>{% if page.lang == "zh" %}{{ item.title_zh }}{% else %}{{ item.title_en }}{% endif %}</h3>
+    {% if item.location_en or item.location_zh %}<p class="event-location">{% if page.lang == "zh" %}{{ item.location_zh }}{% else %}{{ item.location_en }}{% endif %}</p>{% endif %}
+    {% if item.external_link %}<a class="text-link" href="{{ item.external_link }}">{% if page.lang == "zh" %}活动详情{% else %}Event details{% endif %}<span aria-hidden="true"> →</span></a>{% endif %}
+  </div>
+</article>

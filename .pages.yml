@@ -1,0 +1,263 @@
+media:
+  - name: images
+    label: Media
+    input: images/uploads
+    output: /images/uploads
+    rename: safe
+    categories: [image]
+
+content:
+  - name: homepage
+    label: Homepage Settings
+    type: file
+    path: _data/homepage.yaml
+    fields:
+      - { name: highlights_heading_en, label: Highlights heading EN, type: string, required: true }
+      - { name: highlights_heading_zh, label: Highlights heading ZH, type: string, required: true }
+      - { name: events_heading_en, label: Events heading EN, type: string, required: true }
+      - { name: events_heading_zh, label: Events heading ZH, type: string, required: true }
+      - { name: news_limit, label: News items on homepage, type: number, required: true }
+      - { name: events_limit, label: Event items on homepage, type: number, required: true }
+
+  - name: news
+    label: Highlights / News
+    type: collection
+    path: _news
+    format: yaml-frontmatter
+    filename: "{year}-{month}-{day}-{title_en}.md"
+    view:
+      fields: [title_en, category, date, display]
+      primary: title_en
+      sort: [date, category, title_en]
+      default: { sort: date, order: desc }
+    fields:
+      - name: category
+        label: Category
+        type: select
+        required: true
+        options:
+          values: [Publication, Award, Member, Academic Achievement, Funding, Announcement]
+      - { name: title_en, label: Title EN, type: string, required: true }
+      - { name: title_zh, label: Title ZH, type: string, required: true }
+      - { name: summary_en, label: Summary EN, type: text, required: true }
+      - { name: summary_zh, label: Summary ZH, type: text, required: true }
+      - { name: date, label: Date, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: image, label: Image, type: image, options: { media: images } }
+      - { name: alt_en, label: Image alt EN, type: string }
+      - { name: alt_zh, label: Image alt ZH, type: string }
+      - { name: external_link, label: External link, type: string }
+      - { name: display, label: Display, type: boolean, default: true }
+
+  - name: events
+    label: Events
+    type: collection
+    path: _events
+    format: yaml-frontmatter
+    filename: "{year}-{month}-{day}-{title_en}.md"
+    view:
+      fields: [title_en, type, category, date, display]
+      primary: title_en
+      sort: [date, type, title_en]
+      default: { sort: date, order: desc }
+    fields:
+      - name: type
+        label: Type
+        type: select
+        required: true
+        options: { values: [Academic, Group] }
+      - { name: category, label: Category, type: string, required: true }
+      - { name: title_en, label: Title EN, type: string, required: true }
+      - { name: title_zh, label: Title ZH, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: end_date, label: End date, type: date, default: "", options: { format: yyyy-MM-dd } }
+      - { name: location_en, label: Location EN, type: string }
+      - { name: location_zh, label: Location ZH, type: string }
+      - { name: cover_image, label: Cover image, type: image, options: { media: images } }
+      - { name: alt_en, label: Cover alt EN, type: string }
+      - { name: alt_zh, label: Cover alt ZH, type: string }
+      - name: gallery
+        label: Gallery
+        type: image
+        list: true
+        options: { media: images, unique: true }
+      - { name: description_en, label: Description EN, type: rich-text, options: { media: false } }
+      - { name: description_zh, label: Description ZH, type: rich-text, options: { media: false } }
+      - { name: external_link, label: External link, type: string }
+      - { name: display, label: Display, type: boolean, default: true }
+
+  - name: research
+    label: Research
+    type: collection
+    path: _research
+    format: yaml-frontmatter
+    filename: "{title_en}.md"
+    view:
+      fields: [title_en, title_zh, order, display]
+      primary: title_en
+      sort: [order, title_en]
+      default: { sort: order, order: asc }
+    fields:
+      - { name: title_en, label: Title EN, type: string, required: true }
+      - { name: title_zh, label: Title ZH, type: string, required: true }
+      - { name: graphical_abstract, label: Graphical Abstract, type: image, required: true, options: { media: images } }
+      - { name: alt_en, label: Alt EN, type: string, required: true }
+      - { name: alt_zh, label: Alt ZH, type: string, required: true }
+      - { name: short_intro_en, label: Short Intro EN, type: text, required: true }
+      - { name: short_intro_zh, label: Short Intro ZH, type: text, required: true }
+      - { name: doi_list, label: DOI list, type: string, list: true, description: DOI only; do not copy bibliographic metadata. }
+      - { name: display, label: Display, type: boolean, default: true }
+      - { name: order, label: Order, type: number, required: true }
+
+  - name: publications
+    label: Publications
+    type: file
+    path: _data/sources.yaml
+    format: yaml
+    list: true
+    fields:
+      - name: id
+        label: DOI source ID
+        type: string
+        required: true
+        pattern:
+          regex: "^doi:10\\..+/.+$"
+          message: Use doi:10.xxxx/xxxxx format.
+      - { name: type, label: Type, type: string, default: paper }
+      - { name: member_ids, label: Member IDs, type: string, list: true, description: Match Team slug values. }
+      - { name: description_en, label: Custom note EN, type: rich-text, options: { media: false } }
+      - { name: description_zh, label: Custom note ZH, type: rich-text, options: { media: false } }
+      - { name: image, label: Citation image, type: image, options: { media: images } }
+      - { name: tags, label: Tags, type: string, list: true }
+
+  - name: team
+    label: Team
+    type: collection
+    path: _members
+    format: yaml-frontmatter
+    filename:
+      template: "{slug}.md"
+      field: create
+    view:
+      fields: [name_en, role, active, display, order]
+      primary: name_en
+      sort: [role, order, name_en]
+      default: { sort: order, order: asc }
+    fields:
+      - { name: slug, label: Member ID / slug, type: string, required: true, pattern: "^[a-z0-9-]+$" }
+      - name: role
+        label: Role
+        type: select
+        required: true
+        options:
+          values:
+            - { name: pi, label: PI }
+            - { name: postdoctoral-researchers, label: Postdoctoral Researchers }
+            - { name: phd-students, label: PhD Students }
+            - { name: master-students, label: Master Students }
+            - { name: undergraduate-students, label: Undergraduate Students }
+            - { name: visiting-students, label: Visiting Students }
+            - { name: research-staff, label: Research Staff }
+            - { name: administrative-staff, label: Administrative Staff }
+      - { name: name_en, label: Name EN, type: string, required: true }
+      - { name: name_zh, label: Name ZH, type: string, required: true }
+      - { name: position_en, label: Position EN, type: string, required: true }
+      - { name: position_zh, label: Position ZH, type: string, required: true }
+      - { name: portrait, label: Portrait, type: image, required: true, options: { media: images } }
+      - { name: portrait_alt_en, label: Portrait alt EN, type: string, required: true }
+      - { name: portrait_alt_zh, label: Portrait alt ZH, type: string, required: true }
+      - { name: research_summary_en, label: Short research area EN, type: text, required: true }
+      - { name: research_summary_zh, label: Short research area ZH, type: text, required: true }
+      - { name: research_interests_en, label: Research interests EN, type: text }
+      - { name: research_interests_zh, label: Research interests ZH, type: text }
+      - { name: biography_en, label: Biography EN, type: rich-text, options: { media: false } }
+      - { name: biography_zh, label: Biography ZH, type: rich-text, options: { media: false } }
+      - { name: education_en, label: Education EN, type: rich-text, options: { media: false } }
+      - { name: education_zh, label: Education ZH, type: rich-text, options: { media: false } }
+      - { name: email, label: Email, type: string }
+      - { name: office, label: Office, type: string }
+      - { name: phone, label: Phone, type: string }
+      - { name: google_scholar, label: Google Scholar, type: string }
+      - { name: orcid, label: ORCID, type: string }
+      - { name: researchgate, label: ResearchGate, type: string }
+      - { name: personal_website, label: Personal Website, type: string }
+      - { name: github, label: GitHub, type: string }
+      - { name: active, label: Active member, type: boolean, default: true }
+      - { name: display, label: Display, type: boolean, default: true }
+      - { name: order, label: Order, type: number, required: true }
+
+  - name: opportunities
+    label: Opportunities
+    type: collection
+    path: _opportunities
+    format: yaml-frontmatter
+    filename: "{title_en}.md"
+    view:
+      fields: [title_en, category, active_override, closing_date, display_order]
+      primary: title_en
+      sort: [category, display_order, closing_date]
+      default: { sort: display_order, order: asc }
+    fields:
+      - name: category
+        label: Category
+        type: select
+        required: true
+        options:
+          values: [PhD Students, Research Assistants, Administrative Assistants, Assistant Professors, Postdoctoral Researchers, Visiting Students, Other]
+      - { name: title_en, label: Title EN, type: string, required: true }
+      - { name: title_zh, label: Title ZH, type: string, required: true }
+      - { name: content_en, label: Content EN, type: rich-text, required: true, options: { media: false } }
+      - { name: content_zh, label: Content ZH, type: rich-text, required: true, options: { media: false } }
+      - name: links
+        label: Links
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{label_en}" }
+        fields:
+          - { name: label_en, label: Label EN, type: string, required: true }
+          - { name: label_zh, label: Label ZH, type: string, required: true }
+          - { name: url, label: URL, type: string, required: true }
+      - name: active_override
+        label: Active override
+        type: select
+        required: true
+        default: auto
+        description: auto follows dates; force_show and force_hide override dates.
+        options:
+          values:
+            - { name: auto, label: Auto from dates }
+            - { name: force_show, label: Force show }
+            - { name: force_hide, label: Force hide }
+      - { name: display_order, label: Display Order, type: number, required: true }
+      - { name: opening_date, label: Opening Date, type: date, default: "", options: { format: yyyy-MM-dd } }
+      - { name: closing_date, label: Closing Date, type: date, default: "", options: { format: yyyy-MM-dd } }
+      - { name: display, label: Display, type: boolean, default: true }
+
+  - name: site
+    label: Site Settings
+    type: file
+    path: _data/site.yaml
+    fields:
+      - { name: lab_name_en, label: Lab name EN, type: string, required: true }
+      - { name: lab_name_zh, label: Lab name ZH, type: string, required: true }
+      - { name: school_en, label: School EN, type: string, required: true }
+      - { name: school_zh, label: School ZH, type: string, required: true }
+      - { name: college_en, label: College EN, type: string, required: true }
+      - { name: college_zh, label: College ZH, type: string, required: true }
+      - { name: address_en, label: Address EN, type: text, required: true }
+      - { name: address_zh, label: Address ZH, type: text, required: true }
+      - { name: email, label: Email, type: string, required: true }
+      - { name: header_image, label: Header campus image, type: image, required: true, options: { media: images } }
+      - { name: lab_logo, label: Lab logo, type: image, required: true, options: { media: images } }
+      - { name: school_logo, label: School logo, type: image, required: true, options: { media: images } }
+      - { name: copyright_en, label: Copyright EN, type: string, required: true }
+      - { name: copyright_zh, label: Copyright ZH, type: string, required: true }
+
+settings:
+  content:
+    merge: true
+  commit:
+    templates:
+      create: "content: add {filename}"
+      update: "content: update {filename}"
+      delete: "content: remove {filename}"
+      rename: "content: rename {oldFilename} to {newFilename}"

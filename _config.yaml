@@ -1,0 +1,91 @@
+# Project layer for Greene Lab Website Template v1.4.0.
+# Keep custom behavior in _includes/custom, _styles/custom.scss, _scripts/custom.js,
+# and _plugins/custom_*.rb whenever possible.
+title: Placeholder Energy Materials Lab
+subtitle: Placeholder University
+description: Research group website for energy materials, interfaces, and electrochemistry.
+url: ""
+baseurl: ""
+header: images/placeholders/campus.svg
+header-dark: true
+proofer: false
+timezone: Asia/Shanghai
+future: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+      lang: en
+  - scope:
+      path: "zh"
+    values:
+      lang: zh
+  - scope:
+      type: members
+    values:
+      layout: profile
+      lang: en
+  - scope:
+      type: research
+    values:
+      layout: default
+  - scope:
+      type: news
+    values:
+      layout: default
+  - scope:
+      type: events
+    values:
+      layout: default
+  - scope:
+      type: opportunities
+    values:
+      layout: default
+
+collections:
+  members:
+    output: true
+    permalink: /team/:name/
+  research:
+    output: false
+  news:
+    output: false
+  events:
+    output: false
+  opportunities:
+    output: false
+
+plugins:
+  - jekyll-spaceship
+  - jekyll-sitemap
+  - jekyll-redirect-from
+  - jekyll-feed
+  - jekyll-last-modified-at
+
+highlighter: rouge
+theme: null
+sass:
+  sass_dir: _styles
+
+include:
+  - _styles
+  - _scripts
+
+exclude:
+  - AGENTS.md
+  - BUILD_SPEC.md
+  - CONTENT_SCHEMA.md
+  - README.md
+  - LICENSE-UPSTREAM.md
+  - UPSTREAM_CHANGELOG.md
+  - UPSTREAM_CITATION.cff
+  - scripts
+  - upstream-v1.4.0.zip
+  - .upstream-extract
+
+jekyll-spaceship:
+  mathjax-processor:
+    src:
+      - https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js

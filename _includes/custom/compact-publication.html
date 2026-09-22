@@ -1,0 +1,10 @@
+{% assign citation = include.doi | find_citation_by_doi: site.data.citations %}
+{% if citation %}
+  {% assign first_author = citation.authors | first | default: "Unknown author" %}
+  <li class="compact-publication">
+    <span>{{ first_author | surname }}{% if citation.authors.size > 1 %} et al.{% endif %}, <em>{{ citation.publisher }}</em>, {{ citation.date | date: "%Y" }}</span>
+    <a href="{{ citation.link }}">{% if page.lang == "zh" %}查看论文{% else %}View publication{% endif %}<span aria-hidden="true"> →</span></a>
+  </li>
+{% else %}
+  <li class="compact-publication missing-doi">{{ include.doi }} — {% if page.lang == "zh" %}未在引用数据库中匹配{% else %}not matched in citation database{% endif %}</li>
+{% endif %}
