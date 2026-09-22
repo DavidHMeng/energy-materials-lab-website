@@ -13,7 +13,7 @@ permalink: /
     <h2 id="highlights-heading">{{ home.highlights_heading_en }}</h2>
     <a href="{{ '/news/' | relative_url }}">Archive <span aria-hidden="true">→</span></a>
   </div>
-  <div class="news-grid">
+  <div class="home-news-list">
     {% for item in news limit: home.news_limit %}{% include custom/news-card.html item=item %}{% endfor %}
   </div>
 </section>

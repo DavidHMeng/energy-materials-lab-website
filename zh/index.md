@@ -13,7 +13,7 @@ permalink: /zh/
     <h2 id="highlights-heading">{{ home.highlights_heading_zh }}</h2>
     <a href="{{ '/zh/news/' | relative_url }}">全部动态 <span aria-hidden="true">→</span></a>
   </div>
-  <div class="news-grid">
+  <div class="home-news-list">
     {% for item in news limit: home.news_limit %}{% include custom/news-card.html item=item %}{% endfor %}
   </div>
 </section>

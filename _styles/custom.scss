@@ -148,6 +148,19 @@ header nav > a {
   gap: 1.25rem;
 }
 
+.home-news-list .news-card {
+  padding: 1.15rem 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.home-news-list .news-card:first-child {
+  padding-top: 0;
+}
+
 .news-card,
 .event-card,
 .team-card,
