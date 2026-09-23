@@ -3,11 +3,13 @@
 ## Baseline
 
 - Upstream: `greenelab/lab-website-template` release `v1.4.0`.
-- Runtime: Ruby 3.3.12, Bundler 2.5.6, Jekyll 4.3.2, GitHub Actions,
+- Runtime: Ruby 3.3.12, Bundler 2.5.6, Jekyll 4.4.1, GitHub Actions,
   Pages CMS. Versions are pinned by `.ruby-version` and `Gemfile.lock`.
 - Deployment: static files only; no database or application server.
-- Source control: local Git repository. A remote and deployment target must be supplied
-  by the site owner before any push.
+- Source control: public GitHub repository at
+  `DavidHMeng/energy-materials-lab-website`; `main` is the default branch.
+- Preview: `https://davidhmeng.github.io/energy-materials-lab-website/`, deployed by
+  the manual Pages workflow after the same production checks used by CI.
 
 ## Local setup
 
@@ -24,7 +26,7 @@ available Ruby or Docker route and explains what is missing when neither is inst
 The CI workflow validates content, builds Jekyll, checks generated routes, assets,
 language/navigation invariants and internal links, and runs HTML Proofer without
 external-network checks. Staging produces an Actions artifact only. The deployment
-workflow is manual-only until a repository owner and visibility are confirmed.
+workflow remains manual so a validated commit can be reviewed before publication.
 
 The citation refresh is also manual-only during staging. Enable its schedule only after
 the target repository, branch protections and desired pull-request cadence are confirmed.

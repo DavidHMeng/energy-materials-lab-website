@@ -1,77 +1,61 @@
 # Implementation audit
 
-Audit date: 2026-09-22
-Baseline inspected: `c68202a`
+Audit updated: 2026-09-23
+Validated commit: `1371ac4`
 Framework: frozen Framework V1.1 on Greene Lab Website Template v1.4.0
 
 ## Status model
 
 - **Implemented**: the required source/configuration exists and static inspection found
   no known specification gap.
-- **Partially implemented**: some required source behavior is missing.
-- **Not implemented**: no implementation exists.
-- **Not validated**: the source exists, but the named execution layer has not run.
-
-These terms are intentionally independent. Source implementation does not prove a
-production Jekyll build, browser behavior, deployment, or Pages CMS round trip.
+- **Production validated**: the named behavior passed the production Jekyll/HTML build
+  in GitHub Actions.
+- **Browser validated**: the named behavior was exercised on the deployed Pages site.
+- **CMS pending**: the source schema exists, but the hosted edit/commit/build/revert
+  round trip still requires owner authorization.
 
 ## Feature audit
 
-| Area | Implementation status | Files and implementation | Source validation | Production build | Browser QA | CMS round trip |
-| --- | --- | --- | --- | --- | --- | --- |
-| Navigation | Implemented | `_includes/header.html`; four fixed primary links only | Validator asserts exact labels and count | Not validated | Not validated | Not applicable |
-| Homepage | Implemented | `index.md`, `zh/index.md`; no added hero, only Highlights and Events below header | Front matter/YAML parsed | Not validated | Not validated | Not validated |
-| Highlights / News | Implemented | `_news/`, `_includes/custom/news-card.html`, `/news/`, `/zh/news/`; fixed categories and homepage limit | Category, image and bilingual alt checks pass | Not validated | Not validated | Not validated |
-| Events | Implemented | `_events/`, `_includes/custom/event-card.html`, archives; homepage summary plus archive description/gallery/date range | Type, dates, cover and bilingual alt checks pass | Not validated | Not validated | Not validated |
-| Research | Implemented | `_research/`, bilingual Research pages, alternating custom layout, tokenized image ratio | Required fields and image paths pass | Not validated | Not validated | Not validated |
-| Research DOI to citation | Implemented | `doi_list`, `find_citation_by_doi`, compact publication component | DOI must exist in both `sources.yaml` and `citations.yaml` | Not validated | Not validated | Not validated |
-| Publications | Implemented | `_data/sources.yaml` is the manual DOI source; Greene `_cite` and citation include retained | Seed DOI metadata corrected against publisher/PubMed; source/citation matching passes | Not validated | Not validated | Not validated |
-| Team | Implemented | `_members/`, fixed role groups, empty-group suppression, active/display filtering | Roles, duplicate slugs, portraits and alt text pass | Not validated | Not validated | Not validated |
-| Member profiles | Implemented | `_layouts/profile.html`, bilingual page generator, optional-field hiding, `member_ids` publication filter | Python cross-reference checks exist; no fabricated seed member association remains | Not validated | Not validated | Not validated |
-| Opportunities | Implemented | `_opportunities/`, group include, custom visibility filter | Category, tri-state value and date-order checks pass | Not validated | Not validated | Not validated |
-| Footer | Implemented | `_includes/footer.html`; identity, school/college, address, email, logo, copyright only | Source inspection; generated checker forbids footer nav | Not validated | Not validated | Site settings not validated remotely |
-| EN / ZH | Implemented | `/` and `/zh/` pages share collections with bilingual fields; member ZH routes generated | Required field and planned route checks exist | Not validated | Not validated | Not validated |
-| Light / Dark | Implemented | `_scripts/dark-mode.js`; system preference on first visit and localStorage override | JavaScript syntax passes | Not validated | Not validated | Not applicable |
-| Pages CMS | Implemented | `.pages.yml`; Homepage, News, Events, Research, Publications, Team, Opportunities, Site, Media | YAML and schema/path alignment checks pass | Not applicable | Not validated | Not validated; GitHub App authorization unknown |
-| Responsive | Implemented | `_styles/custom.scss`; 900 px and 700 px breakpoints, reduced-motion handling | SCSS structural checks only | Not validated | Not validated on desktop/mobile | Not applicable |
-| SEO / 404 | Implemented | `_includes/meta.html`, localized descriptions, canonical/hreflang, sitemap, EN/ZH 404, favicon | Source/YAML checks; generated routes/assets are asserted | Not validated | Not validated | Site URL pending deployment target |
-| GitHub Actions | Implemented | CI, manual staging artifact, manual Pages deployment, manual citation refresh | Workflow YAML parses locally | Not validated on GitHub | Not applicable | Not applicable |
-| Placeholder data | Implemented | Structured placeholders across every collection and media folder | 11 collection records plus DOI/source/citation checks pass | Not validated | Not validated | One News record selected for future CMS round-trip test |
+| Area | Implementation | Production evidence | Browser evidence | CMS evidence |
+| --- | --- | --- | --- | --- |
+| Navigation | Implemented: `_includes/header.html`; four fixed primary links only | Generated checker asserts exact labels/count on 20 HTML files | Desktop EN routes show the four required links; language control is separate | Not applicable |
+| Homepage | Implemented: `index.md`, `zh/index.md`; only Highlights and Events below header | EN/ZH routes built and link-checked | EN/ZH hosted pages load; desktop and 320 px layouts inspected | CMS pending |
+| Highlights / News | Implemented: `_news/`, custom card and EN/ZH archives | Categories, dates, localized alt fields and empty-link handling pass | Home and archive routes inspected | CMS pending; selected round-trip record identified |
+| Events | Implemented: `_events/`, custom card, date range, gallery and archives | Types, dates, covers, assets and links pass | Home and archive routes inspected | CMS pending |
+| Research | Implemented: `_research/`, bilingual alternating layout | Required fields, DOI references and images pass | Hosted EN route inspected; lazy assets exist and generated checks pass | CMS pending |
+| Publications | DOI is the single identifier in `_data/sources.yaml`; Greene citation pipeline retained | One verified DOI source generated one citation; build passed | Hosted publication route inspected | CMS pending |
+| Team | Fixed role groups, active/display filters, empty-group suppression | Roles, slugs, portraits, alts and bilingual routes pass | EN/ZH Team and member profiles inspected | CMS pending |
+| Member optional fields | Empty optional values are suppressed in `_layouts/profile.html` | HTML Proofer found no empty anchors | Profile pages inspected | CMS pending |
+| Opportunities | Categories, tri-state visibility and date logic implemented | Source and generated routes pass | Hosted route inspected | CMS pending |
+| Footer | Identity/contact only; no navigation or language links | Generated checker rejects footer navigation | Hosted footer visible | Site settings CMS pending |
+| EN / ZH | English `/`; Chinese `/zh/`; shared structured collections | Required route/language checks pass | Representative EN/ZH pages have localized titles and correct `lang` | CMS pending |
+| Light / Dark | `_scripts/dark-mode.js`; first-visit system preference plus saved override | Script/assets pass generated checks | Toggle changes colors and survives reload | Not applicable |
+| Pages CMS | Root `.pages.yml` exposes structured content/media only | YAML and content-schema alignment pass | Hosted sign-in page reachable | GitHub App authorization and round trip pending |
+| Responsive | Custom 900 px and 700 px breakpoints; reduced-motion handling | Sass compiles in production | Desktop passed; 320 px overflow found and fixed in `1371ac4`; final uncached screenshot pending | Not applicable |
+| SEO / 404 | Localized meta, canonical/hreflang, sitemap, EN/ZH 404 and favicon | Routes and assets pass | Unknown hosted path renders custom 404 | Site metadata CMS pending |
+| GitHub Actions | CI, staging artifact, manual Pages deploy and citation refresh | CI `35818157326`, deploy `35818208351`, staging `35818423091` succeeded | Preview is public over HTTPS | Not applicable |
+| Placeholder data | Structured placeholders across collections/media | 11 records, one DOI source and one citation pass | Clearly rendered as placeholders | Must be replaced field-by-field |
 
-## Current validation boundary
+## Validation evidence
 
-Validated locally: YAML/front matter, CMS-to-schema alignment, category/role enums,
-image existence and localized alt requirements, DOI cross-references, date ordering,
-JavaScript/Python/PowerShell syntax, forbidden route directories, and exact navigation
-labels.
+The production workflow ran the following gate sequence on Ubuntu:
 
-Not validated locally: Ruby plugin execution, Liquid rendering, Sass compilation,
-Jekyll production output, HTML Proofer, generated routes/assets, or browser behavior.
-The host has neither Ruby/Jekyll nor Docker.
+1. install locked Ruby and Python dependencies;
+2. run `scripts/validate_content.py`;
+3. run a production Jekyll build;
+4. check required routes, assets, languages, navigation and forbidden routes;
+5. run HTML Proofer for images, internal links, fragments and scripts.
 
-Not validated remotely: GitHub Actions, GitHub Pages, GitHub permissions, Pages CMS
-GitHub App authorization, CMS edit/commit/build round trip, and screenshots.
+The GitHub Pages deployment repeats the same gates with the real
+`/energy-materials-lab-website` base path before uploading the Pages artifact.
 
-## Known implementation risks
+## Remaining acceptance boundary
 
-1. Custom Ruby filters and bilingual page generation have not executed in Jekyll.
-2. The first GitHub Actions run may expose lockfile or platform issues not observable
-   without Ruby. `BUNDLE_FROZEN=true` prevents a silent dependency rewrite.
-3. Absolute canonical URLs remain intentionally unavailable until the Pages origin and
-   base path are supplied by `actions/configure-pages`.
-4. Placeholder people, branding, dates, links and copy are not production content.
-5. The DOI seed is real and its bibliographic metadata is verified, but it is not
-   attributed to a placeholder member.
-6. The Pages CMS guide and screenshots are intentionally absent until a hosted CMS
-   round trip succeeds.
+The website is now buildable, deployed and substantially browser-validated. It is not
+content-complete and the editorial workflow is not yet proven. Remaining gates are:
 
-## Browser acceptance checklist pending deployment
-
-- Desktop and mobile: header, four-item navigation, language and theme controls.
-- EN and ZH: Homepage, Research, Publications, Team, member profile,
-  Opportunities, News archive, Events archive, Footer and 404.
-- Light and dark: contrast, images, cards, citation blocks and focus states.
-- Layout: no overflow at 320 px; Research alternation; portrait and graphical-abstract
-  ratios; footer has no navigation or language entry.
-- Behavior: system theme on first visit; persisted user theme; language counterpart
-  links; expired and empty opportunity categories hidden.
+1. owner authorization of the Pages CMS GitHub App;
+2. CMS edit -> commit -> CI -> deployed EN/ZH verification -> revert loop;
+3. final Pages CMS guide with screenshots from that verified loop;
+4. final uncached 320 px screenshot after the prior CSS cache expires;
+5. replacement and approval of all placeholder institutional and research content.

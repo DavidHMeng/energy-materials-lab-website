@@ -1,29 +1,81 @@
 # Project status
 
-Updated: 2026-09-22
+Updated: 2026-09-23
+Validated commit: `1371ac4`
 
 ## Production validated
 
-No production build has been validated yet. Local source validation passes, but this
-machine has no Ruby/Jekyll or Docker. GitHub Actions is the designated authoritative
-build environment and has not run because the repository has no remote.
+The authoritative GitHub Actions build is now passing. Run
+[`35818157326`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35818157326)
+validated the content, installed the locked Ruby dependencies, completed a production
+Jekyll build, checked all required EN/ZH routes and assets, and passed HTML Proofer.
 
-Local source checks currently pass for 11 collection records, one DOI source, one
-citation seed, CMS schema alignment, images/alts, date ordering, navigation and
-forbidden routes.
+Validated runtime:
 
-## CMS validated
+- Ruby 3.3.12 and Bundler 2.5.6.
+- Jekyll 4.4.1 and `sass-embedded` 1.104.1.
+- 11 collection records, one DOI source and one generated citation.
+- 20 generated HTML files for the root-path CI build.
+- Empty optional links are hidden rather than emitted as anchors without targets.
+- GitHub Pages base-path builds strip `/energy-materials-lab-website` only for local
+  HTML-Proofer resolution; deployed URLs retain the required prefix.
 
-Not validated. `.pages.yml` is implemented and statically aligned with the content
-schema, but there is no confirmed GitHub repository and no evidence that the Pages CMS
-GitHub App is authorized.
+The local Windows host still has no system Ruby/Jekyll or Docker. This is no longer a
+release blocker because the pinned GitHub Actions runner is the authoritative build
+environment.
 
-Planned closed-loop record: `_news/2026-09-15-placeholder-publication.md`. The hosted
-test must edit its bilingual title/summary, commit through Pages CMS, run CI, verify the
-rendered EN/ZH result, then revert the test edit. `docs/PAGES_CMS_GUIDE.md` and real
-screenshots must not be produced until that succeeds.
+## Deployment
 
-## Pending content
+- Repository: <https://github.com/DavidHMeng/energy-materials-lab-website>
+- Visibility: Public.
+- Default branch: `main`.
+- GitHub Pages build type: GitHub Actions.
+- Preview URL: <https://davidhmeng.github.io/energy-materials-lab-website/>
+- HTTPS enforcement: enabled.
+- Latest successful deployment: run
+  [`35818208351`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35818208351).
+- Staging artifact: run
+  [`35818423091`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35818423091)
+  produced `github-pages-staging` (114,550 bytes), retained until 2026-09-30.
+
+GitHub CLI was used from an ignored portable directory only; it is not part of the
+repository or the deployed site.
+
+## Browser QA
+
+Validated on the hosted Pages site:
+
+- Desktop homepage: exact primary navigation, EN language metadata, live assets, no
+  empty anchors and no horizontal overflow.
+- Representative EN routes: Research, Publications, Team, member profile,
+  Opportunities, News and Events.
+- Representative ZH routes: Homepage, Team and member profile, with localized titles
+  and `lang="zh"`.
+- The deployed custom 404 page is returned for an unknown path.
+- Light/dark switching changes the rendered colors and the selected theme persists
+  across a reload.
+- A 320 px test exposed a horizontal overflow caused by `body { min-width: 320px; }`.
+  Commit `1371ac4` removes that constraint, CI and Pages deployment pass, and the live
+  CSS was confirmed updated. One final browser screenshot remains pending until the
+  previous CSS response leaves the browser's ten-minute cache.
+
+## CMS validation
+
+Not yet complete. `.pages.yml` is present at the repository root and its schema matches
+the content files. The hosted Pages CMS sign-in page is reachable, but GitHub sign-in
+and installation/authorization of the Pages CMS GitHub App require the repository
+owner's account approval.
+
+Planned closed-loop record: `_news/2026-09-15-placeholder-publication.md`.
+
+1. Sign in at <https://app.pagescms.org/> with GitHub.
+2. Install/authorize Pages CMS for `DavidHMeng/energy-materials-lab-website`.
+3. Edit the record's bilingual title or summary and save it through Pages CMS.
+4. Verify the CMS commit, successful CI, and rendered EN/ZH change.
+5. Revert the test edit, then verify CI and deployment again.
+6. Only after this loop succeeds, finalize `PAGES_CMS_GUIDE.md` with real screenshots.
+
+## Pending real content
 
 - Lab and school names, descriptions, address, email and copyright.
 - Approved lab logo, school logo and campus header photograph.
@@ -33,34 +85,12 @@ screenshots must not be produced until that succeeds.
 - Confirmed News, Events and Opportunities content, dates and links.
 - Approved brand colors only if the Greene defaults are to be replaced.
 
-## Deployment
+## Known operational notes
 
-- Local branch: `main`.
-- Git remote: none.
-- GitHub CLI: not installed.
-- Git Credential Manager 2.7.3 is present, but its read-only GitHub account list is
-  empty. No GitHub login or token scopes can therefore be confirmed.
-- Git identity or GitHub owner hints: none found in global configuration or safe
-  environment variables.
-- Remote writes performed: none.
-- CI: runs on pull requests and pushes to `main`; read-only except normal Actions logs.
-- Staging: manual workflow builds and uploads a seven-day artifact; it does not publish.
-- Pages deployment: manual workflow only.
-- Citation refresh: manual workflow only until the target repository is confirmed.
-
-An accurate full repository name cannot be inferred from the local Windows username.
-The recommended repository basename is `energy-materials-lab-website`, with **Public**
-visibility for transparent academic publishing and the simplest Pages/Pages CMS flow.
-The final full name must be `<confirmed-owner>/energy-materials-lab-website` after the
-owner is supplied. No repository should be created from this placeholder.
-
-## Known issues
-
-- Production Jekyll build, Sass compilation, custom Ruby filters and generated bilingual
-  member pages are not yet executed.
-- GitHub Actions syntax is parsed locally but not run by GitHub.
-- Desktop/mobile, EN/ZH and light/dark browser matrices are not validated.
-- HTML/internal-link/asset checks are implemented but require generated `_site` output.
-- Pages CMS hosted round trip, authorization and screenshots are pending.
-- Absolute site origin, GitHub Pages base path and repository visibility are pending.
-- Placeholder application link uses `example.edu` and is intentionally non-production.
+- Actions currently warns that the runner image will move to Ubuntu 26 and that an
+  `upload-artifact` dependency still targets Node.js 20. GitHub forced that dependency
+  to Node.js 24 and all workflows succeeded; monitor upstream action releases rather
+  than weakening the validation gates.
+- Pages deployment and citation refresh remain manual by design.
+- Placeholder `example.edu` contact/application links are intentionally not production
+  data and are excluded only from external-network validation, not internal checks.
