@@ -1,7 +1,7 @@
 # Project status
 
 Updated: 2026-09-23
-Latest clean content commit before UI V1.3: `4205075`
+Current release line: UI V1.3 on `main`
 
 ## Production validated
 
@@ -44,6 +44,16 @@ repository or the deployed site.
 ## Browser QA
 
 Validated on the hosted Pages site:
+
+- Homepage Introduction is present above Highlights in both language trees. Its desktop
+  module measures about 651 px at the inspected viewport, the scientific image remains
+  uncropped at 300 px, and the three-slide carousel advances automatically while
+  retaining arrows, dots, pause behavior and reduced-motion handling.
+- Team uses CMS-maintained bilingual role labels, compact circular portraits and
+  two-line member summaries. A 320 px viewport renders two columns with centered text;
+  final `scrollWidth` equals `clientWidth` (305 px), so no horizontal overflow remains.
+- EN/ZH member profiles show Email, Research Interests, Education and Personal Note.
+  Biography, phone/office display and member-specific publication sections are absent.
 
 - Desktop homepage: exact primary navigation, EN language metadata, live assets, no
   empty anchors and no horizontal overflow.
