@@ -10,7 +10,7 @@
   | where_exp: "file", "file.url contains '/_styles'"
 %}
 {% for style in styles %}
-  {% unless style.url contains ".map" or style.url contains "/custom.scss" %}
+  {% unless style.url contains ".map" or style.path contains "/custom.scss" %}
     <link
       href="{{ style.path | replace: ".scss", ".css" | relative_url }}"
       rel="stylesheet"
