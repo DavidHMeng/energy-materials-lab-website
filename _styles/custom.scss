@@ -638,6 +638,7 @@ header nav > a:focus-visible::after {
   color: var(--muted);
   font-size: 0.9rem;
   line-height: 1.5;
+  overflow-wrap: anywhere;
   text-align: center;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -819,6 +820,15 @@ html[lang="zh"] body {
 
   .team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .team-group > h2 {
+    font-size: 1.35rem;
+    overflow-wrap: anywhere;
+  }
+
+  .team-group > h2 .anchor {
+    display: none;
   }
 
   .home-introduction {
