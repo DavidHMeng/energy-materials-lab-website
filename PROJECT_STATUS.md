@@ -1,12 +1,12 @@
 # Project status
 
 Updated: 2026-09-23
-Current release line: UI V1.3 on `main`
+Current release line: UI V1.4 on `main`
 
 ## Production validated
 
 The authoritative GitHub Actions build is now passing. Run
-[`35822706745`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35822706745)
+[`35851579896`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35851579896)
 validated the content, installed the locked Ruby dependencies, completed a production
 Jekyll build, checked all required EN/ZH routes and assets, and passed HTML Proofer.
 
@@ -32,18 +32,73 @@ environment.
 - GitHub Pages build type: GitHub Actions.
 - Preview URL: <https://davidhmeng.github.io/energy-materials-lab-website/>
 - HTTPS enforcement: enabled.
-- Latest clean-content deployment: run
-  [`35822768415`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35822768415).
+- Latest UI V1.4 deployment: run
+  [`35851790760`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35851790760)
+  from commit [`810503f`](https://github.com/DavidHMeng/energy-materials-lab-website/commit/810503f0d34cec949fa9c65ef4d9646696434a94).
 - Staging artifact: run
-  [`35818423091`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35818423091)
-  produced `github-pages-staging` (114,550 bytes), retained until 2026-09-30.
+  [`35851721856`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35851721856)
+  produced the final `github-pages-staging` artifact for commit `810503f`.
 
 GitHub CLI was used from an ignored portable directory only; it is not part of the
 repository or the deployed site.
 
+## UI V1.4 refinement
+
+The current release preserves Framework V1.1, the frozen navigation and the Pages CMS
+schema. It changes only presentation, responsive behavior and generated-site guards.
+
+- Secondary-page headers are compact and tighten again after scrolling. The homepage
+  retains its larger Greene-style header. Tablet and mobile rules keep the logo,
+  hamburger, language switch and theme control usable; the non-essential school
+  subtitle is hidden below 900 px so the tablet header is not forced taller by wrapping.
+- Homepage primary navigation renders at 16 px and weight 500 at the inspected desktop
+  viewport. Highlights use a one-pixel editorial lift, light tint, restrained shadow and
+  title underline instead of the previous heavy rectangular elevation.
+- Publications use a 1180 px desktop content width, a roughly 215 px visual column and
+  24 px by 30 px citation padding while returning to a non-overflowing mobile column.
+- Team keeps the existing CMS category order and data. The inspected desktop grid uses
+  five columns, tablet uses three and mobile uses two, with centered circular portraits
+  and two-line summaries.
+- Member profiles use a compact 390.6 px desktop hero with a 260 by 325 px portrait.
+  The profile hero is now a semantic `section` in normal document flow, not a global
+  `header` affected by the Greene core sticky-header selector.
+
+The overlap root cause was structural: `_styles/header.scss` intentionally applies
+`position: sticky !important` to every `header`, while the member hero had also been
+implemented as a `header`. Replacing the member hero with a `section` and enforcing
+`position: relative` removes the sticky/fixed behavior rather than masking it with
+z-index or overflow changes. Generated-site and source validators now reject a profile
+hero that regresses to a global `header`.
+
+Files changed for this release:
+
+- `_layouts/default.html`, `_layouts/profile.html`
+- `_includes/custom/team-grid.html`
+- `_scripts/custom.js`, `_styles/custom.scss`
+- `publications/index.md`, `zh/publications/index.md`
+- `scripts/validate_content.py`, `scripts/check_generated_site.py`
+
 ## Browser QA
 
 Validated on the hosted Pages site:
+
+- Desktop (1280 px): homepage header remains about 432 px; secondary header is 136 px
+  at the top and 124 px after scrolling. No tested page has horizontal overflow.
+- Tablet (820 px): Publications remains a horizontal citation layout, Team renders three
+  columns, and the profile portrait is 240 by 300 px. The final deployed CSS contains
+  the 72/64 px compact-header rules, a non-shrinking logo and the tablet subtitle-hide
+  rule; these rules were confirmed directly in the production asset after deployment.
+- Mobile (390 px): secondary header is 64 px and tightens to 56 px; Publications is a
+  single column, Team is two columns, and the profile portrait is 190 by 237.5 px.
+- Profile scroll regression passed at 1280, 820 and 390 px in EN/ZH. It also passed in
+  current Chrome and Edge at 1440 by 700: the hero is `position: relative`, moves out of
+  the viewport, and does not overlap Education or Personal Note.
+- A native Safari runtime was not available on the Windows validation host. Safari was
+  therefore covered by the standards-based CSS/HTML build checks, not misreported as a
+  live Safari browser run.
+- Light and dark themes both render successfully; toggling changes the computed page and
+  card colors. Reduced-motion handling remains in place for transitions and reveal
+  effects.
 
 - Homepage Introduction is present above Highlights in both language trees. Its desktop
   module measures about 651 px at the inspected viewport, the scientific image remains
