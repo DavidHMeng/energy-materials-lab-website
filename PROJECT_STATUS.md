@@ -204,6 +204,9 @@ Settings exposes controlled Typography presets. Source validation confirms the n
 CMS schema and rejects retired phone, office, biography and member-publication fields.
 The eight additional PhD fixtures are ordinary Team records and can be replaced or
 removed through Pages CMS without a template edit.
+The live Pages CMS Site Settings editor was opened read-only after deployment and
+rendered Typography plus all nine controlled fields (Heading Font, Body Font, six size
+presets and Line Height). No CMS value was changed or saved during this verification.
 
 The closed loop used `_news/2026-09-15-placeholder-publication.md`:
 
