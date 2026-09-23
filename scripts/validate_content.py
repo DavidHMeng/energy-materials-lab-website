@@ -262,6 +262,12 @@ primary_nav = re.findall(
 if primary_nav != expected_nav:
     ERRORS.append(f"header primary navigation mismatch: expected {expected_nav}, got {primary_nav}")
 
+profile_layout = (ROOT / "_layouts" / "profile.html").read_text(encoding="utf-8")
+if '<header class="profile-intro"' in profile_layout:
+    ERRORS.append("_layouts/profile.html: profile hero must not use the globally sticky header element")
+if '<section class="profile-intro"' not in profile_layout:
+    ERRORS.append("_layouts/profile.html: normal-flow profile-intro section is missing")
+
 if ERRORS:
     print("Content validation failed:")
     for error in ERRORS:

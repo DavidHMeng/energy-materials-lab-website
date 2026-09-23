@@ -115,15 +115,25 @@ for name, rendered in (("index.html", home_html), ("zh/index.html", zh_home_html
 for profile_path in (site / "team" / "mei-li" / "index.html", site / "zh" / "team" / "mei-li" / "index.html"):
     if profile_path.is_file():
         profile = profile_path.read_text(encoding="utf-8", errors="replace")
+        if '<section class="profile-intro"' not in profile:
+            errors.append(f"profile hero must use normal-flow section markup in {profile_path.relative_to(site).as_posix()}")
+        if '<header class="profile-intro"' in profile:
+            errors.append(f"profile hero must not inherit sticky site-header rules in {profile_path.relative_to(site).as_posix()}")
         if 'class="profile-personal-note"' not in profile:
             errors.append(f"personal note missing in {profile_path.relative_to(site).as_posix()}")
         if 'class="profile-publications"' in profile:
             errors.append(f"member publications must not render in {profile_path.relative_to(site).as_posix()}")
 
 custom_css = (site / "_styles" / "custom.css").read_text(encoding="utf-8", errors="replace") if (site / "_styles" / "custom.css").is_file() else ""
-for marker in ("view-transition-old", ".visual-carousel", ".team-card img"):
+for marker in ("view-transition-old", ".visual-carousel", ".team-card img", ".profile-intro", "body.publications-page"):
     if marker not in custom_css:
         errors.append(f"compiled custom CSS is missing {marker}")
+
+for publication_path in (site / "publications" / "index.html", site / "zh" / "publications" / "index.html"):
+    if publication_path.is_file():
+        publication = publication_path.read_text(encoding="utf-8", errors="replace")
+        if 'class="publications-page"' not in publication:
+            errors.append(f"publication route is missing page-specific sizing class in {publication_path.relative_to(site).as_posix()}")
 
 for html in site.rglob("*.html"):
     page = SiteHTMLParser()

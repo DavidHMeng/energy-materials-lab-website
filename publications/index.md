@@ -2,6 +2,7 @@
 title: Publications
 description: DOI-driven publication list with original bibliographic metadata.
 permalink: /publications/
+page_class: publications-page
 ---
 
 <div class="page-intro"><h1>Publications</h1><p>Bibliographic metadata is resolved from DOI records and retained in its original language.</p></div>

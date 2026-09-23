@@ -3,11 +3,11 @@ layout: default
 ---
 {% assign member = page %}
 <article class="profile-page">
-  <header class="profile-intro">
+  <section class="profile-intro" aria-labelledby="profile-name">
     <img src="{{ member.portrait | relative_url }}" alt="{% if page.lang == 'zh' %}{{ member.portrait_alt_zh }}{% else %}{{ member.portrait_alt_en }}{% endif %}">
-    <div>
+    <div class="profile-identity">
       <p class="eyebrow">{% if page.lang == "zh" %}课题组成员{% else %}Team member{% endif %}</p>
-      <h1>{% if page.lang == "zh" %}{{ member.name_zh }}{% else %}{{ member.name_en }}{% endif %}</h1>
+      <h1 id="profile-name">{% if page.lang == "zh" %}{{ member.name_zh }}{% else %}{{ member.name_en }}{% endif %}</h1>
       <p class="profile-position">{% if page.lang == "zh" %}{{ member.position_zh }}{% else %}{{ member.position_en }}{% endif %}</p>
       <div class="profile-links">
         {% if member.email and member.email != "" %}<a href="mailto:{{ member.email }}">Email</a>{% endif %}
@@ -18,7 +18,7 @@ layout: default
         {% if member.github and member.github != "" %}<a href="{{ member.github }}">GitHub</a>{% endif %}
       </div>
     </div>
-  </header>
+  </section>
 
   <div class="profile-sections">
     {% assign interests = member.research_interests_en %}{% if page.lang == "zh" %}{% assign interests = member.research_interests_zh %}{% endif %}

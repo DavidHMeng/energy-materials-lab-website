@@ -1,7 +1,7 @@
 {% assign role_id = include.role_id %}
 {% assign people = site.members | where: "role", role_id | where: "active", true | where: "display", true | sort: "order" %}
 {% if people.size > 0 %}
-  <section class="team-group" aria-labelledby="team-{{ role_id }}" data-reveal>
+  <section class="team-group team-group-{{ role_id }}" aria-labelledby="team-{{ role_id }}" data-reveal>
     <h2 id="team-{{ role_id }}">{% if page.lang == "zh" %}{{ include.label_zh }}{% else %}{{ include.label_en }}{% endif %}</h2>
     <div class="team-grid">
       {% for member in people %}

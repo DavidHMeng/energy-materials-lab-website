@@ -28,6 +28,15 @@
     targets.forEach((target) => observer.observe(target));
   };
 
+  const initSecondaryHeader = () => {
+    const header = document.querySelector("body > header.background:not([data-big])");
+    if (!header) return;
+
+    const update = () => header.classList.toggle("is-scrolled", window.scrollY > 16);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+  };
+
   const initCarousel = (carousel) => {
     const track = carousel.querySelector("[data-carousel-track]");
     const slides = [...carousel.querySelectorAll("[data-carousel-slide]")];
@@ -111,6 +120,7 @@
   };
 
   const init = () => {
+    initSecondaryHeader();
     initReveals();
     document.querySelectorAll("[data-carousel]").forEach(initCarousel);
   };
