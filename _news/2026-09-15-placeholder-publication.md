@@ -1,7 +1,7 @@
 ---
 category: Publication
-title_en: Placeholder publication announcement
-title_zh: 论文发表动态（占位）
+title_en: Placeholder publication announcement [CMS validation]
+title_zh: 论文发表动态（占位）【CMS 验证】
 summary_en: Replace this entry with a verified publication announcement and DOI link.
 summary_zh: 请将此条目替换为经过核实的论文发表动态及 DOI 链接。
 date: 2026-09-15
