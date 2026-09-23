@@ -52,9 +52,9 @@ no Alumni route.
 - `_opportunities`: bilingual title/body, category, links, date window, tri-state active
   override, display order.
 
-## CMS round-trip fixture
+## CMS round-trip evidence
 
-Until the hosted CMS is authorized, `_news/2026-09-15-placeholder-publication.md` is the
-designated structured round-trip record. It remains ordinary News content and must be
-edited, committed, built, visually checked in EN/ZH, and restored before the CMS flow is
-declared validated.
+`_news/2026-09-15-placeholder-publication.md` was edited through the hosted CMS on
+2026-09-23. Commit `2c85add` passed CI, deployed, and rendered distinct validation
+markers in both EN and ZH. Revert commit `4205075` restored the original values; its CI
+and deployment passed and both language routes were verified clean.

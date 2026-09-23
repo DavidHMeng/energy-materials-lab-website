@@ -1,0 +1,193 @@
+# Pages CMS 网站维护使用手册
+
+适用仓库：`DavidHMeng/energy-materials-lab-website`  
+默认分支：`main`  
+网站预览：<https://davidhmeng.github.io/energy-materials-lab-website/>  
+CMS 入口：<https://app.pagescms.org/>
+
+本手册对应当前仓库的真实配置，不是通用示例。2026-09-23 已完成一次
+Pages CMS 编辑、GitHub 提交、CI、GitHub Pages 部署、中英文页面检查和测试内容
+清理闭环。
+
+## 1. 首次进入
+
+1. 打开 <https://app.pagescms.org/>，选择 **Sign in with GitHub**。
+2. 选择账户 `DavidHMeng`。
+3. 打开项目 **energy-materials-lab-website**。
+4. 确认右上或侧边栏显示分支 **main**。
+
+Pages CMS 直接编辑 GitHub 仓库中的 Markdown/YAML 文件，没有独立内容数据库。
+每次点击 **Save** 都会产生 Git commit，并自动触发 `Validate and build` CI。
+
+## 2. 日常编辑和发布流程
+
+### 2.1 编辑内容
+
+1. 从左侧 **Content** 选择内容类型。
+2. 打开现有记录，或在集合页面选择新建记录。
+3. 同时填写英文和中文字段；`*_en` 与 `*_zh` 都是正式内容，不能只填一侧。
+4. 图片必须填写对应的英文和中文替代文本（Alt）。
+5. 检查日期、排序、显示开关和外部链接。
+6. 点击 **Save**。
+
+保存后的 Git commit 使用以下格式：
+
+- 新建：`content: add <filename>`
+- 修改：`content: update <filename>`
+- 删除：`content: remove <filename>`
+- 重命名：`content: rename <old> to <new>`
+
+### 2.2 检查构建
+
+保存后先等待 GitHub Actions 的 **Validate and build** 变为绿色。失败时不要发布；
+打开失败运行，查看第一个红色步骤。常见原因是必填字段缺失、日期格式错误、图片
+路径不存在、中文/英文 Alt 缺失、DOI 未登记或内部链接无效。
+
+Actions 页面：
+<https://github.com/DavidHMeng/energy-materials-lab-website/actions>
+
+### 2.3 发布网站
+
+CI 通过后，在 Pages CMS 左侧 **Actions** 中选择 **Deploy website**，确认部署。
+该按钮运行 `deploy-pages.yml`，会再次执行生产构建、双语路由检查、内部链接检查
+和 HTML Proofer，全部通过后才发布。
+
+若 CMS 按钮暂未刷新，也可以在 GitHub Actions 中打开
+**Deploy GitHub Pages (manual)**，选择 **Run workflow**，分支选 `main`。
+
+发布完成后检查：
+
+- 英文首页：<https://davidhmeng.github.io/energy-materials-lab-website/>
+- 中文首页：<https://davidhmeng.github.io/energy-materials-lab-website/zh/>
+- 本次修改涉及的英文和中文页面。
+
+GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；样式或脚本若仍显示旧版，
+等待缓存过期后再刷新，不要重复保存内容。
+
+## 3. 内容目录
+
+| CMS 入口 | 维护内容 | 关键规则 |
+| --- | --- | --- |
+| Homepage Settings | 首页 Highlights / Events 标题和显示数量 | 只改标题和数量；首页结构固定 |
+| Highlights / News | 动态、获奖、成员、论文、项目和公告 | 必填中英文标题/摘要/日期；空外链自动隐藏 |
+| Events | 学术或课题组活动 | `Academic` 或 `Group`；结束日期不得早于开始日期 |
+| Research | 研究方向 | 图文、中英文简介、DOI 列表、显示和顺序 |
+| Publications | DOI 来源列表 | `id` 必须是 `doi:10.xxxx/...`；不要手填作者、期刊或年份 |
+| Team | 成员与个人页 | 固定角色；`slug` 稳定且唯一；离组成员关闭 `active` 或 `display` |
+| Opportunities | 招聘与机会 | 使用日期窗口和 `active_override`；空类别自动隐藏 |
+| Site Settings | 名称、学校、地址、邮箱、Logo、页头图和站点描述 | 替换占位内容时同时完成中英文信息 |
+| Media | 上传站点图片 | 上传后在内容记录中选择，并填写双语 Alt |
+| Actions | 构建、发布和 DOI 更新 | 先 CI，后发布；DOI 更新会创建 PR |
+
+主导航固定为 `RESEARCH | PUBLICATIONS | TEAM | OPPORTUNITIES`。不要通过内容编辑
+新增 Projects、Blog、Alumni、页脚导航或页脚语言链接。
+
+## 4. 各模块操作要点
+
+### Homepage Settings
+
+- `News items on homepage` 和 `Event items on homepage` 只控制首页显示数量。
+- News 和 Events 的完整记录仍在对应集合中维护。
+- 首页只能保留 Greene 风格页头下的 Highlights 和 Events。
+
+### Highlights / News
+
+- Category 只能选：Publication、Award、Member、Academic Achievement、Funding、
+  Announcement。
+- `display` 关闭后，记录保留在仓库中但不在网站显示。
+- 有图片时必须同时填写 `Image alt EN` 和 `Image alt ZH`。
+- 外部链接为空时，“Learn more / 了解更多”不会显示。
+
+### Events
+
+- Type 只能选 Academic 或 Group；Category 可填写更具体的 Seminar、Workshop 等。
+- 首页显示摘要卡片，归档页还会显示 Description 和 Gallery。
+- 单日活动可将 End date 留空；多日活动必须保证结束日期不早于开始日期。
+
+### Research
+
+- `Graphical Abstract` 使用统一比例的正式研究图。
+- `DOI list` 每行只写 DOI，例如 `10.1002/adma.202102415`，不要复制书目信息。
+- `Order` 越小越靠前；`display` 关闭后整条研究方向隐藏。
+
+### Publications
+
+1. 添加 `id: doi:<DOI>`，例如 `doi:10.1002/adma.202102415`。
+2. 需要关联成员时，在 `member_ids` 填 Team 中对应的稳定 slug。
+3. 保存后打开 **Actions → Refresh DOI citations**。
+4. 工作流从 DOI 获取书目信息；有变化时创建 citation update Pull Request。
+5. 检查 PR 中作者、标题、期刊、年份和 DOI 后再合并。
+6. 合并并通过 CI 后，再执行 **Deploy website**。
+
+Research 和 Team 都通过 DOI/成员 ID 引用同一出版物；不要在多个模块复制作者、
+题名、期刊和年份。
+
+### Team
+
+- `Member ID / slug` 只能使用小写字母、数字和连字符，创建后不要随意修改。
+- `active: true` 且 `display: true` 时成员才显示。
+- 离组成员将 `active` 或 `display` 设为 false；不要创建 Alumni 页面。
+- Google Scholar、ORCID、ResearchGate、个人网站和 GitHub 为空时会自动隐藏。
+- ORCID 字段只填写 ORCID 标识，不要添加重复的展示文字。
+
+### Opportunities
+
+- `auto`：按 Opening Date 和 Closing Date 自动判断。
+- `force_show`：忽略日期，强制显示。
+- `force_hide`：忽略日期，强制隐藏。
+- `display: false` 是最高优先级的隐藏开关。
+- 日期采用 `YYYY-MM-DD`；链接必须同时填写中英文标签。
+
+### Site Settings 与 Media
+
+- 先在 **Media** 上传图片，再回到内容记录选择图片。
+- 建议使用 SVG（Logo/示意图）、WebP（照片）或优化后的 PNG/JPEG。
+- 文件名使用小写英文、数字和连字符，避免空格及中文文件名。
+- Header image、Lab logo、School logo 和站点联系信息都是全站字段，保存前应由
+  负责人确认。
+
+## 5. 三个 Actions 按钮
+
+- **Deploy website**：生产构建并发布 GitHub Pages。
+- **Build staging artifact**：构建并验证七天可下载的 `_site` 产物，不公开发布。
+- **Refresh DOI citations**：解析 DOI 元数据并在有变化时创建 Pull Request。
+
+按钮默认显示确认对话框。生产发布前应先确认内容 commit 对应的 CI 已通过。
+
+## 6. 出错与回退
+
+### Save 后 CI 失败
+
+1. 不要运行 Deploy website。
+2. 打开失败的 Actions 运行，查看第一个失败步骤。
+3. 回到 Pages CMS 修正字段并再次保存。
+4. 新提交通过后再发布。
+
+### 内容保存错误
+
+优先在 Pages CMS 恢复原字段并再次保存，这会留下清晰的修正历史。若文件已损坏或
+CMS 无法打开，由维护者在 GitHub 提交历史中对单个 commit 执行 revert。不要使用
+强制推送或 `git reset --hard` 清除共享历史。
+
+### 网站仍是旧内容
+
+依次确认：
+
+1. Pages CMS 已显示保存完成；
+2. GitHub 仓库出现新的 `content:` commit；
+3. Validate and build 已通过；
+4. Deploy GitHub Pages 已成功；
+5. 打开的 URL 包含 `/energy-materials-lab-website/`；
+6. 等待短时 CDN/浏览器缓存后刷新。
+
+## 7. 已验证的闭环证据
+
+- CMS 测试提交：[`2c85add`](https://github.com/DavidHMeng/energy-materials-lab-website/commit/2c85addf9cc163132b0090fcd0b05d7d4b98e861)
+- 测试提交 CI：[`35822457262`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35822457262)
+- 测试部署：[`35822539380`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35822539380)
+- 清理提交：[`4205075`](https://github.com/DavidHMeng/energy-materials-lab-website/commit/4205075dea98e9f9943c8561de0278b1b9ca8c73)
+- 清理提交 CI：[`35822706745`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35822706745)
+- 清理部署：[`35822768415`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35822768415)
+
+测试中英文标题曾分别显示 `[CMS validation]` 与 `【CMS 验证】`，随后已恢复原值；
+英文和中文公开页面均确认不再包含测试标记。

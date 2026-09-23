@@ -1,7 +1,12 @@
-name: Refresh DOI citations (manual until repository confirmation)
+name: Refresh DOI citations (manual)
 
 on:
   workflow_dispatch:
+    inputs:
+      payload:
+        description: Optional Pages CMS context as JSON
+        required: false
+        type: string
 
 permissions:
   actions: read

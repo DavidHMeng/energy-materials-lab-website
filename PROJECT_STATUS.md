@@ -1,12 +1,12 @@
 # Project status
 
 Updated: 2026-09-23
-Validated commit: `1371ac4`
+Latest clean content commit: `4205075`
 
 ## Production validated
 
 The authoritative GitHub Actions build is now passing. Run
-[`35818157326`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35818157326)
+[`35822706745`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35822706745)
 validated the content, installed the locked Ruby dependencies, completed a production
 Jekyll build, checked all required EN/ZH routes and assets, and passed HTML Proofer.
 
@@ -32,8 +32,8 @@ environment.
 - GitHub Pages build type: GitHub Actions.
 - Preview URL: <https://davidhmeng.github.io/energy-materials-lab-website/>
 - HTTPS enforcement: enabled.
-- Latest successful deployment: run
-  [`35818208351`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35818208351).
+- Latest clean-content deployment: run
+  [`35822768415`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35822768415).
 - Staging artifact: run
   [`35818423091`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35818423091)
   produced `github-pages-staging` (114,550 bytes), retained until 2026-09-30.
@@ -56,24 +56,27 @@ Validated on the hosted Pages site:
   across a reload.
 - A 320 px test exposed a horizontal overflow caused by `body { min-width: 320px; }`.
   Commit `1371ac4` removes that constraint, CI and Pages deployment pass, and the live
-  CSS was confirmed updated. One final browser screenshot remains pending until the
-  previous CSS response leaves the browser's ten-minute cache.
+  CSS was confirmed updated. The final uncached 320 px test reports a 305 px layout
+  viewport, 305 px document width, no horizontal overflow, and all navigation links
+  visible.
 
 ## CMS validation
 
-Not yet complete. `.pages.yml` is present at the repository root and its schema matches
-the content files. The hosted Pages CMS sign-in page is reachable, but GitHub sign-in
-and installation/authorization of the Pages CMS GitHub App require the repository
-owner's account approval.
+Validated. The hosted Pages CMS GitHub App is authorized for the repository and
+`.pages.yml` exposes Homepage, News, Events, Research, Publications, Team,
+Opportunities, Site Settings and Media.
 
-Planned closed-loop record: `_news/2026-09-15-placeholder-publication.md`.
+The closed loop used `_news/2026-09-15-placeholder-publication.md`:
 
-1. Sign in at <https://app.pagescms.org/> with GitHub.
-2. Install/authorize Pages CMS for `DavidHMeng/energy-materials-lab-website`.
-3. Edit the record's bilingual title or summary and save it through Pages CMS.
-4. Verify the CMS commit, successful CI, and rendered EN/ZH change.
-5. Revert the test edit, then verify CI and deployment again.
-6. Only after this loop succeeds, finalize `PAGES_CMS_GUIDE.md` with real screenshots.
+1. Pages CMS created commit [`2c85add`](https://github.com/DavidHMeng/energy-materials-lab-website/commit/2c85addf9cc163132b0090fcd0b05d7d4b98e861).
+2. CI run [`35822457262`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35822457262) passed.
+3. Pages run [`35822539380`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35822539380) deployed the change.
+4. English and Chinese pages displayed the distinct CMS validation markers.
+5. Revert commit [`4205075`](https://github.com/DavidHMeng/energy-materials-lab-website/commit/4205075dea98e9f9943c8561de0278b1b9ca8c73) restored the original content.
+6. The cleanup CI and deployment passed, and both languages were verified marker-free.
+
+The final maintenance guide is `PAGES_CMS_GUIDE.md`. Pages CMS actions are configured
+for production deployment, staging artifact builds and DOI citation refresh.
 
 ## Pending real content
 

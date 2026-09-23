@@ -262,3 +262,30 @@ settings:
       update: "content: update {filename}"
       delete: "content: remove {filename}"
       rename: "content: rename {oldFilename} to {newFilename}"
+
+actions:
+  - name: deploy-site
+    label: Deploy website
+    workflow: deploy-pages.yml
+    ref: current
+    cancelable: false
+    confirm:
+      title: Deploy website?
+      message: Run the validated GitHub Pages production deployment for the current branch.
+      button: Deploy
+  - name: build-staging
+    label: Build staging artifact
+    workflow: pages-staging.yml
+    ref: current
+    confirm:
+      title: Build staging artifact?
+      message: Build and validate a downloadable seven-day site artifact without publishing it.
+      button: Build
+  - name: refresh-citations
+    label: Refresh DOI citations
+    workflow: citation-schedule.yml
+    ref: current
+    confirm:
+      title: Refresh citations?
+      message: Resolve DOI metadata and open a citation update pull request when changes are found.
+      button: Refresh

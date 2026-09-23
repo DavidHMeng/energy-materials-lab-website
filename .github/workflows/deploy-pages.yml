@@ -2,6 +2,11 @@ name: Deploy GitHub Pages (manual)
 
 on:
   workflow_dispatch:
+    inputs:
+      payload:
+        description: Optional Pages CMS context as JSON
+        required: false
+        type: string
 
 permissions:
   contents: read
