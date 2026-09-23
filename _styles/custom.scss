@@ -954,11 +954,20 @@ html[lang="zh"] body {
   header.background:not([data-big]) .home .logo {
     width: 46px;
     height: 46px;
+    flex-shrink: 0;
   }
 
   header.background:not([data-big]).is-scrolled .home .logo {
     width: 40px;
     height: 40px;
+  }
+
+  header.background:not([data-big]) .title {
+    font-size: 1.05rem;
+  }
+
+  header.background:not([data-big]) .subtitle {
+    display: none;
   }
 
   .team-grid {
