@@ -111,7 +111,14 @@ for name, rendered in (("index.html", home_html), ("zh/index.html", zh_home_html
         errors.append(f"homepage introduction/carousel missing in {name}")
     if rendered.count("data-carousel-slide") < 1:
         errors.append(f"homepage has no visible carousel slide in {name}")
-    if rendered.count("/_styles/custom.css") != 1:
+    page = SiteHTMLParser()
+    page.feed(rendered)
+    custom_stylesheets = [
+        reference
+        for kind, reference in page.references
+        if kind == "asset" and urlparse(reference).path.endswith("/_styles/custom.css")
+    ]
+    if len(custom_stylesheets) != 1:
         errors.append(f"project custom stylesheet must load exactly once in {name}")
     for marker in ('data-heading-font=', 'data-body-font=', 'data-lab-name-size=', 'data-line-height='):
         if marker not in rendered:
