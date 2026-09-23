@@ -6,7 +6,7 @@
     <div class="team-grid">
       {% for member in people %}
         <article class="team-card" data-reveal>
-          <img src="{{ member.portrait | relative_url }}" alt="{% if page.lang == 'zh' %}{{ member.portrait_alt_zh }}{% else %}{{ member.portrait_alt_en }}{% endif %}" loading="lazy">
+          <img src="{{ member.portrait | relative_url }}" alt="{% if page.lang == 'zh' %}{{ member.portrait_alt_zh }}{% else %}{{ member.portrait_alt_en }}{% endif %}" loading="lazy" decoding="async">
           <div class="team-card-body">
             <h3>{% if page.lang == "zh" %}{{ member.name_zh }}{% else %}{{ member.name_en }}{% endif %}</h3>
             <p class="position">{% if page.lang == "zh" %}{{ member.position_zh }}{% else %}{{ member.position_en }}{% endif %}</p>

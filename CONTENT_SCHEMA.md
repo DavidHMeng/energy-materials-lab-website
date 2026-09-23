@@ -46,9 +46,32 @@ maintainer can add Postdoctoral Researchers, Visiting Students, or a future cate
 without editing a template. A member's `role` must match one of those stable IDs.
 
 Member cards use compact circular portraits and a two-line research summary. Profiles
-show Email and optional academic links, Research Interests, Education, and the optional
-plain-text `personal_note_en` / `personal_note_zh`. Biography, phone/office display, and
-member-specific publication lists are intentionally absent.
+use a compact 4:5 portrait and a separate contact column. The editor-visible contact
+fields are Email, localized Address, Google Scholar, ORCID, GitHub and Personal Website;
+empty fields remain hidden. Localized Affiliation appears with Name and Position in the
+profile identity area. Research Interests, Education, and the optional plain-text
+`personal_note_en` / `personal_note_zh` remain below the hero. Biography, phone/office
+display, and member-specific publication lists are intentionally absent.
+
+Eight removable `phd-student-01` through `phd-student-08` records provide density and
+last-row-centering QA. They use the normal member schema and can be deleted or replaced
+through Pages CMS without touching templates.
+
+## Typography settings
+
+`_data/site.yaml` contains a required `typography` object exposed under **Site Settings
+→ Typography**. Editors choose controlled preset keys rather than arbitrary CSS values:
+
+- Heading font: `default`, `sans-modern`, `sans-academic`, `serif-editorial`.
+- Body font: `default`, `sans`, `serif`.
+- Lab name, navigation, page title, section title, body text and caption sizes:
+  `small`, `default`, `large`.
+- Body line height: `compact`, `default`, `relaxed`.
+
+The frontend maps these keys to responsive design tokens such as `--font-lab-name`,
+`--font-navigation`, `--font-page-title`, `--font-section-title`, `--font-body`,
+`--font-caption` and `--line-height-body`. Pages CMS never exposes raw CSS, arbitrary
+font names or unrestricted pixel values.
 
 ## Homepage introduction
 

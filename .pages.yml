@@ -187,6 +187,10 @@ content:
       - { name: portrait_alt_zh, label: Portrait alt ZH, type: string, required: true }
       - { name: research_summary_en, label: Short research area EN, type: text, required: true }
       - { name: research_summary_zh, label: Short research area ZH, type: text, required: true }
+      - { name: affiliation_en, label: Affiliation EN, type: string }
+      - { name: affiliation_zh, label: Affiliation ZH, type: string }
+      - { name: address_en, label: Address EN, type: text }
+      - { name: address_zh, label: Address ZH, type: text }
       - { name: research_interests_en, label: Research interests EN, type: text }
       - { name: research_interests_zh, label: Research interests ZH, type: text }
       - { name: personal_note_en, label: Personal Note EN, type: text, description: Optional plain text only. Images, tables, HTML, and rich media are not supported. }
@@ -284,6 +288,40 @@ content:
       - { name: copyright_zh, label: Copyright ZH, type: string, required: true }
       - { name: description_en, label: Site description EN, type: text, required: true }
       - { name: description_zh, label: Site description ZH, type: text, required: true }
+      - name: typography
+        label: Typography
+        type: object
+        required: true
+        description: Controlled presets preserve responsive sizing and visual consistency. Arbitrary CSS values are intentionally unavailable.
+        fields:
+          - name: heading_font
+            label: Heading Font
+            type: select
+            required: true
+            default: default
+            options:
+              values:
+                - { name: default, label: Default }
+                - { name: sans-modern, label: Sans Modern }
+                - { name: sans-academic, label: Sans Academic }
+                - { name: serif-editorial, label: Serif Editorial }
+          - name: body_font
+            label: Body Font
+            type: select
+            required: true
+            default: default
+            options:
+              values:
+                - { name: default, label: Default }
+                - { name: sans, label: Sans }
+                - { name: serif, label: Serif }
+          - { name: lab_name_size, label: Lab Name Size, type: select, required: true, default: default, options: { values: [small, default, large] } }
+          - { name: navigation_size, label: Navigation Size, type: select, required: true, default: default, options: { values: [small, default, large] } }
+          - { name: page_title_size, label: Page Title Size, type: select, required: true, default: default, options: { values: [small, default, large] } }
+          - { name: section_title_size, label: Section Title Size, type: select, required: true, default: default, options: { values: [small, default, large] } }
+          - { name: body_text_size, label: Body Text Size, type: select, required: true, default: default, options: { values: [small, default, large] } }
+          - { name: caption_size, label: Caption Size, type: select, required: true, default: default, options: { values: [small, default, large] } }
+          - { name: line_height, label: Line Height, type: select, required: true, default: default, options: { values: [compact, default, relaxed] } }
 
 settings:
   content:

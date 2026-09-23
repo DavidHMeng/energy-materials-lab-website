@@ -27,6 +27,17 @@ SCHEMAS = {
 NEWS_CATEGORIES = {"Publication", "Award", "Member", "Academic Achievement", "Funding", "Announcement"}
 EVENT_TYPES = {"Academic", "Group"}
 OPPORTUNITY_CATEGORIES = {"PhD Students", "Research Assistants", "Administrative Assistants", "Assistant Professors", "Postdoctoral Researchers", "Visiting Students", "Other"}
+TYPOGRAPHY_PRESETS = {
+    "heading_font": {"default", "sans-modern", "sans-academic", "serif-editorial"},
+    "body_font": {"default", "sans", "serif"},
+    "lab_name_size": {"small", "default", "large"},
+    "navigation_size": {"small", "default", "large"},
+    "page_title_size": {"small", "default", "large"},
+    "section_title_size": {"small", "default", "large"},
+    "body_text_size": {"small", "default", "large"},
+    "caption_size": {"small", "default", "large"},
+    "line_height": {"compact", "default", "relaxed"},
+}
 
 
 def load_yaml(path: Path):
@@ -107,6 +118,7 @@ if not role_ids:
     ERRORS.append("_data/team_roles.yaml: at least one team role is required")
 
 member_ids = set()
+placeholder_phd_count = 0
 for path, data in records["_members"]:
     member_id = data.get("slug")
     if member_id in member_ids:
@@ -115,6 +127,14 @@ for path, data in records["_members"]:
     if data.get("role") not in role_ids:
         ERRORS.append(f"{path.relative_to(ROOT)}: invalid role {data.get('role')}")
     check_image(data.get("portrait", ""), path)
+    if str(member_id).startswith("phd-student-") and data.get("role") == "phd-students":
+        placeholder_phd_count += 1
+    for retired_field in ("office", "phone", "biography_en", "biography_zh"):
+        if retired_field in data:
+            ERRORS.append(f"{path.relative_to(ROOT)}: retired member field {retired_field} remains in source")
+
+if placeholder_phd_count < 8:
+    ERRORS.append("_members: at least eight removable PhD placeholder records are required for layout QA")
 
 for path, data in records["_opportunities"]:
     if data.get("category") not in OPPORTUNITY_CATEGORIES:
@@ -222,10 +242,22 @@ for key in site_required:
         ERRORS.append(f"_data/site.yaml: missing {key}")
 for key in ("header_image", "lab_logo", "school_logo"):
     check_image(site_data.get(key, ""), ROOT / "_data" / "site.yaml")
+typography = site_data.get("typography") or {}
+for key, allowed in TYPOGRAPHY_PRESETS.items():
+    if typography.get(key) not in allowed:
+        ERRORS.append(f"_data/site.yaml typography.{key}: expected one of {sorted(allowed)}")
 site_cms_fields = {field.get("name") for field in cms_entries.get("site", {}).get("fields", [])}
 missing_site_fields = site_required - site_cms_fields
 if missing_site_fields:
     ERRORS.append(f".pages.yml site: missing schema fields {sorted(missing_site_fields)}")
+if "typography" not in site_cms_fields:
+    ERRORS.append(".pages.yml site: missing Typography settings")
+else:
+    typography_field = next(field for field in cms_entries["site"]["fields"] if field.get("name") == "typography")
+    typography_cms_fields = {field.get("name") for field in typography_field.get("fields", [])}
+    missing_typography = set(TYPOGRAPHY_PRESETS) - typography_cms_fields
+    if missing_typography:
+        ERRORS.append(f".pages.yml site typography: missing fields {sorted(missing_typography)}")
 
 homepage_cms_fields = {field.get("name") for field in cms_entries.get("homepage", {}).get("fields", [])}
 if "introduction" not in homepage_cms_fields:
@@ -237,7 +269,11 @@ if missing_role_fields:
     ERRORS.append(f".pages.yml team-roles: missing fields {sorted(missing_role_fields)}")
 
 member_cms_fields = {field.get("name") for field in cms_entries.get("team", {}).get("fields", [])}
-for field in ("personal_note_en", "personal_note_zh", "email"):
+for field in (
+    "personal_note_en", "personal_note_zh", "email", "address_en", "address_zh",
+    "affiliation_en", "affiliation_zh", "research_summary_en", "research_summary_zh",
+    "google_scholar", "orcid", "github", "personal_website"
+):
     if field not in member_cms_fields:
         ERRORS.append(f".pages.yml team: missing profile field {field}")
 for retired_field in ("biography_en", "biography_zh", "office", "phone"):
@@ -267,6 +303,11 @@ if '<header class="profile-intro"' in profile_layout:
     ERRORS.append("_layouts/profile.html: profile hero must not use the globally sticky header element")
 if '<section class="profile-intro"' not in profile_layout:
     ERRORS.append("_layouts/profile.html: normal-flow profile-intro section is missing")
+for marker in ('class="profile-portrait"', 'class="profile-contacts"', 'class="profile-affiliation"'):
+    if marker not in profile_layout:
+        ERRORS.append(f"_layouts/profile.html: missing profile marker {marker}")
+if "member.phone" in profile_layout or "member.office" in profile_layout:
+    ERRORS.append("_layouts/profile.html: phone/office must not render")
 
 if ERRORS:
     print("Content validation failed:")

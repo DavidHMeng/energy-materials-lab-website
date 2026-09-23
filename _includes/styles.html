@@ -24,7 +24,9 @@
     "file.path contains '/_styles' and file.path contains '.css'"
 %}
 {% for style in styles %}
-  <link href="{{ style.path | relative_url }}" rel="stylesheet" />
+  {% unless style.path contains "/custom.css" %}
+    <link href="{{ style.path | relative_url }}" rel="stylesheet" />
+  {% endunless %}
 {% endfor %}
 
 <!-- project layer always loads after the retained Greene core -->

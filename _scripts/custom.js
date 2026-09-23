@@ -37,6 +37,28 @@
     window.addEventListener("scroll", update, { passive: true });
   };
 
+  const initIntentPrefetch = () => {
+    const prefetched = new Set();
+    const limit = 6;
+    const queue = (link) => {
+      if (prefetched.size >= limit || reducedMotion.matches) return;
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin || url.href === window.location.href) return;
+      if (prefetched.has(url.href) || url.hash || link.hasAttribute("download")) return;
+      const hint = document.createElement("link");
+      hint.rel = "prefetch";
+      hint.href = url.href;
+      hint.as = "document";
+      document.head.appendChild(hint);
+      prefetched.add(url.href);
+    };
+
+    document.querySelectorAll("header nav a[href], main a.text-link[href]").forEach((link) => {
+      link.addEventListener("pointerenter", () => queue(link), { once: true, passive: true });
+      link.addEventListener("focus", () => queue(link), { once: true });
+    });
+  };
+
   const initCarousel = (carousel) => {
     const track = carousel.querySelector("[data-carousel-track]");
     const slides = [...carousel.querySelectorAll("[data-carousel-slide]")];
@@ -121,6 +143,7 @@
 
   const init = () => {
     initSecondaryHeader();
+    initIntentPrefetch();
     initReveals();
     document.querySelectorAll("[data-carousel]").forEach(initCarousel);
   };

@@ -146,8 +146,13 @@ Research 和 Team 都通过 DOI/成员 ID 引用同一出版物；不要在多�
 - `Personal Note EN / ZH` 对应个人页的 **Personal Note / 个人寄语**，可留空。
   只允许纯文本和换行，不要粘贴图片、表格、HTML 或富文本。
 - 个人页不显示 Biography、Phone、Office 或个人论文列表；联系方式以 Email 为主。
-- Google Scholar、ORCID、ResearchGate、个人网站和 GitHub 为空时会自动隐藏。
+- Email、Address、Google Scholar、ORCID、ResearchGate、个人网站和 GitHub 为空时
+  会自动隐藏，不会留下空图标或空白行。
+- `Affiliation EN / ZH` 显示在个人页姓名和身份下方；`Address EN / ZH` 显示在左侧
+  联系信息栏。两者都可以留空。
 - ORCID 字段只填写 ORCID 标识，不要添加重复的展示文字。
+- `phd-student-01` 至 `phd-student-08` 是用于检查多人布局和末行居中的可删除占位
+  成员。录入真实成员后可逐条替换或删除，不要把占位内容当作真实人员信息。
 
 ### Team Role Labels
 
@@ -172,6 +177,26 @@ Research 和 Team 都通过 DOI/成员 ID 引用同一出版物；不要在多�
 - 文件名使用小写英文、数字和连字符，避免空格及中文文件名。
 - Header image、Lab logo、School logo 和站点联系信息都是全站字段，保存前应由
   负责人确认。
+
+### Site Settings → Typography
+
+Typography 只提供经过验证的 preset，不提供任意字体名称、像素值、颜色或 HTML
+style。这样可以在调整层级的同时保护手机端排版和中英文一致性。
+
+- **Heading Font**：Default、Sans Modern、Sans Academic、Serif Editorial。
+- **Body Font**：Default、Sans、Serif。
+- **Lab Name Size**：控制 Homepage 实验室名称。
+- **Navigation Size**：控制四个固定主导航项。
+- **Page Title Size**：控制页面主标题。
+- **Section Title Size**：控制 Team 分类及模块标题。
+- **Body Text Size**：控制正文基础字号。
+- **Caption Size**：控制图片说明和辅助文字。
+- **Line Height**：Compact、Default、Relaxed。
+
+字号类字段均选择 Small、Default 或 Large。Large 在桌面端放大，但前端会通过
+`clamp()` 自动限制手机端尺寸；维护人员不需要也不能填写 `37px`、`1.473em` 等
+自由值。修改后先保存并等待 CI，通过后再运行 **Build staging artifact** 检查中英
+文、手机端和 Light/Dark，确认无误后再执行生产部署。
 
 ## 5. 三个 Actions 按钮
 

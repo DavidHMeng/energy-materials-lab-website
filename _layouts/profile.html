@@ -4,19 +4,22 @@ layout: default
 {% assign member = page %}
 <article class="profile-page">
   <section class="profile-intro" aria-labelledby="profile-name">
-    <img src="{{ member.portrait | relative_url }}" alt="{% if page.lang == 'zh' %}{{ member.portrait_alt_zh }}{% else %}{{ member.portrait_alt_en }}{% endif %}">
+    <img class="profile-portrait" src="{{ member.portrait | relative_url }}" alt="{% if page.lang == 'zh' %}{{ member.portrait_alt_zh }}{% else %}{{ member.portrait_alt_en }}{% endif %}" decoding="async">
     <div class="profile-identity">
-      <p class="eyebrow">{% if page.lang == "zh" %}课题组成员{% else %}Team member{% endif %}</p>
       <h1 id="profile-name">{% if page.lang == "zh" %}{{ member.name_zh }}{% else %}{{ member.name_en }}{% endif %}</h1>
       <p class="profile-position">{% if page.lang == "zh" %}{{ member.position_zh }}{% else %}{{ member.position_en }}{% endif %}</p>
-      <div class="profile-links">
-        {% if member.email and member.email != "" %}<a href="mailto:{{ member.email }}">Email</a>{% endif %}
-        {% if member.google_scholar and member.google_scholar != "" %}<a href="{{ member.google_scholar }}">Google Scholar</a>{% endif %}
-        {% if member.orcid and member.orcid != "" %}<a href="https://orcid.org/{{ member.orcid }}">ORCID</a>{% endif %}
-        {% if member.researchgate and member.researchgate != "" %}<a href="{{ member.researchgate }}">ResearchGate</a>{% endif %}
-        {% if member.personal_website and member.personal_website != "" %}<a href="{{ member.personal_website }}">{% if page.lang == "zh" %}个人网站{% else %}Personal website{% endif %}</a>{% endif %}
-        {% if member.github and member.github != "" %}<a href="{{ member.github }}">GitHub</a>{% endif %}
-      </div>
+      {% assign affiliation = member.affiliation_en %}{% if page.lang == "zh" %}{% assign affiliation = member.affiliation_zh %}{% endif %}
+      {% if affiliation and affiliation != "" %}<p class="profile-affiliation">{{ affiliation }}</p>{% endif %}
+    </div>
+    {% assign address = member.address_en %}{% if page.lang == "zh" %}{% assign address = member.address_zh %}{% endif %}
+    <div class="profile-contacts" aria-label="{% if page.lang == 'zh' %}联系方式{% else %}Contact information{% endif %}">
+      {% if member.email and member.email != "" %}<a class="profile-contact-item" href="mailto:{{ member.email }}"><i class="fa-regular fa-envelope" aria-hidden="true"></i><span>{{ member.email }}</span></a>{% endif %}
+      {% if address and address != "" %}<div class="profile-contact-item"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>{{ address }}</span></div>{% endif %}
+      {% if member.google_scholar and member.google_scholar != "" %}<a class="profile-contact-item" href="{{ member.google_scholar }}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i><span>Google Scholar</span></a>{% endif %}
+      {% if member.orcid and member.orcid != "" %}<a class="profile-contact-item" href="https://orcid.org/{{ member.orcid }}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-orcid" aria-hidden="true"></i><span>ORCID</span></a>{% endif %}
+      {% if member.personal_website and member.personal_website != "" %}<a class="profile-contact-item" href="{{ member.personal_website }}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-globe" aria-hidden="true"></i><span>{% if page.lang == "zh" %}个人网站{% else %}Personal website{% endif %}</span></a>{% endif %}
+      {% if member.github and member.github != "" %}<a class="profile-contact-item" href="{{ member.github }}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>GitHub</span></a>{% endif %}
+      {% if member.researchgate and member.researchgate != "" %}<a class="profile-contact-item" href="{{ member.researchgate }}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-researchgate" aria-hidden="true"></i><span>ResearchGate</span></a>{% endif %}
     </div>
   </section>
 

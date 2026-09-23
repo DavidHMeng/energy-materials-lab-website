@@ -10,6 +10,10 @@ portrait_alt_en: Placeholder portrait for Alex Chen
 portrait_alt_zh: 陈晓个人照片占位图
 research_summary_en: Ion transport and interphase evolution in solid electrolytes.
 research_summary_zh: 固态电解质中的离子传输与界面相演化。
+affiliation_en: Energy Materials Laboratory
+affiliation_zh: 能源材料课题组
+address_en: Building 1, Room 305, Placeholder Campus
+address_zh: 某某校区 1 号楼 305 室
 research_interests_en: Transport modeling and spectroscopy.
 research_interests_zh: 传输建模与光谱表征。
 personal_note_en: Curiosity turns careful observation into better questions.
@@ -17,9 +21,7 @@ personal_note_zh: 保持好奇，让细致观察不断转化为更好的问题�
 education_en: "- MSc, Placeholder University, 20XX"
 education_zh: "- 硕士，某某大学，20XX"
 email: alex.chen@example.edu
-office: Building 1, Room 305
-phone: ""
-google_scholar: ""
+google_scholar: https://scholar.google.com/
 orcid: ""
 researchgate: ""
 personal_website: ""

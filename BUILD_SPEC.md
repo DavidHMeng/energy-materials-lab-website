@@ -28,8 +28,31 @@ language/navigation invariants and internal links, and runs HTML Proofer without
 external-network checks. Staging produces an Actions artifact only. The deployment
 workflow remains manual so a validated commit can be reviewed before publication.
 
+Generated-site checks also enforce the project typography attributes, a single load of
+the project stylesheet, the compact profile contact layout, normal-flow profile hero,
+and the absence of retired phone/office output.
+
 The citation refresh is also manual-only during staging. Enable its schedule only after
 the target repository, branch protections and desired pull-request cadence are confirmed.
+
+## UI and performance policy
+
+- Same-origin multi-page navigation uses the native View Transition API. The root fade
+  and 6 px entrance motion complete in about 220 ms and collapse for
+  `prefers-reduced-motion`; the site remains a static multi-page Jekyll build.
+- Internal navigation is prefetched only after pointer or keyboard intent, with a small
+  per-page cap. No router or transition library is included.
+- `dark-mode.js` remains synchronous to prevent a wrong-theme first paint. Other local
+  scripts use `defer`; third-party scripts are already deferred.
+- Google Font CSS is loaded non-blockingly with preconnect hints and `font-display=swap`.
+  Typography alternatives use the existing Barlow download or system font stacks; no
+  additional font families are fetched.
+- The compiled project stylesheet must be linked exactly once. Below-fold team,
+  research, event and carousel images use lazy loading where appropriate.
+- Placeholder runtime images are sub-kilobyte SVG files. The current 642 KiB PNG in
+  `images/uploads/` is not referenced by a page and therefore creates no page request.
+  Before real photos are published, prefer optimized WebP/AVIF and avoid oversized
+  originals.
 
 ## Upstream policy
 

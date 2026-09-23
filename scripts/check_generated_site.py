@@ -111,6 +111,11 @@ for name, rendered in (("index.html", home_html), ("zh/index.html", zh_home_html
         errors.append(f"homepage introduction/carousel missing in {name}")
     if rendered.count("data-carousel-slide") < 1:
         errors.append(f"homepage has no visible carousel slide in {name}")
+    if rendered.count("/_styles/custom.css") != 1:
+        errors.append(f"project custom stylesheet must load exactly once in {name}")
+    for marker in ('data-heading-font=', 'data-body-font=', 'data-lab-name-size=', 'data-line-height='):
+        if marker not in rendered:
+            errors.append(f"typography setting {marker} missing in {name}")
 
 for profile_path in (site / "team" / "mei-li" / "index.html", site / "zh" / "team" / "mei-li" / "index.html"):
     if profile_path.is_file():
@@ -123,9 +128,16 @@ for profile_path in (site / "team" / "mei-li" / "index.html", site / "zh" / "tea
             errors.append(f"personal note missing in {profile_path.relative_to(site).as_posix()}")
         if 'class="profile-publications"' in profile:
             errors.append(f"member publications must not render in {profile_path.relative_to(site).as_posix()}")
+        if 'class="profile-contacts"' not in profile or 'class="profile-portrait"' not in profile:
+            errors.append(f"compact profile contact layout missing in {profile_path.relative_to(site).as_posix()}")
+        if "Phone" in profile or "Office" in profile:
+            errors.append(f"retired phone/office content rendered in {profile_path.relative_to(site).as_posix()}")
 
 custom_css = (site / "_styles" / "custom.css").read_text(encoding="utf-8", errors="replace") if (site / "_styles" / "custom.css").is_file() else ""
-for marker in ("view-transition-old", ".visual-carousel", ".team-card img", ".profile-intro", "body.publications-page"):
+for marker in (
+    "view-transition-old", ".visual-carousel", ".team-card img", ".profile-intro",
+    ".profile-contacts", "--font-lab-name", "body.publications-page"
+):
     if marker not in custom_css:
         errors.append(f"compiled custom CSS is missing {marker}")
 
