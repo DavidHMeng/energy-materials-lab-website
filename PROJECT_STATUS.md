@@ -1,12 +1,12 @@
 # Project status
 
 Updated: 2026-09-23
-Current release line: UI V1.4 on `main`
+Current release line: UI V1.5 on `main`
 
 ## Production validated
 
 The authoritative GitHub Actions build is now passing. Run
-[`35851579896`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35851579896)
+[`35874347716`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35874347716)
 validated the content, installed the locked Ruby dependencies, completed a production
 Jekyll build, checked all required EN/ZH routes and assets, and passed HTML Proofer.
 
@@ -14,8 +14,9 @@ Validated runtime:
 
 - Ruby 3.3.12 and Bundler 2.5.6.
 - Jekyll 4.4.1 and `sass-embedded` 1.104.1.
-- 11 collection records, one DOI source and one generated citation.
-- 20 generated HTML files for the root-path CI build.
+- 19 collection records, one DOI source and one generated citation.
+- 38 generated HTML files for the root-path CI build, including the expanded
+  placeholder-member routes in both languages.
 - Empty optional links are hidden rather than emitted as anchors without targets.
 - GitHub Pages base-path builds strip `/energy-materials-lab-website` only for local
   HTML-Proofer resolution; deployed URLs retain the required prefix.
@@ -32,20 +33,60 @@ environment.
 - GitHub Pages build type: GitHub Actions.
 - Preview URL: <https://davidhmeng.github.io/energy-materials-lab-website/>
 - HTTPS enforcement: enabled.
-- Latest UI V1.4 deployment: run
-  [`35851790760`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35851790760)
-  from commit [`810503f`](https://github.com/DavidHMeng/energy-materials-lab-website/commit/810503f0d34cec949fa9c65ef4d9646696434a94).
+- Latest UI V1.5 deployment: run
+  [`35874778117`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35874778117)
+  from commit [`0c5b075`](https://github.com/DavidHMeng/energy-materials-lab-website/commit/0c5b0754506611a732bfa38c3cc9a6477e34af5e).
 - Staging artifact: run
-  [`35851721856`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35851721856)
-  produced the final `github-pages-staging` artifact for commit `810503f`.
+  [`35874588397`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35874588397)
+  produced the final `github-pages-staging` artifact for commit `0c5b075`.
 
 GitHub CLI was used from an ignored portable directory only; it is not part of the
 repository or the deployed site.
 
-## UI V1.4 refinement
+## UI V1.5 refinement
 
-The current release preserves Framework V1.1, the frozen navigation and the Pages CMS
-schema. It changes only presentation, responsive behavior and generated-site guards.
+This release preserves Framework V1.1 and the frozen information architecture while
+refining the homepage identity, dense-team presentation, member profiles, transitions,
+performance and editor-safe typography controls.
+
+- The homepage lab name is the primary text identity at a measured 37.6 px on the
+  1280 px viewport. Primary navigation measures 18.56 px and retains medium weight;
+  the university line remains visually secondary.
+- Team collections use a centered wrapping layout. The expanded fixture now contains
+  eight additional PhD Student placeholders maintained through the normal Team CMS
+  collection. The 1280 px layout is five columns with a centered four-card final row,
+  the 820 px layout is three columns, and the 390 px layout is two columns with a
+  centered single-card final row.
+- Member profile heroes now use a compact 4:5 portrait, left-side contact stack and a
+  right-side identity block. Email, localized address and Google Scholar are present
+  for the representative fixture; empty optional ORCID, website, GitHub and
+  ResearchGate fields remain hidden.
+- Pages CMS exposes controlled heading/body families, lab/navigation/page/section/body/
+  caption size presets and line-height presets under Site Settings. Editors choose
+  semantic presets; arbitrary CSS values are not exposed.
+- Cross-document transitions use the native View Transition API with restrained
+  opacity and six-pixel movement, preserve reduced-motion behavior and degrade to
+  ordinary navigation when unsupported. Intent-based prefetching is capped and only
+  applies to same-origin primary content links.
+- The project stylesheet now loads exactly once. Local scripts other than the
+  synchronous theme initializer are deferred, Google font loading is non-blocking, and
+  team images use lazy loading with asynchronous decoding.
+
+Files changed for this release:
+
+- `_layouts/default.html`, `_layouts/profile.html`
+- `_includes/custom/team-grid.html`, `_includes/fonts.html`, `_includes/scripts.html`,
+  `_includes/styles.html`
+- `_styles/custom.scss`, `_scripts/custom.js`, `_data/site.yaml`, `.pages.yml`
+- `_members/alex-chen.md`, `_members/mei-li.md`, `_members/phd-student-01.md` through
+  `_members/phd-student-08.md`
+- `scripts/validate_content.py`, `scripts/check_generated_site.py`
+- `CONTENT_SCHEMA.md`, `BUILD_SPEC.md`, `PAGES_CMS_GUIDE.md`, `PROJECT_STATUS.md`
+
+## Previous UI V1.4 baseline (historical)
+
+That release preserved Framework V1.1, the frozen navigation and the Pages CMS schema.
+It changed only presentation, responsive behavior and generated-site guards.
 
 - Secondary-page headers are compact and tighten again after scrolling. The homepage
   retains its larger Greene-style header. Tablet and mobile rules keep the logo,
@@ -79,6 +120,32 @@ Files changed for this release:
 - `scripts/validate_content.py`, `scripts/check_generated_site.py`
 
 ## Browser QA
+
+Current UI V1.5 validation on the deployed Pages site:
+
+- Desktop Edge at 1280 by 900: homepage lab name 37.6 px, primary navigation
+  18.56 px, exactly one project stylesheet, and no horizontal overflow. Team renders
+  five columns; the incomplete four-card PhD row is centered.
+- Tablet Edge at 820 by 900: the compact secondary header is 72 px, Team renders three
+  columns, theme switching changes the computed body palette, and no horizontal
+  overflow occurs.
+- Mobile Edge at 390 by 844: the Chinese secondary header is 64 px, Team renders two
+  columns with the final member centered, the profile portrait is 170 by 213 px, and
+  Publications remains a single non-overflowing column. English and Chinese routes
+  report the correct `lang` metadata.
+- The representative desktop profile hero is 403 px high with a 190 by 238 px
+  portrait. Its hero is `position: relative` and its portrait is `position: static`.
+  After scrolling to Personal Note, the desktop portrait bottom is -39 px and the
+  mobile portrait bottom is -515 px, so it has left the viewport and cannot cover
+  Research Interests, Education or Personal Note.
+- Light and dark modes were visually and computationally checked after transition
+  completion. In dark mode the body resolves to `rgb(24, 24, 24)` with white primary
+  text and muted profile contacts; returning to light mode resolves to white.
+- Native Safari is unavailable on this Windows host and was not misreported as a live
+  Safari run. Standards-based production build, HTML checks and progressive fallback
+  cover unsupported View Transition implementations.
+
+The following bullets retain the earlier UI V1.4 regression record:
 
 Validated on the hosted Pages site:
 
@@ -130,6 +197,13 @@ Validated on the hosted Pages site:
 Validated. The hosted Pages CMS GitHub App is authorized for the repository and
 `.pages.yml` exposes Homepage, News, Events, Research, Publications, Team,
 Team Role Labels, Opportunities, Site Settings and Media.
+
+UI V1.5 extends those existing collections without changing their identity: Team now
+exposes bilingual affiliation/address plus standard academic-profile links, while Site
+Settings exposes controlled Typography presets. Source validation confirms the nested
+CMS schema and rejects retired phone, office, biography and member-publication fields.
+The eight additional PhD fixtures are ordinary Team records and can be replaced or
+removed through Pages CMS without a template edit.
 
 The closed loop used `_news/2026-09-15-placeholder-publication.md`:
 
