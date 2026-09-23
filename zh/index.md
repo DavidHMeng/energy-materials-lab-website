@@ -8,7 +8,9 @@ permalink: /zh/
 {% assign news = site.news | where: "display", true | sort: "date" | reverse %}
 {% assign events = site.events | where: "display", true | sort: "date" %}
 
-<section aria-labelledby="highlights-heading">
+{% include custom/homepage-introduction.html %}
+
+<section aria-labelledby="highlights-heading" data-reveal>
   <div class="section-heading">
     <h2 id="highlights-heading">{{ home.highlights_heading_zh }}</h2>
     <a href="{{ '/zh/news/' | relative_url }}">全部动态 <span aria-hidden="true">→</span></a>
@@ -18,7 +20,7 @@ permalink: /zh/
   </div>
 </section>
 
-<section aria-labelledby="events-heading">
+<section aria-labelledby="events-heading" data-reveal>
   <div class="section-heading">
     <h2 id="events-heading">{{ home.events_heading_zh }}</h2>
     <a href="{{ '/zh/events/' | relative_url }}">全部活动 <span aria-hidden="true">→</span></a>

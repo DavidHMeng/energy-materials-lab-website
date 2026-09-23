@@ -24,7 +24,6 @@ SCHEMAS = {
     "_opportunities": ["category", "title_en", "title_zh", "content_en", "content_zh", "links", "active_override", "display_order", "display"],
 }
 
-ROLES = {"pi", "postdoctoral-researchers", "phd-students", "master-students", "undergraduate-students", "visiting-students", "research-staff", "administrative-staff"}
 NEWS_CATEGORIES = {"Publication", "Award", "Member", "Academic Achievement", "Funding", "Announcement"}
 EVENT_TYPES = {"Academic", "Group"}
 OPPORTUNITY_CATEGORIES = {"PhD Students", "Research Assistants", "Administrative Assistants", "Assistant Professors", "Postdoctoral Researchers", "Visiting Students", "Other"}
@@ -91,13 +90,29 @@ for path, data in records["_events"]:
     if data.get("end_date") and iso_date(data.get("end_date")) < iso_date(data.get("date")):
         ERRORS.append(f"{path.relative_to(ROOT)}: end_date precedes date")
 
+team_roles = load_yaml(ROOT / "_data" / "team_roles.yaml") or []
+role_ids = []
+for index, role in enumerate(team_roles):
+    role_id = str(role.get("id", ""))
+    if not re.match(r"^[a-z0-9-]+$", role_id):
+        ERRORS.append(f"_data/team_roles.yaml item {index + 1}: invalid role id")
+    if role_id in role_ids:
+        ERRORS.append(f"_data/team_roles.yaml: duplicate role id {role_id}")
+    role_ids.append(role_id)
+    for key in ("label_en", "label_zh", "order"):
+        if role.get(key) in (None, ""):
+            ERRORS.append(f"_data/team_roles.yaml item {index + 1}: missing {key}")
+
+if not role_ids:
+    ERRORS.append("_data/team_roles.yaml: at least one team role is required")
+
 member_ids = set()
 for path, data in records["_members"]:
     member_id = data.get("slug")
     if member_id in member_ids:
         ERRORS.append(f"{path.relative_to(ROOT)}: duplicate member slug {member_id}")
     member_ids.add(member_id)
-    if data.get("role") not in ROLES:
+    if data.get("role") not in role_ids:
         ERRORS.append(f"{path.relative_to(ROOT)}: invalid role {data.get('role')}")
     check_image(data.get("portrait", ""), path)
 
@@ -145,7 +160,7 @@ for path, data in records["_research"]:
 
 cms = load_yaml(ROOT / ".pages.yml") or {}
 cms_names = {entry.get("name") for entry in cms.get("content", [])}
-required_cms = {"homepage", "news", "events", "research", "publications", "team", "opportunities", "site"}
+required_cms = {"homepage", "news", "events", "research", "publications", "team", "team-roles", "opportunities", "site"}
 missing = required_cms - cms_names
 if missing:
     ERRORS.append(f".pages.yml: missing CMS sections {sorted(missing)}")
@@ -164,6 +179,31 @@ for collection_name, folder in {"news": "_news", "events": "_events", "research"
         ERRORS.append(f".pages.yml {collection_name}: missing schema fields {sorted(missing_fields)}")
 
 homepage = load_yaml(ROOT / "_data" / "homepage.yaml") or {}
+introduction = homepage.get("introduction") or {}
+for key in ("eyebrow_en", "eyebrow_zh", "title_en", "title_zh", "text_en", "text_zh"):
+    if not introduction.get(key):
+        ERRORS.append(f"_data/homepage.yaml introduction: missing {key}")
+autoplay = introduction.get("autoplay_seconds")
+if not isinstance(autoplay, int) or not 5 <= autoplay <= 12:
+    ERRORS.append("_data/homepage.yaml introduction: autoplay_seconds must be an integer from 5 to 12")
+slides = introduction.get("slides") or []
+visible_slides = 0
+orders = set()
+for index, slide in enumerate(slides):
+    for key in ("image", "alt_en", "alt_zh", "visual_type", "order"):
+        if slide.get(key) in (None, ""):
+            ERRORS.append(f"_data/homepage.yaml introduction slide {index + 1}: missing {key}")
+    if slide.get("visual_type") not in {"graphical-abstract", "lab-photo"}:
+        ERRORS.append(f"_data/homepage.yaml introduction slide {index + 1}: invalid visual_type")
+    if slide.get("order") in orders:
+        ERRORS.append(f"_data/homepage.yaml introduction: duplicate slide order {slide.get('order')}")
+    orders.add(slide.get("order"))
+    check_image(slide.get("image", ""), ROOT / "_data" / "homepage.yaml")
+    if slide.get("display") is True:
+        visible_slides += 1
+if not slides or visible_slides < 1:
+    ERRORS.append("_data/homepage.yaml introduction: at least one visible slide is required")
+
 for key in ("highlights_heading_en", "highlights_heading_zh", "events_heading_en", "events_heading_zh"):
     if not homepage.get(key):
         ERRORS.append(f"_data/homepage.yaml: missing {key}")
@@ -186,6 +226,23 @@ site_cms_fields = {field.get("name") for field in cms_entries.get("site", {}).ge
 missing_site_fields = site_required - site_cms_fields
 if missing_site_fields:
     ERRORS.append(f".pages.yml site: missing schema fields {sorted(missing_site_fields)}")
+
+homepage_cms_fields = {field.get("name") for field in cms_entries.get("homepage", {}).get("fields", [])}
+if "introduction" not in homepage_cms_fields:
+    ERRORS.append(".pages.yml homepage: missing introduction fields")
+
+team_roles_cms_fields = {field.get("name") for field in cms_entries.get("team-roles", {}).get("fields", [])}
+missing_role_fields = {"id", "label_en", "label_zh", "display", "order"} - team_roles_cms_fields
+if missing_role_fields:
+    ERRORS.append(f".pages.yml team-roles: missing fields {sorted(missing_role_fields)}")
+
+member_cms_fields = {field.get("name") for field in cms_entries.get("team", {}).get("fields", [])}
+for field in ("personal_note_en", "personal_note_zh", "email"):
+    if field not in member_cms_fields:
+        ERRORS.append(f".pages.yml team: missing profile field {field}")
+for retired_field in ("biography_en", "biography_zh", "office", "phone"):
+    if retired_field in member_cms_fields:
+        ERRORS.append(f".pages.yml team: retired field {retired_field} remains exposed")
 
 for forbidden in ("projects", "blog", "alumni"):
     if (ROOT / forbidden).exists():

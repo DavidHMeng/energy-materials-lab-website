@@ -12,8 +12,8 @@ research_summary_en: Ion transport and interphase evolution in solid electrolyte
 research_summary_zh: 固态电解质中的离子传输与界面相演化。
 research_interests_en: Transport modeling and spectroscopy.
 research_interests_zh: 传输建模与光谱表征。
-biography_en: Structured placeholder biography for a current team member.
-biography_zh: 现有成员的结构化个人简介占位内容。
+personal_note_en: Curiosity turns careful observation into better questions.
+personal_note_zh: 保持好奇，让细致观察不断转化为更好的问题。
 education_en: "- MSc, Placeholder University, 20XX"
 education_zh: "- 硕士，某某大学，20XX"
 email: alex.chen@example.edu

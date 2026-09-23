@@ -40,6 +40,31 @@ Both `active: true` and `display: true` are required for list/profile visibility
 Leaving members are retained in Git history or source with either field false; there is
 no Alumni route.
 
+Team category IDs and bilingual display labels are maintained in
+`_data/team_roles.yaml`. Pages CMS exposes that file as **Team Role Labels**, so a
+maintainer can add Postdoctoral Researchers, Visiting Students, or a future category
+without editing a template. A member's `role` must match one of those stable IDs.
+
+Member cards use compact circular portraits and a two-line research summary. Profiles
+show Email and optional academic links, Research Interests, Education, and the optional
+plain-text `personal_note_en` / `personal_note_zh`. Biography, phone/office display, and
+member-specific publication lists are intentionally absent.
+
+## Homepage introduction
+
+`_data/homepage.yaml` contains an `introduction` object rendered above Highlights. Its
+bilingual section label, slogan, and short introduction are followed by a restrained
+carousel. Each slide has an image, localized alt text, optional localized caption,
+display order, and one of two editorial types:
+
+- `graphical-abstract`: A - Graphical Abstract
+- `lab-photo`: B - Lab / Group Photo
+
+The type is maintenance metadata and a small visual label, not a separate page layout.
+Images use `object-fit: contain` so scientific annotations are not cropped. Autoplay is
+limited to 5–12 seconds, pauses during hover/focus, supports touch swiping and manual
+controls, and is disabled when the visitor requests reduced motion.
+
 ## Collection summaries
 
 - `_research`: bilingual title, graphical abstract and alt text, short introduction,
@@ -48,7 +73,8 @@ no Alumni route.
   Announcement; bilingual title/summary, date, optional image/link.
 - `_events`: Academic or Group type plus category, bilingual title/location/description,
   dates, cover, gallery, external link.
-- `_members`: fixed role, bilingual profile fields, contact/research links, state flags.
+- `_members`: role ID, bilingual profile fields, personal note, email/academic links,
+  and state flags.
 - `_opportunities`: bilingual title/body, category, links, date window, tri-state active
   override, display order.
 

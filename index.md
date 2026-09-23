@@ -8,7 +8,9 @@ permalink: /
 {% assign news = site.news | where: "display", true | sort: "date" | reverse %}
 {% assign events = site.events | where: "display", true | sort: "date" %}
 
-<section aria-labelledby="highlights-heading">
+{% include custom/homepage-introduction.html %}
+
+<section aria-labelledby="highlights-heading" data-reveal>
   <div class="section-heading">
     <h2 id="highlights-heading">{{ home.highlights_heading_en }}</h2>
     <a href="{{ '/news/' | relative_url }}">Archive <span aria-hidden="true">→</span></a>
@@ -18,7 +20,7 @@ permalink: /
   </div>
 </section>
 
-<section aria-labelledby="events-heading">
+<section aria-labelledby="events-heading" data-reveal>
   <div class="section-heading">
     <h2 id="events-heading">{{ home.events_heading_en }}</h2>
     <a href="{{ '/events/' | relative_url }}">Archive <span aria-hidden="true">→</span></a>

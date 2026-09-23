@@ -23,15 +23,9 @@ layout: default
   <div class="profile-sections">
     {% assign interests = member.research_interests_en %}{% if page.lang == "zh" %}{% assign interests = member.research_interests_zh %}{% endif %}
     {% if interests %}<section><h2>{% if page.lang == "zh" %}研究兴趣{% else %}Research interests{% endif %}</h2><p>{{ interests }}</p></section>{% endif %}
-    {% assign biography = member.biography_en %}{% if page.lang == "zh" %}{% assign biography = member.biography_zh %}{% endif %}
-    {% if biography %}<section><h2>{% if page.lang == "zh" %}个人简介{% else %}Biography{% endif %}</h2>{{ biography | markdownify }}</section>{% endif %}
     {% assign education = member.education_en %}{% if page.lang == "zh" %}{% assign education = member.education_zh %}{% endif %}
-    {% if education %}<section><h2>{% if page.lang == "zh" %}教育经历{% else %}Education{% endif %}</h2>{{ education | markdownify }}</section>{% endif %}
-    {% if member.office or member.phone %}<section><h2>{% if page.lang == "zh" %}联系信息{% else %}Contact{% endif %}</h2>{% if member.office %}<p><strong>{% if page.lang == "zh" %}办公室：{% else %}Office: {% endif %}</strong>{{ member.office }}</p>{% endif %}{% if member.phone %}<p><strong>{% if page.lang == "zh" %}电话：{% else %}Phone: {% endif %}</strong>{{ member.phone }}</p>{% endif %}</section>{% endif %}
+    {% if education and education != "" %}<section><h2>{% if page.lang == "zh" %}教育经历{% else %}Education{% endif %}</h2>{{ education | markdownify }}</section>{% endif %}
+    {% assign personal_note = member.personal_note_en %}{% if page.lang == "zh" %}{% assign personal_note = member.personal_note_zh %}{% endif %}
+    {% if personal_note and personal_note != "" %}<section class="profile-personal-note"><h2>{% if page.lang == "zh" %}个人寄语{% else %}Personal Note{% endif %}</h2><p>{{ personal_note | escape | newline_to_br }}</p></section>{% endif %}
   </div>
-
-  {% assign publications = site.data.citations | citations_for_member: member.slug %}
-  {% if publications.size > 0 %}
-    <section class="profile-publications"><h2>{% if page.lang == "zh" %}论文发表{% else %}Publications{% endif %}</h2>{% for citation in publications %}{% include citation.html lookup=citation.id style="rich" %}{% endfor %}</section>
-  {% endif %}
 </article>

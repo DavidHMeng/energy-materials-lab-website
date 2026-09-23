@@ -68,12 +68,13 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 
 | CMS 入口 | 维护内容 | 关键规则 |
 | --- | --- | --- |
-| Homepage Settings | 首页 Highlights / Events 标题和显示数量 | 只改标题和数量；首页结构固定 |
+| Homepage Settings | 首页 Introduction 文字、轮播图、Highlights / Events 标题和数量 | 轮播图分 A/B 类型；科研图必须完整显示 |
 | Highlights / News | 动态、获奖、成员、论文、项目和公告 | 必填中英文标题/摘要/日期；空外链自动隐藏 |
 | Events | 学术或课题组活动 | `Academic` 或 `Group`；结束日期不得早于开始日期 |
 | Research | 研究方向 | 图文、中英文简介、DOI 列表、显示和顺序 |
 | Publications | DOI 来源列表 | `id` 必须是 `doi:10.xxxx/...`；不要手填作者、期刊或年份 |
-| Team | 成员与个人页 | 固定角色；`slug` 稳定且唯一；离组成员关闭 `active` 或 `display` |
+| Team | 成员、圆形头像、简短介绍与个人页 | `slug` 稳定且唯一；个人寄语只填纯文本；离组成员关闭 `active` 或 `display` |
+| Team Role Labels | 成员分类及其中英文标题 | 可维护博士后、访问学生等类别，也可新增未来类别 |
 | Opportunities | 招聘与机会 | 使用日期窗口和 `active_override`；空类别自动隐藏 |
 | Site Settings | 名称、学校、地址、邮箱、Logo、页头图和站点描述 | 替换占位内容时同时完成中英文信息 |
 | Media | 上传站点图片 | 上传后在内容记录中选择，并填写双语 Alt |
@@ -86,9 +87,20 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 
 ### Homepage Settings
 
+- **Homepage Introduction** 位于 Highlights 上方，维护 Slogan、简介和轮播图片。
+- 建议简介保持 1–2 段。页面已按文字约 43%、视觉约 57% 的节奏设计，不要在
+  Introduction 中重复 Research 页的研究方向长文。
+- 在 **Visual Slides** 中选择图片并填写双语 Alt；Caption 可留空。
+- `Visual Type` 有两类：**A - Graphical Abstract** 与
+  **B - Lab / Group Photo**。类型只用于维护和小标签，不会切换成不同页面结构。
+- Graphical Abstract 会完整显示，不会自动裁切；上传前仍应去除大面积无效留白。
+- `Display Order` 越小越靠前；`Display` 可临时隐藏图片而不删除记录。
+- `Seconds per slide` 建议使用 5–8 秒，允许范围为 5–12 秒。轮播会在鼠标悬停、
+  键盘操作和系统“减少动态效果”设置下暂停或停用自动播放。
 - `News items on homepage` 和 `Event items on homepage` 只控制首页显示数量。
 - News 和 Events 的完整记录仍在对应集合中维护。
-- 首页只能保留 Greene 风格页头下的 Highlights 和 Events。
+- 首页结构固定为 Introduction、Highlights、Events；不要在 CMS 中复制 Research
+  页的详细研究内容。
 
 ### Highlights / News
 
@@ -125,10 +137,25 @@ Research 和 Team 都通过 DOI/成员 ID 引用同一出版物；不要在多�
 ### Team
 
 - `Member ID / slug` 只能使用小写字母、数字和连字符，创建后不要随意修改。
+- `Role ID` 必须对应 **Team Role Labels** 中的 ID。常用分类已包含 PI、博士后、
+  博士生、硕士生、本科生、访问学生、科研人员和行政人员。
 - `active: true` 且 `display: true` 时成员才显示。
 - 离组成员将 `active` 或 `display` 设为 false；不要创建 Alumni 页面。
+- `Short research area EN / ZH` 显示在团队圆形头像下，建议控制为一句话；过长内容
+  在列表页只显示两行，完整研究兴趣可填入 Research interests。
+- `Personal Note EN / ZH` 对应个人页的 **Personal Note / 个人寄语**，可留空。
+  只允许纯文本和换行，不要粘贴图片、表格、HTML 或富文本。
+- 个人页不显示 Biography、Phone、Office 或个人论文列表；联系方式以 Email 为主。
 - Google Scholar、ORCID、ResearchGate、个人网站和 GitHub 为空时会自动隐藏。
 - ORCID 字段只填写 ORCID 标识，不要添加重复的展示文字。
+
+### Team Role Labels
+
+- 修改 `Display Label EN / ZH` 即可调整 Team 页分类标题，不必改模板。
+- 新增分类时先建立唯一的 `Role ID`（小写字母、数字、连字符），再在成员记录中填写
+  同一个 ID。例如 `visiting-scholars`。
+- `Display category` 关闭后分类标题不显示；属于该分类的成员记录仍保留。
+- 不要新建 Alumni 分类；离组成员继续使用 `active` 或 `display` 隐藏。
 
 ### Opportunities
 

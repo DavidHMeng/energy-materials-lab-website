@@ -1,7 +1,7 @@
 # Project status
 
 Updated: 2026-09-23
-Latest clean content commit: `4205075`
+Latest clean content commit before UI V1.3: `4205075`
 
 ## Production validated
 
@@ -64,7 +64,7 @@ Validated on the hosted Pages site:
 
 Validated. The hosted Pages CMS GitHub App is authorized for the repository and
 `.pages.yml` exposes Homepage, News, Events, Research, Publications, Team,
-Opportunities, Site Settings and Media.
+Team Role Labels, Opportunities, Site Settings and Media.
 
 The closed loop used `_news/2026-09-15-placeholder-publication.md`:
 
@@ -82,7 +82,10 @@ for production deployment, staging artifact builds and DOI citation refresh.
 
 - Lab and school names, descriptions, address, email and copyright.
 - Approved lab logo, school logo and campus header photograph.
-- Real members, portraits, roles, bios, contact details and stable member IDs.
+- Real members, portraits, role assignments, short research summaries, personal notes,
+  contact details and stable member IDs.
+- Approved Homepage Introduction slogan, bilingual copy and a curated mix of graphical
+  abstracts and laboratory/group photographs.
 - Lab-owned DOI list and confirmed member-to-publication associations.
 - Research areas, graphical abstracts and bilingual research statements.
 - Confirmed News, Events and Opportunities content, dates and links.

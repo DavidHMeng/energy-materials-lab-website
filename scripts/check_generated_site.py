@@ -99,10 +99,31 @@ required = [
     "zh/research/index.html", "zh/publications/index.html", "zh/team/index.html",
     "zh/opportunities/index.html", "zh/news/index.html", "zh/events/index.html",
     "team/mei-li/index.html", "zh/team/mei-li/index.html", "404.html", "zh/404.html",
-    "images/icon.svg", "_styles/custom.css", "_scripts/dark-mode.js"
+    "images/icon.svg", "_styles/custom.css", "_scripts/dark-mode.js", "_scripts/custom.js"
 ]
 errors = [f"missing route or asset: /{path}" for path in required if not (site / path).is_file()]
 expected_nav = ["RESEARCH", "PUBLICATIONS", "TEAM", "OPPORTUNITIES"]
+
+home_html = (site / "index.html").read_text(encoding="utf-8", errors="replace") if (site / "index.html").is_file() else ""
+zh_home_html = (site / "zh" / "index.html").read_text(encoding="utf-8", errors="replace") if (site / "zh" / "index.html").is_file() else ""
+for name, rendered in (("index.html", home_html), ("zh/index.html", zh_home_html)):
+    if 'class="home-introduction"' not in rendered or "data-carousel" not in rendered:
+        errors.append(f"homepage introduction/carousel missing in {name}")
+    if rendered.count("data-carousel-slide") < 1:
+        errors.append(f"homepage has no visible carousel slide in {name}")
+
+for profile_path in (site / "team" / "mei-li" / "index.html", site / "zh" / "team" / "mei-li" / "index.html"):
+    if profile_path.is_file():
+        profile = profile_path.read_text(encoding="utf-8", errors="replace")
+        if 'class="profile-personal-note"' not in profile:
+            errors.append(f"personal note missing in {profile_path.relative_to(site).as_posix()}")
+        if 'class="profile-publications"' in profile:
+            errors.append(f"member publications must not render in {profile_path.relative_to(site).as_posix()}")
+
+custom_css = (site / "_styles" / "custom.css").read_text(encoding="utf-8", errors="replace") if (site / "_styles" / "custom.css").is_file() else ""
+for marker in ("view-transition-old", ".visual-carousel", ".team-card img"):
+    if marker not in custom_css:
+        errors.append(f"compiled custom CSS is missing {marker}")
 
 for html in site.rglob("*.html"):
     page = SiteHTMLParser()

@@ -12,6 +12,40 @@ content:
     type: file
     path: _data/homepage.yaml
     fields:
+      - name: introduction
+        label: Homepage Introduction
+        type: object
+        required: true
+        fields:
+          - { name: eyebrow_en, label: Section label EN, type: string, required: true }
+          - { name: eyebrow_zh, label: Section label ZH, type: string, required: true }
+          - { name: title_en, label: Slogan EN, type: string, required: true }
+          - { name: title_zh, label: Slogan ZH, type: string, required: true }
+          - { name: text_en, label: Introduction EN, type: text, required: true }
+          - { name: text_zh, label: Introduction ZH, type: text, required: true }
+          - { name: autoplay_seconds, label: Seconds per slide, type: number, required: true, default: 6, description: Recommended range is 5 to 8 seconds. }
+          - name: slides
+            label: Visual Slides
+            type: object
+            required: true
+            list:
+              collapsible: { collapsed: true, summary: "{caption_en}" }
+            fields:
+              - { name: image, label: Image, type: image, required: true, options: { media: images } }
+              - { name: alt_en, label: Image alt EN, type: string, required: true }
+              - { name: alt_zh, label: Image alt ZH, type: string, required: true }
+              - name: visual_type
+                label: Visual Type
+                type: select
+                required: true
+                options:
+                  values:
+                    - { name: graphical-abstract, label: A - Graphical Abstract }
+                    - { name: lab-photo, label: B - Lab / Group Photo }
+              - { name: caption_en, label: Caption EN, type: string }
+              - { name: caption_zh, label: Caption ZH, type: string }
+              - { name: display, label: Display, type: boolean, default: true }
+              - { name: order, label: Display Order, type: number, required: true }
       - { name: highlights_heading_en, label: Highlights heading EN, type: string, required: true }
       - { name: highlights_heading_zh, label: Highlights heading ZH, type: string, required: true }
       - { name: events_heading_en, label: Events heading EN, type: string, required: true }
@@ -143,20 +177,7 @@ content:
       default: { sort: order, order: asc }
     fields:
       - { name: slug, label: Member ID / slug, type: string, required: true, pattern: "^[a-z0-9-]+$" }
-      - name: role
-        label: Role
-        type: select
-        required: true
-        options:
-          values:
-            - { name: pi, label: PI }
-            - { name: postdoctoral-researchers, label: Postdoctoral Researchers }
-            - { name: phd-students, label: PhD Students }
-            - { name: master-students, label: Master Students }
-            - { name: undergraduate-students, label: Undergraduate Students }
-            - { name: visiting-students, label: Visiting Students }
-            - { name: research-staff, label: Research Staff }
-            - { name: administrative-staff, label: Administrative Staff }
+      - { name: role, label: Role ID, type: string, required: true, pattern: "^[a-z0-9-]+$", description: Use an ID configured under Team Role Labels. This permits new member categories without a code change. }
       - { name: name_en, label: Name EN, type: string, required: true }
       - { name: name_zh, label: Name ZH, type: string, required: true }
       - { name: position_en, label: Position EN, type: string, required: true }
@@ -168,13 +189,11 @@ content:
       - { name: research_summary_zh, label: Short research area ZH, type: text, required: true }
       - { name: research_interests_en, label: Research interests EN, type: text }
       - { name: research_interests_zh, label: Research interests ZH, type: text }
-      - { name: biography_en, label: Biography EN, type: rich-text, options: { media: false } }
-      - { name: biography_zh, label: Biography ZH, type: rich-text, options: { media: false } }
+      - { name: personal_note_en, label: Personal Note EN, type: text, description: Optional plain text only. Images, tables, HTML, and rich media are not supported. }
+      - { name: personal_note_zh, label: Personal Note ZH, type: text, description: Optional plain text only. Images, tables, HTML, and rich media are not supported. }
       - { name: education_en, label: Education EN, type: rich-text, options: { media: false } }
       - { name: education_zh, label: Education ZH, type: rich-text, options: { media: false } }
       - { name: email, label: Email, type: string }
-      - { name: office, label: Office, type: string }
-      - { name: phone, label: Phone, type: string }
       - { name: google_scholar, label: Google Scholar, type: string }
       - { name: orcid, label: ORCID, type: string }
       - { name: researchgate, label: ResearchGate, type: string }
@@ -183,6 +202,19 @@ content:
       - { name: active, label: Active member, type: boolean, default: true }
       - { name: display, label: Display, type: boolean, default: true }
       - { name: order, label: Order, type: number, required: true }
+
+  - name: team-roles
+    label: Team Role Labels
+    type: file
+    path: _data/team_roles.yaml
+    format: yaml
+    list: true
+    fields:
+      - { name: id, label: Role ID, type: string, required: true, pattern: "^[a-z0-9-]+$", description: Stable ID used by Team members, for example visiting-students. }
+      - { name: label_en, label: Display Label EN, type: string, required: true }
+      - { name: label_zh, label: Display Label ZH, type: string, required: true }
+      - { name: display, label: Display category, type: boolean, default: true }
+      - { name: order, label: Display Order, type: number, required: true }
 
   - name: opportunities
     label: Opportunities

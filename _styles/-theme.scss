@@ -15,6 +15,8 @@
   --surface-raised: #ffffff;
   --border: #d8e2e8;
   --muted: #52616b;
+  --accent-soft: #eaf7fc;
+  --accent-warm: #d79032;
 }
 [data-dark="true"] {
   --primary: #0795d9;
@@ -29,6 +31,8 @@
   --surface-raised: #22272b;
   --border: #3c474d;
   --muted: #bac7ce;
+  --accent-soft: #152c37;
+  --accent-warm: #e0a650;
 }
 
 :root {
@@ -63,4 +67,5 @@
   --research-image-ratio: 16 / 10;
   --portrait-ratio: 4 / 5;
   --card-radius: 10px;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }

@@ -1,0 +1,37 @@
+{% assign intro = site.data.homepage.introduction %}
+{% assign slides = intro.slides | where: "display", true | sort: "order" %}
+{% if intro and slides.size > 0 %}
+  <section class="home-introduction" aria-labelledby="introduction-heading" data-reveal>
+    <div class="home-introduction-copy">
+      <p class="eyebrow">{% if page.lang == "zh" %}{{ intro.eyebrow_zh }}{% else %}{{ intro.eyebrow_en }}{% endif %}</p>
+      <h2 id="introduction-heading">{% if page.lang == "zh" %}{{ intro.title_zh }}{% else %}{{ intro.title_en }}{% endif %}</h2>
+      <p class="home-introduction-text">{% if page.lang == "zh" %}{{ intro.text_zh | escape | newline_to_br }}{% else %}{{ intro.text_en | escape | newline_to_br }}{% endif %}</p>
+    </div>
+
+    <div class="visual-carousel" data-carousel data-autoplay-seconds="{{ intro.autoplay_seconds | default: 6 }}" aria-roledescription="carousel" aria-label="{% if page.lang == 'zh' %}课题组代表性图片{% else %}Representative laboratory visuals{% endif %}">
+      <div class="visual-carousel-viewport">
+        <div class="visual-carousel-track" data-carousel-track>
+          {% for slide in slides %}
+            <figure class="visual-slide" data-carousel-slide aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
+              <div class="visual-slide-image">
+                <img src="{{ slide.image | relative_url }}" alt="{% if page.lang == 'zh' %}{{ slide.alt_zh }}{% else %}{{ slide.alt_en }}{% endif %}" {% unless forloop.first %}loading="lazy"{% endunless %}>
+                <span class="visual-type">{% if slide.visual_type == "lab-photo" %}{% if page.lang == "zh" %}课题组影像{% else %}Lab / Group Photo{% endif %}{% else %}{% if page.lang == "zh" %}图文摘要{% else %}Graphical Abstract{% endif %}{% endif %}</span>
+              </div>
+              {% assign caption = slide.caption_en %}{% if page.lang == "zh" %}{% assign caption = slide.caption_zh %}{% endif %}
+              {% if caption and caption != "" %}<figcaption>{{ caption }}</figcaption>{% endif %}
+            </figure>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if slides.size > 1 %}
+        <button class="carousel-arrow carousel-arrow-prev" type="button" data-carousel-prev aria-label="{% if page.lang == 'zh' %}上一张{% else %}Previous slide{% endif %}"><span aria-hidden="true">‹</span></button>
+        <button class="carousel-arrow carousel-arrow-next" type="button" data-carousel-next aria-label="{% if page.lang == 'zh' %}下一张{% else %}Next slide{% endif %}"><span aria-hidden="true">›</span></button>
+        <div class="carousel-dots" role="group" aria-label="{% if page.lang == 'zh' %}选择图片{% else %}Choose slide{% endif %}">
+          {% for slide in slides %}<button type="button" data-carousel-dot="{{ forloop.index0 }}" aria-label="{% if page.lang == 'zh' %}显示第 {{ forloop.index }} 张{% else %}Show slide {{ forloop.index }}{% endif %}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}"></button>{% endfor %}
+        </div>
+      {% endif %}
+      <p class="sr-only" aria-live="polite" data-carousel-status></p>
+    </div>
+  </section>
+{% endif %}
