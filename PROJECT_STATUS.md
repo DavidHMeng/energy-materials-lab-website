@@ -1,7 +1,91 @@
 # Project status
 
-Updated: 2026-09-23
-Current release line: UI V1.5 on `main`
+Updated: 2026-09-24
+Current release line: UI / CMS Workflow V1.5 on `main`
+
+## UI / CMS Workflow V1.5 extension (2026-09-24)
+
+This extension keeps Framework V1.1, the frozen navigation and the existing Pages
+CMS collections. It adds the approved Homepage Introduction, profile and bilingual
+editorial-workflow refinements without changing the site's information architecture.
+
+Production evidence:
+
+- Final source commit:
+  [`7f04a6d`](https://github.com/DavidHMeng/energy-materials-lab-website/commit/7f04a6dca37001f12dc5af52851e8dc19cdde677).
+  The feature implementation is in `8ecee69`; follow-up commits `a4c9bb2`, `7d6614f`
+  and `7f04a6d` correct generated-style assertions, clip the full-width transition's
+  scrollbar remainder and add a build-specific version to `custom.css` so browsers do
+  not retain an obsolete project stylesheet after deployment.
+- Final CI run
+  [`35952350699`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35952350699)
+  passed source validation, the locked Jekyll production build, generated-route and
+  HTML checks for commit `7f04a6d`.
+- Staging run
+  [`35951169031`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35951169031)
+  produced the `github-pages-staging` artifact for the feature implementation.
+- Translation workflow run
+  [`35951192707`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35951192707)
+  passed the complete production build in fallback mode and explicitly reported that
+  translation credentials are not configured.
+- Final production deployment run
+  [`35952411226`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35952411226)
+  successfully published commit `7f04a6d` to
+  <https://davidhmeng.github.io/energy-materials-lab-website/>.
+
+Implemented behavior:
+
+- Homepage Header-to-Introduction spacing now uses a restrained full-width tonal
+  transition. The graphical-abstract carousel is capped at 1120 px with a 1.65:1
+  scientific-image region, `object-fit: contain`, centered positioning, manual controls,
+  autoplay pause behavior and reduced-motion handling. Real publisher graphical
+  abstracts were not copied without confirmed reuse rights; the structured placeholders
+  remain until lab-owned or licensed images are supplied.
+- Homepage carousel records may optionally reference a publication DOI. Journal and
+  year are resolved from the existing citation source instead of duplicating metadata.
+- Member profiles use a compact portrait/contact column and a top-aligned identity area
+  with an editable bilingual Profile Summary. Representative publication DOI lists use
+  the existing citation renderer and remain hidden when empty. Placeholder members have
+  no fabricated publication associations.
+- Pages CMS now treats suitable Chinese fields as required and their English counterparts
+  as optional. Names and other official English text remain manual. Publication records
+  and citation metadata are excluded from translation.
+- `scripts/translate_content.py` provides a provider-neutral, academic-English workflow
+  with sidecar hash/status tracking. Manual English is never overwritten automatically;
+  changed Chinese marks manual English for review, while previously auto-generated
+  English may be refreshed. Jekyll provides an in-memory Chinese fallback when English
+  is still blank, so builds do not depend on an external translation service.
+- The Pages CMS entry action `Generate pending English` is present. To activate actual
+  persisted machine translation, repository secret `TRANSLATION_API_KEY` and repository
+  variable `TRANSLATION_MODEL` still need to be configured; optional provider/base-URL
+  variables are documented in `PAGES_CMS_GUIDE.md`.
+
+Live browser QA on the final deployment:
+
+- Desktop, 1280 by 720: the homepage carousel is 1120 px wide; graphical abstracts
+  resolve to `object-fit: contain`; the Publications content and citation row use the
+  full 1180 px content width. The member hero is 1180 by about 447 px with a 190 by
+  238 px portrait.
+- Tablet, 820 by 900: the homepage carousel is 722 px wide with no navigation overlap;
+  the member hero is about 773 by 418 px with a 170 by 213 px portrait. After scrolling
+  to Research interests, the portrait is above the viewport and the measured overlap is
+  zero.
+- Mobile, 426 by 687: English and Chinese pages render without horizontal interaction
+  leakage; the 345 px carousel keeps images uncropped. The Chinese Team page has the
+  existing category order, ten fixture cards, centered wrapping, two columns and 128 px
+  circular portraits. The Chinese member hero stacks to about 378 px wide with a
+  170 by 213 px portrait.
+- EN/ZH document language metadata and localized Introduction/Profile Summary content
+  passed. Light and dark themes passed; dark mode resolves to an `rgb(24, 24, 24)` body,
+  white primary text and a distinct bordered carousel surface.
+- Profile regression passed on desktop, tablet and mobile. Portraits are `position:
+  static` inside a `position: relative` hero; after a 708 px desktop scroll the portrait
+  bottom was -198 px and overlap with Research interests was zero. Research interests,
+  Education and Personal Note remain in normal flow.
+
+Local pre-push checks also passed: 19 collection records, one DOI source, one citation,
+four translation state-machine tests and a no-change translation dry run. Native Safari
+is unavailable on this Windows host and is not reported as a live Safari test.
 
 ## Production validated
 
