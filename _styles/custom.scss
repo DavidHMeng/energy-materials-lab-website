@@ -127,6 +127,12 @@ body.homepage-page main {
   isolation: isolate;
 }
 
+body.homepage-page {
+  // Full-bleed transition artwork uses viewport units. Clip the scrollbar-width
+  // remainder so it cannot introduce a horizontal page scroll.
+  overflow-x: clip;
+}
+
 body.homepage-page main::before {
   position: absolute;
   z-index: -1;
