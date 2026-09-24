@@ -141,13 +141,16 @@ for profile_path in (site / "team" / "mei-li" / "index.html", site / "zh" / "tea
             errors.append(f"retired phone/office content rendered in {profile_path.relative_to(site).as_posix()}")
 
 custom_css = (site / "_styles" / "custom.css").read_text(encoding="utf-8", errors="replace") if (site / "_styles" / "custom.css").is_file() else ""
+compact_custom_css = "".join(custom_css.split())
 for marker in (
     "view-transition-old", ".visual-carousel", ".team-card img", ".profile-intro",
     ".profile-contacts", ".profile-summary", ".representative-publications",
-    "aspect-ratio: 1.65 / 1", "--font-lab-name", "body.publications-page"
+    "--font-lab-name", "body.publications-page"
 ):
     if marker not in custom_css:
         errors.append(f"compiled custom CSS is missing {marker}")
+if "aspect-ratio:1.65/1" not in compact_custom_css:
+    errors.append("compiled custom CSS is missing the 1.65:1 carousel ratio")
 
 for publication_path in (site / "publications" / "index.html", site / "zh" / "publications" / "index.html"):
     if publication_path.is_file():
