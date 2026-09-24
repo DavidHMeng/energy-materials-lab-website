@@ -2,6 +2,7 @@
 title: Home
 description: Latest news and events from the Placeholder Energy Materials Lab.
 permalink: /
+page_class: homepage-page
 ---
 
 {% assign home = site.data.homepage %}

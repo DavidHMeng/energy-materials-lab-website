@@ -17,11 +17,19 @@ ROOT = Path(__file__).resolve().parents[1]
 ERRORS: list[str] = []
 
 SCHEMAS = {
-    "_research": ["title_en", "title_zh", "graphical_abstract", "alt_en", "alt_zh", "short_intro_en", "short_intro_zh", "doi_list", "display", "order"],
-    "_news": ["category", "title_en", "title_zh", "summary_en", "summary_zh", "date", "display"],
-    "_events": ["type", "category", "title_en", "title_zh", "date", "description_en", "description_zh", "display"],
-    "_members": ["slug", "role", "name_en", "name_zh", "position_en", "position_zh", "portrait", "portrait_alt_en", "portrait_alt_zh", "research_summary_en", "research_summary_zh", "active", "display", "order"],
-    "_opportunities": ["category", "title_en", "title_zh", "content_en", "content_zh", "links", "active_override", "display_order", "display"],
+    "_research": ["title_zh", "graphical_abstract", "alt_zh", "short_intro_zh", "doi_list", "display", "order"],
+    "_news": ["category", "title_zh", "summary_zh", "date", "display"],
+    "_events": ["type", "category", "title_zh", "date", "display"],
+    "_members": ["slug", "role", "name_zh", "position_zh", "portrait", "portrait_alt_zh", "research_summary_zh", "profile_summary_zh", "active", "display", "order"],
+    "_opportunities": ["category", "title_zh", "content_zh", "links", "active_override", "display_order", "display"],
+}
+
+CMS_EXPECTED_FIELDS = {
+    "_research": ["title_en", "alt_en", "short_intro_en"],
+    "_news": ["title_en", "summary_en"],
+    "_events": ["title_en", "description_en"],
+    "_members": ["name_en", "position_en", "portrait_alt_en", "research_summary_en", "profile_summary_en", "representative_dois"],
+    "_opportunities": ["title_en", "content_en"],
 }
 
 NEWS_CATEGORIES = {"Publication", "Award", "Member", "Academic Achievement", "Funding", "Announcement"}
@@ -89,15 +97,15 @@ for path, data in records["_news"]:
     if data.get("category") not in NEWS_CATEGORIES:
         ERRORS.append(f"{path.relative_to(ROOT)}: invalid news category")
     check_image(data.get("image", ""), path)
-    if data.get("image") and not (data.get("alt_en") and data.get("alt_zh")):
-        ERRORS.append(f"{path.relative_to(ROOT)}: news image requires EN/ZH alt")
+    if data.get("image") and not data.get("alt_zh"):
+        ERRORS.append(f"{path.relative_to(ROOT)}: news image requires Chinese alt text")
 
 for path, data in records["_events"]:
     if data.get("type") not in EVENT_TYPES:
         ERRORS.append(f"{path.relative_to(ROOT)}: invalid event type")
     check_image(data.get("cover_image", ""), path)
-    if data.get("cover_image") and not (data.get("alt_en") and data.get("alt_zh")):
-        ERRORS.append(f"{path.relative_to(ROOT)}: cover image requires EN/ZH alt")
+    if data.get("cover_image") and not data.get("alt_zh"):
+        ERRORS.append(f"{path.relative_to(ROOT)}: cover image requires Chinese alt text")
     if data.get("end_date") and iso_date(data.get("end_date")) < iso_date(data.get("date")):
         ERRORS.append(f"{path.relative_to(ROOT)}: end_date precedes date")
 
@@ -110,7 +118,7 @@ for index, role in enumerate(team_roles):
     if role_id in role_ids:
         ERRORS.append(f"_data/team_roles.yaml: duplicate role id {role_id}")
     role_ids.append(role_id)
-    for key in ("label_en", "label_zh", "order"):
+    for key in ("label_zh", "order"):
         if role.get(key) in (None, ""):
             ERRORS.append(f"_data/team_roles.yaml item {index + 1}: missing {key}")
 
@@ -132,6 +140,9 @@ for path, data in records["_members"]:
     for retired_field in ("office", "phone", "biography_en", "biography_zh"):
         if retired_field in data:
             ERRORS.append(f"{path.relative_to(ROOT)}: retired member field {retired_field} remains in source")
+    for doi in data.get("representative_dois", []) or []:
+        if not re.match(r"^(?:doi:)?10\..+/.+$", str(doi), re.I):
+            ERRORS.append(f"{path.relative_to(ROOT)}: invalid representative DOI {doi}")
 
 if placeholder_phd_count < 8:
     ERRORS.append("_members: at least eight removable PhD placeholder records are required for layout QA")
@@ -178,6 +189,14 @@ for path, data in records["_research"]:
         if normalized not in source_doi_set:
             ERRORS.append(f"{path.relative_to(ROOT)}: DOI {doi} is absent from sources.yaml")
 
+for path, data in records["_members"]:
+    for doi in data.get("representative_dois", []) or []:
+        normalized = str(doi).lower().removeprefix("doi:")
+        if normalized not in citation_dois:
+            ERRORS.append(f"{path.relative_to(ROOT)}: representative DOI {doi} is absent from citations.yaml")
+        if normalized not in source_doi_set:
+            ERRORS.append(f"{path.relative_to(ROOT)}: representative DOI {doi} is absent from sources.yaml")
+
 cms = load_yaml(ROOT / ".pages.yml") or {}
 cms_names = {entry.get("name") for entry in cms.get("content", [])}
 required_cms = {"homepage", "news", "events", "research", "publications", "team", "team-roles", "opportunities", "site"}
@@ -194,13 +213,13 @@ else:
 cms_entries = {entry.get("name"): entry for entry in cms.get("content", [])}
 for collection_name, folder in {"news": "_news", "events": "_events", "research": "_research", "team": "_members", "opportunities": "_opportunities"}.items():
     cms_fields = {field.get("name") for field in cms_entries.get(collection_name, {}).get("fields", [])}
-    missing_fields = set(SCHEMAS[folder]) - cms_fields
+    missing_fields = (set(SCHEMAS[folder]) | set(CMS_EXPECTED_FIELDS[folder])) - cms_fields
     if missing_fields:
         ERRORS.append(f".pages.yml {collection_name}: missing schema fields {sorted(missing_fields)}")
 
 homepage = load_yaml(ROOT / "_data" / "homepage.yaml") or {}
 introduction = homepage.get("introduction") or {}
-for key in ("eyebrow_en", "eyebrow_zh", "title_en", "title_zh", "text_en", "text_zh"):
+for key in ("eyebrow_zh", "title_zh", "text_zh"):
     if not introduction.get(key):
         ERRORS.append(f"_data/homepage.yaml introduction: missing {key}")
 autoplay = introduction.get("autoplay_seconds")
@@ -210,7 +229,7 @@ slides = introduction.get("slides") or []
 visible_slides = 0
 orders = set()
 for index, slide in enumerate(slides):
-    for key in ("image", "alt_en", "alt_zh", "visual_type", "order"):
+    for key in ("image", "alt_zh", "visual_type", "order"):
         if slide.get(key) in (None, ""):
             ERRORS.append(f"_data/homepage.yaml introduction slide {index + 1}: missing {key}")
     if slide.get("visual_type") not in {"graphical-abstract", "lab-photo"}:
@@ -219,12 +238,16 @@ for index, slide in enumerate(slides):
         ERRORS.append(f"_data/homepage.yaml introduction: duplicate slide order {slide.get('order')}")
     orders.add(slide.get("order"))
     check_image(slide.get("image", ""), ROOT / "_data" / "homepage.yaml")
+    if slide.get("related_doi"):
+        normalized = str(slide["related_doi"]).lower().removeprefix("doi:")
+        if normalized not in citation_dois or normalized not in source_doi_set:
+            ERRORS.append(f"_data/homepage.yaml introduction slide {index + 1}: unresolved related_doi {slide['related_doi']}")
     if slide.get("display") is True:
         visible_slides += 1
 if not slides or visible_slides < 1:
     ERRORS.append("_data/homepage.yaml introduction: at least one visible slide is required")
 
-for key in ("highlights_heading_en", "highlights_heading_zh", "events_heading_en", "events_heading_zh"):
+for key in ("highlights_heading_zh", "events_heading_zh"):
     if not homepage.get(key):
         ERRORS.append(f"_data/homepage.yaml: missing {key}")
 for key in ("news_limit", "events_limit"):
@@ -233,10 +256,10 @@ for key in ("news_limit", "events_limit"):
 
 site_data = load_yaml(ROOT / "_data" / "site.yaml") or {}
 site_required = {
-    "lab_name_en", "lab_name_zh", "school_en", "school_zh", "college_en", "college_zh",
-    "address_en", "address_zh", "email", "header_image", "lab_logo", "school_logo",
-    "copyright_en", "copyright_zh", "description_en", "description_zh"
+    "lab_name_zh", "school_zh", "college_zh", "address_zh", "email", "header_image",
+    "lab_logo", "school_logo", "copyright_zh", "description_zh"
 }
+site_optional_english = {"lab_name_en", "school_en", "college_en", "address_en", "copyright_en", "description_en"}
 for key in site_required:
     if not site_data.get(key):
         ERRORS.append(f"_data/site.yaml: missing {key}")
@@ -247,7 +270,7 @@ for key, allowed in TYPOGRAPHY_PRESETS.items():
     if typography.get(key) not in allowed:
         ERRORS.append(f"_data/site.yaml typography.{key}: expected one of {sorted(allowed)}")
 site_cms_fields = {field.get("name") for field in cms_entries.get("site", {}).get("fields", [])}
-missing_site_fields = site_required - site_cms_fields
+missing_site_fields = (site_required | site_optional_english) - site_cms_fields
 if missing_site_fields:
     ERRORS.append(f".pages.yml site: missing schema fields {sorted(missing_site_fields)}")
 if "typography" not in site_cms_fields:
@@ -272,6 +295,7 @@ member_cms_fields = {field.get("name") for field in cms_entries.get("team", {}).
 for field in (
     "personal_note_en", "personal_note_zh", "email", "address_en", "address_zh",
     "affiliation_en", "affiliation_zh", "research_summary_en", "research_summary_zh",
+    "profile_summary_en", "profile_summary_zh", "representative_dois",
     "google_scholar", "orcid", "github", "personal_website"
 ):
     if field not in member_cms_fields:
@@ -308,6 +332,37 @@ for marker in ('class="profile-portrait"', 'class="profile-contacts"', 'class="p
         ERRORS.append(f"_layouts/profile.html: missing profile marker {marker}")
 if "member.phone" in profile_layout or "member.office" in profile_layout:
     ERRORS.append("_layouts/profile.html: phone/office must not render")
+for marker in ("profile-summary", "representative_dois", "Representative Publications"):
+    if marker not in profile_layout:
+        ERRORS.append(f"_layouts/profile.html: missing V1.5 profile marker {marker}")
+
+translation_script = (ROOT / "scripts" / "translate_content.py").read_text(encoding="utf-8")
+for forbidden in ("_data/sources.yaml", "_data/citations.yaml"):
+    if forbidden in translation_script:
+        ERRORS.append(f"scripts/translate_content.py: publication data must remain excluded ({forbidden})")
+if not (ROOT / "_translation" / "state.yml").is_file():
+    ERRORS.append("translation state sidecar is missing")
+
+
+def walk_cms_fields(fields):
+    for field in fields or []:
+        yield field
+        yield from walk_cms_fields(field.get("fields"))
+
+
+for entry in cms.get("content", []):
+    if entry.get("name") == "publications":
+        continue
+    for field in walk_cms_fields(entry.get("fields")):
+        name = str(field.get("name", ""))
+        if name.endswith("_en") and field.get("required") is True:
+            ERRORS.append(f".pages.yml {entry.get('name')}.{name}: English must be optional")
+
+try:
+    for workflow in (ROOT / ".github" / "workflows").glob("*.y*ml"):
+        yaml.safe_load(workflow.read_text(encoding="utf-8"))
+except Exception as exc:
+    ERRORS.append(f"GitHub Actions workflow YAML is invalid: {exc}")
 
 if ERRORS:
     print("Content validation failed:")

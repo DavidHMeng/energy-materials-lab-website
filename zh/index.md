@@ -2,6 +2,7 @@
 title: 首页
 description: 能源材料课题组的最新动态与活动。
 permalink: /zh/
+page_class: homepage-page
 ---
 
 {% assign home = site.data.homepage %}

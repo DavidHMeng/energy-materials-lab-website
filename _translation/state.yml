@@ -1,0 +1,519 @@
+entries:
+  _data/homepage.yaml:
+    events_heading:
+      english_hash: 8d14f6e72de8f18ab1ee5c5330f00653c0c3ce099e63024454f80af97e72d333
+      source_hash: 9e9bead81498b8980af6092ce91f0161f6b1eea4d1836b3fdc1338e140b7a481
+      status: manual
+    highlights_heading:
+      english_hash: 6e517828c3d88ea3e62b2169a626c32e39be2e7cf52e99f7e9d764af6859bbd0
+      source_hash: 4a90edf689aec7a6e6bb6d3f14f7d6ee3d11c9684b3fe0e219541d335016cafe
+      status: manual
+    introduction.eyebrow:
+      english_hash: b605350bc00209520b7cd8f546322663356ba630708f71bbf30aead6b3dd608e
+      source_hash: cf1366a17be4e9bd80e2b9025fea66804f31f3bc988a9a550cbc0cd408861202
+      status: manual
+    introduction.slides[0].alt:
+      english_hash: e867e48b78ebdee6e94c4a89dd7606696bbe57bd2847e56addff254297ddf5d4
+      source_hash: 499b8cb5a9373e38f6d800c6b47490bed23dd033142df347e498f086af7267cc
+      status: manual
+    introduction.slides[0].caption:
+      english_hash: 16bebdc0773358087412ef845423b6bd2264a551e89d01d608de49f9ea811502
+      source_hash: 0bf44bc22c83c0cdc1546e3ac5041e1460d1637ebe23cdd07e53fea14e185734
+      status: manual
+    introduction.slides[1].alt:
+      english_hash: 42bc08855f7cd844b656b0e07b7ace3c0f9931d5dc7a9917b69d931357c957d6
+      source_hash: 92eec41e87edf3934a58409fe82239728e4c0cf675e398d52e8778c39d33cff6
+      status: manual
+    introduction.slides[1].caption:
+      english_hash: 5c82408e036a5639b96f003592620bf7732f4a812b104d787b6fc0be2d43ca2c
+      source_hash: 7c5348bc1a6c622ef27f052581c4e595979d19200ab324d7c250989df0f30497
+      status: manual
+    introduction.slides[2].alt:
+      english_hash: 17dcc6a9812d9d67799e52359e7735eb19fb05fa293e42cc5128274667e94719
+      source_hash: 14963cfd4ac870afc92c17555680b03f497d0c11e9bf4dfbcc17f3766125d739
+      status: manual
+    introduction.slides[2].caption:
+      english_hash: 533525a50d8c65b670fb9f438f499acdd10f38dc0975b06e59e0f8b5ff9bf221
+      source_hash: feff6b695b426c0ab2cbf4805dde2798edb2fc0aa49b7b4ffcea1867655898b6
+      status: manual
+    introduction.text:
+      english_hash: 9b932f0669ce6dc9127c4f6c34602fe2981c8f62104beb5ceb6762277bdf4def
+      source_hash: 055aa6ceca77ecb68b6ff60acf3c49a7a4a92079dd72215f7cac30c40f9b80d2
+      status: manual
+    introduction.title:
+      english_hash: f4dcddcd6218ab625c827229591968d49daf942883bdd00be41fba09eb6df9a9
+      source_hash: d93bb0c65d0e6e4872c1d386b19af100582c7398d27cd267c5f78f44eb18d8b7
+      status: manual
+  _data/site.yaml:
+    address:
+      english_hash: 835c952f8f5c553085914ab433bb63ef7144c300f2b6b02e515a38e7825f152d
+      source_hash: 874375bc59d396c7bee9f4e2046d3e105c86304342c02751e304ba2cb6092c0c
+      status: manual
+    copyright:
+      english_hash: d6bb71591da5eda530402f28aa54a270d9363656f6aa5194e6cbd58afa30347f
+      source_hash: 814272f319dff12a496b20bd31de3b546b0acbb408870310ac6836935ce37bbf
+      status: manual
+    description:
+      english_hash: 5cf5713477aa4b6978e03913660b3281afba64a5f27602080c3d9fc6aa8f4604
+      source_hash: b6c5e1c9085dbe18105cff6122b3d479dae9cb3346fd8db10bc3b945663d3c4e
+      status: manual
+  _events/2026-10-16-placeholder-seminar.md:
+    alt:
+      english_hash: 4173e5ad09e8cb39f117568700acc1b8b4a891873777aef3b91eb836e42fb7cf
+      source_hash: 21cbdb4a4b43ceebe0c16c42893a6a891369c6d74dd05ecd3fbb88ff4f1ea982
+      status: manual
+    description:
+      english_hash: 9980252f1c64e60fc398b2c670544cf050a6ef4e876ac2a0962b5f4359b2b78e
+      source_hash: b921cb46380344991959693686821bd2e9051f1b1a662998ac69a9223c557825
+      status: manual
+    location:
+      english_hash: 0cebe8c5d12117ddb333b529875ddc9f2974a6abf9f6171b2b2ee83eff0bb37f
+      source_hash: 67962307fe054abc4f1f148bd6474c87bc1475458bb77220d9a3a06524b6a6a1
+      status: manual
+    title:
+      english_hash: 934a02ea98198d7f7b794dbb49005842f4bbff468a014af8bfe5b73d7c0d309d
+      source_hash: 376df5b8704cad999200a9a2470a81160528caa7660605df1479e15cb7ac44ad
+      status: manual
+  _events/2026-11-07-placeholder-group-event.md:
+    alt:
+      english_hash: a1df1a13223ce8bf06c82025b77246d1b9376515ac3272b1291786dca8246e78
+      source_hash: 752f41a3f24c8596224a10795cb24b019cde5917b2b04f77c976cc4a7670017b
+      status: manual
+    description:
+      english_hash: 9a19eb24e3c5c4e10b28e7e5933990f7fb3d7cb39dd42c3744928fb2c68eb783
+      source_hash: 1560ec3463891f97b6db4756839260e395d365a00ce4a8cf43de1a37a5c91cd0
+      status: manual
+    location:
+      english_hash: bcab44989d5705fbe2fc23f8189e93d7f8e63aea46787a35c0211033d7beba2f
+      source_hash: e436142acad575131fecac581c50ac6f1f4703a7b26145ec2086ed950c418e1c
+      status: manual
+    title:
+      english_hash: e38ab6c1630766e6546a4124e05216e1ba0a9e4973c8a7f6ededd9aead2746b7
+      source_hash: a0adf999d3c99db593e620872a7bebfb7bb25df25f3933b87960d860c081001b
+      status: manual
+  _members/alex-chen.md:
+    address:
+      english_hash: f7f068f28864c84cd6a8c4df4bc99fcc4e77c346e77cf2362c1cea45fff27222
+      source_hash: a70bcbcd11cc8dd9d2449a2c58731fa1a77a97e2d97314574b294bd9d0b743d3
+      status: manual
+    affiliation:
+      english_hash: 911a83c7a114efc82727ff7e3781648db90ea116410679b73bccdca4600862a2
+      source_hash: c60ac1866cbb95ee5a66d6685f17b1749f095e07e80c7348f932966e8f317d34
+      status: manual
+    education:
+      english_hash: 5a96c7cee5408d1baa62b4213ec7164619dab75356a5f9550a62c5722a391c72
+      source_hash: 0e9e285286481633332408bd8a6aebfd138bf986741d1fd5927b4d6b3ab93418
+      status: manual
+    personal_note:
+      english_hash: 63a66ab1c4eadcf85a4750425c2035016e55e1d5a634bd025c58254bc5abb838
+      source_hash: b0d733d9209915d948cec4b040aefc130416dcc4f9e0b48066ee3c998221c1df
+      status: manual
+    portrait_alt:
+      english_hash: d75c67dd952e4135499651fbed8e642102de11666afdd8b5c041a2f092733eb4
+      source_hash: 54aae333a600ab4f5b427850fa3989cc9e7fe237b37d5b9f50965d6b2d6700b7
+      status: manual
+    position:
+      english_hash: 0855d8a2f8ce8d1aa80a6fe821d4d8780f5af1e01e814aa6a1683228f5360b85
+      source_hash: 21c8fac6c465d6afc4d2ab68642283971472fea187293d1b3dcf7fb322302256
+      status: manual
+    profile_summary:
+      english_hash: ccb426cc3961c1fc7c3ecab05c9d87354ca4edb35c2df4d9c63ec0438a4c6ee9
+      source_hash: 9e288c3ca9271852a2becd8f92ebf39d97e4f1c81887d113a431652b6a8d95e9
+      status: manual
+    research_interests:
+      english_hash: 5a80fb25430d8d955645b3e4b43ae93dd06476a48ade2f17aef6afb1ee27a2d0
+      source_hash: ef049119bbbec200f23ceb1112ff48b056af8649e20096ffc2a24e9f70a1245e
+      status: manual
+    research_summary:
+      english_hash: 0ec5a90d2407586665c02f9c1d3922c11f86f6ad722057735ab8ab0f008ad29f
+      source_hash: b0b3ba3ab542e128677e1f214edbccfd4a0bd71a976e2a0aec8977bfeb5dab1e
+      status: manual
+  _members/mei-li.md:
+    address:
+      english_hash: 10ab9b9dd5c25667e713181c2669807332d843ac6516bf21709d42b7212e990c
+      source_hash: 450e70394893783a9a31b1ddd797eb5ad877c9157ca40f6d6c85974f0027e924
+      status: manual
+    affiliation:
+      english_hash: 911a83c7a114efc82727ff7e3781648db90ea116410679b73bccdca4600862a2
+      source_hash: c60ac1866cbb95ee5a66d6685f17b1749f095e07e80c7348f932966e8f317d34
+      status: manual
+    education:
+      english_hash: 2edfbc4d3e45afe01f3553bfb5c0615b2d9e5863dd0b5b4a740e805b80fff986
+      source_hash: e0282fa153cb3d7f368ba5a9e9172018259278780ad3d71b1d3f1efe16be9894
+      status: manual
+    personal_note:
+      english_hash: a28e0f716dd9f5fbe42c817b9ab100a16fd040583f5bc1b1ad2ad699bf92b1b4
+      source_hash: 60605af9c91029a3344f8b4206b27f30c8ee7d9a177102a015c41895f381312d
+      status: manual
+    portrait_alt:
+      english_hash: c313e0ad78f46c78fbf4fb66a57d223328c9bcbd5c52775d8d94fcc53d930ceb
+      source_hash: e43efa56eb0ce454da0aaa32f80bb741ae646cf060ee49616dddf492787a83ec
+      status: manual
+    position:
+      english_hash: 8a8ba047259e40f167f4a1010c95e4e4190c686c73744fdaaa0ef80cd08883d3
+      source_hash: 309a03a7c14891395c587846889f1a57b6c6b4e04af55e92a50d493867d28252
+      status: manual
+    profile_summary:
+      english_hash: e5f252cf8b174c762911ccb8a2f46647c7b3b8c550fcd0c0f0a15e9c1416c159
+      source_hash: 62143da80f82c70fe0012c0371de9a8b886c7c46b820e8217b8f88d228a4c3f1
+      status: manual
+    research_interests:
+      english_hash: 203741a06df44c0c92dae0793d05b51471343b693bf9c6614b16cf7202fa8bf4
+      source_hash: 692fa6cc0a27168b2b124bbbd875c3cf5799f41840065a9a243aac626abef1e3
+      status: manual
+    research_summary:
+      english_hash: a47f65c126470c1b89f5526159cb8106919222349dd39b1b312117665117f023
+      source_hash: d1ed93ebce60e3375868fd896944998e5e01658322fe0dbf8d8e629236b8f7ea
+      status: manual
+  _members/phd-student-01.md:
+    affiliation:
+      english_hash: 911a83c7a114efc82727ff7e3781648db90ea116410679b73bccdca4600862a2
+      source_hash: c60ac1866cbb95ee5a66d6685f17b1749f095e07e80c7348f932966e8f317d34
+      status: manual
+    education:
+      english_hash: 91b892b54225c04cdafc518306ddcf298aeb12f1545fc3124a572ed08f7a71dd
+      source_hash: 190bf0f320f2d076b20dd6d54dbb2b2d3c29c3266d63151a019bdf116702657c
+      status: manual
+    personal_note:
+      english_hash: 206ed588454795ee4e822dfcb29fbb03a23fe4afca8cac857f40a495af4b30b2
+      source_hash: 91bcbd483020d6fadcde214f4ee7b195789e1deb7a8f38865d6565270942ae04
+      status: manual
+    portrait_alt:
+      english_hash: 629ff5224f379071d64f4cfa340048c5f41c8ebe0b69a44574921dcfd59a7452
+      source_hash: 7f64194e7f83f9a79a62544489332946383a9d285965beaeffabd69263cc0b05
+      status: manual
+    position:
+      english_hash: 0855d8a2f8ce8d1aa80a6fe821d4d8780f5af1e01e814aa6a1683228f5360b85
+      source_hash: 21c8fac6c465d6afc4d2ab68642283971472fea187293d1b3dcf7fb322302256
+      status: manual
+    profile_summary:
+      english_hash: fc98f918fe56bd446a9467692a05389dfdc107a2be2ba78961301ec8712deb41
+      source_hash: 659bc6320b82ceb0646d0a339e110eb71422fae48823dce90dce6f6dd489f9f0
+      status: manual
+    research_interests:
+      english_hash: 10dd18d7b4098a5569af8698c047e4a8c4d1b5288efe68f699c514be7d3f5786
+      source_hash: 4359cbccee26abc89e8719efd79f068136b46533fbf872244c95f940f48d85f0
+      status: manual
+    research_summary:
+      english_hash: 49e5b68cf83e8693a3e033ed5998afe6228426028bb579a8f740bd4aa2e033bf
+      source_hash: 038a387fb34159a0e178c444bf3dc66c1ffb89430531419986ec998a73abd9fa
+      status: manual
+  _members/phd-student-02.md:
+    affiliation:
+      english_hash: 911a83c7a114efc82727ff7e3781648db90ea116410679b73bccdca4600862a2
+      source_hash: c60ac1866cbb95ee5a66d6685f17b1749f095e07e80c7348f932966e8f317d34
+      status: manual
+    education:
+      english_hash: 91b892b54225c04cdafc518306ddcf298aeb12f1545fc3124a572ed08f7a71dd
+      source_hash: 190bf0f320f2d076b20dd6d54dbb2b2d3c29c3266d63151a019bdf116702657c
+      status: manual
+    personal_note:
+      english_hash: 206ed588454795ee4e822dfcb29fbb03a23fe4afca8cac857f40a495af4b30b2
+      source_hash: 91bcbd483020d6fadcde214f4ee7b195789e1deb7a8f38865d6565270942ae04
+      status: manual
+    portrait_alt:
+      english_hash: 9f984a6f54e1ac8aacb1c66457880d79a56099daf524c9771b68daf6e9a961c3
+      source_hash: 2b8426bbc447cebe10ebe6f51c3ad282771342f34a510837d97dc768db54be13
+      status: manual
+    position:
+      english_hash: 0855d8a2f8ce8d1aa80a6fe821d4d8780f5af1e01e814aa6a1683228f5360b85
+      source_hash: 21c8fac6c465d6afc4d2ab68642283971472fea187293d1b3dcf7fb322302256
+      status: manual
+    profile_summary:
+      english_hash: fc98f918fe56bd446a9467692a05389dfdc107a2be2ba78961301ec8712deb41
+      source_hash: 659bc6320b82ceb0646d0a339e110eb71422fae48823dce90dce6f6dd489f9f0
+      status: manual
+    research_interests:
+      english_hash: 10dd18d7b4098a5569af8698c047e4a8c4d1b5288efe68f699c514be7d3f5786
+      source_hash: 4359cbccee26abc89e8719efd79f068136b46533fbf872244c95f940f48d85f0
+      status: manual
+    research_summary:
+      english_hash: f063cc2305fa1a494303e1a15980a21398f42d112e3ffdd66f86c5981731dab5
+      source_hash: 58ecdf0d185d419bcc8ab5bceb99232e334666542c996ca8646fa5fbb2f9b672
+      status: manual
+  _members/phd-student-03.md:
+    affiliation:
+      english_hash: 911a83c7a114efc82727ff7e3781648db90ea116410679b73bccdca4600862a2
+      source_hash: c60ac1866cbb95ee5a66d6685f17b1749f095e07e80c7348f932966e8f317d34
+      status: manual
+    education:
+      english_hash: 91b892b54225c04cdafc518306ddcf298aeb12f1545fc3124a572ed08f7a71dd
+      source_hash: 190bf0f320f2d076b20dd6d54dbb2b2d3c29c3266d63151a019bdf116702657c
+      status: manual
+    personal_note:
+      english_hash: 206ed588454795ee4e822dfcb29fbb03a23fe4afca8cac857f40a495af4b30b2
+      source_hash: 91bcbd483020d6fadcde214f4ee7b195789e1deb7a8f38865d6565270942ae04
+      status: manual
+    portrait_alt:
+      english_hash: b3218928584979123ecfb44a40b01b8c027bda609502051bf7a219ea97a09a9e
+      source_hash: 445a9ed90917e1bd60b0c7ef45b8b39a75c3bc3677a1e58af50f2914d3232e16
+      status: manual
+    position:
+      english_hash: 0855d8a2f8ce8d1aa80a6fe821d4d8780f5af1e01e814aa6a1683228f5360b85
+      source_hash: 21c8fac6c465d6afc4d2ab68642283971472fea187293d1b3dcf7fb322302256
+      status: manual
+    profile_summary:
+      english_hash: fc98f918fe56bd446a9467692a05389dfdc107a2be2ba78961301ec8712deb41
+      source_hash: 659bc6320b82ceb0646d0a339e110eb71422fae48823dce90dce6f6dd489f9f0
+      status: manual
+    research_interests:
+      english_hash: 10dd18d7b4098a5569af8698c047e4a8c4d1b5288efe68f699c514be7d3f5786
+      source_hash: 4359cbccee26abc89e8719efd79f068136b46533fbf872244c95f940f48d85f0
+      status: manual
+    research_summary:
+      english_hash: 6237e515166dc63448a24e0aac5e04f26c8cb5fb8da27e86d6a6478ff073e204
+      source_hash: 8d4b6ddc66824f81acc9febc1eece0a810154b040e180cce049e6e192572f5c5
+      status: manual
+  _members/phd-student-04.md:
+    affiliation:
+      english_hash: 911a83c7a114efc82727ff7e3781648db90ea116410679b73bccdca4600862a2
+      source_hash: c60ac1866cbb95ee5a66d6685f17b1749f095e07e80c7348f932966e8f317d34
+      status: manual
+    education:
+      english_hash: 91b892b54225c04cdafc518306ddcf298aeb12f1545fc3124a572ed08f7a71dd
+      source_hash: 190bf0f320f2d076b20dd6d54dbb2b2d3c29c3266d63151a019bdf116702657c
+      status: manual
+    personal_note:
+      english_hash: 206ed588454795ee4e822dfcb29fbb03a23fe4afca8cac857f40a495af4b30b2
+      source_hash: 91bcbd483020d6fadcde214f4ee7b195789e1deb7a8f38865d6565270942ae04
+      status: manual
+    portrait_alt:
+      english_hash: 33c23aa7f239bdefa2858b5dfa1e05dde28d35eb24150957d3b3ef3ed90f4c9e
+      source_hash: 5e68759cfcdb193d03b7335990a6fb04596aacda417d46cd9e9175433aa5e614
+      status: manual
+    position:
+      english_hash: 0855d8a2f8ce8d1aa80a6fe821d4d8780f5af1e01e814aa6a1683228f5360b85
+      source_hash: 21c8fac6c465d6afc4d2ab68642283971472fea187293d1b3dcf7fb322302256
+      status: manual
+    profile_summary:
+      english_hash: fc98f918fe56bd446a9467692a05389dfdc107a2be2ba78961301ec8712deb41
+      source_hash: 659bc6320b82ceb0646d0a339e110eb71422fae48823dce90dce6f6dd489f9f0
+      status: manual
+    research_interests:
+      english_hash: 10dd18d7b4098a5569af8698c047e4a8c4d1b5288efe68f699c514be7d3f5786
+      source_hash: 4359cbccee26abc89e8719efd79f068136b46533fbf872244c95f940f48d85f0
+      status: manual
+    research_summary:
+      english_hash: 0bf4bd085e4fd9d7f9bedd7fa1c4bd49829117bf6077d7fccae902d27d6a87ea
+      source_hash: b8c561978579aa0044a065fc2554dea77528cb854d2c13c63bcf6967da74614d
+      status: manual
+  _members/phd-student-05.md:
+    affiliation:
+      english_hash: 911a83c7a114efc82727ff7e3781648db90ea116410679b73bccdca4600862a2
+      source_hash: c60ac1866cbb95ee5a66d6685f17b1749f095e07e80c7348f932966e8f317d34
+      status: manual
+    education:
+      english_hash: 91b892b54225c04cdafc518306ddcf298aeb12f1545fc3124a572ed08f7a71dd
+      source_hash: 190bf0f320f2d076b20dd6d54dbb2b2d3c29c3266d63151a019bdf116702657c
+      status: manual
+    personal_note:
+      english_hash: 206ed588454795ee4e822dfcb29fbb03a23fe4afca8cac857f40a495af4b30b2
+      source_hash: 91bcbd483020d6fadcde214f4ee7b195789e1deb7a8f38865d6565270942ae04
+      status: manual
+    portrait_alt:
+      english_hash: ccd4d04448e60338927e2f486b807da611c794dd6174444d4a6dac0c6c6e3724
+      source_hash: 6fec6a1c59ff95c698f335db2fbedaa89c080b42ce6148887b19e47d821f9c01
+      status: manual
+    position:
+      english_hash: 0855d8a2f8ce8d1aa80a6fe821d4d8780f5af1e01e814aa6a1683228f5360b85
+      source_hash: 21c8fac6c465d6afc4d2ab68642283971472fea187293d1b3dcf7fb322302256
+      status: manual
+    profile_summary:
+      english_hash: fc98f918fe56bd446a9467692a05389dfdc107a2be2ba78961301ec8712deb41
+      source_hash: 659bc6320b82ceb0646d0a339e110eb71422fae48823dce90dce6f6dd489f9f0
+      status: manual
+    research_interests:
+      english_hash: 10dd18d7b4098a5569af8698c047e4a8c4d1b5288efe68f699c514be7d3f5786
+      source_hash: 4359cbccee26abc89e8719efd79f068136b46533fbf872244c95f940f48d85f0
+      status: manual
+    research_summary:
+      english_hash: 8b138642ca7dd4e88ac300052ec9b3e6c26c35bfbd839f3881673103265ca883
+      source_hash: ddd0d75eaf89a47d6133ab7a9f5ffac1ec8302556e337b2eadb4ae5614bc7681
+      status: manual
+  _members/phd-student-06.md:
+    affiliation:
+      english_hash: 911a83c7a114efc82727ff7e3781648db90ea116410679b73bccdca4600862a2
+      source_hash: c60ac1866cbb95ee5a66d6685f17b1749f095e07e80c7348f932966e8f317d34
+      status: manual
+    education:
+      english_hash: 91b892b54225c04cdafc518306ddcf298aeb12f1545fc3124a572ed08f7a71dd
+      source_hash: 190bf0f320f2d076b20dd6d54dbb2b2d3c29c3266d63151a019bdf116702657c
+      status: manual
+    personal_note:
+      english_hash: 206ed588454795ee4e822dfcb29fbb03a23fe4afca8cac857f40a495af4b30b2
+      source_hash: 91bcbd483020d6fadcde214f4ee7b195789e1deb7a8f38865d6565270942ae04
+      status: manual
+    portrait_alt:
+      english_hash: ef78a63176dfa72b90e64551907ce954c36762fb7d6b2f774f5d8d2d677ce58c
+      source_hash: 4e33318f71ce6ee8eeb421ec0802a06742e77d157c3b6d195c6f412b23a7e3bf
+      status: manual
+    position:
+      english_hash: 0855d8a2f8ce8d1aa80a6fe821d4d8780f5af1e01e814aa6a1683228f5360b85
+      source_hash: 21c8fac6c465d6afc4d2ab68642283971472fea187293d1b3dcf7fb322302256
+      status: manual
+    profile_summary:
+      english_hash: fc98f918fe56bd446a9467692a05389dfdc107a2be2ba78961301ec8712deb41
+      source_hash: 659bc6320b82ceb0646d0a339e110eb71422fae48823dce90dce6f6dd489f9f0
+      status: manual
+    research_interests:
+      english_hash: 10dd18d7b4098a5569af8698c047e4a8c4d1b5288efe68f699c514be7d3f5786
+      source_hash: 4359cbccee26abc89e8719efd79f068136b46533fbf872244c95f940f48d85f0
+      status: manual
+    research_summary:
+      english_hash: fc28a3cc48383dfd46e1ad3dcf79f47a055bdbc160c03768815ebde507029e4b
+      source_hash: 81bd3cea9ce5fd9c8adab502ae9bd2b7ebda92727001261b21ec198e93b7deec
+      status: manual
+  _members/phd-student-07.md:
+    affiliation:
+      english_hash: 911a83c7a114efc82727ff7e3781648db90ea116410679b73bccdca4600862a2
+      source_hash: c60ac1866cbb95ee5a66d6685f17b1749f095e07e80c7348f932966e8f317d34
+      status: manual
+    education:
+      english_hash: 91b892b54225c04cdafc518306ddcf298aeb12f1545fc3124a572ed08f7a71dd
+      source_hash: 190bf0f320f2d076b20dd6d54dbb2b2d3c29c3266d63151a019bdf116702657c
+      status: manual
+    personal_note:
+      english_hash: 206ed588454795ee4e822dfcb29fbb03a23fe4afca8cac857f40a495af4b30b2
+      source_hash: 91bcbd483020d6fadcde214f4ee7b195789e1deb7a8f38865d6565270942ae04
+      status: manual
+    portrait_alt:
+      english_hash: 50f428b996e86ffc12d1b83a0e2c250d06788f328b6764e5460c34e242f1c791
+      source_hash: 0411583cf7577235c3e7969a4dbf83af159c2446c5a7b77ff884088fcdeb9796
+      status: manual
+    position:
+      english_hash: 0855d8a2f8ce8d1aa80a6fe821d4d8780f5af1e01e814aa6a1683228f5360b85
+      source_hash: 21c8fac6c465d6afc4d2ab68642283971472fea187293d1b3dcf7fb322302256
+      status: manual
+    profile_summary:
+      english_hash: fc98f918fe56bd446a9467692a05389dfdc107a2be2ba78961301ec8712deb41
+      source_hash: 659bc6320b82ceb0646d0a339e110eb71422fae48823dce90dce6f6dd489f9f0
+      status: manual
+    research_interests:
+      english_hash: 10dd18d7b4098a5569af8698c047e4a8c4d1b5288efe68f699c514be7d3f5786
+      source_hash: 4359cbccee26abc89e8719efd79f068136b46533fbf872244c95f940f48d85f0
+      status: manual
+    research_summary:
+      english_hash: dd33d2e7250b93d3d8708355a2d46d451a93e527ba50aa9daa1d801e28e1a82a
+      source_hash: dce08882d4c8b81f0a851a4ec75171d2ad71b97d8527cce3ce788da8a7593c53
+      status: manual
+  _members/phd-student-08.md:
+    affiliation:
+      english_hash: 911a83c7a114efc82727ff7e3781648db90ea116410679b73bccdca4600862a2
+      source_hash: c60ac1866cbb95ee5a66d6685f17b1749f095e07e80c7348f932966e8f317d34
+      status: manual
+    education:
+      english_hash: 91b892b54225c04cdafc518306ddcf298aeb12f1545fc3124a572ed08f7a71dd
+      source_hash: 190bf0f320f2d076b20dd6d54dbb2b2d3c29c3266d63151a019bdf116702657c
+      status: manual
+    personal_note:
+      english_hash: 206ed588454795ee4e822dfcb29fbb03a23fe4afca8cac857f40a495af4b30b2
+      source_hash: 91bcbd483020d6fadcde214f4ee7b195789e1deb7a8f38865d6565270942ae04
+      status: manual
+    portrait_alt:
+      english_hash: 9f2a69e1232e0a75dc79fa63c91c5a33508d01ef8ae58a75e781bd1d1ee89165
+      source_hash: e16599b66e3f80ba2fa602cfc2c49d3a617ea04795f22df902de0c4993d5046a
+      status: manual
+    position:
+      english_hash: 0855d8a2f8ce8d1aa80a6fe821d4d8780f5af1e01e814aa6a1683228f5360b85
+      source_hash: 21c8fac6c465d6afc4d2ab68642283971472fea187293d1b3dcf7fb322302256
+      status: manual
+    profile_summary:
+      english_hash: fc98f918fe56bd446a9467692a05389dfdc107a2be2ba78961301ec8712deb41
+      source_hash: 659bc6320b82ceb0646d0a339e110eb71422fae48823dce90dce6f6dd489f9f0
+      status: manual
+    research_interests:
+      english_hash: 10dd18d7b4098a5569af8698c047e4a8c4d1b5288efe68f699c514be7d3f5786
+      source_hash: 4359cbccee26abc89e8719efd79f068136b46533fbf872244c95f940f48d85f0
+      status: manual
+    research_summary:
+      english_hash: 1d17d6e1631c3281d1092a35ad03a5a66954471d22aad0e0812195e2a47a121c
+      source_hash: b43b80c18cdc74efa4da5d2d1f1d816385501874a7b5ae29e73d930a358a4195
+      status: manual
+  _news/2026-08-01-placeholder-member.md:
+    alt:
+      english_hash: 51074b07f17f4970727cd90b365eac9ab471b1b5b08286973e5524363cd5eb24
+      source_hash: e0d17e6ebd85700a19f7b21424c0267b6b1f5152291768e68c00c521454c5821
+      status: manual
+    summary:
+      english_hash: 2ba1a515004a0aa8de837f78661629c2cba5ff753bb6bbccba81568cb48427ff
+      source_hash: 16e9b3239d15b59e92e411f049a3a766d54308282cb0a29ff285579494565534
+      status: manual
+    title:
+      english_hash: 7c5bc1976f438daa4058c5bdbfbf1d6720c94f0b9fc5185cfca58be39309fbfb
+      source_hash: a466688c160c2f9b7d75d90b468a3813fb767ca57844ab9ec30df742eb7de60f
+      status: manual
+  _news/2026-08-28-placeholder-award.md:
+    alt:
+      english_hash: 0cc6332c125f32e9f6740856ef028b6310b9228531c40d3011daa2af05c0dc80
+      source_hash: 785ebeea14809ca01e442174af57c5468156282d638473a1843accb8652d50d5
+      status: manual
+    summary:
+      english_hash: b186d5edc3e470c31bc2eea7e8ccbf927380fdd02b29683128385a7d913a8aa9
+      source_hash: 91d62b0fd8e23cca928440065d39b31d44aa86f3e75ca736b53bc8e743ae0f33
+      status: manual
+    title:
+      english_hash: df4db6694c943aedd2700e554b96917b1545f63a53c25efc12bead83c6083787
+      source_hash: 19616350e50d8f8781c03c671e8627b3acac8199545a9a9d2513a39c65e39ec8
+      status: manual
+  _news/2026-09-15-placeholder-publication.md:
+    alt:
+      english_hash: cda6644feb0ef639185eac411d91c393ad1e013c12a3fa16671e16ae588d00c4
+      source_hash: bce1716ed9f3f3f44593b6b8625fe110a5d5b8b35627c164776b84573068f4fa
+      status: manual
+    summary:
+      english_hash: b8be21c32ca259551a75d35e9d24bba280a110fb330b9705272e7e81b8de9b31
+      source_hash: 6bc5affd1e871d0054494914ac64668d7dffd55b6ca4c35d5174b43ba0fd0b1f
+      status: manual
+    title:
+      english_hash: 9ff08d903f7671f059495a865774c95c73fbb158e4f1ba6a70a05a5c67590bf9
+      source_hash: ecf9f89186c611c93a0640b3a1bb18983d7b7c834bafdc7d5d489718d1ccab37
+      status: manual
+  _opportunities/phd-students.md:
+    content:
+      english_hash: 1c94537c186aff10dd626fd3399beb925f4b9ccee6ad325d48c0b54cc7a61093
+      source_hash: 3ea922af787a3c8c2b2e38e772f72e50f7d73f7dea93c58c7a37253d706fad14
+      status: manual
+    links[0].label:
+      english_hash: a8412d1f6eba1e4c6895d332d84b08758307cf4fe292e5dda8bf7756757126ca
+      source_hash: c033e6eeed9571481b80a8b35cb57178e686988ccdd537781bb34db76ac588ec
+      status: manual
+    title:
+      english_hash: 3d0e5425d3f686d70f6521b37be1434f9ebe6c72770c1c441953d2c95f783d7c
+      source_hash: 06c900bf1899a3b6eef7ad0a59244612ac84b4e374aae57a0244a362ae3be3c1
+      status: manual
+  _opportunities/visiting-students-expired.md:
+    content:
+      english_hash: f38db2077593644a44a0cb3f393d2d77f2a29c5a81ddfcb5df94f5502fc75287
+      source_hash: eda74428d85246a7a12613f2aa3eb19604c0b30d5df4b5b6228442cec6ea8459
+      status: manual
+    title:
+      english_hash: 9ed0e1dee58ee7befbf05b80cc4dc83b64b491c8efaab54a647afcc5565d6a5d
+      source_hash: 2f2462ac1790b84c4ddfd0a2c89094d939bcfa804cfee44800b330e285cc3b60
+      status: manual
+  _research/aqueous-electrochemistry.md:
+    alt:
+      english_hash: e8c2618a1b2ca184ba79a333a33fadcd7f88b220d743db8fbb6b140c0e414d63
+      source_hash: 8c2cc51ebdd17e06e1b76278b114ea0039fd4e7126131b6a20b284930f4d2351
+      status: manual
+    short_intro:
+      english_hash: 13501ce47baf71b7c30099945cbdbbeaa360c0bb0dde9eabd2c590f9c5fe7e20
+      source_hash: 333b9cd8bb68dbee0faeb17d727d79250e5e314df8e75980348d23e6007e7cc8
+      status: manual
+    title:
+      english_hash: 40978b0832f2fa569c1fe281adea18e941521cd4ef375763892678d4f0a69a5b
+      source_hash: c51e37cd7a45d88ce3c8ee0db35c35992c9e30e4ea6d935d3e1f31f6ff0f57d4
+      status: manual
+  _research/solid-electrolyte-interfaces.md:
+    alt:
+      english_hash: a1f50623e57a5d310911168784f504b3bfa3e152e9b86c491c7bf90e7f8631d1
+      source_hash: be36aea01363ff7be11375b7b730b079256c60e92057df4cb35e1dfb29e5cbf3
+      status: manual
+    short_intro:
+      english_hash: 2bc57d8bee5f9491765cea090999c89f3276d67394d1a471e4d14041e05159fa
+      source_hash: ee6b98b51da92baa2fb01d8562ff2167a3a17aa3f5cbc64c49a01a4b81ffd53b
+      status: manual
+    title:
+      english_hash: 979fd8ca8d1fa899c9ff3fa17bbca34ec4083f12e16b2af392fd9576c7bd8edd
+      source_hash: 3affa6b2e4764712eae52d0d9119fc6523730406327faaac78964781ec734378
+      status: manual
+version: 1

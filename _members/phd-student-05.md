@@ -12,6 +12,8 @@ research_summary_en: Placeholder topic in aqueous batteries.
 research_summary_zh: 水系电池方向占位介绍。
 affiliation_en: Energy Materials Laboratory
 affiliation_zh: 能源材料课题组
+profile_summary_en: This placeholder profile demonstrates the editable academic-background summary used for current research direction, methods, and scholarly interests.
+profile_summary_zh: 此占位简介用于展示可编辑的个人学术背景字段，可概述当前研究方向、研究方法与学术兴趣。
 address_en: ""
 address_zh: ""
 research_interests_en: Placeholder research interests.
@@ -26,6 +28,7 @@ orcid: ""
 researchgate: ""
 personal_website: ""
 github: ""
+representative_dois: []
 active: true
 display: true
 order: 6

@@ -17,23 +17,23 @@ content:
         type: object
         required: true
         fields:
-          - { name: eyebrow_en, label: Section label EN, type: string, required: true }
-          - { name: eyebrow_zh, label: Section label ZH, type: string, required: true }
-          - { name: title_en, label: Slogan EN, type: string, required: true }
-          - { name: title_zh, label: Slogan ZH, type: string, required: true }
-          - { name: text_en, label: Introduction EN, type: text, required: true }
-          - { name: text_zh, label: Introduction ZH, type: text, required: true }
+          - { name: eyebrow_zh, label: "中文（必填）— 栏目标题", type: string, required: true }
+          - { name: title_zh, label: "中文（必填）— Slogan", type: string, required: true }
+          - { name: text_zh, label: "中文（必填）— 简介", type: text, required: true }
+          - { name: eyebrow_en, label: "English (optional) — Section label", type: string, description: "Generated from Chinese when empty. Manual English always takes priority." }
+          - { name: title_en, label: "English (optional) — Slogan", type: string, description: "Generated from Chinese when empty. Manual English always takes priority." }
+          - { name: text_en, label: "English (optional) — Introduction", type: text, description: "Generated from Chinese when empty. Manual English always takes priority." }
           - { name: autoplay_seconds, label: Seconds per slide, type: number, required: true, default: 6, description: Recommended range is 5 to 8 seconds. }
           - name: slides
             label: Visual Slides
             type: object
             required: true
             list:
-              collapsible: { collapsed: true, summary: "{caption_en}" }
+              collapsible: { collapsed: true, summary: "{caption_zh}" }
             fields:
               - { name: image, label: Image, type: image, required: true, options: { media: images } }
-              - { name: alt_en, label: Image alt EN, type: string, required: true }
-              - { name: alt_zh, label: Image alt ZH, type: string, required: true }
+              - { name: alt_zh, label: "中文（必填）— 图片替代文本", type: string, required: true }
+              - { name: alt_en, label: "English (optional) — Image alt", type: string, description: "Generated from Chinese when empty." }
               - name: visual_type
                 label: Visual Type
                 type: select
@@ -42,14 +42,15 @@ content:
                   values:
                     - { name: graphical-abstract, label: A - Graphical Abstract }
                     - { name: lab-photo, label: B - Lab / Group Photo }
-              - { name: caption_en, label: Caption EN, type: string }
-              - { name: caption_zh, label: Caption ZH, type: string }
+              - { name: caption_zh, label: "中文 — 图片说明", type: string }
+              - { name: caption_en, label: "English (optional) — Caption", type: string, description: "Generated from Chinese when the Chinese caption is provided." }
+              - { name: related_doi, label: Related DOI, type: string, description: "Optional DOI only. Journal and year are read from the citation system; do not copy metadata." }
               - { name: display, label: Display, type: boolean, default: true }
               - { name: order, label: Display Order, type: number, required: true }
-      - { name: highlights_heading_en, label: Highlights heading EN, type: string, required: true }
       - { name: highlights_heading_zh, label: Highlights heading ZH, type: string, required: true }
-      - { name: events_heading_en, label: Events heading EN, type: string, required: true }
+      - { name: highlights_heading_en, label: "Highlights heading EN (optional)", type: string, description: "Generated from Chinese when empty." }
       - { name: events_heading_zh, label: Events heading ZH, type: string, required: true }
+      - { name: events_heading_en, label: "Events heading EN (optional)", type: string, description: "Generated from Chinese when empty." }
       - { name: news_limit, label: News items on homepage, type: number, required: true }
       - { name: events_limit, label: Event items on homepage, type: number, required: true }
 
@@ -58,11 +59,11 @@ content:
     type: collection
     path: _news
     format: yaml-frontmatter
-    filename: "{date}-{title_en}.md"
+    filename: "{date}-{title_zh}.md"
     view:
-      fields: [title_en, category, date, display]
-      primary: title_en
-      sort: [date, category, title_en]
+      fields: [title_zh, title_en, category, date, display]
+      primary: title_zh
+      sort: [date, category, title_zh]
       default: { sort: date, order: desc }
     fields:
       - name: category
@@ -71,10 +72,10 @@ content:
         required: true
         options:
           values: [Publication, Award, Member, Academic Achievement, Funding, Announcement]
-      - { name: title_en, label: Title EN, type: string, required: true }
-      - { name: title_zh, label: Title ZH, type: string, required: true }
-      - { name: summary_en, label: Summary EN, type: text, required: true }
-      - { name: summary_zh, label: Summary ZH, type: text, required: true }
+      - { name: title_zh, label: "中文（必填）— 标题", type: string, required: true }
+      - { name: summary_zh, label: "中文（必填）— 摘要", type: text, required: true }
+      - { name: title_en, label: "English (optional) — Title", type: string, description: "Generated from Chinese when empty. Manual English always takes priority." }
+      - { name: summary_en, label: "English (optional) — Summary", type: text, description: "Generated from Chinese when empty. Manual English always takes priority." }
       - { name: date, label: Date, type: date, required: true, options: { format: yyyy-MM-dd } }
       - { name: image, label: Image, type: image, options: { media: images } }
       - { name: alt_en, label: Image alt EN, type: string }
@@ -87,11 +88,11 @@ content:
     type: collection
     path: _events
     format: yaml-frontmatter
-    filename: "{date}-{title_en}.md"
+    filename: "{date}-{title_zh}.md"
     view:
-      fields: [title_en, type, category, date, display]
-      primary: title_en
-      sort: [date, type, title_en]
+      fields: [title_zh, title_en, type, category, date, display]
+      primary: title_zh
+      sort: [date, type, title_zh]
       default: { sort: date, order: desc }
     fields:
       - name: type
@@ -100,12 +101,12 @@ content:
         required: true
         options: { values: [Academic, Group] }
       - { name: category, label: Category, type: string, required: true }
-      - { name: title_en, label: Title EN, type: string, required: true }
-      - { name: title_zh, label: Title ZH, type: string, required: true }
+      - { name: title_zh, label: "中文（必填）— 标题", type: string, required: true }
+      - { name: title_en, label: "English (optional) — Title", type: string, description: "Generated from Chinese when empty. Manual English always takes priority." }
       - { name: date, label: Date, type: date, required: true, options: { format: yyyy-MM-dd } }
       - { name: end_date, label: End date, type: date, default: "", options: { format: yyyy-MM-dd } }
-      - { name: location_en, label: Location EN, type: string }
       - { name: location_zh, label: Location ZH, type: string }
+      - { name: location_en, label: "Location EN (optional)", type: string, description: "Generated from Chinese when the Chinese location is provided." }
       - { name: cover_image, label: Cover image, type: image, options: { media: images } }
       - { name: alt_en, label: Cover alt EN, type: string }
       - { name: alt_zh, label: Cover alt ZH, type: string }
@@ -113,8 +114,8 @@ content:
         label: Gallery
         type: image
         options: { media: images, multiple: true, unique: true }
-      - { name: description_en, label: Description EN, type: rich-text, options: { media: false } }
       - { name: description_zh, label: Description ZH, type: rich-text, options: { media: false } }
+      - { name: description_en, label: "Description EN (optional)", type: rich-text, options: { media: false }, description: "Generated from Chinese when the Chinese description is provided." }
       - { name: external_link, label: External link, type: string }
       - { name: display, label: Display, type: boolean, default: true }
 
@@ -123,20 +124,20 @@ content:
     type: collection
     path: _research
     format: yaml-frontmatter
-    filename: "{title_en}.md"
+    filename: "{title_zh}.md"
     view:
-      fields: [title_en, title_zh, order, display]
-      primary: title_en
-      sort: [order, title_en]
+      fields: [title_zh, title_en, order, display]
+      primary: title_zh
+      sort: [order, title_zh]
       default: { sort: order, order: asc }
     fields:
-      - { name: title_en, label: Title EN, type: string, required: true }
-      - { name: title_zh, label: Title ZH, type: string, required: true }
+      - { name: title_zh, label: "中文（必填）— 标题", type: string, required: true }
+      - { name: title_en, label: "English (optional) — Title", type: string, description: "Generated from Chinese when empty. Manual English always takes priority." }
       - { name: graphical_abstract, label: Graphical Abstract, type: image, required: true, options: { media: images } }
-      - { name: alt_en, label: Alt EN, type: string, required: true }
       - { name: alt_zh, label: Alt ZH, type: string, required: true }
-      - { name: short_intro_en, label: Short Intro EN, type: text, required: true }
+      - { name: alt_en, label: "Alt EN (optional)", type: string, description: "Generated from Chinese when empty." }
       - { name: short_intro_zh, label: Short Intro ZH, type: text, required: true }
+      - { name: short_intro_en, label: "Short Intro EN (optional)", type: text, description: "Generated from Chinese when empty." }
       - { name: doi_list, label: DOI list, type: string, list: true, description: DOI only; do not copy bibliographic metadata. }
       - { name: display, label: Display, type: boolean, default: true }
       - { name: order, label: Order, type: number, required: true }
@@ -178,31 +179,34 @@ content:
     fields:
       - { name: slug, label: Member ID / slug, type: string, required: true, pattern: "^[a-z0-9-]+$" }
       - { name: role, label: Role ID, type: string, required: true, pattern: "^[a-z0-9-]+$", description: Use an ID configured under Team Role Labels. This permits new member categories without a code change. }
-      - { name: name_en, label: Name EN, type: string, required: true }
       - { name: name_zh, label: Name ZH, type: string, required: true }
-      - { name: position_en, label: Position EN, type: string, required: true }
+      - { name: name_en, label: "Name EN (optional; enter official spelling)", type: string, description: "Never auto-translated or romanized. Chinese is shown until official English is supplied." }
       - { name: position_zh, label: Position ZH, type: string, required: true }
+      - { name: position_en, label: "Position EN (optional)", type: string, description: "Generated from Chinese when empty; replace with the official title when available." }
       - { name: portrait, label: Portrait, type: image, required: true, options: { media: images } }
-      - { name: portrait_alt_en, label: Portrait alt EN, type: string, required: true }
       - { name: portrait_alt_zh, label: Portrait alt ZH, type: string, required: true }
-      - { name: research_summary_en, label: Short research area EN, type: text, required: true }
+      - { name: portrait_alt_en, label: "Portrait alt EN (optional)", type: string, description: "Generated from Chinese when empty." }
       - { name: research_summary_zh, label: Short research area ZH, type: text, required: true }
-      - { name: affiliation_en, label: Affiliation EN, type: string }
+      - { name: research_summary_en, label: "Short research area EN (optional)", type: text, description: "Generated from Chinese when empty." }
       - { name: affiliation_zh, label: Affiliation ZH, type: string }
-      - { name: address_en, label: Address EN, type: text }
+      - { name: affiliation_en, label: "Affiliation EN (optional)", type: string, description: "Generated when empty; use official English when available." }
+      - { name: profile_summary_zh, label: "Profile Summary ZH", type: text, required: true, description: "50–120 English-word equivalent. Academic background and current work; do not repeat Education." }
+      - { name: profile_summary_en, label: "Profile Summary EN (optional)", type: text, description: "Generated from Chinese when empty. Manual English always takes priority." }
       - { name: address_zh, label: Address ZH, type: text }
-      - { name: research_interests_en, label: Research interests EN, type: text }
+      - { name: address_en, label: "Address EN (optional)", type: text, description: "Generated when empty; official English may be entered manually." }
       - { name: research_interests_zh, label: Research interests ZH, type: text }
-      - { name: personal_note_en, label: Personal Note EN, type: text, description: Optional plain text only. Images, tables, HTML, and rich media are not supported. }
+      - { name: research_interests_en, label: "Research interests EN (optional)", type: text, description: "Generated from Chinese when empty." }
       - { name: personal_note_zh, label: Personal Note ZH, type: text, description: Optional plain text only. Images, tables, HTML, and rich media are not supported. }
-      - { name: education_en, label: Education EN, type: rich-text, options: { media: false } }
+      - { name: personal_note_en, label: "Personal Note EN (optional)", type: text, description: "Generated from Chinese when empty. Plain text only." }
       - { name: education_zh, label: Education ZH, type: rich-text, options: { media: false } }
+      - { name: education_en, label: "Education EN (optional)", type: rich-text, options: { media: false }, description: "Generated from Chinese when empty." }
       - { name: email, label: Email, type: string }
       - { name: google_scholar, label: Google Scholar, type: string }
       - { name: orcid, label: ORCID, type: string }
       - { name: researchgate, label: ResearchGate, type: string }
       - { name: personal_website, label: Personal Website, type: string }
       - { name: github, label: GitHub, type: string }
+      - { name: representative_dois, label: Representative Publication DOIs, type: string, list: true, description: "Usually 3–6 DOI values. Metadata is reused from Publications and is never translated." }
       - { name: active, label: Active member, type: boolean, default: true }
       - { name: display, label: Display, type: boolean, default: true }
       - { name: order, label: Order, type: number, required: true }
@@ -215,8 +219,8 @@ content:
     list: true
     fields:
       - { name: id, label: Role ID, type: string, required: true, pattern: "^[a-z0-9-]+$", description: Stable ID used by Team members, for example visiting-students. }
-      - { name: label_en, label: Display Label EN, type: string, required: true }
       - { name: label_zh, label: Display Label ZH, type: string, required: true }
+      - { name: label_en, label: "Display Label EN (optional; official wording)", type: string, description: "Not machine-translated; Chinese is shown until official English is supplied." }
       - { name: display, label: Display category, type: boolean, default: true }
       - { name: order, label: Display Order, type: number, required: true }
 
@@ -225,10 +229,10 @@ content:
     type: collection
     path: _opportunities
     format: yaml-frontmatter
-    filename: "{title_en}.md"
+    filename: "{title_zh}.md"
     view:
-      fields: [title_en, category, active_override, closing_date, display_order]
-      primary: title_en
+      fields: [title_zh, title_en, category, active_override, closing_date, display_order]
+      primary: title_zh
       sort: [category, display_order, closing_date]
       default: { sort: display_order, order: asc }
     fields:
@@ -238,18 +242,18 @@ content:
         required: true
         options:
           values: [PhD Students, Research Assistants, Administrative Assistants, Assistant Professors, Postdoctoral Researchers, Visiting Students, Other]
-      - { name: title_en, label: Title EN, type: string, required: true }
       - { name: title_zh, label: Title ZH, type: string, required: true }
-      - { name: content_en, label: Content EN, type: rich-text, required: true, options: { media: false } }
+      - { name: title_en, label: "Title EN (optional)", type: string, description: "Generated from Chinese when empty; official recruitment titles should be reviewed manually." }
       - { name: content_zh, label: Content ZH, type: rich-text, required: true, options: { media: false } }
+      - { name: content_en, label: "Content EN (optional)", type: rich-text, options: { media: false }, description: "Generated from Chinese when empty. Manual English always takes priority." }
       - name: links
         label: Links
         type: object
         list:
-          collapsible: { collapsed: true, summary: "{label_en}" }
+          collapsible: { collapsed: true, summary: "{label_zh}" }
         fields:
-          - { name: label_en, label: Label EN, type: string, required: true }
           - { name: label_zh, label: Label ZH, type: string, required: true }
+          - { name: label_en, label: "Label EN (optional)", type: string, description: "Generated from Chinese when empty." }
           - { name: url, label: URL, type: string, required: true }
       - name: active_override
         label: Active override
@@ -272,22 +276,22 @@ content:
     type: file
     path: _data/site.yaml
     fields:
-      - { name: lab_name_en, label: Lab name EN, type: string, required: true }
       - { name: lab_name_zh, label: Lab name ZH, type: string, required: true }
-      - { name: school_en, label: School EN, type: string, required: true }
+      - { name: lab_name_en, label: "Lab name EN (optional; official wording)", type: string, description: "Never guessed by automation. Chinese is shown until official English is entered." }
       - { name: school_zh, label: School ZH, type: string, required: true }
-      - { name: college_en, label: College EN, type: string, required: true }
+      - { name: school_en, label: "School EN (optional; official wording)", type: string, description: "Never guessed by automation. Chinese is shown until official English is entered." }
       - { name: college_zh, label: College ZH, type: string, required: true }
-      - { name: address_en, label: Address EN, type: text, required: true }
+      - { name: college_en, label: "College EN (optional; official wording)", type: string, description: "Never guessed by automation. Chinese is shown until official English is entered." }
       - { name: address_zh, label: Address ZH, type: text, required: true }
+      - { name: address_en, label: "Address EN (optional)", type: text, description: "Generated from Chinese when empty; official English takes priority." }
       - { name: email, label: Email, type: string, required: true }
       - { name: header_image, label: Header campus image, type: image, required: true, options: { media: images } }
       - { name: lab_logo, label: Lab logo, type: image, required: true, options: { media: images } }
       - { name: school_logo, label: School logo, type: image, required: true, options: { media: images } }
-      - { name: copyright_en, label: Copyright EN, type: string, required: true }
       - { name: copyright_zh, label: Copyright ZH, type: string, required: true }
-      - { name: description_en, label: Site description EN, type: text, required: true }
+      - { name: copyright_en, label: "Copyright EN (optional)", type: string, description: "Generated from Chinese when empty." }
       - { name: description_zh, label: Site description ZH, type: text, required: true }
+      - { name: description_en, label: "Site description EN (optional)", type: text, description: "Generated from Chinese when empty." }
       - name: typography
         label: Typography
         type: object
@@ -334,6 +338,14 @@ settings:
       rename: "content: rename {oldFilename} to {newFilename}"
 
 actions:
+  - name: translate-content
+    label: Generate pending English
+    workflow: translate-content.yml
+    ref: current
+    confirm:
+      title: Generate pending English?
+      message: Fill missing or previously auto-generated English. Manual English is never overwritten.
+      button: Generate
   - name: deploy-site
     label: Deploy website
     workflow: deploy-pages.yml

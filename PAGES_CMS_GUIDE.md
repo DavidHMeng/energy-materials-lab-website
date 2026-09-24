@@ -25,8 +25,8 @@ Pages CMS 直接编辑 GitHub 仓库中的 Markdown/YAML 文件，没有独立�
 
 1. 从左侧 **Content** 选择内容类型。
 2. 打开现有记录，或在集合页面选择新建记录。
-3. 同时填写英文和中文字段；`*_en` 与 `*_zh` 都是正式内容，不能只填一侧。
-4. 图片必须填写对应的英文和中文替代文本（Alt）。
+3. 日常维护以中文为准：标为“中文（必填）”的字段必须填写；English 字段可留空。
+4. 图片必须填写中文替代文本（Alt）；英文 Alt 留空时可由翻译流程生成。
 5. 检查日期、排序、显示开关和外部链接。
 6. 点击 **Save**。
 
@@ -40,8 +40,8 @@ Pages CMS 直接编辑 GitHub 仓库中的 Markdown/YAML 文件，没有独立�
 ### 2.2 检查构建
 
 保存后先等待 GitHub Actions 的 **Validate and build** 变为绿色。失败时不要发布；
-打开失败运行，查看第一个红色步骤。常见原因是必填字段缺失、日期格式错误、图片
-路径不存在、中文/英文 Alt 缺失、DOI 未登记或内部链接无效。
+打开失败运行，查看第一个红色步骤。常见原因是中文必填字段缺失、日期格式错误、图片
+路径不存在、中文 Alt 缺失、DOI 未登记或内部链接无效。
 
 Actions 页面：
 <https://github.com/DavidHMeng/energy-materials-lab-website/actions>
@@ -68,12 +68,12 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 
 | CMS 入口 | 维护内容 | 关键规则 |
 | --- | --- | --- |
-| Homepage Settings | 首页 Introduction 文字、轮播图、Highlights / Events 标题和数量 | 轮播图分 A/B 类型；科研图必须完整显示 |
+| Homepage Settings | 首页 Introduction 文字、轮播图、Highlights / Events 标题和数量 | 轮播图分 A/B 类型；科研图以 1.65:1 容器完整显示；可关联 DOI |
 | Highlights / News | 动态、获奖、成员、论文、项目和公告 | 必填中英文标题/摘要/日期；空外链自动隐藏 |
 | Events | 学术或课题组活动 | `Academic` 或 `Group`；结束日期不得早于开始日期 |
 | Research | 研究方向 | 图文、中英文简介、DOI 列表、显示和顺序 |
 | Publications | DOI 来源列表 | `id` 必须是 `doi:10.xxxx/...`；不要手填作者、期刊或年份 |
-| Team | 成员、圆形头像、简短介绍与个人页 | `slug` 稳定且唯一；个人寄语只填纯文本；离组成员关闭 `active` 或 `display` |
+| Team | 成员、圆形头像、简短介绍与个人页 | 支持 Profile Summary 与代表作 DOI；`slug` 稳定且唯一；离组成员关闭 `active` 或 `display` |
 | Team Role Labels | 成员分类及其中英文标题 | 可维护博士后、访问学生等类别，也可新增未来类别 |
 | Opportunities | 招聘与机会 | 使用日期窗口和 `active_override`；空类别自动隐藏 |
 | Site Settings | 名称、学校、地址、邮箱、Logo、页头图和站点描述 | 替换占位内容时同时完成中英文信息 |
@@ -94,6 +94,10 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 - `Visual Type` 有两类：**A - Graphical Abstract** 与
   **B - Lab / Group Photo**。类型只用于维护和小标签，不会切换成不同页面结构。
 - Graphical Abstract 会完整显示，不会自动裁切；上传前仍应去除大面积无效留白。
+- 视觉容器约为 1.65:1，图片使用 `object-fit: contain`；不同原始比例允许出现少量
+  上下或左右留白，不会为了铺满而裁掉文字、箭头或图例。
+- `Related DOI` 可选。填写已登记 DOI 后，前台从 Citation 系统读取期刊与年份；
+  不要把作者、题名、期刊或年份手工复制到轮播数据。
 - `Display Order` 越小越靠前；`Display` 可临时隐藏图片而不删除记录。
 - `Seconds per slide` 建议使用 5–8 秒，允许范围为 5–12 秒。轮播会在鼠标悬停、
   键盘操作和系统“减少动态效果”设置下暂停或停用自动播放。
@@ -107,7 +111,7 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 - Category 只能选：Publication、Award、Member、Academic Achievement、Funding、
   Announcement。
 - `display` 关闭后，记录保留在仓库中但不在网站显示。
-- 有图片时必须同时填写 `Image alt EN` 和 `Image alt ZH`。
+- 有图片时必须填写中文 Alt；English Alt 可留空并由翻译流程生成。
 - 外部链接为空时，“Learn more / 了解更多”不会显示。
 
 ### Events
@@ -145,7 +149,11 @@ Research 和 Team 都通过 DOI/成员 ID 引用同一出版物；不要在多�
   在列表页只显示两行，完整研究兴趣可填入 Research interests。
 - `Personal Note EN / ZH` 对应个人页的 **Personal Note / 个人寄语**，可留空。
   只允许纯文本和换行，不要粘贴图片、表格、HTML 或富文本。
-- 个人页不显示 Biography、Phone、Office 或个人论文列表；联系方式以 Email 为主。
+- `Profile Summary ZH` 是个人页顶部的学术背景简介，建议说明学术背景、当前方向与
+  专业兴趣，不要重复下方 Education；English 可留空或手工覆盖。
+- `Representative Publication DOIs` 每行填写一个已经在 Publications 登记的 DOI，
+  通常选择 3–6 篇。个人页复用统一 Citation 组件，不手填书目信息；留空时整节隐藏。
+- 个人页不显示 Biography、Phone 或 Office；联系方式以 Email 为主。
 - Email、Address、Google Scholar、ORCID、ResearchGate、个人网站和 GitHub 为空时
   会自动隐藏，不会留下空图标或空白行。
 - `Affiliation EN / ZH` 显示在个人页姓名和身份下方；`Address EN / ZH` 显示在左侧
@@ -168,7 +176,7 @@ Research 和 Team 都通过 DOI/成员 ID 引用同一出版物；不要在多�
 - `force_show`：忽略日期，强制显示。
 - `force_hide`：忽略日期，强制隐藏。
 - `display: false` 是最高优先级的隐藏开关。
-- 日期采用 `YYYY-MM-DD`；链接必须同时填写中英文标签。
+- 日期采用 `YYYY-MM-DD`；链接中文标签必填，英文标签可留空并自动生成。
 
 ### Site Settings 与 Media
 
@@ -198,7 +206,10 @@ style。这样可以在调整层级的同时保护手机端排版和中英文一
 自由值。修改后先保存并等待 CI，通过后再运行 **Build staging artifact** 检查中英
 文、手机端和 Light/Dark，确认无误后再执行生产部署。
 
-## 5. 三个 Actions 按钮
+## 5. 四个 Actions 按钮
+
+- **Generate pending English**：为英文空白或原先自动生成的字段生成学术网站英文；
+  永不覆盖人工英文。
 
 - **Deploy website**：生产构建并发布 GitHub Pages。
 - **Build staging artifact**：构建并验证七天可下载的 `_site` 产物，不公开发布。
@@ -206,7 +217,27 @@ style。这样可以在调整层级的同时保护手机端排版和中英文一
 
 按钮默认显示确认对话框。生产发布前应先确认内容 commit 对应的 CI 已通过。
 
-## 6. 出错与回退
+## 6. 双语内容工作流
+
+1. 平时只填写中文即可；中文是必填内容源。
+2. English 字段可留空。配置翻译服务后，保存会触发独立的英文生成工作流。
+3. 人工填写或修改过的英文优先级最高，自动流程永不覆盖。
+4. 中文修改时：自动生成的英文会重新生成；人工英文会保留并在后台状态中标记为
+   `needs-review`，提醒后续人工核对。
+5. 官方学校、学院、课题组、人名、职位、项目和地址英文建议人工填写；系统不会猜测
+   人名拼音或官方机构名称。
+6. Publications 中的题名、作者、期刊、年份、卷期页码、DOI、Citation 及自定义记录
+   全部排除在翻译流程之外。
+7. 翻译服务暂时失败时，英文路由会显示对应中文源内容并在构建日志中提示，不会出现
+   空白模块，也不会让网站构建或部署中断。
+8. 本项目不维护术语表；固定风格为简洁、自然、克制的学术机构网站英文，不使用夸张
+   营销表达，也不增加中文原文没有的信息。
+
+自动生成需要仓库管理员在 GitHub 设置唯一机密项 `TRANSLATION_API_KEY`，并设置
+`TRANSLATION_MODEL` 变量。密钥只能存放在 GitHub Actions Secrets，不能写入 CMS、
+YAML、JavaScript、聊天截图或 Git 历史。未配置时其余编辑、CI、staging 和部署照常工作。
+
+## 7. 出错与回退
 
 ### Save 后 CI 失败
 
@@ -232,7 +263,7 @@ CMS 无法打开，由维护者在 GitHub 提交历史中对单个 commit 执行
 5. 打开的 URL 包含 `/energy-materials-lab-website/`；
 6. 等待短时 CDN/浏览器缓存后刷新。
 
-## 7. 已验证的闭环证据
+## 8. 已验证的闭环证据
 
 - CMS 测试提交：[`2c85add`](https://github.com/DavidHMeng/energy-materials-lab-website/commit/2c85addf9cc163132b0090fcd0b05d7d4b98e861)
 - 测试提交 CI：[`35822457262`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35822457262)

@@ -30,7 +30,29 @@ workflow remains manual so a validated commit can be reviewed before publication
 
 Generated-site checks also enforce the project typography attributes, a single load of
 the project stylesheet, the compact profile contact layout, normal-flow profile hero,
-and the absence of retired phone/office output.
+profile summaries, the 1.65:1 contained-image carousel, and the absence of retired
+phone/office output. Python regression tests exercise translation-state transitions
+before every Jekyll build.
+
+## Chinese-primary translation workflow
+
+`Generate optional English content` is an isolated GitHub Actions workflow. It runs
+after relevant content pushes or from Pages CMS, and may commit generated English plus
+`_translation/state.yml` back to `main`. It never handles publication records. Existing
+CI and manual staging/deployment remain independent, so missing credentials or a
+translation-provider outage cannot block a valid site build.
+
+Repository configuration:
+
+- Actions secret: `TRANSLATION_API_KEY`.
+- Repository variable: `TRANSLATION_MODEL` (required for generation).
+- Optional repository variables: `TRANSLATION_PROVIDER=openai-compatible` and
+  `TRANSLATION_API_BASE=https://api.openai.com/v1` (or a compatible endpoint).
+
+The key is never exposed to Pages CMS, source YAML, client JavaScript, or the generated
+site. `github-actions[bot]` is excluded from the workflow job and the generated commit
+uses `[skip translate]`, preventing a translation commit loop. Without the secret/model,
+the workflow records pending state and exits without compromising CI.
 
 The citation refresh is also manual-only during staging. Enable its schedule only after
 the target repository, branch protections and desired pull-request cadence are confirmed.

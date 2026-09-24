@@ -133,8 +133,8 @@ for profile_path in (site / "team" / "mei-li" / "index.html", site / "zh" / "tea
             errors.append(f"profile hero must not inherit sticky site-header rules in {profile_path.relative_to(site).as_posix()}")
         if 'class="profile-personal-note"' not in profile:
             errors.append(f"personal note missing in {profile_path.relative_to(site).as_posix()}")
-        if 'class="profile-publications"' in profile:
-            errors.append(f"member publications must not render in {profile_path.relative_to(site).as_posix()}")
+        if 'class="profile-summary"' not in profile:
+            errors.append(f"profile summary missing in {profile_path.relative_to(site).as_posix()}")
         if 'class="profile-contacts"' not in profile or 'class="profile-portrait"' not in profile:
             errors.append(f"compact profile contact layout missing in {profile_path.relative_to(site).as_posix()}")
         if "Phone" in profile or "Office" in profile:
@@ -143,7 +143,8 @@ for profile_path in (site / "team" / "mei-li" / "index.html", site / "zh" / "tea
 custom_css = (site / "_styles" / "custom.css").read_text(encoding="utf-8", errors="replace") if (site / "_styles" / "custom.css").is_file() else ""
 for marker in (
     "view-transition-old", ".visual-carousel", ".team-card img", ".profile-intro",
-    ".profile-contacts", "--font-lab-name", "body.publications-page"
+    ".profile-contacts", ".profile-summary", ".representative-publications",
+    "aspect-ratio: 1.65 / 1", "--font-lab-name", "body.publications-page"
 ):
     if marker not in custom_css:
         errors.append(f"compiled custom CSS is missing {marker}")

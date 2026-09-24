@@ -12,6 +12,8 @@ research_summary_en: Ion transport and interphase evolution in solid electrolyte
 research_summary_zh: 固态电解质中的离子传输与界面相演化。
 affiliation_en: Energy Materials Laboratory
 affiliation_zh: 能源材料课题组
+profile_summary_en: Alex studies ion transport and interphase evolution in solid electrolytes, combining transport modelling with spectroscopic analysis to understand how local chemistry governs electrochemical performance.
+profile_summary_zh: 陈晓聚焦固态电解质中的离子传输与界面相演化，结合传输建模和光谱分析，理解局域化学环境对电化学性能的影响。
 address_en: Building 1, Room 305, Placeholder Campus
 address_zh: 某某校区 1 号楼 305 室
 research_interests_en: Transport modeling and spectroscopy.
@@ -26,6 +28,7 @@ orcid: ""
 researchgate: ""
 personal_website: ""
 github: ""
+representative_dois: []
 active: true
 display: true
 order: 1

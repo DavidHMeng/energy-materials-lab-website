@@ -18,7 +18,20 @@
                 <span class="visual-type">{% if slide.visual_type == "lab-photo" %}{% if page.lang == "zh" %}课题组影像{% else %}Lab / Group Photo{% endif %}{% else %}{% if page.lang == "zh" %}图文摘要{% else %}Graphical Abstract{% endif %}{% endif %}</span>
               </div>
               {% assign caption = slide.caption_en %}{% if page.lang == "zh" %}{% assign caption = slide.caption_zh %}{% endif %}
-              {% if caption and caption != "" %}<figcaption>{{ caption }}</figcaption>{% endif %}
+              {% assign related_citation = nil %}
+              {% if slide.visual_type == "graphical-abstract" and slide.related_doi and slide.related_doi != "" %}
+                {% assign related_citation = slide.related_doi | find_citation_by_doi: site.data.citations %}
+              {% endif %}
+              {% if caption and caption != "" or related_citation %}
+                <figcaption>
+                  {% if caption and caption != "" %}<span>{{ caption }}</span>{% endif %}
+                  {% if related_citation %}
+                    <a href="{{ related_citation.link }}" target="_blank" rel="noopener noreferrer">
+                      {{ related_citation.publisher }} · {{ related_citation.date | date: "%Y" }}
+                    </a>
+                  {% endif %}
+                </figcaption>
+              {% endif %}
             </figure>
           {% endfor %}
         </div>

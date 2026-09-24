@@ -89,6 +89,8 @@ exclude:
   - .ruby-version
   - Makefile
   - script
+  - _translation
+  - TRANSLATION_STYLE.md
 
 jekyll-spaceship:
   mathjax-processor:

@@ -19,6 +19,7 @@ introduction:
       visual_type: graphical-abstract
       caption_en: Representative graphical abstract
       caption_zh: 代表性图文摘要
+      related_doi: ""
       display: true
       order: 1
     - image: /images/placeholders/graphical-abstract-2.svg
@@ -27,6 +28,7 @@ introduction:
       visual_type: graphical-abstract
       caption_en: Interfacial science and energy storage
       caption_zh: 界面科学与储能研究
+      related_doi: ""
       display: true
       order: 2
     - image: /images/placeholders/campus.svg
@@ -35,6 +37,7 @@ introduction:
       visual_type: lab-photo
       caption_en: Laboratory or group photograph
       caption_zh: 实验室或课题组合影
+      related_doi: ""
       display: true
       order: 3
 highlights_heading_en: Highlights

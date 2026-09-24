@@ -10,6 +10,8 @@ layout: default
       <p class="profile-position">{% if page.lang == "zh" %}{{ member.position_zh }}{% else %}{{ member.position_en }}{% endif %}</p>
       {% assign affiliation = member.affiliation_en %}{% if page.lang == "zh" %}{% assign affiliation = member.affiliation_zh %}{% endif %}
       {% if affiliation and affiliation != "" %}<p class="profile-affiliation">{{ affiliation }}</p>{% endif %}
+      {% assign profile_summary = member.profile_summary_en %}{% if page.lang == "zh" %}{% assign profile_summary = member.profile_summary_zh %}{% endif %}
+      {% if profile_summary and profile_summary != "" %}<p class="profile-summary">{{ profile_summary | escape | newline_to_br }}</p>{% endif %}
     </div>
     {% assign address = member.address_en %}{% if page.lang == "zh" %}{% assign address = member.address_zh %}{% endif %}
     <div class="profile-contacts" aria-label="{% if page.lang == 'zh' %}联系方式{% else %}Contact information{% endif %}">
@@ -30,5 +32,16 @@ layout: default
     {% if education and education != "" %}<section><h2>{% if page.lang == "zh" %}教育经历{% else %}Education{% endif %}</h2>{{ education | markdownify }}</section>{% endif %}
     {% assign personal_note = member.personal_note_en %}{% if page.lang == "zh" %}{% assign personal_note = member.personal_note_zh %}{% endif %}
     {% if personal_note and personal_note != "" %}<section class="profile-personal-note"><h2>{% if page.lang == "zh" %}个人寄语{% else %}Personal Note{% endif %}</h2><p>{{ personal_note | escape | newline_to_br }}</p></section>{% endif %}
+    {% if member.representative_dois and member.representative_dois.size > 0 %}
+      <section class="representative-publications profile-section-wide">
+        <h2>{% if page.lang == "zh" %}代表性成果{% else %}Representative Publications{% endif %}</h2>
+        <div class="representative-publication-list">
+          {% for doi in member.representative_dois %}
+            {% assign representative_citation = doi | find_citation_by_doi: site.data.citations %}
+            {% if representative_citation %}{% include citation.html lookup=representative_citation.id style="rich" %}{% endif %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
   </div>
 </article>

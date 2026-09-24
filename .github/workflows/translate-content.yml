@@ -1,0 +1,71 @@
+name: Generate optional English content
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "_data/homepage.yaml"
+      - "_data/site.yaml"
+      - "_news/**"
+      - "_events/**"
+      - "_research/**"
+      - "_members/**"
+      - "_opportunities/**"
+      - "scripts/translate_content.py"
+      - "TRANSLATION_STYLE.md"
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Optional Pages CMS context as JSON
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+env:
+  BUNDLE_FROZEN: true
+
+concurrency:
+  group: content-translation-main
+  cancel-in-progress: false
+
+jobs:
+  translate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install PyYAML==6.0.3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.12"
+          bundler-cache: true
+      - name: Generate pending English fields
+        env:
+          TRANSLATION_PROVIDER: ${{ vars.TRANSLATION_PROVIDER || 'openai-compatible' }}
+          TRANSLATION_API_BASE: ${{ vars.TRANSLATION_API_BASE || 'https://api.openai.com/v1' }}
+          TRANSLATION_MODEL: ${{ vars.TRANSLATION_MODEL }}
+          TRANSLATION_API_KEY: ${{ secrets.TRANSLATION_API_KEY }}
+        run: |
+          git pull --rebase origin main
+          python scripts/translate_content.py --write
+      - name: Validate generated content and production site
+        run: bash script/test
+      - name: Commit generated English when changed
+        run: |
+          if git diff --quiet; then
+            echo "No generated translation changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data/homepage.yaml _data/site.yaml _news _events _research _members _opportunities _translation/state.yml
+          git commit -m "content: generate optional English [skip translate]"
+          git push origin HEAD:main
