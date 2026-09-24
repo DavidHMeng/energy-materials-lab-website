@@ -3,14 +3,26 @@ set -euo pipefail
 
 BUNDLER_VERSION="2.5.6"
 BASEURL="${BASEURL:-}"
+ORIGIN="${ORIGIN:-https://jliang.eitech.edu.cn}"
+CANONICAL_ORIGIN="${CANONICAL_ORIGIN:-https://jliang.eitech.edu.cn}"
+SITE_ENVIRONMENT="${SITE_ENVIRONMENT:-production}"
+JEKYLL_CONFIG="${JEKYLL_CONFIG:-_config.yml,_config.production.yml}"
+DESTINATION="${DESTINATION:-_site}"
+REQUIRE_VERSION="${REQUIRE_VERSION:-false}"
 
 python scripts/validate_content.py
 python scripts/test_translation.py
 python scripts/translate_content.py --dry-run
-JEKYLL_ENV=production bundle _${BUNDLER_VERSION}_ exec jekyll build --trace "$@"
-python scripts/check_generated_site.py _site --baseurl "$BASEURL"
+JEKYLL_ENV=production bundle _${BUNDLER_VERSION}_ exec jekyll build \
+  --config "$JEKYLL_CONFIG" --destination "$DESTINATION" --trace "$@"
+check_args=("$DESTINATION" --baseurl "$BASEURL" --origin "$ORIGIN" \
+  --canonical-origin "$CANONICAL_ORIGIN" --environment "$SITE_ENVIRONMENT")
+if [[ "$REQUIRE_VERSION" == "true" ]]; then
+  check_args+=(--require-version)
+fi
+python scripts/check_generated_site.py "${check_args[@]}"
 
-htmlproofer_args=(_site --disable-external --ignore-urls "/example\\.edu/")
+htmlproofer_args=("$DESTINATION" --disable-external --ignore-urls "/example\\.edu/")
 if [[ -n "$BASEURL" && "$BASEURL" != "/" ]]; then
   htmlproofer_args+=(--swap-urls "^${BASEURL}/:/")
 fi

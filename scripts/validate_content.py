@@ -358,6 +358,46 @@ for entry in cms.get("content", []):
         if name.endswith("_en") and field.get("required") is True:
             ERRORS.append(f".pages.yml {entry.get('name')}.{name}: English must be optional")
 
+production_config = load_yaml(ROOT / "_config.production.yml") or {}
+staging_config = load_yaml(ROOT / "_config.staging.yml") or {}
+if production_config.get("url") != "https://jliang.eitech.edu.cn" or production_config.get("baseurl") != "":
+    ERRORS.append("_config.production.yml: production URL/baseurl contract is invalid")
+if production_config.get("robots_noindex") is not False:
+    ERRORS.append("_config.production.yml: production must remain indexable")
+if staging_config.get("url") != "https://davidhmeng.github.io" or staging_config.get("baseurl") != "/energy-materials-lab-website":
+    ERRORS.append("_config.staging.yml: staging URL/baseurl contract is invalid")
+if staging_config.get("canonical_url") != "https://jliang.eitech.edu.cn" or staging_config.get("robots_noindex") is not True:
+    ERRORS.append("_config.staging.yml: staging canonical/noindex contract is invalid")
+
+deployment_files = (
+    "DEPLOYMENT.md",
+    "ops/nginx/jliang.conf",
+    "ops/scripts/jliang-sync",
+    "ops/systemd/jliang-sync.service",
+    "ops/systemd/jliang-sync.timer",
+    "ops/README.md",
+    ".github/workflows/publish-production.yml",
+)
+for relative in deployment_files:
+    if not (ROOT / relative).is_file():
+        ERRORS.append(f"deployment contract file is missing: {relative}")
+
+production_workflow = (ROOT / ".github" / "workflows" / "publish-production.yml").read_text(encoding="utf-8")
+for marker in (
+    "branches: [main]", "needs: [citations, translation, content]", "contents: write",
+    "_config.yml,_config.production.yml", "HEAD:server-deploy", "--require-version",
+):
+    if marker not in production_workflow:
+        ERRORS.append(f"production workflow is missing required marker: {marker}")
+
+sync_script = (ROOT / "ops" / "scripts" / "jliang-sync").read_text(encoding="utf-8")
+for marker in (
+    "set -Eeuo pipefail", "flock -n", "refs/heads/server-deploy:refs/remotes/origin/server-deploy",
+    "reset --hard origin/server-deploy", "mv -Tf", "Host: $HEALTH_HOST", "Rollback complete",
+):
+    if marker not in sync_script:
+        ERRORS.append(f"sync script is missing safety marker: {marker}")
+
 try:
     for workflow in (ROOT / ".github" / "workflows").glob("*.y*ml"):
         yaml.safe_load(workflow.read_text(encoding="utf-8"))

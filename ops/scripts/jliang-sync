@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly REPO_DIR="${JLIANG_REPO_DIR:-/opt/jliang-deploy/repo}"
+readonly SITE_ROOT="${JLIANG_SITE_ROOT:-/var/www/jliang}"
+readonly RELEASES_DIR="${SITE_ROOT}/releases"
+readonly CURRENT_LINK="${SITE_ROOT}/current"
+readonly LOCK_FILE="${JLIANG_LOCK_FILE:-/opt/jliang-deploy/jliang-sync.lock}"
+readonly RETENTION="${JLIANG_RETENTION:-10}"
+readonly HEALTH_URL="${JLIANG_HEALTH_URL:-http://127.0.0.1/}"
+readonly HEALTH_HOST="${JLIANG_HEALTH_HOST:-jliang.eitech.edu.cn}"
+
+log() { printf '%s %s\n' "$(date --iso-8601=seconds)" "$*"; }
+fail() { log "ERROR: $*" >&2; exit 1; }
+temp_release=""
+cleanup() {
+    if [[ -n "$temp_release" && -d "$temp_release" && "$temp_release" == "$RELEASES_DIR/."* ]]; then
+        rm -rf -- "$temp_release"
+    fi
+}
+trap cleanup EXIT
+
+[[ "$REPO_DIR" = /* && "$SITE_ROOT" = /* && "$RELEASES_DIR" = "$SITE_ROOT/releases" ]] || fail "deployment paths must be absolute and internally consistent"
+[[ "$RETENTION" =~ ^[1-9][0-9]*$ ]] || fail "JLIANG_RETENTION must be a positive integer"
+
+mkdir -p "$(dirname "$LOCK_FILE")" "$RELEASES_DIR"
+exec 9>"$LOCK_FILE"
+if ! flock -n 9; then
+    log "Another sync is already running; exiting."
+    exit 0
+fi
+
+[[ -d "$REPO_DIR/.git" ]] || fail "missing Git checkout at $REPO_DIR"
+log "Fetching origin/server-deploy"
+git -C "$REPO_DIR" fetch --prune origin \
+    +refs/heads/server-deploy:refs/remotes/origin/server-deploy
+remote_sha="$(git -C "$REPO_DIR" rev-parse --verify origin/server-deploy^{commit})"
+[[ "$remote_sha" =~ ^[0-9a-f]{40}$ ]] || fail "remote branch did not resolve to a full commit SHA"
+
+release_dir="${RELEASES_DIR}/${remote_sha}"
+current_target=""
+if [[ -L "$CURRENT_LINK" ]]; then
+    current_target="$(readlink -f "$CURRENT_LINK")"
+fi
+if [[ "$current_target" == "$release_dir" ]]; then
+    log "Release $remote_sha is already current; nothing to do."
+    exit 0
+fi
+
+log "Checking out production branch at $remote_sha"
+git -C "$REPO_DIR" reset --hard origin/server-deploy
+
+validate_release() {
+    local candidate="$1"
+    local required
+    for required in index.html research/index.html publications/index.html team/index.html; do
+        [[ -s "$candidate/$required" ]] || return 1
+    done
+}
+
+if [[ ! -d "$release_dir" ]]; then
+    temp_release="${RELEASES_DIR}/.${remote_sha}.tmp.$$"
+    [[ ! -e "$temp_release" ]] || fail "temporary release path already exists: $temp_release"
+    mkdir "$temp_release"
+    log "Copying static release to $temp_release"
+    rsync -a --delete --exclude='.git/' "$REPO_DIR/" "$temp_release/"
+    validate_release "$temp_release" || fail "release is incomplete; current site was not changed"
+    find "$temp_release" -type d -exec chmod 755 {} +
+    find "$temp_release" -type f -exec chmod 644 {} +
+    mv "$temp_release" "$release_dir"
+    temp_release=""
+else
+    validate_release "$release_dir" || fail "existing release directory is incomplete: $release_dir"
+fi
+
+previous_target="$current_target"
+next_link="${SITE_ROOT}/.current.${remote_sha}.$$"
+ln -s "$release_dir" "$next_link"
+mv -Tf "$next_link" "$CURRENT_LINK"
+log "Switched current atomically to $release_dir"
+
+if ! curl --fail --silent --show-error --max-time 15 -H "Host: $HEALTH_HOST" "$HEALTH_URL" >/dev/null; then
+    log "Post-switch homepage check failed; restoring previous current target."
+    if [[ -n "$previous_target" && -d "$previous_target" ]]; then
+        rollback_link="${SITE_ROOT}/.current.rollback.$$"
+        ln -s "$previous_target" "$rollback_link"
+        mv -Tf "$rollback_link" "$CURRENT_LINK"
+        log "Rollback complete: $previous_target"
+    else
+        rm -f -- "$CURRENT_LINK"
+        log "No previous release existed; removed failed current link."
+    fi
+    fail "deployment health check failed"
+fi
+log "Homepage check passed for Host: $HEALTH_HOST"
+
+current_target="$(readlink -f "$CURRENT_LINK")"
+mapfile -t releases < <(
+    find "$RELEASES_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' |
+        sort -rn | sed -E 's/^[0-9.]+ //'
+)
+kept=0
+for candidate in "${releases[@]}"; do
+    name="$(basename "$candidate")"
+    [[ "$name" =~ ^[0-9a-f]{40}$ ]] || continue
+    resolved="$(readlink -f "$candidate")"
+    [[ "$resolved" == "$RELEASES_DIR/"* ]] || fail "refusing cleanup outside releases directory: $resolved"
+    if [[ "$resolved" == "$current_target" ]]; then
+        continue
+    fi
+    kept=$((kept + 1))
+    if (( kept >= RETENTION )); then
+        log "Removing old non-current release $resolved"
+        rm -rf -- "$resolved"
+    fi
+done
+
+log "Deployment complete: source=$remote_sha current=$current_target"

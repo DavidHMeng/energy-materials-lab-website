@@ -1,0 +1,6 @@
+# GitHub Pages remains the non-indexable staging/preview environment.
+url: "https://davidhmeng.github.io"
+baseurl: "/energy-materials-lab-website"
+canonical_url: "https://jliang.eitech.edu.cn"
+deployment_environment: staging
+robots_noindex: true

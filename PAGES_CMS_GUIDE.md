@@ -2,7 +2,8 @@
 
 适用仓库：`DavidHMeng/energy-materials-lab-website`  
 默认分支：`main`  
-网站预览：<https://davidhmeng.github.io/energy-materials-lab-website/>  
+Staging 预览：<https://davidhmeng.github.io/energy-materials-lab-website/>
+正式域名：<https://jliang.eitech.edu.cn/>（VM 完成人工部署后）
 CMS 入口：<https://app.pagescms.org/>
 
 本手册对应当前仓库的真实配置，不是通用示例。2026-09-23 已完成一次
@@ -17,7 +18,8 @@ Pages CMS 编辑、GitHub 提交、CI、GitHub Pages 部署、中英文页面检
 4. 确认右上或侧边栏显示分支 **main**。
 
 Pages CMS 直接编辑 GitHub 仓库中的 Markdown/YAML 文件，没有独立内容数据库。
-每次点击 **Save** 都会产生 Git commit，并自动触发 `Validate and build` CI。
+每次点击 **Save** 都会产生 `main` 上的 Git commit，并自动触发 CI、翻译/fallback
+检查和 production 静态分支发布。Pages CMS 不迁移到 VM，日常维护方式不变。
 
 ## 2. 日常编辑和发布流程
 
@@ -46,16 +48,20 @@ Pages CMS 直接编辑 GitHub 仓库中的 Markdown/YAML 文件，没有独立�
 Actions 页面：
 <https://github.com/DavidHMeng/energy-materials-lab-website/actions>
 
-### 2.3 发布网站
+### 2.3 发布 staging 与 production
 
-CI 通过后，在 Pages CMS 左侧 **Actions** 中选择 **Deploy website**，确认部署。
-该按钮运行 `deploy-pages.yml`，会再次执行生产构建、双语路由检查、内部链接检查
-和 HTML Proofer，全部通过后才发布。
+`main` 更新后，`Publish production static branch` 会依次检查 Citation、
+Translation/fallback、内容、production build、内部链接和 SEO 输出；全部通过后，才把
+纯静态网站更新到 `server-deploy`。VM 定时器后续从该分支拉取并原子切换，因此 CMS
+编辑者不应 SSH 到服务器改 HTML。
+
+CI 通过后，在 Pages CMS 左侧 **Actions** 中选择 **Deploy website**，可手工更新
+GitHub Pages staging。该按钮运行 `deploy-pages.yml`，使用 staging 配置重新构建并发布。
 
 若 CMS 按钮暂未刷新，也可以在 GitHub Actions 中打开
 **Deploy GitHub Pages (manual)**，选择 **Run workflow**，分支选 `main`。
 
-发布完成后检查：
+staging 发布完成后检查：
 
 - 英文首页：<https://davidhmeng.github.io/energy-materials-lab-website/>
 - 中文首页：<https://davidhmeng.github.io/energy-materials-lab-website/zh/>
@@ -63,6 +69,10 @@ CI 通过后，在 Pages CMS 左侧 **Actions** 中选择 **Deploy website**，�
 
 GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；样式或脚本若仍显示旧版，
 等待缓存过期后再刷新，不要重复保存内容。
+
+正式域名上线后，还应检查 `/version.json` 的 `source_commit` 是否对应本次 `main`
+提交。正式站发生异常时，服务器管理员按 `DEPLOYMENT.md` 回切旧 release；内容编辑者
+不要强制推送或直接修改 `server-deploy`。
 
 ## 3. 内容目录
 
@@ -259,7 +269,8 @@ CMS 无法打开，由维护者在 GitHub 提交历史中对单个 commit 执行
 1. Pages CMS 已显示保存完成；
 2. GitHub 仓库出现新的 `content:` commit；
 3. Validate and build 已通过；
-4. Deploy GitHub Pages 已成功；
+4. staging 问题：Deploy GitHub Pages 已成功；production 问题：Publish production
+   static branch 已成功且 VM 定时同步已运行；
 5. 打开的 URL 包含 `/energy-materials-lab-website/`；
 6. 等待短时 CDN/浏览器缓存后刷新。
 

@@ -1,11 +1,14 @@
-# Project layer for Greene Lab Website Template v1.4.0.
-# Keep custom behavior in _includes/custom, _styles/custom.scss, _scripts/custom.js,
-# and _plugins/custom_*.rb whenever possible.
+# Shared project layer for Greene Lab Website Template v1.4.0.
+# Environment-specific URL, baseurl and indexing behavior live in the two layered
+# configuration files. Keep project-specific behavior in the custom layer.
 title: Placeholder Energy Materials Lab
 subtitle: Placeholder University
 description: Research group website for energy materials, interfaces, and electrochemistry.
-url: ""
+url: "https://jliang.eitech.edu.cn"
 baseurl: ""
+canonical_url: "https://jliang.eitech.edu.cn"
+deployment_environment: production
+robots_noindex: false
 header: images/placeholders/campus.svg
 header-dark: true
 proofer: false
@@ -77,12 +80,14 @@ exclude:
   - AGENTS.md
   - BUILD_SPEC.md
   - CONTENT_SCHEMA.md
+  - DEPLOYMENT.md
   - IMPLEMENTATION_AUDIT.md
   - PROJECT_STATUS.md
   - README.md
   - LICENSE-UPSTREAM.md
   - UPSTREAM_CHANGELOG.md
   - UPSTREAM_CITATION.cff
+  - ops
   - scripts
   - upstream-v1.4.0.zip
   - .upstream-extract

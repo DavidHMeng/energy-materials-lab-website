@@ -17,3 +17,4 @@ upstream-v*.zip
 .bundle/
 .tools/
 _config.deploy.yaml
+_config.deploy.yml

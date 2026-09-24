@@ -8,10 +8,10 @@ ls
 python3 _cite/cite.py
 
 # run jekyll serve in hot-reload mode
-# rerun whenever _config.yaml changes (jekyll hot-reload doesn't work with this file)
+# rerun whenever layered Jekyll configuration changes
 watchmedo auto-restart \
     --debug-force-polling \
-    --patterns="_config.yaml" \
+    --patterns="_config.yml;_config.*.yml" \
     --signal SIGTERM \
     -- bundle exec jekyll serve --open-url --force_polling --livereload --trace --host=0.0.0.0 \
     | sed "s/LiveReload address.*//g;s/0.0.0.0/localhost/g" &

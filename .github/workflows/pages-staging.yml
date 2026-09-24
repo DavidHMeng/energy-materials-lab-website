@@ -28,7 +28,14 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: python -m pip install PyYAML==6.0.3
-      - run: bash script/test
+      - name: Build and validate staging artifact
+        env:
+          JEKYLL_CONFIG: _config.yml,_config.staging.yml
+          ORIGIN: https://davidhmeng.github.io
+          CANONICAL_ORIGIN: https://jliang.eitech.edu.cn
+          SITE_ENVIRONMENT: staging
+          BASEURL: /energy-materials-lab-website
+        run: bash script/test
       - uses: actions/upload-artifact@v4
         with:
           name: github-pages-staging

@@ -3,6 +3,29 @@
 Updated: 2026-09-24
 Current release line: UI / CMS Workflow V1.5 on `main`
 
+## EIT Production Server Migration V1.0 (2026-09-24)
+
+Target architecture is now the approved pull-deployment model: Pages CMS edits `main`;
+GitHub Actions gates citation freshness, translation/fallback and content validation;
+the production Jekyll build publishes generated files to `server-deploy`; the EIT VM
+will later fetch that branch into SHA-named releases and serve the atomic `current`
+symlink through Nginx.
+
+Implemented in this migration:
+
+- layered `_config.yml`, `_config.staging.yml` and `_config.production.yml`;
+- GitHub Pages preserved as noindex staging with its repository base path;
+- production root-path metadata, sitemap, robots and legacy-base-path validation;
+- main-only `.github/workflows/publish-production.yml`, with write permission limited
+  to the final publish job and a secret-free production `version.json`;
+- `ops/` Nginx, pull-sync, systemd service/timer templates and manual VM runbook;
+- `DEPLOYMENT.md` architecture, EIT network-admin request, acceptance and rollback.
+
+The authoritative remote run IDs, production source/build SHA, generated branch SHA,
+staging revalidation and final readiness classification are added here only after the
+corresponding GitHub checks actually pass. Until the user executes the VM runbook, the
+correct boundary remains: **EIT VM DEPLOYMENT PENDING USER EXECUTION**.
+
 ## UI / CMS Workflow V1.5 extension (2026-09-24)
 
 This extension keeps Framework V1.1, the frozen navigation and the existing Pages

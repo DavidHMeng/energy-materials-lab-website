@@ -1,0 +1,10 @@
+---
+layout: null
+permalink: /robots.txt
+---
+User-agent: *
+{% if site.robots_noindex %}Disallow: /
+{% else %}Allow: /
+
+Sitemap: {{ site.canonical_url }}/sitemap.xml
+{% endif %}

@@ -57,6 +57,12 @@ jobs:
           git pull --rebase origin main
           python scripts/translate_content.py --write
       - name: Validate generated content and production site
+        env:
+          JEKYLL_CONFIG: _config.yml,_config.production.yml
+          ORIGIN: https://jliang.eitech.edu.cn
+          CANONICAL_ORIGIN: https://jliang.eitech.edu.cn
+          SITE_ENVIRONMENT: production
+          BASEURL: ""
         run: bash script/test
       - name: Commit generated English when changed
         run: |

@@ -39,9 +39,8 @@
     {{ subtitle }}. {{ description }}
   {%- endcapture %}
 {% endif %}
-{% capture url -%}
-  {{ site.url }}{{ site.baseurl }}{{ page.url }}
-{%- endcapture %}
+{% assign public_origin = site.canonical_url | default: site.url %}
+{% capture url -%}{{ public_origin }}{{ page.url }}{%- endcapture %}
 
 {% assign description = description | xml_escape %}
 
@@ -50,13 +49,13 @@
 {% assign jpg = "images/icon.jpg" | file_exists %}
 {% assign icon_source = svg | default: png | default: jpg %}
 {% assign icon = icon_source | relative_url %}
-{% assign icon_absolute = icon_source | absolute_url %}
+{% capture icon_absolute -%}{{ public_origin }}/{{ icon_source }}{%- endcapture %}
 
 {% assign jpg = "images/share.jpg" | file_exists %}
 {% assign png = "images/share.png" | file_exists %}
 {% assign share_source = jpg | default: png %}
 {% if share_source %}
-  {% assign share = share_source | absolute_url %}
+  {% capture share -%}{{ public_origin }}/{{ share_source }}{%- endcapture %}
 {% else %}
   {% assign share = nil %}
 {% endif %}
@@ -74,6 +73,7 @@
 
 <meta name="title" content="{{ title }}">
 <meta name="description" content="{{ description }}">
+{% if site.robots_noindex %}<meta name="robots" content="noindex, nofollow, noarchive">{% endif %}
 
 <meta property="og:title" content="{{ title }}">
 <meta property="og:site_name" content="{{ site_title | xml_escape }}">
@@ -96,11 +96,13 @@
 {% assign alternate_path = page.url %}
 {% if page.lang == "zh" %}
   {% assign alternate_path = page.url | remove_first: "/zh" %}
-  <link rel="alternate" hreflang="en" href="{{ site.url }}{{ site.baseurl }}{{ alternate_path }}">
+  <link rel="alternate" hreflang="en" href="{{ public_origin }}{{ alternate_path }}">
   <link rel="alternate" hreflang="zh-CN" href="{{ url }}">
+  <link rel="alternate" hreflang="x-default" href="{{ public_origin }}{{ alternate_path }}">
 {% else %}
   <link rel="alternate" hreflang="en" href="{{ url }}">
-  <link rel="alternate" hreflang="zh-CN" href="{{ site.url }}{{ site.baseurl }}/zh{{ page.url }}">
+  <link rel="alternate" hreflang="zh-CN" href="{{ public_origin }}/zh{{ page.url }}">
+  <link rel="alternate" hreflang="x-default" href="{{ url }}">
 {% endif %}
 
 {% if page.author %}

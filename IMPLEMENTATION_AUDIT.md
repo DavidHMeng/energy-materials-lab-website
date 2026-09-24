@@ -1,6 +1,6 @@
 # Implementation audit
 
-Audit updated: 2026-09-23
+Audit updated: 2026-09-24
 Latest UI V1.3 baseline: current `main`
 Framework: frozen Framework V1.1 on Greene Lab Website Template v1.4.0
 
@@ -32,8 +32,8 @@ Framework: frozen Framework V1.1 on Greene Lab Website Template v1.4.0
 | Light / Dark | `_scripts/dark-mode.js`; first-visit system preference plus saved override | Script/assets pass generated checks | Toggle changes colors and survives reload | Not applicable |
 | Pages CMS | Root `.pages.yml` exposes structured content/media and workflow actions | YAML and content-schema alignment pass | Hosted editor and repository content loaded | Commit `2c85add`, CI, deploy, EN/ZH render and cleanup validated |
 | Motion and responsive UI | Native cross-page transitions, restrained card/link motion, reveal effects, carousel controls and reduced-motion fallback | JavaScript syntax, Sass/Jekyll compilation and generated-site checks pass | Desktop and 320 px layouts inspected; carousel advances and mobile overflow is absent | Carousel interval, order and visibility are editable |
-| SEO / 404 | Localized meta, canonical/hreflang, sitemap, EN/ZH 404 and favicon | Routes and assets pass | Unknown hosted path renders custom 404 | Site metadata editor loaded |
-| GitHub Actions | CI, staging artifact, manual Pages deploy and citation refresh | Clean CI `35822706745`, clean deploy `35822768415`, staging `35818423091` succeeded | Preview is public over HTTPS | Three workflow actions configured in CMS |
+| SEO / 404 | Production canonical/OG/Twitter/JSON-LD/hreflang/sitemap/robots; staging canonical-to-production plus noindex; EN/ZH 404 and favicon | Environment-aware generated checks are implemented; final run evidence is recorded in `PROJECT_STATUS.md` | Existing staging unknown-path behavior was previously checked | Site metadata editor loaded |
+| GitHub Actions | CI, staging artifact, manual Pages deploy, citation refresh, gated production build and static-branch publish | Production publish has independent citation, translation and content prerequisites; only publish can write contents | Existing staging preview is public over HTTPS | Existing CMS actions remain configured |
 | Placeholder data | Structured placeholders across collections/media | 11 records, one DOI source and one citation pass | Clearly rendered as placeholders | Must be replaced field-by-field |
 
 ## Validation evidence
@@ -46,15 +46,19 @@ The production workflow ran the following gate sequence on Ubuntu:
 4. check required routes, assets, languages, navigation and forbidden routes;
 5. run HTML Proofer for images, internal links, fragments and scripts.
 
-The GitHub Pages deployment repeats the same gates with the real
-`/energy-materials-lab-website` base path before uploading the Pages artifact.
+The GitHub Pages deployment repeats the gates with the real
+`/energy-materials-lab-website` base path and noindex policy before uploading the
+staging artifact. Production uses an empty base path, writes a secret-free
+`version.json`, and is published as static files at the `server-deploy` branch root.
 
 ## Remaining acceptance boundary
 
-The website is buildable, deployed, browser-validated and CMS-validated. Remaining
-production work is editorial rather than infrastructural:
+The staging website is buildable, deployed, browser-validated and CMS-validated.
+GitHub/build migration and EIT VM deployment are tracked separately. The VM is not
+considered deployed until the user performs `DEPLOYMENT.md` and verifies the upstream.
+Remaining work includes:
 
 1. replace and approve all placeholder institutional and research content;
 2. add lab-owned DOI records and verify generated citation pull requests;
-3. decide whether to configure a school domain and branch protection;
+3. execute the documented VM/Nginx/systemd setup and request the school edge mapping;
 4. monitor upstream action releases for the current Node/runner deprecation warnings.

@@ -5,17 +5,24 @@
 - Upstream: `greenelab/lab-website-template` release `v1.4.0`.
 - Runtime: Ruby 3.3.12, Bundler 2.5.6, Jekyll 4.4.1, GitHub Actions,
   Pages CMS. Versions are pinned by `.ruby-version` and `Gemfile.lock`.
-- Deployment: static files only; no database or application server.
+- Deployment: static files only; no database or application server. GitHub Actions
+  builds production; the EIT VM never runs Jekyll or content tooling.
 - Source control: public GitHub repository at
   `DavidHMeng/energy-materials-lab-website`; `main` is the default branch.
-- Preview: `https://davidhmeng.github.io/energy-materials-lab-website/`, deployed by
-  the manual Pages workflow after the same production checks used by CI.
+- Staging preview: `https://davidhmeng.github.io/energy-materials-lab-website/`, with
+  `baseurl: /energy-materials-lab-website`, deployed by the manual Pages workflow.
+- Production origin: `https://jliang.eitech.edu.cn`, with an empty `baseurl`; built
+  output is published at the root of the `server-deploy` branch for VM pull deployment.
+- Layered configuration: `_config.yml` plus `_config.staging.yml` or
+  `_config.production.yml`. Do not copy the site source for either environment.
 
 ## Local setup
 
 1. Install Ruby 3.3.12 and Python 3.9+, or Docker Desktop.
 2. Run `bash script/setup`.
-3. Run `bash script/test` for the production build and acceptance checks.
+3. Run `bash script/test` for the production build and acceptance checks. For staging,
+   set `JEKYLL_CONFIG=_config.yml,_config.staging.yml`, the staging URL/base path, and
+   `SITE_ENVIRONMENT=staging` as shown in the staging workflow.
 4. Run `bash script/serve` and open the printed local URL for visual QA.
 
 On Windows, `powershell -ExecutionPolicy Bypass -File scripts/preview.ps1` selects an
@@ -23,16 +30,25 @@ available Ruby or Docker route and explains what is missing when neither is inst
 
 ## CI gates
 
-The CI workflow validates content, builds Jekyll, checks generated routes, assets,
-language/navigation invariants and internal links, and runs HTML Proofer without
-external-network checks. Staging produces an Actions artifact only. The deployment
-workflow remains manual so a validated commit can be reviewed before publication.
+The CI workflow validates content, builds production Jekyll, checks generated routes,
+assets, language/navigation invariants, metadata and internal links, and runs HTML
+Proofer without external-network checks. The staging artifact and manual Pages deploy
+use the staging layer and must retain the repository base path.
+
+`Publish production static branch` runs only for `main`. Citation freshness,
+translation/fallback tests and content validation are independent prerequisites. Only
+after all three pass does it run the exact production Jekyll build, add `version.json`,
+check root-path output, upload the artifact, and replace `server-deploy`. The publish
+job alone has `contents: write`; failed gates leave `server-deploy` unchanged. Because
+the workflow listens only to `main`, publishing the generated branch cannot loop.
 
 Generated-site checks also enforce the project typography attributes, a single load of
 the project stylesheet, the compact profile contact layout, normal-flow profile hero,
 profile summaries, the 1.65:1 contained-image carousel, and the absence of retired
 phone/office output. Python regression tests exercise translation-state transitions
-before every Jekyll build.
+before every Jekyll build. Production checks also enforce production canonical,
+OpenGraph, Twitter, JSON-LD, reciprocal hreflang, sitemap and robots values; reject
+legacy GitHub Pages base-path leakage; and validate the public build manifest.
 
 ## Chinese-primary translation workflow
 

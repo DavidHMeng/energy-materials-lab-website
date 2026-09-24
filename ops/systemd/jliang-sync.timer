@@ -1,0 +1,12 @@
+[Unit]
+Description=Poll the JLiang production branch
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+RandomizedDelaySec=20s
+Persistent=true
+Unit=jliang-sync.service
+
+[Install]
+WantedBy=timers.target

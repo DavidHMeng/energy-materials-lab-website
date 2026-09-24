@@ -1,0 +1,19 @@
+[Unit]
+Description=Synchronize the JLiang static website from server-deploy
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=__DEPLOYMENT_USER__
+Group=www-data
+UMask=0022
+ExecStart=/usr/local/sbin/jliang-sync
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/opt/jliang-deploy /var/www/jliang
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,6 @@
+# Production is served at the root of the EIT hostname by Nginx.
+url: "https://jliang.eitech.edu.cn"
+baseurl: ""
+canonical_url: "https://jliang.eitech.edu.cn"
+deployment_environment: production
+robots_noindex: false
