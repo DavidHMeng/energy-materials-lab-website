@@ -48,6 +48,7 @@ class PagesCmsSchemaTests(unittest.TestCase):
             self.assertTrue(re.fullmatch(pattern, "10.1021/jacs.5c22628"))
             self.assertTrue(re.fullmatch(pattern, " https://doi.org/10.1021/jacs.5c22628 "))
             self.assertTrue(re.fullmatch(pattern, "DOI:10.1021/JACS.5C22628"))
+            self.assertTrue(re.fullmatch(pattern, "DOI：10.1021/JACS.5C22628"))
         self.assertTrue(fields(ENTRIES["research"])["doi_list"]["list"])
         self.assertTrue(fields(ENTRIES["team"])["representative_dois"]["list"])
 

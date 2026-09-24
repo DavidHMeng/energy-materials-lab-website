@@ -18,6 +18,7 @@ class CitationRegistryTests(unittest.TestCase):
             "  https://doi.org/10.1021/JACS.5C22628  ",
             "http://doi.org/10.1021/jacs.5c22628",
             "DOI:10.1021/JACS.5C22628",
+            "DOI：10.1021/JACS.5C22628",
             "doi:doi:10.1021/jacs.5c22628",
         ):
             with self.subTest(value=value):

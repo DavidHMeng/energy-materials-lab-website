@@ -20,7 +20,7 @@ import yaml
 
 DOI_PATTERN = re.compile(r"^10\.\d{4,9}/\S+$", re.IGNORECASE)
 DOI_URL_PATTERN = re.compile(r"^https?://(?:dx\.)?doi\.org/", re.IGNORECASE)
-DOI_PREFIX_PATTERN = re.compile(r"^doi\s*:\s*", re.IGNORECASE)
+DOI_PREFIX_PATTERN = re.compile(r"^doi\s*[:：]\s*", re.IGNORECASE)
 FRONTMATTER_PATTERN = re.compile(r"\A---\s*\r?\n(.*?)\r?\n---\s*(?:\r?\n|\Z)(.*)\Z", re.DOTALL)
 
 

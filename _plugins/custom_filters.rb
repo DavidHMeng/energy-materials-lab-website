@@ -35,7 +35,7 @@ module LabCustomFilters
     while candidate != previous
       previous = candidate
       candidate = candidate.sub(%r{\Ahttps?://(?:dx\.)?doi\.org/}i, "").strip
-      candidate = candidate.sub(/\Adoi\s*:\s*/i, "").strip
+      candidate = candidate.sub(/\Adoi\s*[:：]\s*/i, "").strip
     end
     return "" unless candidate.match?(%r{\A10\.\d{4,9}/\S+\z}i)
 
