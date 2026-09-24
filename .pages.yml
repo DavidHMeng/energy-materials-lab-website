@@ -44,7 +44,7 @@ content:
                     - { name: lab-photo, label: B - Lab / Group Photo }
               - { name: caption_zh, label: "中文 — 图片说明", type: string }
               - { name: caption_en, label: "English (optional) — Caption", type: string, description: "Generated from Chinese when the Chinese caption is provided." }
-              - { name: related_doi, label: Related DOI, type: string, pattern: { regex: "^\\s*(?:(?:[hH][tT][tT][pP][sS]?://(?:[dD][xX]\\.)?[dD][oO][iI]\\.[oO][rR][gG]/)|(?:[dD][oO][iI][:：]))?10\\.\\d{4,9}/\\S+\\s*$", message: "Enter a DOI such as 10.1021/jacs.5c22628 or its doi.org URL." }, description: "Optional DOI or doi.org URL. It is normalized automatically; journal and year come from the shared citation registry." }
+              - { name: related_doi, label: Related DOI, type: string, pattern: { regex: "^\\s*(?:(?:(?:[hH][tT][tT][pP][sS]?://(?:[dD][xX]\\.)?[dD][oO][iI]\\.[oO][rR][gG]/)|(?:[dD][oO][iI][:：]))?10\\.\\d{4,9}/\\S+)?\\s*$", message: "Enter a DOI such as 10.1021/jacs.5c22628 or its doi.org URL." }, description: "Optional DOI or doi.org URL. It is normalized automatically; journal and year come from the shared citation registry." }
               - { name: display, label: Display, type: boolean, default: true }
               - { name: order, label: Display Order, type: number, required: true }
       - { name: highlights_heading_zh, label: Highlights heading ZH, type: string, required: true }
