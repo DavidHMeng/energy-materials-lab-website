@@ -1,5 +1,7 @@
 {% assign item = include.item %}
-<article class="event-card">
+{% assign search_text = item.type | append: ' ' | append: item.category | append: ' ' | append: item.title_en | append: ' ' | append: item.location_en | append: ' ' | append: item.description_en %}
+{% if page.lang == "zh" %}{% assign search_text = item.type | append: ' ' | append: item.category | append: ' ' | append: item.title_zh | append: ' ' | append: item.location_zh | append: ' ' | append: item.description_zh %}{% endif %}
+<article class="event-card" data-search="{{ search_text | strip_html | escape }}">
   {% if item.cover_image %}<img src="{{ item.cover_image | relative_url }}" alt="{% if page.lang == 'zh' %}{{ item.alt_zh | default: item.title_zh }}{% else %}{{ item.alt_en | default: item.title_en }}{% endif %}" loading="lazy">{% endif %}
   <div class="event-card-body">
     <div class="card-meta">

@@ -1,5 +1,7 @@
 {% assign item = include.item %}
-<article class="news-card">
+{% assign search_text = item.category | append: ' ' | append: item.title_en | append: ' ' | append: item.summary_en %}
+{% if page.lang == "zh" %}{% assign search_text = item.category | append: ' ' | append: item.title_zh | append: ' ' | append: item.summary_zh %}{% endif %}
+<article class="news-card" data-search="{{ search_text | strip_html | escape }}">
   <div class="card-meta"><span>{% if page.lang == "zh" %}{{ item.category | ui_label_zh }}{% else %}{{ item.category }}{% endif %}</span><time datetime="{{ item.date | date: '%Y-%m-%d' }}">{{ item.date | date: "%Y.%m.%d" }}</time></div>
   <h3>{% if page.lang == "zh" %}{{ item.title_zh }}{% else %}{{ item.title_en }}{% endif %}</h3>
   <p>{% if page.lang == "zh" %}{{ item.summary_zh }}{% else %}{{ item.summary_en }}{% endif %}</p>
