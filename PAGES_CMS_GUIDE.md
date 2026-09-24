@@ -82,7 +82,7 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 | Highlights / News | 动态、获奖、成员、论文、项目和公告 | 必填中英文标题/摘要/日期；空外链自动隐藏 |
 | Events | 学术或课题组活动 | `Academic` 或 `Group`；结束日期不得早于开始日期 |
 | Research | 研究方向 | 图文、中英文简介、DOI 列表、显示和顺序 |
-| Publications | DOI 来源列表 | `id` 必须是 `doi:10.xxxx/...`；不要手填作者、期刊或年份 |
+| Publications | DOI 来源列表 | 可填裸 DOI 或 doi.org URL；系统统一规范化，不要手填作者、期刊或年份 |
 | Team | 成员、圆形头像、简短介绍与个人页 | 支持 Profile Summary 与代表作 DOI；`slug` 稳定且唯一；离组成员关闭 `active` 或 `display` |
 | Team Role Labels | 成员分类及其中英文标题 | 可维护博士后、访问学生等类别，也可新增未来类别 |
 | Opportunities | 招聘与机会 | 使用日期窗口和 `active_override`；空类别自动隐藏 |
@@ -106,7 +106,7 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 - Graphical Abstract 会完整显示，不会自动裁切；上传前仍应去除大面积无效留白。
 - 视觉容器约为 1.65:1，图片使用 `object-fit: contain`；不同原始比例允许出现少量
   上下或左右留白，不会为了铺满而裁掉文字、箭头或图例。
-- `Related DOI` 可选。填写已登记 DOI 后，前台从 Citation 系统读取期刊与年份；
+- `Related DOI` 可选。可填裸 DOI 或 doi.org URL；系统登记后从 Citation 系统读取期刊与年份；
   不要把作者、题名、期刊或年份手工复制到轮播数据。
 - `Display Order` 越小越靠前；`Display` 可临时隐藏图片而不删除记录。
 - `Seconds per slide` 建议使用 5–8 秒，允许范围为 5–12 秒。轮播会在鼠标悬停、
@@ -138,10 +138,13 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 
 ### Publications
 
-1. 添加 `id: doi:<DOI>`，例如 `doi:10.1002/adma.202102415`。
+1. 在 DOI 字段填写裸 DOI 或完整 doi.org 地址，例如 `10.1002/adma.202102415`
+   或 `https://doi.org/10.1002/adma.202102415`。不需要手动添加 `doi:` 前缀。
 2. 需要关联成员时，在 `member_ids` 填 Team 中对应的稳定 slug。
-3. 保存后打开 **Actions → Refresh DOI citations**。
-4. 工作流从 DOI 获取书目信息；有变化时创建 citation update Pull Request。
+3. 保存后，GitHub 会自动规范化 DOI、去重并汇入中央 Citation Registry；也可打开
+   **Actions → Synchronize DOI citations** 手动刷新。
+4. 工作流从 DOI 获取书目信息；临时网络失败时保留缓存元数据，首次解析失败则显示
+   `Publication metadata pending` 和 DOI 链接，不会让整站构建失败。
 5. 检查 PR 中作者、标题、期刊、年份和 DOI 后再合并。
 6. 合并并通过 CI 后，再执行 **Deploy website**。
 
@@ -162,7 +165,8 @@ Research 和 Team 都通过 DOI/成员 ID 引用同一出版物；不要在多�
 - `Profile Summary ZH` 是个人页顶部的学术背景简介，建议说明学术背景、当前方向与
   专业兴趣，不要重复下方 Education；English 可留空或手工覆盖。
 - `Representative Publication DOIs` 每行填写一个已经在 Publications 登记的 DOI，
-  通常选择 3–6 篇。个人页复用统一 Citation 组件，不手填书目信息；留空时整节隐藏。
+  通常选择 3–6 篇。也可直接粘贴 doi.org URL；保存后会自动规范化、登记并复用统一
+  Citation 组件，不手填书目信息；留空时整节隐藏。
 - 个人页不显示 Biography、Phone 或 Office；联系方式以 Email 为主。
 - Email、Address、Google Scholar、ORCID、ResearchGate、个人网站和 GitHub 为空时
   会自动隐藏，不会留下空图标或空白行。
@@ -192,6 +196,8 @@ Research 和 Team 都通过 DOI/成员 ID 引用同一出版物；不要在多�
 
 - 先在 **Media** 上传图片，再回到内容记录选择图片。
 - 建议使用 SVG（Logo/示意图）、WebP（照片）或优化后的 PNG/JPEG。
+- Logo 优先使用 SVG 或带 alpha 通道的透明 PNG；避免 JPG、截图和导出时自带白色/
+  灰色画布的文件。CMS 保留原始文件格式，不会把透明 Logo 自动转换为 JPEG。
 - 文件名使用小写英文、数字和连字符，避免空格及中文文件名。
 - Header image、Lab logo、School logo 和站点联系信息都是全站字段，保存前应由
   负责人确认。
@@ -223,7 +229,7 @@ style。这样可以在调整层级的同时保护手机端排版和中英文一
 
 - **Deploy website**：生产构建并发布 GitHub Pages。
 - **Build staging artifact**：构建并验证七天可下载的 `_site` 产物，不公开发布。
-- **Refresh DOI citations**：解析 DOI 元数据并在有变化时创建 Pull Request。
+- **Synchronize DOI citations**：规范化并收集全站 DOI，解析元数据并在有变化时更新中央 Registry。
 
 按钮默认显示确认对话框。生产发布前应先确认内容 commit 对应的 CI 已通过。
 

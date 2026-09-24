@@ -49,7 +49,9 @@ jobs:
           CANONICAL_ORIGIN: https://jliang.eitech.edu.cn
           SITE_ENVIRONMENT: staging
           BASEURL: /energy-materials-lab-website
-        run: bash script/test
+        run: |
+          python scripts/citation_registry.py --check
+          bash script/test
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site

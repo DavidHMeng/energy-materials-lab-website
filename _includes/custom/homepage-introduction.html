@@ -19,15 +19,21 @@
               </div>
               {% assign caption = slide.caption_en %}{% if page.lang == "zh" %}{% assign caption = slide.caption_zh %}{% endif %}
               {% assign related_citation = nil %}
+              {% assign normalized_related_doi = "" %}
               {% if slide.visual_type == "graphical-abstract" and slide.related_doi and slide.related_doi != "" %}
                 {% assign related_citation = slide.related_doi | find_citation_by_doi: site.data.citations %}
+                {% assign normalized_related_doi = slide.related_doi | normalize_doi %}
               {% endif %}
-              {% if caption and caption != "" or related_citation %}
+              {% if caption and caption != "" or related_citation or normalized_related_doi != "" %}
                 <figcaption>
                   {% if caption and caption != "" %}<span>{{ caption }}</span>{% endif %}
                   {% if related_citation %}
                     <a href="{{ related_citation.link }}" target="_blank" rel="noopener noreferrer">
                       {{ related_citation.publisher }} · {{ related_citation.date | date: "%Y" }}
+                    </a>
+                  {% elsif normalized_related_doi != "" %}
+                    <a href="{{ slide.related_doi | doi_url }}" target="_blank" rel="noopener noreferrer">
+                      {% if page.lang == "zh" %}论文元数据待更新{% else %}Publication metadata pending{% endif %} · DOI: {{ normalized_related_doi }}
                     </a>
                   {% endif %}
                 </figcaption>
