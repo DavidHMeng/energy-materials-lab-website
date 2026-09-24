@@ -21,10 +21,26 @@ Implemented in this migration:
 - `ops/` Nginx, pull-sync, systemd service/timer templates and manual VM runbook;
 - `DEPLOYMENT.md` architecture, EIT network-admin request, acceptance and rollback.
 
-The authoritative remote run IDs, production source/build SHA, generated branch SHA,
-staging revalidation and final readiness classification are added here only after the
-corresponding GitHub checks actually pass. Until the user executes the VM runbook, the
-correct boundary remains: **EIT VM DEPLOYMENT PENDING USER EXECUTION**.
+Verified GitHub/build migration evidence for implementation commit
+[`7674579`](https://github.com/DavidHMeng/energy-materials-lab-website/commit/767457992c868aeb1e4b2111e2fddcea19fd8c72):
+
+- CI run [`35982387060`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35982387060)
+  passed the production Jekyll build, generated-route/SEO/root-path checks and HTML
+  Proofer.
+- Production run [`35982387259`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35982387259)
+  passed Citation, Translation/fallback, content, build and publish jobs.
+- That run built source/build SHA `767457992c868aeb1e4b2111e2fddcea19fd8c72`
+  and published generated branch SHA `14a76d15691499c101b0b015b2075f7f1f1e02e9`.
+- The generated branch root contains only deployable website output; source-only docs,
+  workflows, configs and build tooling are absent. Its production files contain no
+  `/energy-materials-lab-website/` dependency.
+- Staging artifact run [`35982547245`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35982547245)
+  passed the real GitHub Pages base-path, noindex, canonical, route, asset and link
+  checks. The existing public staging URL remained reachable.
+
+This evidence record is excluded from Jekyll output and does not change the production
+page set. Until the user executes the VM runbook, the correct boundary remains:
+**GITHUB/BUILD MIGRATION COMPLETE / EIT VM DEPLOYMENT PENDING USER EXECUTION**.
 
 ## UI / CMS Workflow V1.5 extension (2026-09-24)
 
