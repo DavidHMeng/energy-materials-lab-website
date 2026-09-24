@@ -8,11 +8,8 @@
 - Deployment: static files only; no database or application server.
 - Source control: public GitHub repository at
   `DavidHMeng/energy-materials-lab-website`; `main` is the default branch.
-- Production origin: `https://jliang.eitech.edu.cn/`, with an empty Jekyll `baseurl`.
-- Deployment: the manual Pages workflow publishes only when GitHub Pages reports that
-  exact custom-domain origin and an empty base path. Until DNS and the repository Pages
-  setting are ready, the workflow stops before artifact creation so the last stable
-  deployment remains available.
+- Preview: `https://davidhmeng.github.io/energy-materials-lab-website/`, deployed by
+  the manual Pages workflow after the same production checks used by CI.
 
 ## Local setup
 
@@ -36,11 +33,6 @@ the project stylesheet, the compact profile contact layout, normal-flow profile 
 profile summaries, the 1.65:1 contained-image carousel, and the absence of retired
 phone/office output. Python regression tests exercise translation-state transitions
 before every Jekyll build.
-
-The generated-site gate additionally checks production canonical, Open Graph and
-Twitter URLs, reciprocal `en` / `zh-CN` / `x-default` hreflang values, JSON-LD URL,
-the production sitemap and robots declaration, legacy project-path leakage and insecure
-HTTP asset references. See `DOMAIN_MIGRATION.md` for the DNS and release runbook.
 
 ## Chinese-primary translation workflow
 

@@ -3,13 +3,12 @@ set -euo pipefail
 
 BUNDLER_VERSION="2.5.6"
 BASEURL="${BASEURL:-}"
-ORIGIN="${ORIGIN:-https://jliang.eitech.edu.cn}"
 
 python scripts/validate_content.py
 python scripts/test_translation.py
 python scripts/translate_content.py --dry-run
 JEKYLL_ENV=production bundle _${BUNDLER_VERSION}_ exec jekyll build --trace "$@"
-python scripts/check_generated_site.py _site --baseurl "$BASEURL" --origin "$ORIGIN"
+python scripts/check_generated_site.py _site --baseurl "$BASEURL"
 
 htmlproofer_args=(_site --disable-external --ignore-urls "/example\\.edu/")
 if [[ -n "$BASEURL" && "$BASEURL" != "/" ]]; then

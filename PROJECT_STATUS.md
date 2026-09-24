@@ -3,26 +3,6 @@
 Updated: 2026-09-24
 Current release line: UI / CMS Workflow V1.5 on `main`
 
-## Custom-domain production migration (2026-09-24)
-
-Status: **CODE MIGRATION IN PROGRESS — DNS/HTTPS PENDING**.
-
-- Production source origin is `https://jliang.eitech.edu.cn` with `baseurl: ""`.
-- Canonical, Open Graph, Twitter, JSON-LD, reciprocal hreflang, sitemap and robots
-  output are now checked against the production origin in every full build.
-- The manual deploy workflow has a fail-closed domain gate: it will not upload or
-  publish unless `actions/configure-pages` returns `https://jliang.eitech.edu.cn` and
-  an empty base path.
-- Rollback tag `pre-custom-domain-migration` points to the last synchronized source
-  commit before this migration and has been pushed to GitHub.
-- Live DNS is not ready: `jliang.eitech.edu.cn` currently resolves to private A record
-  `10.38.132.58`, has no GitHub Pages CNAME, and HTTPS on port 443 is unavailable.
-  The school DNS administrator must remove the conflicting A record and create CNAME
-  `jliang.eitech.edu.cn -> davidhmeng.github.io` before repository cutover.
-- GitHub Pages custom-domain and Enforce HTTPS settings have not been changed while
-  DNS is unsafe, preventing the working legacy deployment from redirecting visitors to
-  an unreachable host. See `DOMAIN_MIGRATION.md` for the exact release sequence.
-
 ## UI / CMS Workflow V1.5 extension (2026-09-24)
 
 This extension keeps Framework V1.1, the frozen navigation and the existing Pages
@@ -135,7 +115,7 @@ environment.
 - Visibility: Public.
 - Default branch: `main`.
 - GitHub Pages build type: GitHub Actions.
-- Historical pre-migration Pages URL: <https://davidhmeng.github.io/energy-materials-lab-website/>
+- Preview URL: <https://davidhmeng.github.io/energy-materials-lab-website/>
 - HTTPS enforcement: enabled.
 - Latest UI V1.5 deployment: run
   [`35874778117`](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/35874778117)

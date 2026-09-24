@@ -2,7 +2,7 @@
 
 适用仓库：`DavidHMeng/energy-materials-lab-website`  
 默认分支：`main`  
-正式网站：<https://jliang.eitech.edu.cn/>
+网站预览：<https://davidhmeng.github.io/energy-materials-lab-website/>  
 CMS 入口：<https://app.pagescms.org/>
 
 本手册对应当前仓库的真实配置，不是通用示例。2026-09-23 已完成一次
@@ -57,8 +57,8 @@ CI 通过后，在 Pages CMS 左侧 **Actions** 中选择 **Deploy website**，�
 
 发布完成后检查：
 
-- 英文首页：<https://jliang.eitech.edu.cn/>
-- 中文首页：<https://jliang.eitech.edu.cn/zh/>
+- 英文首页：<https://davidhmeng.github.io/energy-materials-lab-website/>
+- 中文首页：<https://davidhmeng.github.io/energy-materials-lab-website/zh/>
 - 本次修改涉及的英文和中文页面。
 
 GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；样式或脚本若仍显示旧版，
@@ -260,7 +260,7 @@ CMS 无法打开，由维护者在 GitHub 提交历史中对单个 commit 执行
 2. GitHub 仓库出现新的 `content:` commit；
 3. Validate and build 已通过；
 4. Deploy GitHub Pages 已成功；
-5. 打开的 URL 是 `https://jliang.eitech.edu.cn/`，且页面路径不含旧仓库前缀；
+5. 打开的 URL 包含 `/energy-materials-lab-website/`；
 6. 等待短时 CDN/浏览器缓存后刷新。
 
 ## 8. 已验证的闭环证据

@@ -4,14 +4,6 @@ Audit updated: 2026-09-23
 Latest UI V1.3 baseline: current `main`
 Framework: frozen Framework V1.1 on Greene Lab Website Template v1.4.0
 
-## Custom-domain migration note (2026-09-24)
-
-The source now targets `https://jliang.eitech.edu.cn/` at the domain root. Canonical,
-social, JSON-LD, hreflang, sitemap and robots output are covered by generated-site
-checks. The production workflow refuses to deploy unless GitHub Pages reports the same
-origin with an empty base path. DNS and certificate completion remain external gates;
-see `DOMAIN_MIGRATION.md` and `PROJECT_STATUS.md` for current evidence.
-
 ## Status model
 
 - **Implemented**: the required source/configuration exists and static inspection found
@@ -54,8 +46,8 @@ The production workflow ran the following gate sequence on Ubuntu:
 4. check required routes, assets, languages, navigation and forbidden routes;
 5. run HTML Proofer for images, internal links, fragments and scripts.
 
-The GitHub Pages deployment repeats the same gates with the configured production
-origin and empty root base path before uploading the Pages artifact.
+The GitHub Pages deployment repeats the same gates with the real
+`/energy-materials-lab-website` base path before uploading the Pages artifact.
 
 ## Remaining acceptance boundary
 
@@ -64,5 +56,5 @@ production work is editorial rather than infrastructural:
 
 1. replace and approve all placeholder institutional and research content;
 2. add lab-owned DOI records and verify generated citation pull requests;
-3. complete the school DNS CNAME, GitHub custom-domain setting and HTTPS cutover;
+3. decide whether to configure a school domain and branch protection;
 4. monitor upstream action releases for the current Node/runner deprecation warnings.

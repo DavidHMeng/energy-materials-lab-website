@@ -39,7 +39,9 @@
     {{ subtitle }}. {{ description }}
   {%- endcapture %}
 {% endif %}
-{% assign url = page.url | absolute_url %}
+{% capture url -%}
+  {{ site.url }}{{ site.baseurl }}{{ page.url }}
+{%- endcapture %}
 
 {% assign description = description | xml_escape %}
 
@@ -91,18 +93,15 @@
 {% endif %}
 
 <link rel="canonical" href="{{ url }}">
+{% assign alternate_path = page.url %}
 {% if page.lang == "zh" %}
-  {% assign en_path = page.url | remove_first: "/zh" %}
-  {% assign zh_path = page.url %}
+  {% assign alternate_path = page.url | remove_first: "/zh" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}{{ site.baseurl }}{{ alternate_path }}">
+  <link rel="alternate" hreflang="zh-CN" href="{{ url }}">
 {% else %}
-  {% assign en_path = page.url %}
-  {% capture zh_path %}/zh{{ page.url }}{% endcapture %}
+  <link rel="alternate" hreflang="en" href="{{ url }}">
+  <link rel="alternate" hreflang="zh-CN" href="{{ site.url }}{{ site.baseurl }}/zh{{ page.url }}">
 {% endif %}
-{% assign en_url = en_path | absolute_url %}
-{% assign zh_url = zh_path | absolute_url %}
-<link rel="alternate" hreflang="en" href="{{ en_url }}">
-<link rel="alternate" hreflang="zh-CN" href="{{ zh_url }}">
-<link rel="alternate" hreflang="x-default" href="{{ en_url }}">
 
 {% if page.author %}
   <meta name="author" content="{{ page.author | xml_escape }}">
