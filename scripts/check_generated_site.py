@@ -145,6 +145,13 @@ required = [
     "_scripts/search.js", "sitemap.xml", "robots.txt",
 ]
 errors.extend(f"missing route or asset: /{path}" for path in required if not (site / path).is_file())
+source_only_paths = (
+    "AGENTS.md", "BUILD_SPEC.md", "CONTENT_SCHEMA.md", "DEPLOYMENT.md",
+    "IMPLEMENTATION_AUDIT.md", "PAGES_CMS_GUIDE.md", "PROJECT_STATUS.md", "README.md",
+    "Gemfile", "Gemfile.lock", "_config.yml", "_config.production.yml", "_config.staging.yml",
+    ".github", "ops", "scripts", "script", "_cite", "_translation",
+)
+errors.extend(f"source-only path leaked into generated site: /{path}" for path in source_only_paths if (site / path).exists())
 expected_nav = ["RESEARCH", "PUBLICATIONS", "TEAM", "OPPORTUNITIES"]
 
 home_html = (site / "index.html").read_text(encoding="utf-8", errors="replace") if (site / "index.html").is_file() else ""
