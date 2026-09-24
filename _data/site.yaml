@@ -1,19 +1,17 @@
-lab_name_en: Placeholder Energy Materials Lab
-lab_name_zh: 能源材料课题组（占位）
-school_en: Placeholder University
-school_zh: 某某大学
+lab_name_en: Solid-State Energy Laboratory
+lab_name_zh: 固态能源实验室
+school_en: Eastern Institute of Technology, Ningbo
+school_zh: 宁波东方理工大学
 college_en: School of Materials Science and Engineering
 college_zh: 材料科学与工程学院
-address_en: Building 1, Placeholder Campus, City, Country
-address_zh: 某国某市某某校区 1 号楼
-email: lab@example.edu
-header_image: /images/placeholders/campus.svg
-lab_logo: /images/placeholders/lab-logo.svg
-school_logo: /images/placeholders/school-logo.svg
-copyright_en: Placeholder Energy Materials Lab
-copyright_zh: 能源材料课题组（占位）
-description_en: Research group website for energy materials, interfaces, and electrochemistry.
-description_zh: 聚焦能源材料、界面与电化学研究的课题组网站。
+address_zh: 浙江省宁波市镇海区蛟川街道海江大道2911号
+email: news@eitech.edu.cn
+header_image: /images/uploads/codex-2026924-130010.png
+lab_logo: /images/uploads/dd28de32-e182-4799-bf9c-9a3730a7e4eb.png
+school_logo: /images/uploads/08ffe46c-f9ad-4ba5-9fc3-6ceb5c7ca741.png
+copyright_en: Solid-State Energy Laboratory
+copyright_zh: 固态能源实验室
+description_zh: 聚焦能源、界面与固态电化学研究的课题组网站。
 typography:
   heading_font: default
   body_font: default
