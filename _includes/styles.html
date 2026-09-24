@@ -30,4 +30,5 @@
 {% endfor %}
 
 <!-- project layer always loads after the retained Greene core -->
-<link href="{{ '/_styles/custom.css' | relative_url }}" rel="stylesheet" />
+{% assign custom_style_version = site.time | date: "%Y%m%d%H%M%S" %}
+<link href="{{ '/_styles/custom.css' | relative_url }}?v={{ custom_style_version }}" rel="stylesheet" />
