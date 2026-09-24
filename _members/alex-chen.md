@@ -31,7 +31,7 @@ education_zh: |+
 email: alex.chen@example.edu
 google_scholar: https://scholar.google.com/
 representative_dois:
-  - https://doi.org/10.1021/jacs.5c22628
+  - 10.1021/jacs.5c22628
 active: true
 display: true
 order: 1
