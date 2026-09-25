@@ -16,7 +16,12 @@ verified. The final tree contains no `cms-qa-test` records and no
 Evidence:
 
 - Final branch validation: [GitHub Actions run 36117027301](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117027301)
-  passed after cleanup.
+  passed after the CMS cleanup. The final documentation commit was then
+  revalidated by [run 36117463226](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117463226).
+- Final staging artifact: [run 36117560928](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117560928)
+  produced `github-pages-staging` (3,665,258 bytes), digest
+  `sha256:4582d3e7dc7947736ef0a5be712754a76bb21fcacdff0e9610b738fa2b726e42`,
+  expiring 2026-10-02.
 - Citation synchronization: [GitHub Actions run 36114896174](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36114896174)
   normalized mixed DOI forms and generated one citation for the test entry
   before it was deliberately removed.

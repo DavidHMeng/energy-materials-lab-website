@@ -38,11 +38,14 @@ and content validation both pass.
 
 ## Build and staging evidence
 
-- Final branch validation run: https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117027301
+- Final branch validation run: https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117463226
+- Final staging artifact run: https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117560928
+  produced `github-pages-staging` (3,665,258 bytes), digest
+  `sha256:4582d3e7dc7947736ef0a5be712754a76bb21fcacdff0e9610b738fa2b726e42`,
+  expiring 2026-10-02.
 - Citation synchronization run: https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36114896174
-- A successful staging artifact was produced during QA; branch-specific public
-  Pages deployment remains intentionally unavailable because the repository
-  environment only permits deployment from `main`.
+- Branch-specific public Pages deployment remains intentionally unavailable
+  because the repository environment only permits deployment from `main`.
 - The local Windows host has no Ruby/Jekyll installation; GitHub Actions remains
   the authoritative production/staging build environment.
 
