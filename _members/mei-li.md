@@ -1,5 +1,5 @@
 ---
-slug: mei-li
+slug: jianwen-liang
 role: pi
 name_en: Jianwen Liang
 name_zh: 梁剑文
