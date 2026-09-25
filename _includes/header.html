@@ -1,12 +1,17 @@
 {% assign image = page.header | default: site.data.site.header_image | default: site.header %}
 {% assign is_zh = false %}{% if page.lang == "zh" %}{% assign is_zh = true %}{% endif %}
 {% assign home_path = "/" %}{% if is_zh %}{% assign home_path = "/zh/" %}{% endif %}
-{% assign toggle_path = page.url %}
-{% if is_zh %}
-  {% assign toggle_path = page.url | remove_first: "/zh" %}
-  {% if toggle_path == "" %}{% assign toggle_path = "/" %}{% endif %}
+{% assign member_slug = nil %}{% if page.layout == "profile" and page.slug %}{% assign member_slug = page.slug %}{% endif %}
+{% if member_slug %}
+  {% if is_zh %}{% assign toggle_path = "/team/" | append: member_slug | append: "/" %}{% else %}{% assign toggle_path = "/zh/team/" | append: member_slug | append: "/" %}{% endif %}
 {% else %}
-  {% assign toggle_path = "/zh" | append: page.url %}
+  {% assign toggle_path = page.url %}
+  {% if is_zh %}
+    {% assign toggle_path = page.url | remove_first: "/zh" %}
+    {% if toggle_path == "" %}{% assign toggle_path = "/" %}{% endif %}
+  {% else %}
+    {% assign toggle_path = "/zh" | append: page.url %}
+  {% endif %}
 {% endif %}
 
 <header class="background" style="--image: url('{{ image | relative_url | uri_escape }}')" data-dark="true" {% if page.url == "/" or page.url == "/zh/" %}data-big{% endif %}>

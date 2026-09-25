@@ -94,7 +94,19 @@
 
 <link rel="canonical" href="{{ url }}">
 {% assign alternate_path = page.url %}
-{% if page.lang == "zh" %}
+{% assign member_slug = nil %}{% if page.layout == "profile" and page.slug %}{% assign member_slug = page.slug %}{% endif %}
+{% if member_slug %}
+  {% assign alternate_path = "/team/" | append: member_slug | append: "/" %}
+  {% if page.lang == "zh" %}
+    <link rel="alternate" hreflang="en" href="{{ public_origin }}{{ alternate_path }}">
+    <link rel="alternate" hreflang="zh-CN" href="{{ url }}">
+    <link rel="alternate" hreflang="x-default" href="{{ public_origin }}{{ alternate_path }}">
+  {% else %}
+    <link rel="alternate" hreflang="en" href="{{ url }}">
+    <link rel="alternate" hreflang="zh-CN" href="{{ public_origin }}/zh{{ alternate_path }}">
+    <link rel="alternate" hreflang="x-default" href="{{ url }}">
+  {% endif %}
+{% elsif page.lang == "zh" %}
   {% assign alternate_path = page.url | remove_first: "/zh" %}
   <link rel="alternate" hreflang="en" href="{{ public_origin }}{{ alternate_path }}">
   <link rel="alternate" hreflang="zh-CN" href="{{ url }}">

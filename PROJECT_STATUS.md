@@ -250,10 +250,28 @@ Files changed for this release:
 - `_includes/custom/team-grid.html`, `_includes/fonts.html`, `_includes/scripts.html`,
   `_includes/styles.html`
 - `_styles/custom.scss`, `_scripts/custom.js`, `_data/site.yaml`, `.pages.yml`
-- `_members/alex-chen.md`, `_members/mei-li.md`, `_members/phd-student-01.md` through
+- `_members/alex-chen.md`, `_members/jianwen-liang.md`, `_members/phd-student-01.md` through
   `_members/phd-student-08.md`
 - `scripts/validate_content.py`, `scripts/check_generated_site.py`
 - `CONTENT_SCHEMA.md`, `BUILD_SPEC.md`, `PAGES_CMS_GUIDE.md`, `PROJECT_STATUS.md`
+
+## CMS slug/routing correction (2026-09-25)
+
+The Pages CMS commit `83ccd8f` changed the member data slug to `jianwen-liang`
+while the source file remained `_members/mei-li.md`. Before this correction,
+English member routes used the collection filename while the localized generator
+used the front-matter slug. The resulting CI failure reported broken
+`/zh/team/mei-li/` and `/team/jianwen-liang/` links and a missing localized
+profile route.
+
+The custom member generator, language toggle and alternate-link metadata now all
+use the editable front-matter slug for both language trees. Existing CMS entries
+can therefore change slug without a manual filesystem rename; new entries still
+use the `{slug}.md` creation template. `check_generated_site.py` discovers all
+visible member profiles dynamically instead of hard-coding one placeholder name.
+The complete input contract and format matrix is documented in
+`CMS_INPUT_FORMATS.md`; `scripts/test_cms_input_contract.py` is part of the CI test
+suite.
 
 ## Previous UI V1.4 baseline (historical)
 

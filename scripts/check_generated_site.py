@@ -140,7 +140,7 @@ required = [
     "opportunities/index.html", "news/index.html", "events/index.html", "zh/index.html",
     "zh/research/index.html", "zh/publications/index.html", "zh/team/index.html",
     "zh/opportunities/index.html", "zh/news/index.html", "zh/events/index.html",
-    "team/mei-li/index.html", "zh/team/mei-li/index.html", "404.html", "zh/404.html",
+    "404.html", "zh/404.html",
     "images/icon.svg", "_styles/custom.css", "_scripts/dark-mode.js", "_scripts/custom.js",
     "_scripts/search.js", "sitemap.xml", "robots.txt",
 ]
@@ -173,7 +173,10 @@ for name, rendered in (("index.html", home_html), ("zh/index.html", zh_home_html
         if marker not in rendered:
             errors.append(f"typography setting {marker} missing in {name}")
 
-for profile_path in (site / "team" / "mei-li" / "index.html", site / "zh" / "team" / "mei-li" / "index.html"):
+profile_paths = sorted((site / "team").glob("*/index.html")) if (site / "team").is_dir() else []
+if not profile_paths:
+    errors.append("generated site has no visible member profile route")
+for profile_path in profile_paths:
     if profile_path.is_file():
         profile = profile_path.read_text(encoding="utf-8", errors="replace")
         relative = profile_path.relative_to(site).as_posix()
@@ -184,6 +187,26 @@ for profile_path in (site / "team" / "mei-li" / "index.html", site / "zh" / "tea
                 errors.append(f"profile marker {marker} missing in {relative}")
         if "Phone" in profile or "Office" in profile:
             errors.append(f"retired phone/office content rendered in {relative}")
+
+        route = profile_path.parent.name
+        localized_path = site / "zh" / "team" / route / "index.html"
+        if not localized_path.is_file():
+            errors.append(f"missing localized member profile route: /zh/team/{route}/")
+        else:
+            localized = localized_path.read_text(encoding="utf-8", errors="replace")
+            for marker in ('class="profile-personal-note"', 'class="profile-summary"', 'class="profile-contacts"', 'class="profile-portrait"'):
+                if marker not in localized:
+                    errors.append(f"profile marker {marker} missing in zh/team/{route}/index.html")
+
+        english_path = site / "team" / route / "index.html"
+        if english_path.is_file():
+            english = english_path.read_text(encoding="utf-8", errors="replace")
+            if f"/zh/team/{route}/" not in english:
+                errors.append(f"English profile language link does not match slug in {relative}")
+        if localized_path.is_file():
+            localized = localized_path.read_text(encoding="utf-8", errors="replace")
+            if f"/team/{route}/" not in localized:
+                errors.append(f"Chinese profile language link does not match filename in zh/team/{route}/index.html")
 
 custom_css = (site / "_styles" / "custom.css").read_text(encoding="utf-8", errors="replace") if (site / "_styles" / "custom.css").is_file() else ""
 compact_custom_css = "".join(custom_css.split())

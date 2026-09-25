@@ -86,6 +86,20 @@ def iso_date(value) -> str:
     return str(value or "")
 
 
+def check_date(value, label: str, *, required: bool = False) -> str:
+    """Validate the CMS contract instead of relying on lexical date sorting."""
+    text = iso_date(value)
+    if not text:
+        if required:
+            ERRORS.append(f"{label}: date is required and must use YYYY-MM-DD")
+        return ""
+    try:
+        date.fromisoformat(text)
+    except ValueError:
+        ERRORS.append(f"{label}: use YYYY-MM-DD")
+    return text
+
+
 def checked_doi(value, label: str) -> str | None:
     try:
         return normalize_doi(value)
@@ -107,6 +121,7 @@ for folder, required in SCHEMAS.items():
 for path, data in records["_news"]:
     if data.get("category") not in NEWS_CATEGORIES:
         ERRORS.append(f"{path.relative_to(ROOT)}: invalid news category")
+    check_date(data.get("date"), f"{path.relative_to(ROOT)}: date", required=True)
     check_image(data.get("image", ""), path)
     if data.get("image") and not data.get("alt_zh"):
         ERRORS.append(f"{path.relative_to(ROOT)}: news image requires Chinese alt text")
@@ -114,10 +129,12 @@ for path, data in records["_news"]:
 for path, data in records["_events"]:
     if data.get("type") not in EVENT_TYPES:
         ERRORS.append(f"{path.relative_to(ROOT)}: invalid event type")
+    event_date = check_date(data.get("date"), f"{path.relative_to(ROOT)}: date", required=True)
+    end_date = check_date(data.get("end_date"), f"{path.relative_to(ROOT)}: end_date")
     check_image(data.get("cover_image", ""), path)
     if data.get("cover_image") and not data.get("alt_zh"):
         ERRORS.append(f"{path.relative_to(ROOT)}: cover image requires Chinese alt text")
-    if data.get("end_date") and iso_date(data.get("end_date")) < iso_date(data.get("date")):
+    if end_date and event_date and end_date < event_date:
         ERRORS.append(f"{path.relative_to(ROOT)}: end_date precedes date")
 
 team_roles = load_yaml(ROOT / "_data" / "team_roles.yaml") or []
@@ -162,8 +179,8 @@ for path, data in records["_opportunities"]:
         ERRORS.append(f"{path.relative_to(ROOT)}: invalid opportunity category")
     if data.get("active_override") not in {"auto", "force_show", "force_hide"}:
         ERRORS.append(f"{path.relative_to(ROOT)}: active_override must be auto, force_show, or force_hide")
-    opening = iso_date(data.get("opening_date"))
-    closing = iso_date(data.get("closing_date"))
+    opening = check_date(data.get("opening_date"), f"{path.relative_to(ROOT)}: opening_date")
+    closing = check_date(data.get("closing_date"), f"{path.relative_to(ROOT)}: closing_date")
     if opening and closing and closing < opening:
         ERRORS.append(f"{path.relative_to(ROOT)}: closing_date precedes opening_date")
 

@@ -146,8 +146,8 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 
 ### Publications
 
-1. 在 DOI 字段填写裸 DOI 或完整 doi.org 地址，例如 `10.1002/adma.202102415`
-   或 `https://doi.org/10.1002/adma.202102415`。不需要手动添加 `doi:` 前缀。
+1. 在 DOI 字段填写裸 DOI、完整 doi.org 地址或 `DOI:` / `DOI：` 前缀，例如
+   `10.1002/adma.202102415` 或 `https://doi.org/10.1002/adma.202102415`。
 2. 需要关联成员时，在 `member_ids` 填 Team 中对应的稳定 slug。
 3. 保存后，GitHub 会自动规范化 DOI、去重并汇入中央 Citation Registry；也可打开
    **Actions → Synchronize DOI citations** 手动刷新。
@@ -161,7 +161,10 @@ Research 和 Team 都通过 DOI/成员 ID 引用同一出版物；不要在多�
 
 ### Team
 
-- `Member ID / slug` 只能使用小写字母、数字和连字符，创建后不要随意修改。
+- `Member ID / slug` 只能使用小写字母、数字和连字符，是双语个人页的稳定路由 ID。
+  新建记录会按 slug 创建文件；已有记录即使文件仍保留旧名称，模板也会按 slug 生成
+  英文和中文相同的个人页路由，因此可以安全修改。完整示例和所有模块的输入契约见
+  [`CMS_INPUT_FORMATS.md`](CMS_INPUT_FORMATS.md)。
 - `Role ID` 必须对应 **Team Role Labels** 中的 ID。常用分类已包含 PI、博士后、
   博士生、硕士生、本科生、访问学生、科研人员和行政人员。
 - `active: true` 且 `display: true` 时成员才显示。
