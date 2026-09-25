@@ -58,6 +58,14 @@ Translation/fallback、内容、production build、内部链接和 SEO 输出；
 CI 通过后，在 Pages CMS 左侧 **Actions** 中选择 **Deploy website**，可手工更新
 GitHub Pages staging。该按钮运行 `deploy-pages.yml`，使用 staging 配置重新构建并发布。
 
+重要：正式发布操作必须在 Pages CMS 的 `main` 分支上下文中执行。仓库的
+`github-pages` 环境只允许 `main`，因此在 `codex/*` 或其他 QA/feature 分支点击
+**Deploy website** 会在构建成功后被环境保护规则拒绝。这不是内容或图片错误。
+
+如果正在检查尚未合并的分支，请使用 **Build staging artifact**；它会构建并校验
+七天有效的可下载网站包，但不会覆盖公共 Pages。确认内容无误后，将分支合并到
+`main`，再从 `main` 的 Actions 执行 **Deploy website**。
+
 若 CMS 按钮暂未刷新，也可以在 GitHub Actions 中打开
 **Deploy GitHub Pages (manual)**，选择 **Run workflow**，分支选 `main`。
 

@@ -353,7 +353,7 @@ actions:
     cancelable: false
     confirm:
       title: Deploy website?
-      message: Run the validated GitHub Pages production deployment for the current branch.
+      message: Publish the validated GitHub Pages staging site from main. QA or feature branches are protected from deployment; use Build staging artifact for those branches.
       button: Deploy
   - name: build-staging
     label: Build staging artifact
