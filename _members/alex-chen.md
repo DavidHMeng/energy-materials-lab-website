@@ -13,16 +13,19 @@ profile_summary_zh: 博士期间主要围绕锂硫电池中单原子催化剂的
 address_zh: 化学材料楼231室
 research_interests_zh: 卤化物固态电解质的设计
 personal_note_zh: 卤化物固态电解质设计
-education_zh: |+
-  - 博士，北京理工大学，2022-2026
+education_zh: '- 博士，北京理工大学，2022-2026
+
   - 硕士，渤海大学，2019-2022
+
   - 学士，渤海大学，2014-2018
 
+
+  '
 email: tanwang@eitech.edu.cn
 active: true
 display: true
 order: 1
 representative_dois:
-  - " 10.1007/s40820-026-02232-6"
-  - 10.1016/j.ensm.2025.104512
+- 10.1007/s40820-026-02232-6
+- 10.1016/j.ensm.2025.104512
 ---
