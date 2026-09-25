@@ -18,12 +18,14 @@ on:
 permissions:
   actions: read
   contents: write
-  pull-requests: write
 
 jobs:
   refresh:
     if: github.actor != 'github-actions[bot]' && !contains(github.event.head_commit.message, '[skip citation-sync]')
     uses: ./.github/workflows/update-citations.yaml
     with:
-      open-pr: ${{ github.event_name == 'workflow_dispatch' }}
+      # Pages CMS actions run against the currently selected branch. Write the
+      # normalized registry back to that branch instead of trying to create a
+      # pull request, which may be disabled by repository policy.
+      open-pr: false
     secrets: inherit
