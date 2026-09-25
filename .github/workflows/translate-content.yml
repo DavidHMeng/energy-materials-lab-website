@@ -55,7 +55,17 @@ jobs:
           TRANSLATION_API_KEY: ${{ secrets.TRANSLATION_API_KEY }}
         run: |
           git pull --rebase origin main
-          python scripts/translate_content.py --write
+          result="$(python scripts/translate_content.py --write)"
+          echo "$result"
+          {
+            echo "### Optional English generation"
+            if [ -z "$TRANSLATION_API_KEY" ] || [ -z "$TRANSLATION_MODEL" ]; then
+              echo "Translation credentials are not configured. Chinese source fallback remains active and deployment is not blocked."
+            fi
+            echo '```json'
+            echo "$result" | tail -n 1
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: Validate generated content and production site
         env:
           JEKYLL_CONFIG: _config.yml,_config.production.yml

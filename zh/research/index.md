@@ -9,11 +9,11 @@ permalink: /zh/research/
 <div class="research-list">
   {% for area in areas %}
     <section class="research-area">
-      <div class="research-titlebar"><h2>{{ area.title_zh }}</h2><span class="research-order">0{{ forloop.index }}</span></div>
+      <div class="research-titlebar"><h2>{{ area.title_zh | default: area.title_en }}</h2><span class="research-order">0{{ forloop.index }}</span></div>
       <div class="research-feature">
-        <div class="research-image"><img src="{{ area.graphical_abstract | relative_url }}" alt="{{ area.alt_zh }}" loading="lazy"></div>
+        <div class="research-image"><img src="{{ area.graphical_abstract | relative_url }}" alt="{{ area.alt_zh | default: area.alt_en | escape }}" loading="lazy"></div>
         <div class="research-copy">
-          <p>{{ area.short_intro_zh }}</p>
+          <p>{{ area.short_intro_zh | default: area.short_intro_en }}</p>
           {% if area.doi_list.size > 0 %}<div class="related-publications"><h3>相关论文</h3><ul>{% for doi in area.doi_list %}{% include custom/compact-publication.html doi=doi %}{% endfor %}</ul></div>{% endif %}
         </div>
       </div>

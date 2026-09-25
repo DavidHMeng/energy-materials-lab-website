@@ -71,7 +71,10 @@ def walk_pairs(value: Any, allowed: set[str], prefix: str = "") -> Iterable[tupl
                 continue
             stem = key[:-3]
             en_key = f"{stem}_en"
-            if stem in allowed and en_key in value and not is_blank(value.get(key)):
+            # Pages CMS omits optional blank fields from YAML instead of saving
+            # them as an empty string. A Chinese field is therefore a valid
+            # translation candidate even when its English sibling is absent.
+            if stem in allowed and not is_blank(value.get(key)):
                 path = f"{prefix}.{stem}" if prefix else stem
                 yield value, key, en_key, path
         for key, child in value.items():

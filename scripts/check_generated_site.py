@@ -182,7 +182,10 @@ for profile_path in profile_paths:
         relative = profile_path.relative_to(site).as_posix()
         if '<section class="profile-intro"' not in profile or '<header class="profile-intro"' in profile:
             errors.append(f"profile hero is not normal-flow section markup in {relative}")
-        for marker in ('class="profile-personal-note"', 'class="profile-summary"', 'class="profile-contacts"', 'class="profile-portrait"'):
+        # Personal note and profile summary are optional CMS fields and should
+        # disappear cleanly when editors delete them. Contacts and portrait are
+        # structural parts of every profile card.
+        for marker in ('class="profile-contacts"', 'class="profile-portrait"'):
             if marker not in profile:
                 errors.append(f"profile marker {marker} missing in {relative}")
         if "Phone" in profile or "Office" in profile:
@@ -194,7 +197,7 @@ for profile_path in profile_paths:
             errors.append(f"missing localized member profile route: /zh/team/{route}/")
         else:
             localized = localized_path.read_text(encoding="utf-8", errors="replace")
-            for marker in ('class="profile-personal-note"', 'class="profile-summary"', 'class="profile-contacts"', 'class="profile-portrait"'):
+            for marker in ('class="profile-contacts"', 'class="profile-portrait"'):
                 if marker not in localized:
                     errors.append(f"profile marker {marker} missing in zh/team/{route}/index.html")
 

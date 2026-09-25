@@ -1,15 +1,28 @@
 {% assign is_zh = false %}{% if page.lang == "zh" %}{% assign is_zh = true %}{% endif %}
+{% if is_zh %}
+  {% assign footer_lab_name = site.data.site.lab_name_zh | default: site.data.site.lab_name_en %}
+  {% assign footer_school = site.data.site.school_zh | default: site.data.site.school_en %}
+  {% assign footer_college = site.data.site.college_zh | default: site.data.site.college_en %}
+  {% assign footer_address = site.data.site.address_zh | default: site.data.site.address_en %}
+  {% assign footer_copyright = site.data.site.copyright_zh | default: site.data.site.copyright_en %}
+{% else %}
+  {% assign footer_lab_name = site.data.site.lab_name_en | default: site.data.site.lab_name_zh %}
+  {% assign footer_school = site.data.site.school_en | default: site.data.site.school_zh %}
+  {% assign footer_college = site.data.site.college_en | default: site.data.site.college_zh %}
+  {% assign footer_address = site.data.site.address_en | default: site.data.site.address_zh %}
+  {% assign footer_copyright = site.data.site.copyright_en | default: site.data.site.copyright_zh %}
+{% endif %}
 <footer data-size="wide">
   <div class="footer-identity">
     <img src="{{ site.data.site.school_logo | relative_url }}" alt="{% if is_zh %}学校标志{% else %}School logo{% endif %}">
     <div>
-      <strong>{% if is_zh %}{{ site.data.site.lab_name_zh }}{% else %}{{ site.data.site.lab_name_en }}{% endif %}</strong><br>
-      {% if is_zh %}{{ site.data.site.school_zh }} · {{ site.data.site.college_zh }}{% else %}{{ site.data.site.school_en }} · {{ site.data.site.college_en }}{% endif %}
+      <strong>{{ footer_lab_name }}</strong><br>
+      {{ footer_school }} · {{ footer_college }}
     </div>
   </div>
   <address>
-    {% if is_zh %}{{ site.data.site.address_zh }}{% else %}{{ site.data.site.address_en }}{% endif %}<br>
+    {{ footer_address }}<br>
     <a href="mailto:{{ site.data.site.email }}">{{ site.data.site.email }}</a>
   </address>
-  <div class="footer-copyright">&copy; {{ site.time | date: "%Y" }} {% if is_zh %}{{ site.data.site.copyright_zh }}{% else %}{{ site.data.site.copyright_en }}{% endif %}</div>
+  <div class="footer-copyright">&copy; {{ site.time | date: "%Y" }} {{ footer_copyright }}</div>
 </footer>

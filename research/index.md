@@ -9,11 +9,11 @@ permalink: /research/
 <div class="research-list">
   {% for area in areas %}
     <section class="research-area">
-      <div class="research-titlebar"><h2>{{ area.title_en }}</h2><span class="research-order">0{{ forloop.index }}</span></div>
+      <div class="research-titlebar"><h2>{{ area.title_en | default: area.title_zh }}</h2><span class="research-order">0{{ forloop.index }}</span></div>
       <div class="research-feature">
-        <div class="research-image"><img src="{{ area.graphical_abstract | relative_url }}" alt="{{ area.alt_en }}" loading="lazy"></div>
+        <div class="research-image"><img src="{{ area.graphical_abstract | relative_url }}" alt="{{ area.alt_en | default: area.alt_zh | escape }}" loading="lazy"></div>
         <div class="research-copy">
-          <p>{{ area.short_intro_en }}</p>
+          <p>{{ area.short_intro_en | default: area.short_intro_zh }}</p>
           {% if area.doi_list.size > 0 %}<div class="related-publications"><h3>Related Publications</h3><ul>{% for doi in area.doi_list %}{% include custom/compact-publication.html doi=doi %}{% endfor %}</ul></div>{% endif %}
         </div>
       </div>

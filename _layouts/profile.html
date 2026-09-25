@@ -2,18 +2,36 @@
 layout: default
 ---
 {% assign member = page %}
+{% if page.lang == "zh" %}
+  {% assign portrait_alt = member.portrait_alt_zh | default: member.portrait_alt_en %}
+  {% assign member_name = member.name_zh | default: member.name_en %}
+  {% assign member_position = member.position_zh | default: member.position_en %}
+  {% assign affiliation = member.affiliation_zh | default: member.affiliation_en %}
+  {% assign profile_summary = member.profile_summary_zh | default: member.profile_summary_en %}
+  {% assign address = member.address_zh | default: member.address_en %}
+  {% assign interests = member.research_interests_zh | default: member.research_interests_en %}
+  {% assign education = member.education_zh | default: member.education_en %}
+  {% assign personal_note = member.personal_note_zh | default: member.personal_note_en %}
+{% else %}
+  {% assign portrait_alt = member.portrait_alt_en | default: member.portrait_alt_zh %}
+  {% assign member_name = member.name_en | default: member.name_zh %}
+  {% assign member_position = member.position_en | default: member.position_zh %}
+  {% assign affiliation = member.affiliation_en | default: member.affiliation_zh %}
+  {% assign profile_summary = member.profile_summary_en | default: member.profile_summary_zh %}
+  {% assign address = member.address_en | default: member.address_zh %}
+  {% assign interests = member.research_interests_en | default: member.research_interests_zh %}
+  {% assign education = member.education_en | default: member.education_zh %}
+  {% assign personal_note = member.personal_note_en | default: member.personal_note_zh %}
+{% endif %}
 <article class="profile-page">
   <section class="profile-intro" aria-labelledby="profile-name">
-    <img class="profile-portrait" src="{{ member.portrait | relative_url }}" alt="{% if page.lang == 'zh' %}{{ member.portrait_alt_zh }}{% else %}{{ member.portrait_alt_en }}{% endif %}" decoding="async">
+    <img class="profile-portrait" src="{{ member.portrait | relative_url }}" alt="{{ portrait_alt | escape }}" decoding="async">
     <div class="profile-identity">
-      <h1 id="profile-name">{% if page.lang == "zh" %}{{ member.name_zh }}{% else %}{{ member.name_en }}{% endif %}</h1>
-      <p class="profile-position">{% if page.lang == "zh" %}{{ member.position_zh }}{% else %}{{ member.position_en }}{% endif %}</p>
-      {% assign affiliation = member.affiliation_en %}{% if page.lang == "zh" %}{% assign affiliation = member.affiliation_zh %}{% endif %}
+      <h1 id="profile-name">{{ member_name }}</h1>
+      <p class="profile-position">{{ member_position }}</p>
       {% if affiliation and affiliation != "" %}<p class="profile-affiliation">{{ affiliation }}</p>{% endif %}
-      {% assign profile_summary = member.profile_summary_en %}{% if page.lang == "zh" %}{% assign profile_summary = member.profile_summary_zh %}{% endif %}
       {% if profile_summary and profile_summary != "" %}<p class="profile-summary">{{ profile_summary | escape | newline_to_br }}</p>{% endif %}
     </div>
-    {% assign address = member.address_en %}{% if page.lang == "zh" %}{% assign address = member.address_zh %}{% endif %}
     <div class="profile-contacts" aria-label="{% if page.lang == 'zh' %}联系方式{% else %}Contact information{% endif %}">
       {% if member.email and member.email != "" %}<a class="profile-contact-item" href="mailto:{{ member.email }}"><i class="fa-regular fa-envelope" aria-hidden="true"></i><span>{{ member.email }}</span></a>{% endif %}
       {% if address and address != "" %}<div class="profile-contact-item"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>{{ address }}</span></div>{% endif %}
@@ -26,11 +44,8 @@ layout: default
   </section>
 
   <div class="profile-sections">
-    {% assign interests = member.research_interests_en %}{% if page.lang == "zh" %}{% assign interests = member.research_interests_zh %}{% endif %}
     {% if interests %}<section><h2>{% if page.lang == "zh" %}研究兴趣{% else %}Research interests{% endif %}</h2><p>{{ interests }}</p></section>{% endif %}
-    {% assign education = member.education_en %}{% if page.lang == "zh" %}{% assign education = member.education_zh %}{% endif %}
     {% if education and education != "" %}<section><h2>{% if page.lang == "zh" %}教育经历{% else %}Education{% endif %}</h2>{{ education | markdownify }}</section>{% endif %}
-    {% assign personal_note = member.personal_note_en %}{% if page.lang == "zh" %}{% assign personal_note = member.personal_note_zh %}{% endif %}
     {% if personal_note and personal_note != "" %}<section class="profile-personal-note"><h2>{% if page.lang == "zh" %}个人寄语{% else %}Personal Note{% endif %}</h2><p>{{ personal_note | escape | newline_to_br }}</p></section>{% endif %}
     {% if member.representative_dois and member.representative_dois.size > 0 %}
       <section class="representative-publications profile-section-wide">

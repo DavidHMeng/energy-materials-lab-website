@@ -3,14 +3,21 @@
   {% for item in items %}
     {% assign visible = item | opportunity_visible: site.time %}
     {% if visible %}
+      {% if page.lang == "zh" %}
+        {% assign item_title = item.title_zh | default: item.title_en %}
+        {% assign item_content = item.content_zh | default: item.content_en %}
+      {% else %}
+        {% assign item_title = item.title_en | default: item.title_zh %}
+        {% assign item_content = item.content_en | default: item.content_zh %}
+      {% endif %}
       <article class="opportunity-card">
         <div class="card-meta">
           <span>{% if page.lang == "zh" %}{{ include.label_zh }}{% else %}{{ include.label_en }}{% endif %}</span>
           {% if item.closing_date %}<span>{% if page.lang == "zh" %}截止：{% else %}Closes: {% endif %}<time datetime="{{ item.closing_date }}">{{ item.closing_date }}</time></span>{% endif %}
         </div>
-        <h3>{% if page.lang == "zh" %}{{ item.title_zh }}{% else %}{{ item.title_en }}{% endif %}</h3>
-        <div>{% if page.lang == "zh" %}{{ item.content_zh | markdownify }}{% else %}{{ item.content_en | markdownify }}{% endif %}</div>
-        {% if item.links.size > 0 %}<div class="links">{% for link in item.links %}<a href="{{ link.url }}">{% if page.lang == "zh" %}{{ link.label_zh | default: link.label_en }}{% else %}{{ link.label_en }}{% endif %}<span aria-hidden="true"> →</span></a>{% endfor %}</div>{% endif %}
+        <h3>{{ item_title }}</h3>
+        <div>{{ item_content | markdownify }}</div>
+        {% if item.links.size > 0 %}<div class="links">{% for link in item.links %}<a href="{{ link.url }}">{% if page.lang == "zh" %}{{ link.label_zh | default: link.label_en }}{% else %}{{ link.label_en | default: link.label_zh }}{% endif %}<span aria-hidden="true"> →</span></a>{% endfor %}</div>{% endif %}
       </article>
     {% endif %}
   {% endfor %}

@@ -1,23 +1,38 @@
 {% assign intro = site.data.homepage.introduction %}
 {% assign slides = intro.slides | where: "display", true | sort: "order" %}
 {% if intro and slides.size > 0 %}
+  {% if page.lang == "zh" %}
+    {% assign intro_eyebrow = intro.eyebrow_zh | default: intro.eyebrow_en %}
+    {% assign intro_title = intro.title_zh | default: intro.title_en %}
+    {% assign intro_text = intro.text_zh | default: intro.text_en %}
+  {% else %}
+    {% assign intro_eyebrow = intro.eyebrow_en | default: intro.eyebrow_zh %}
+    {% assign intro_title = intro.title_en | default: intro.title_zh %}
+    {% assign intro_text = intro.text_en | default: intro.text_zh %}
+  {% endif %}
   <section class="home-introduction" aria-labelledby="introduction-heading" data-reveal>
     <div class="home-introduction-copy">
-      <p class="eyebrow">{% if page.lang == "zh" %}{{ intro.eyebrow_zh }}{% else %}{{ intro.eyebrow_en }}{% endif %}</p>
-      <h2 id="introduction-heading">{% if page.lang == "zh" %}{{ intro.title_zh }}{% else %}{{ intro.title_en }}{% endif %}</h2>
-      <p class="home-introduction-text">{% if page.lang == "zh" %}{{ intro.text_zh | escape | newline_to_br }}{% else %}{{ intro.text_en | escape | newline_to_br }}{% endif %}</p>
+      <p class="eyebrow">{{ intro_eyebrow }}</p>
+      <h2 id="introduction-heading">{{ intro_title }}</h2>
+      <p class="home-introduction-text">{{ intro_text | escape | newline_to_br }}</p>
     </div>
 
     <div class="visual-carousel" data-carousel data-autoplay-seconds="{{ intro.autoplay_seconds | default: 6 }}" aria-roledescription="carousel" aria-label="{% if page.lang == 'zh' %}课题组代表性图片{% else %}Representative laboratory visuals{% endif %}">
       <div class="visual-carousel-viewport">
         <div class="visual-carousel-track" data-carousel-track>
           {% for slide in slides %}
+            {% if page.lang == "zh" %}
+              {% assign slide_alt = slide.alt_zh | default: slide.alt_en %}
+              {% assign caption = slide.caption_zh | default: slide.caption_en %}
+            {% else %}
+              {% assign slide_alt = slide.alt_en | default: slide.alt_zh %}
+              {% assign caption = slide.caption_en | default: slide.caption_zh %}
+            {% endif %}
             <figure class="visual-slide" data-carousel-slide aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
               <div class="visual-slide-image">
-                <img src="{{ slide.image | relative_url }}" alt="{% if page.lang == 'zh' %}{{ slide.alt_zh }}{% else %}{{ slide.alt_en }}{% endif %}" {% unless forloop.first %}loading="lazy"{% endunless %}>
+                <img src="{{ slide.image | relative_url }}" alt="{{ slide_alt | escape }}" {% unless forloop.first %}loading="lazy"{% endunless %}>
                 <span class="visual-type">{% if slide.visual_type == "lab-photo" %}{% if page.lang == "zh" %}课题组影像{% else %}Lab / Group Photo{% endif %}{% else %}{% if page.lang == "zh" %}图文摘要{% else %}Graphical Abstract{% endif %}{% endif %}</span>
               </div>
-              {% assign caption = slide.caption_en %}{% if page.lang == "zh" %}{% assign caption = slide.caption_zh %}{% endif %}
               {% assign related_citation = nil %}
               {% assign normalized_related_doi = "" %}
               {% if slide.visual_type == "graphical-abstract" and slide.related_doi and slide.related_doi != "" %}

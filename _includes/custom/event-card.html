@@ -1,21 +1,30 @@
 {% assign item = include.item %}
-{% assign search_text = item.type | append: ' ' | append: item.category | append: ' ' | append: item.title_en | append: ' ' | append: item.location_en | append: ' ' | append: item.description_en %}
-{% if page.lang == "zh" %}{% assign search_text = item.type | append: ' ' | append: item.category | append: ' ' | append: item.title_zh | append: ' ' | append: item.location_zh | append: ' ' | append: item.description_zh %}{% endif %}
+{% if page.lang == "zh" %}
+  {% assign item_title = item.title_zh | default: item.title_en %}
+  {% assign item_location = item.location_zh | default: item.location_en %}
+  {% assign item_description = item.description_zh | default: item.description_en %}
+  {% assign item_alt = item.alt_zh | default: item.alt_en | default: item_title %}
+{% else %}
+  {% assign item_title = item.title_en | default: item.title_zh %}
+  {% assign item_location = item.location_en | default: item.location_zh %}
+  {% assign item_description = item.description_en | default: item.description_zh %}
+  {% assign item_alt = item.alt_en | default: item.alt_zh | default: item_title %}
+{% endif %}
+{% assign search_text = item.type | append: ' ' | append: item.category | append: ' ' | append: item_title | append: ' ' | append: item_location | append: ' ' | append: item_description %}
 <article class="event-card" data-search="{{ search_text | strip_html | escape }}">
-  {% if item.cover_image %}<img src="{{ item.cover_image | relative_url }}" alt="{% if page.lang == 'zh' %}{{ item.alt_zh | default: item.title_zh }}{% else %}{{ item.alt_en | default: item.title_en }}{% endif %}" loading="lazy">{% endif %}
+  {% if item.cover_image %}<img src="{{ item.cover_image | relative_url }}" alt="{{ item_alt | escape }}" loading="lazy">{% endif %}
   <div class="event-card-body">
     <div class="card-meta">
       <span>{% if page.lang == "zh" %}{{ item.type | ui_label_zh }} · {{ item.category | ui_label_zh }}{% else %}{{ item.type }} · {{ item.category }}{% endif %}</span>
       <span><time datetime="{{ item.date | date: '%Y-%m-%d' }}">{{ item.date | date: "%Y.%m.%d" }}</time>{% if item.end_date and item.end_date != item.date %}–<time datetime="{{ item.end_date | date: '%Y-%m-%d' }}">{{ item.end_date | date: "%Y.%m.%d" }}</time>{% endif %}</span>
     </div>
-    <h3>{% if page.lang == "zh" %}{{ item.title_zh }}{% else %}{{ item.title_en }}{% endif %}</h3>
-    {% if item.location_en or item.location_zh %}<p class="event-location">{% if page.lang == "zh" %}{{ item.location_zh }}{% else %}{{ item.location_en }}{% endif %}</p>{% endif %}
+    <h3>{{ item_title }}</h3>
+    {% if item_location and item_location != "" %}<p class="event-location">{{ item_location }}</p>{% endif %}
     {% if include.archive %}
-      {% assign event_description = item.description_en %}{% if page.lang == "zh" %}{% assign event_description = item.description_zh %}{% endif %}
-      {% if event_description %}<div class="event-description">{{ event_description | markdownify }}</div>{% endif %}
+      {% if item_description %}<div class="event-description">{{ item_description | markdownify }}</div>{% endif %}
       {% if item.gallery and item.gallery.size > 0 %}
         <div class="event-gallery" aria-label="{% if page.lang == 'zh' %}活动图片{% else %}Event gallery{% endif %}">
-          {% for image in item.gallery %}<img src="{{ image | relative_url }}" alt="{% if page.lang == 'zh' %}{{ item.title_zh }}活动图片 {{ forloop.index }}{% else %}{{ item.title_en }} gallery image {{ forloop.index }}{% endif %}" loading="lazy">{% endfor %}
+          {% for image in item.gallery %}<img src="{{ image | relative_url }}" alt="{{ item_title | escape }}{% if page.lang == 'zh' %}活动图片{% else %} gallery image{% endif %} {{ forloop.index }}" loading="lazy">{% endfor %}
         </div>
       {% endif %}
     {% endif %}

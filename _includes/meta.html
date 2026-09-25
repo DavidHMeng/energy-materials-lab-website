@@ -13,11 +13,11 @@
 
 {% assign title = title | xml_escape %}
 
-{% assign site_title = site.data.site.lab_name_en %}
-{% assign subtitle = site.data.site.school_en %}
+{% assign site_title = site.data.site.lab_name_en | default: site.data.site.lab_name_zh %}
+{% assign subtitle = site.data.site.school_en | default: site.data.site.school_zh %}
 {% if page.lang == "zh" %}
-  {% assign site_title = site.data.site.lab_name_zh %}
-  {% assign subtitle = site.data.site.school_zh %}
+  {% assign site_title = site.data.site.lab_name_zh | default: site.data.site.lab_name_en %}
+  {% assign subtitle = site.data.site.school_zh | default: site.data.site.school_en %}
 {% endif %}
 
 {% assign fulltitle = "" | split: "," %}
@@ -29,9 +29,9 @@
 {% endif %}
 {% assign fulltitle = fulltitle | join: " | " %}
 
-{% assign site_description = site.data.site.description_en | default: site.description %}
+{% assign site_description = site.data.site.description_en | default: site.data.site.description_zh | default: site.description %}
 {% if page.lang == "zh" %}
-  {% assign site_description = site.data.site.description_zh | default: site.description %}
+  {% assign site_description = site.data.site.description_zh | default: site.data.site.description_en | default: site.description %}
 {% endif %}
 {% assign description = page.description | default: site_description %}
 {% if subtitle %}

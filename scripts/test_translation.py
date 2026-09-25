@@ -5,10 +5,27 @@ from __future__ import annotations
 
 import unittest
 
-from translate_content import TranslationResult, digest, process_pair, prune_deleted_entries
+from translate_content import TranslationResult, digest, process_pair, prune_deleted_entries, walk_pairs
 
 
 class TranslationStateTests(unittest.TestCase):
+    def test_missing_english_key_is_discovered(self):
+        record = {"title_zh": "中文"}
+        pairs = list(walk_pairs(record, {"title"}))
+        self.assertEqual(len(pairs), 1)
+        container, zh_key, en_key, field_path = pairs[0]
+        self.assertIs(container, record)
+        self.assertEqual((zh_key, en_key, field_path), ("title_zh", "title_en", "title"))
+
+    def test_missing_english_key_becomes_pending_without_provider(self):
+        record = {"title_zh": "中文"}
+        state = {}
+        result = TranslationResult()
+        process_pair(record, "title_zh", "title_en", state, None, result)
+        self.assertNotIn("title_en", record)
+        self.assertEqual(state["status"], "pending")
+        self.assertEqual(result.pending, 1)
+
     def test_missing_english_is_generated(self):
         record = {"title_zh": "中文", "title_en": ""}
         state = {}

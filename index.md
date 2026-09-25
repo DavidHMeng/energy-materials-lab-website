@@ -13,7 +13,7 @@ page_class: homepage-page
 
 <section aria-labelledby="highlights-heading" data-reveal>
   <div class="section-heading">
-    <h2 id="highlights-heading">{{ home.highlights_heading_en }}</h2>
+    <h2 id="highlights-heading">{{ home.highlights_heading_en | default: home.highlights_heading_zh }}</h2>
     <a href="{{ '/news/' | relative_url }}">Archive <span aria-hidden="true">→</span></a>
   </div>
   <div class="home-news-list">
@@ -23,7 +23,7 @@ page_class: homepage-page
 
 <section aria-labelledby="events-heading" data-reveal>
   <div class="section-heading">
-    <h2 id="events-heading">{{ home.events_heading_en }}</h2>
+    <h2 id="events-heading">{{ home.events_heading_en | default: home.events_heading_zh }}</h2>
     <a href="{{ '/events/' | relative_url }}">Archive <span aria-hidden="true">→</span></a>
   </div>
   <div class="event-grid">

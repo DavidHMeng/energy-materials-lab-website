@@ -2,15 +2,26 @@
 {% assign people = site.members | where: "role", role_id | where: "active", true | where: "display", true | sort: "order" %}
 {% if people.size > 0 %}
   <section class="team-group team-group-{{ role_id }}" aria-labelledby="team-{{ role_id }}" data-reveal>
-    <h2 id="team-{{ role_id }}">{% if page.lang == "zh" %}{{ include.label_zh }}{% else %}{{ include.label_en }}{% endif %}</h2>
+    <h2 id="team-{{ role_id }}">{% if page.lang == "zh" %}{{ include.label_zh | default: include.label_en }}{% else %}{{ include.label_en | default: include.label_zh }}{% endif %}</h2>
     <div class="team-grid">
       {% for member in people %}
+        {% if page.lang == "zh" %}
+          {% assign member_alt = member.portrait_alt_zh | default: member.portrait_alt_en %}
+          {% assign member_name = member.name_zh | default: member.name_en %}
+          {% assign member_position = member.position_zh | default: member.position_en %}
+          {% assign member_summary = member.research_summary_zh | default: member.research_summary_en %}
+        {% else %}
+          {% assign member_alt = member.portrait_alt_en | default: member.portrait_alt_zh %}
+          {% assign member_name = member.name_en | default: member.name_zh %}
+          {% assign member_position = member.position_en | default: member.position_zh %}
+          {% assign member_summary = member.research_summary_en | default: member.research_summary_zh %}
+        {% endif %}
         <article class="team-card" data-reveal>
-          <img src="{{ member.portrait | relative_url }}" alt="{% if page.lang == 'zh' %}{{ member.portrait_alt_zh }}{% else %}{{ member.portrait_alt_en }}{% endif %}" loading="lazy" decoding="async">
+          <img src="{{ member.portrait | relative_url }}" alt="{{ member_alt | escape }}" loading="lazy" decoding="async">
           <div class="team-card-body">
-            <h3>{% if page.lang == "zh" %}{{ member.name_zh }}{% else %}{{ member.name_en }}{% endif %}</h3>
-            <p class="position">{% if page.lang == "zh" %}{{ member.position_zh }}{% else %}{{ member.position_en }}{% endif %}</p>
-            <p>{% if page.lang == "zh" %}{{ member.research_summary_zh }}{% else %}{{ member.research_summary_en }}{% endif %}</p>
+            <h3>{{ member_name }}</h3>
+            <p class="position">{{ member_position }}</p>
+            {% if member_summary and member_summary != "" %}<p>{{ member_summary }}</p>{% endif %}
             {% assign profile_path = member.url %}{% if page.lang == "zh" %}{% assign profile_path = "/zh/team/" | append: member.slug | append: "/" %}{% endif %}
             <a class="text-link" href="{{ profile_path | relative_url }}">{% if page.lang == "zh" %}个人主页{% else %}Profile{% endif %}<span aria-hidden="true"> →</span></a>
           </div>

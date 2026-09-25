@@ -1,6 +1,13 @@
 {% assign image = page.header | default: site.data.site.header_image | default: site.header %}
 {% assign is_zh = false %}{% if page.lang == "zh" %}{% assign is_zh = true %}{% endif %}
 {% assign home_path = "/" %}{% if is_zh %}{% assign home_path = "/zh/" %}{% endif %}
+{% if is_zh %}
+  {% assign header_lab_name = site.data.site.lab_name_zh | default: site.data.site.lab_name_en %}
+  {% assign header_school = site.data.site.school_zh | default: site.data.site.school_en %}
+{% else %}
+  {% assign header_lab_name = site.data.site.lab_name_en | default: site.data.site.lab_name_zh %}
+  {% assign header_school = site.data.site.school_en | default: site.data.site.school_zh %}
+{% endif %}
 {% assign member_slug = nil %}{% if page.layout == "profile" and page.slug %}{% assign member_slug = page.slug %}{% endif %}
 {% if member_slug %}
   {% if is_zh %}{% assign toggle_path = "/team/" | append: member_slug | append: "/" %}{% else %}{% assign toggle_path = "/zh/team/" | append: member_slug | append: "/" %}{% endif %}
@@ -18,8 +25,8 @@
   <a href="{{ home_path | relative_url }}" class="home" aria-label="{% if is_zh %}返回首页{% else %}Home{% endif %}">
     <span class="logo"><img src="{{ site.data.site.lab_logo | relative_url }}" alt="{% if is_zh %}课题组标志{% else %}Lab logo{% endif %}"></span>
     <span class="title-text">
-      <span class="title">{% if is_zh %}{{ site.data.site.lab_name_zh }}{% else %}{{ site.data.site.lab_name_en }}{% endif %}</span>
-      <span class="subtitle">{% if is_zh %}{{ site.data.site.school_zh }}{% else %}{{ site.data.site.school_en }}{% endif %}</span>
+      <span class="title">{{ header_lab_name }}</span>
+      <span class="subtitle">{{ header_school }}</span>
     </span>
   </a>
 
