@@ -1,6 +1,6 @@
 ---
 slug: tan-wang
-role: phd-students
+role: research-staff
 name_en: Tan Wang
 name_zh: 王坦
 position_en: PhD Student
