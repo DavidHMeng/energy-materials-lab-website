@@ -100,8 +100,8 @@ DOI：10.1021/jacs.5c22628
 | --- | --- | --- |
 | Homepage、News、Events、Research、Publications、Team、Opportunities、Site 的历史 CMS 编辑矩阵 | PASS | 见 `CMS_ACCEPTANCE_REPORT.md`；此前已验证保存、显示开关、顺序、图片选择和 CI |
 | DOI 四种输入形式 | PASS | `scripts/test_cms_schema.py` 与 `scripts/test_cms_input_contract.py` |
-| 当前 Team 成员修改后的主链构建 | 修复中 | 原因是 `mei-li.md` 与 `slug: jianwen-liang` 不一致；已统一文件名、路由、翻译状态键 |
-| 全部字段的静态契约检查 | PASS（代码已加入） | `scripts/test_cms_input_contract.py` 会统计模块、嵌套字段、正则、下拉项、日期、图片和富文本边界 |
+| 当前 Team 成员修改后的主链构建 | PASS | 修复提交 `c42baf4` 后，`Validate and build` run `36136604546`、production static branch run `36136604861` 和 staging deploy run `36136792298` 均成功 |
+| 全部字段的静态契约检查 | PASS | `scripts/test_cms_input_contract.py` 已纳入 CI，统计模块、嵌套字段、正则、下拉项、日期、图片和富文本边界；当前 `main` 的验证 run `36136604546` 成功 |
 | 浏览器中新上传本地文件 | PARTIAL | 既有 Media 选择已验证；当前自动化浏览器对本地文件选择器曾返回 `Not allowed`，不影响已存在媒体文件的部署 |
 
 ## 提交后的正确路径
