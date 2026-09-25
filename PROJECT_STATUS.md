@@ -1,7 +1,41 @@
 # Project status
 
-Updated: 2026-09-24
-Current release line: UI / CMS Workflow V1.5 on `main`
+Updated: 2026-09-25
+Current release line: UI / CMS Workflow V1.6 QA on `codex/cms-citation-qa-v1-6`
+
+## CMS / Citation QA V1.6 (2026-09-25)
+
+The existing Framework V1.1 information architecture and Pages CMS model were
+kept unchanged. The QA branch exercised the CMS create/edit/hide/delete paths
+for News, Events and Opportunities, bilingual Homepage/Research/Publications/
+Team fields, typography settings, media selection and the DOI citation action.
+Temporary QA entries and the test DOI were removed after the workflow was
+verified. The final tree contains no `cms-qa-test` records and no
+`10.1021/jacs.5c22628` content/citation reference.
+
+Evidence:
+
+- Final branch validation: [GitHub Actions run 36117027301](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117027301)
+  passed after the CMS cleanup. The final documentation commit was then
+  revalidated by [run 36117721593](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117721593).
+- Final staging artifact: [run 36117560928](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117560928)
+  produced `github-pages-staging` (3,665,258 bytes), digest
+  `sha256:4582d3e7dc7947736ef0a5be712754a76bb21fcacdff0e9610b738fa2b726e42`,
+  expiring 2026-10-02.
+- Citation synchronization: [GitHub Actions run 36114896174](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36114896174)
+  normalized mixed DOI forms and generated one citation for the test entry
+  before it was deliberately removed.
+- Local checks passed: citation-registry unit tests, CMS-schema tests,
+  translation tests, content validation, translation dry-run, citation-registry
+  synchronization check and `git diff --check`.
+- The complete module-by-module record is in
+  [`CMS_ACCEPTANCE_REPORT.md`](CMS_ACCEPTANCE_REPORT.md).
+
+Known limits: a new local-file upload could not be completed through the current
+browser automation file chooser, while existing official logo/media selection
+and committed assets were verified. Branch-specific public Pages deployment is
+not claimed because the protected Pages environment only permits `main`.
+
 
 ## EIT Production Server Migration V1.0 (2026-09-24)
 

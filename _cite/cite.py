@@ -21,6 +21,26 @@ warnings = []
 output_file = "_data/citations.yaml"
 
 
+def normalized_id(value):
+    value = str(value or "").strip().lower()
+    for prefix in ("https://doi.org/", "http://doi.org/", "https://dx.doi.org/", "http://dx.doi.org/", "doi:"):
+        if value.startswith(prefix):
+            value = value[len(prefix):]
+    return value
+
+
+# Keep the last resolved metadata available when a provider is temporarily down.
+try:
+    cached_citations = load_data(output_file) or []
+except Exception:
+    cached_citations = []
+cached_by_id = {
+    normalized_id(entry.get("id")): entry
+    for entry in cached_citations
+    if isinstance(entry, dict) and normalized_id(entry.get("id"))
+}
+
+
 log()
 
 log("Compiling sources")
@@ -147,10 +167,27 @@ for index, source in enumerate(sources):
         except Exception as e:
             plugin = get_safe(source, "plugin", "")
             file = get_safe(source, "file", "")
-            # if regular source (id entered by user), throw error
+            # Regular DOI sources are allowed to use cached data or a pending state so
+            # a transient metadata outage never makes the whole website unbuildable.
             if plugin == "sources.py":
-                log(e, indent=3, level="ERROR")
-                errors.append(f"Manubot could not generate citation for source {_id}")
+                cached = cached_by_id.get(normalized_id(_id))
+                if cached:
+                    citation = dict(cached)
+                    warning = f"Metadata refresh failed for {_id}; retained cached citation"
+                else:
+                    bare_doi = normalized_id(_id)
+                    citation = {
+                        "id": _id,
+                        "title": "Publication metadata pending",
+                        "authors": [],
+                        "publisher": "DOI metadata pending",
+                        "date": "",
+                        "link": f"https://doi.org/{bare_doi}" if bare_doi else "",
+                        "metadata_pending": True,
+                    }
+                    warning = f"Metadata refresh failed for {_id}; wrote a safe pending citation"
+                log(e, indent=3, level="WARNING")
+                warnings.append(warning)
             # otherwise, if from metasource (id retrieved from some third-party api), just warn
             else:
                 log(e, indent=3, level="WARNING")

@@ -44,7 +44,7 @@ content:
                     - { name: lab-photo, label: B - Lab / Group Photo }
               - { name: caption_zh, label: "中文 — 图片说明", type: string }
               - { name: caption_en, label: "English (optional) — Caption", type: string, description: "Generated from Chinese when the Chinese caption is provided." }
-              - { name: related_doi, label: Related DOI, type: string, description: "Optional DOI only. Journal and year are read from the citation system; do not copy metadata." }
+              - { name: related_doi, label: Related DOI, type: string, pattern: { regex: "^\\s*(?:(?:(?:[hH][tT][tT][pP][sS]?://(?:[dD][xX]\\.)?[dD][oO][iI]\\.[oO][rR][gG]/)|(?:[dD][oO][iI][:：]))?10\\.\\d{4,9}/\\S+)?\\s*$", message: "Enter a DOI such as 10.1021/jacs.5c22628 or its doi.org URL." }, description: "Optional DOI or doi.org URL. It is normalized automatically; journal and year come from the shared citation registry." }
               - { name: display, label: Display, type: boolean, default: true }
               - { name: order, label: Display Order, type: number, required: true }
       - { name: highlights_heading_zh, label: Highlights heading ZH, type: string, required: true }
@@ -138,7 +138,7 @@ content:
       - { name: alt_en, label: "Alt EN (optional)", type: string, description: "Generated from Chinese when empty." }
       - { name: short_intro_zh, label: Short Intro ZH, type: text, required: true }
       - { name: short_intro_en, label: "Short Intro EN (optional)", type: text, description: "Generated from Chinese when empty." }
-      - { name: doi_list, label: DOI list, type: string, list: true, description: DOI only; do not copy bibliographic metadata. }
+      - { name: doi_list, label: DOI list, type: string, list: true, pattern: { regex: "^\\s*(?:(?:[hH][tT][tT][pP][sS]?://(?:[dD][xX]\\.)?[dD][oO][iI]\\.[oO][rR][gG]/)|(?:[dD][oO][iI][:：]))?10\\.\\d{4,9}/\\S+\\s*$", message: "Enter a DOI such as 10.1021/jacs.5c22628 or its doi.org URL." }, description: DOI or doi.org URL; values are normalized and deduplicated automatically. }
       - { name: display, label: Display, type: boolean, default: true }
       - { name: order, label: Order, type: number, required: true }
 
@@ -150,12 +150,12 @@ content:
     list: true
     fields:
       - name: id
-        label: DOI source ID
+        label: DOI
         type: string
         required: true
         pattern:
-          regex: "^doi:10\\..+/.+$"
-          message: Use doi:10.xxxx/xxxxx format.
+          regex: "^\\s*(?:(?:[hH][tT][tT][pP][sS]?://(?:[dD][xX]\\.)?[dD][oO][iI]\\.[oO][rR][gG]/)|(?:[dD][oO][iI][:：]))?10\\.\\d{4,9}/\\S+\\s*$"
+          message: "Enter 10.xxxx/xxxxx or a complete doi.org URL; no doi: prefix is required."
       - { name: type, label: Type, type: string, default: paper }
       - { name: member_ids, label: Member IDs, type: string, list: true, description: Match Team slug values. }
       - { name: description_en, label: Custom note EN, type: rich-text, options: { media: false } }
@@ -206,7 +206,7 @@ content:
       - { name: researchgate, label: ResearchGate, type: string }
       - { name: personal_website, label: Personal Website, type: string }
       - { name: github, label: GitHub, type: string }
-      - { name: representative_dois, label: Representative Publication DOIs, type: string, list: true, description: "Usually 3–6 DOI values. Metadata is reused from Publications and is never translated." }
+      - { name: representative_dois, label: Representative Publication DOIs, type: string, list: true, pattern: { regex: "^\\s*(?:(?:[hH][tT][tT][pP][sS]?://(?:[dD][xX]\\.)?[dD][oO][iI]\\.[oO][rR][gG]/)|(?:[dD][oO][iI][:：]))?10\\.\\d{4,9}/\\S+\\s*$", message: "Enter a DOI such as 10.1021/jacs.5c22628 or its doi.org URL." }, description: "Usually 3–6 values. DOI URLs are accepted; values are normalized and resolved through the shared citation registry." }
       - { name: active, label: Active member, type: boolean, default: true }
       - { name: display, label: Display, type: boolean, default: true }
       - { name: order, label: Order, type: number, required: true }
@@ -364,10 +364,10 @@ actions:
       message: Build and validate a downloadable seven-day site artifact without publishing it.
       button: Build
   - name: refresh-citations
-    label: Refresh DOI citations
+    label: Synchronize DOI citations
     workflow: citation-schedule.yml
     ref: current
     confirm:
-      title: Refresh citations?
-      message: Resolve DOI metadata and open a citation update pull request when changes are found.
-      button: Refresh
+      title: Synchronize citations?
+      message: Normalize DOI inputs, collect all page references into the central registry, and refresh metadata.
+      button: Synchronize

@@ -11,6 +11,8 @@ DESTINATION="${DESTINATION:-_site}"
 REQUIRE_VERSION="${REQUIRE_VERSION:-false}"
 
 python scripts/validate_content.py
+python scripts/test_citation_registry.py
+python scripts/test_cms_schema.py
 python scripts/test_translation.py
 python scripts/translate_content.py --dry-run
 JEKYLL_ENV=production bundle _${BUNDLER_VERSION}_ exec jekyll build \

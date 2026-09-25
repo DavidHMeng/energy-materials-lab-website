@@ -13,8 +13,11 @@ try:
 except ImportError:
     raise SystemExit("PyYAML is required: py -m pip install PyYAML")
 
+from citation_registry import CitationRegistryError, normalize_doi
+
 ROOT = Path(__file__).resolve().parents[1]
 ERRORS: list[str] = []
+WARNINGS: list[str] = []
 
 SCHEMAS = {
     "_research": ["title_zh", "graphical_abstract", "alt_zh", "short_intro_zh", "doi_list", "display", "order"],
@@ -83,6 +86,14 @@ def iso_date(value) -> str:
     return str(value or "")
 
 
+def checked_doi(value, label: str) -> str | None:
+    try:
+        return normalize_doi(value)
+    except CitationRegistryError as exc:
+        ERRORS.append(f"{label}: {exc}")
+        return None
+
+
 records: dict[str, list[tuple[Path, dict]]] = {}
 for folder, required in SCHEMAS.items():
     records[folder] = []
@@ -141,8 +152,7 @@ for path, data in records["_members"]:
         if retired_field in data:
             ERRORS.append(f"{path.relative_to(ROOT)}: retired member field {retired_field} remains in source")
     for doi in data.get("representative_dois", []) or []:
-        if not re.match(r"^(?:doi:)?10\..+/.+$", str(doi), re.I):
-            ERRORS.append(f"{path.relative_to(ROOT)}: invalid representative DOI {doi}")
+        checked_doi(doi, f"{path.relative_to(ROOT)}: invalid representative DOI")
 
 if placeholder_phd_count < 8:
     ERRORS.append("_members: at least eight removable PhD placeholder records are required for layout QA")
@@ -162,9 +172,9 @@ citations = load_yaml(ROOT / "_data" / "citations.yaml") or []
 source_dois = []
 for index, source in enumerate(sources):
     source_id = str(source.get("id", ""))
-    if not re.match(r"^doi:10\..+/.+$", source_id, re.I):
-        ERRORS.append(f"_data/sources.yaml item {index + 1}: id must use doi:10.x/... format")
-    normalized = source_id.lower().removeprefix("doi:")
+    normalized = checked_doi(source_id, f"_data/sources.yaml item {index + 1}")
+    if normalized is None:
+        continue
     if normalized in source_dois:
         ERRORS.append(f"_data/sources.yaml: duplicate DOI {normalized}")
     source_dois.append(normalized)
@@ -172,10 +182,14 @@ for index, source in enumerate(sources):
         if member_id not in member_ids:
             ERRORS.append(f"_data/sources.yaml: unknown member_id {member_id}")
 
-citation_dois = {str(item.get("id", "")).lower().removeprefix("doi:") for item in citations}
+citation_dois = set()
+for index, item in enumerate(citations, start=1):
+    normalized = checked_doi(item.get("id"), f"_data/citations.yaml item {index}")
+    if normalized:
+        citation_dois.add(normalized)
 source_doi_set = set(source_dois)
 for doi in source_doi_set - citation_dois:
-    ERRORS.append(f"_data/sources.yaml: DOI {doi} has not been resolved into citations.yaml")
+    WARNINGS.append(f"_data/sources.yaml: DOI {doi} metadata is pending in citations.yaml")
 for citation in citations:
     for member_id in citation.get("member_ids", []) or []:
         if member_id not in member_ids:
@@ -183,19 +197,23 @@ for citation in citations:
 for path, data in records["_research"]:
     check_image(data.get("graphical_abstract", ""), path)
     for doi in data.get("doi_list", []) or []:
-        normalized = str(doi).lower().removeprefix("doi:")
+        normalized = checked_doi(doi, f"{path.relative_to(ROOT)}: invalid related DOI")
+        if not normalized:
+            continue
         if normalized not in citation_dois:
-            ERRORS.append(f"{path.relative_to(ROOT)}: DOI {doi} is absent from citations.yaml")
+            WARNINGS.append(f"{path.relative_to(ROOT)}: DOI {normalized} metadata is pending")
         if normalized not in source_doi_set:
-            ERRORS.append(f"{path.relative_to(ROOT)}: DOI {doi} is absent from sources.yaml")
+            WARNINGS.append(f"{path.relative_to(ROOT)}: DOI {normalized} awaits registry synchronization")
 
 for path, data in records["_members"]:
     for doi in data.get("representative_dois", []) or []:
-        normalized = str(doi).lower().removeprefix("doi:")
+        normalized = checked_doi(doi, f"{path.relative_to(ROOT)}: invalid representative DOI")
+        if not normalized:
+            continue
         if normalized not in citation_dois:
-            ERRORS.append(f"{path.relative_to(ROOT)}: representative DOI {doi} is absent from citations.yaml")
+            WARNINGS.append(f"{path.relative_to(ROOT)}: representative DOI {normalized} metadata is pending")
         if normalized not in source_doi_set:
-            ERRORS.append(f"{path.relative_to(ROOT)}: representative DOI {doi} is absent from sources.yaml")
+            WARNINGS.append(f"{path.relative_to(ROOT)}: representative DOI {normalized} awaits registry synchronization")
 
 cms = load_yaml(ROOT / ".pages.yml") or {}
 cms_names = {entry.get("name") for entry in cms.get("content", [])}
@@ -239,9 +257,14 @@ for index, slide in enumerate(slides):
     orders.add(slide.get("order"))
     check_image(slide.get("image", ""), ROOT / "_data" / "homepage.yaml")
     if slide.get("related_doi"):
-        normalized = str(slide["related_doi"]).lower().removeprefix("doi:")
-        if normalized not in citation_dois or normalized not in source_doi_set:
-            ERRORS.append(f"_data/homepage.yaml introduction slide {index + 1}: unresolved related_doi {slide['related_doi']}")
+        normalized = checked_doi(
+            slide["related_doi"],
+            f"_data/homepage.yaml introduction slide {index + 1}: invalid related_doi",
+        )
+        if normalized and (normalized not in citation_dois or normalized not in source_doi_set):
+            WARNINGS.append(
+                f"_data/homepage.yaml introduction slide {index + 1}: DOI {normalized} awaits citation synchronization"
+            )
     if slide.get("display") is True:
         visible_slides += 1
 if not slides or visible_slides < 1:
@@ -409,5 +432,10 @@ if ERRORS:
     for error in ERRORS:
         print(f"- {error}")
     sys.exit(1)
+
+if WARNINGS:
+    print("Content validation warnings:")
+    for warning in sorted(set(WARNINGS)):
+        print(f"- {warning}")
 
 print(f"Content validation passed: {sum(len(items) for items in records.values())} collection records, {len(sources)} DOI source(s), {len(citations)} citation(s).")

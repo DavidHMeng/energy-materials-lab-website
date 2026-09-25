@@ -6,5 +6,10 @@
     <a href="{{ citation.link }}">{% if page.lang == "zh" %}查看论文{% else %}View publication{% endif %}<span aria-hidden="true"> →</span></a>
   </li>
 {% else %}
-  <li class="compact-publication missing-doi">{{ include.doi }} — {% if page.lang == "zh" %}未在引用数据库中匹配{% else %}not matched in citation database{% endif %}</li>
+  {% assign normalized_doi = include.doi | normalize_doi %}
+  {% assign fallback_url = include.doi | doi_url %}
+  <li class="compact-publication missing-doi">
+    <span>{% if page.lang == "zh" %}论文元数据待更新{% else %}Publication metadata pending{% endif %}{% if normalized_doi != "" %} · DOI: {{ normalized_doi }}{% endif %}</span>
+    {% if fallback_url != "" %}<a href="{{ fallback_url }}" target="_blank" rel="noopener noreferrer">{% if page.lang == "zh" %}打开 DOI{% else %}Open DOI{% endif %}<span aria-hidden="true"> →</span></a>{% endif %}
+  </li>
 {% endif %}

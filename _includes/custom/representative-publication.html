@@ -1,0 +1,16 @@
+{% assign citation = include.doi | find_citation_by_doi: site.data.citations %}
+{% if citation %}
+  {% include citation.html lookup=citation.id style="rich" %}
+{% else %}
+  {% assign normalized_doi = include.doi | normalize_doi %}
+  {% assign fallback_url = include.doi | doi_url %}
+  <div class="citation citation-pending" role="status">
+    <div class="citation-text">
+      <span class="citation-title">{% if page.lang == "zh" %}论文元数据待更新{% else %}Publication metadata pending{% endif %}</span>
+      {% if normalized_doi != "" %}
+        <span class="citation-id">DOI: {{ normalized_doi }}</span>
+        <a href="{{ fallback_url }}" target="_blank" rel="noopener noreferrer">{% if page.lang == "zh" %}打开 DOI{% else %}Open DOI{% endif %}</a>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

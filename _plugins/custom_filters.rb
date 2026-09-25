@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "cgi"
+
 module LabCustomFilters
   ZH_UI_LABELS = {
     "Publication" => "论文发表",
@@ -19,10 +21,30 @@ module LabCustomFilters
   end
 
   def find_citation_by_doi(doi, citations)
-    needle = doi.to_s.downcase.sub(%r{^https?://(dx\.)?doi\.org/}, "").sub(/^doi:/, "")
+    needle = normalize_doi(doi)
+    return nil if needle.empty?
+
     Array(citations).find do |citation|
-      citation.fetch("id", "").to_s.downcase.sub(/^doi:/, "") == needle
+      normalize_doi(citation.fetch("id", "")) == needle
     end
+  end
+
+  def normalize_doi(value)
+    candidate = CGI.unescape(value.to_s.strip)
+    previous = nil
+    while candidate != previous
+      previous = candidate
+      candidate = candidate.sub(%r{\Ahttps?://(?:dx\.)?doi\.org/}i, "").strip
+      candidate = candidate.sub(/\Adoi\s*[:：]\s*/i, "").strip
+    end
+    return "" unless candidate.match?(%r{\A10\.\d{4,9}/\S+\z}i)
+
+    candidate.downcase
+  end
+
+  def doi_url(value)
+    doi = normalize_doi(value)
+    doi.empty? ? "" : "https://doi.org/#{doi}"
   end
 
   def surname(name)

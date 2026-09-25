@@ -37,8 +37,7 @@ layout: default
         <h2>{% if page.lang == "zh" %}代表性成果{% else %}Representative Publications{% endif %}</h2>
         <div class="representative-publication-list">
           {% for doi in member.representative_dois %}
-            {% assign representative_citation = doi | find_citation_by_doi: site.data.citations %}
-            {% if representative_citation %}{% include citation.html lookup=representative_citation.id style="rich" %}{% endif %}
+            {% include custom/representative-publication.html doi=doi %}
           {% endfor %}
         </div>
       </section>

@@ -1,6 +1,13 @@
-name: Refresh DOI citations (manual)
+name: Synchronize DOI citation registry
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "_data/sources.yaml"
+      - "_data/homepage.yaml"
+      - "_members/**"
+      - "_research/**"
   workflow_dispatch:
     inputs:
       payload:
@@ -11,11 +18,17 @@ on:
 permissions:
   actions: read
   contents: write
+  # The reusable workflow declares this permission for its optional PR mode.
+  # The CMS caller keeps the permission compatible but passes open-pr: false.
   pull-requests: write
 
 jobs:
   refresh:
+    if: github.actor != 'github-actions[bot]' && !contains(github.event.head_commit.message, '[skip citation-sync]')
     uses: ./.github/workflows/update-citations.yaml
     with:
-      open-pr: true
+      # Pages CMS actions run against the currently selected branch. Write the
+      # normalized registry back to that branch instead of trying to create a
+      # pull request, which may be disabled by repository policy.
+      open-pr: false
     secrets: inherit

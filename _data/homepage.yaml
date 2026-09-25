@@ -1,43 +1,47 @@
 introduction:
   eyebrow_en: Introduction
   eyebrow_zh: 课题组简介
-  title_en: Where energy materials meet interfacial science
-  title_zh: 能源材料与界面科学在此交汇
+  title_en: From Solid-State Materials to Energy Technologies.
+  title_zh: 从固态材料，走向能源技术
   text_en: >-
-    We explore materials, interfaces, and electrochemical processes that can
-    enable safer and more sustainable energy technologies. This structured
-    placeholder introduction can be replaced in Pages CMS without changing
-    the homepage layout.
-  text_zh: >-
-    我们关注材料、界面与电化学过程，探索更安全、更可持续的能源技术。
-    此处为可在 Pages CMS 中直接替换的结构化课题组简介，不需要调整首页布局。
+    The Solid-State Energy Laboratory develops advanced materials and
+    engineering strategies for emerging solid-state energy technologies. Our
+    research bridges fundamental materials chemistry and engineering
+    development, with a current focus on solid-state electrolytes and related
+    energy materials.
+
+    Beyond conventional battery systems, we explore new materials, chemistries,
+    and technological directions toward an open and extensible platform for
+    future energy technologies.
+  text_zh: |-
+    Solid-State Energy Laboratory 致力于面向新型能源技术的先进材料研究与工程开发，以固态电解质和固态能源体系作为重要研究基础。我们将基础材料化学与工程导向研究相结合，覆盖材料设计、合成、表征和性能优化，推动科学认知向实际技术开发延伸。
+    在传统锂电池体系之外，我们希望逐步建立一个开放、可扩展的下一代固态能源技术研究平台。通过严谨的科学研究、系统化工程方法和持续探索，推动新材料与新概念向可靠、可扩展并具有实际价值的能源技术发展。
   autoplay_seconds: 6
   slides:
-    - image: /images/placeholders/graphical-abstract.svg
-      alt_en: Placeholder graphical abstract showing an energy-materials research concept
+    - image: /images/uploads/4156020251853fig1.jpg
       alt_zh: 展示能源材料研究概念的图文摘要占位图
+      alt_en: Placeholder graphical abstract showing an energy-materials research
+        concept
       visual_type: graphical-abstract
-      caption_en: Representative graphical abstract
       caption_zh: 代表性图文摘要
-      related_doi: ""
+      caption_en: Representative graphical abstract
       display: true
       order: 1
     - image: /images/placeholders/graphical-abstract-2.svg
-      alt_en: Placeholder graphical abstract showing an interfacial-science research concept
       alt_zh: 展示界面科学研究概念的图文摘要占位图
+      alt_en: Placeholder graphical abstract showing an interfacial-science research
+        concept
       visual_type: graphical-abstract
-      caption_en: Interfacial science and energy storage
       caption_zh: 界面科学与储能研究
-      related_doi: ""
+      caption_en: Interfacial science and energy storage
       display: true
       order: 2
     - image: /images/placeholders/campus.svg
-      alt_en: Placeholder image for a future laboratory or group photograph
       alt_zh: 用于后续实验室或课题组合影的占位图
+      alt_en: Placeholder image for a future laboratory or group photograph
       visual_type: lab-photo
-      caption_en: Laboratory or group photograph
       caption_zh: 实验室或课题组合影
-      related_doi: ""
+      caption_en: Laboratory or group photograph
       display: true
       order: 3
 highlights_heading_en: Highlights
