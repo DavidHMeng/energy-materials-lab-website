@@ -18,6 +18,9 @@ on:
 permissions:
   actions: read
   contents: write
+  # The reusable workflow declares this permission for its optional PR mode.
+  # The CMS caller keeps the permission compatible but passes open-pr: false.
+  pull-requests: write
 
 jobs:
   refresh:
