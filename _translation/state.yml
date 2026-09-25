@@ -146,16 +146,16 @@ entries:
       source_hash: 60605af9c91029a3344f8b4206b27f30c8ee7d9a177102a015c41895f381312d
       status: manual
     portrait_alt:
-      english_hash: c313e0ad78f46c78fbf4fb66a57d223328c9bcbd5c52775d8d94fcc53d930ceb
-      source_hash: e43efa56eb0ce454da0aaa32f80bb741ae646cf060ee49616dddf492787a83ec
+      english_hash: 0d8189c0af08f69410efcb70673f8ac95aa35a24e5c1322f73e5d2c694a31e0a
+      source_hash: d4e1c6cfa6898434524cc00367a4e31903023375b5f2c32b67a31ab1c5b8812a
       status: manual
     position:
       english_hash: 8a8ba047259e40f167f4a1010c95e4e4190c686c73744fdaaa0ef80cd08883d3
       source_hash: 309a03a7c14891395c587846889f1a57b6c6b4e04af55e92a50d493867d28252
       status: manual
     profile_summary:
-      english_hash: e5f252cf8b174c762911ccb8a2f46647c7b3b8c550fcd0c0f0a15e9c1416c159
-      source_hash: 62143da80f82c70fe0012c0371de9a8b886c7c46b820e8217b8f88d228a4c3f1
+      english_hash: acd8813ded022f66cf159072b226f042ad54bd504a9b1d18d433d99ab485f871
+      source_hash: cb268edc145e86c5a3fe9523d5ae526247e73642001cfd2a4e9ccaf4e54ad6f9
       status: manual
     research_interests:
       english_hash: 203741a06df44c0c92dae0793d05b51471343b693bf9c6614b16cf7202fa8bf4
