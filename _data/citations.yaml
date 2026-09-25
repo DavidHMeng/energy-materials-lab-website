@@ -25,21 +25,3 @@
   - placeholder
   plugin: sources.py
   file: sources.yaml
-- id: doi:10.1021/jacs.5c22628
-  title: Multifunctional Chloride-Oxide Additive Enabling Simultaneous Ionic/Electronic
-    Conduction for High-Rate All-Solid-State NCM Cathodes
-  authors:
-  - Mingying Zhang
-  - Xingyu Wang
-  - Chunmeng Gu
-  - Shutao Zhang
-  - Xiangzhen Zhu
-  - Jianwen Liang
-  - Xueliang Sun
-  - Xiaona Li
-  publisher: Journal of the American Chemical Society
-  date: '2026-05-08'
-  link: https://doi.org/hckkf5
-  type: paper
-  plugin: sources.py
-  file: sources.yaml
