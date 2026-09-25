@@ -37,12 +37,12 @@ entries:
       source_hash: feff6b695b426c0ab2cbf4805dde2798edb2fc0aa49b7b4ffcea1867655898b6
       status: manual
     introduction.text:
-      english_hash: 9b932f0669ce6dc9127c4f6c34602fe2981c8f62104beb5ceb6762277bdf4def
-      source_hash: 055aa6ceca77ecb68b6ff60acf3c49a7a4a92079dd72215f7cac30c40f9b80d2
+      english_hash: 85adc107ad1a42db7e7d6447a1c65701a18766f7a1cc479ae7b8cd0ec424ff3d
+      source_hash: 55ca6024b7ade76ef9847a7fb69f97042f64b1b14c6b3b54116d1ce186c53aae
       status: manual
     introduction.title:
-      english_hash: f4dcddcd6218ab625c827229591968d49daf942883bdd00be41fba09eb6df9a9
-      source_hash: d93bb0c65d0e6e4872c1d386b19af100582c7398d27cd267c5f78f44eb18d8b7
+      english_hash: 7a89b75a7fa7aa507a3c9ed2053920cf5905fad962152173f0ce27a098e83549
+      source_hash: f7a81966b8fae14d0113717488d82b40c63fc23074eb062479dcd7eb1dda659f
       status: manual
   _data/site.yaml:
     address:
