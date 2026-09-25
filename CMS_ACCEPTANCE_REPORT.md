@@ -44,8 +44,12 @@ and content validation both pass.
   `sha256:4582d3e7dc7947736ef0a5be712754a76bb21fcacdff0e9610b738fa2b726e42`,
   expiring 2026-10-02.
 - Citation synchronization run: https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36114896174
-- Branch-specific public Pages deployment remains intentionally unavailable
-  because the repository environment only permits deployment from `main`.
+- QA-branch deployment is intentionally rejected by the `github-pages` branch
+  policy, but the merged `main` deployment succeeded in
+  https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36132330770.
+- Public URL: https://davidhmeng.github.io/energy-materials-lab-website/
+  returned HTTP 200 after deployment. The CDN advertises `max-age=600`, so a
+  previously open browser tab may retain old content for up to about ten minutes.
 - The local Windows host has no Ruby/Jekyll installation; GitHub Actions remains
   the authoritative production/staging build environment.
 

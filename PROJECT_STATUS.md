@@ -1,7 +1,7 @@
 # Project status
 
 Updated: 2026-09-25
-Current release line: UI / CMS Workflow V1.6 QA on `codex/cms-citation-qa-v1-6`
+Current release line: UI / CMS Workflow V1.6 on `main`
 
 ## CMS / Citation QA V1.6 (2026-09-25)
 
@@ -33,8 +33,23 @@ Evidence:
 
 Known limits: a new local-file upload could not be completed through the current
 browser automation file chooser, while existing official logo/media selection
-and committed assets were verified. Branch-specific public Pages deployment is
-not claimed because the protected Pages environment only permits `main`.
+and committed assets were verified. The QA branch remains intentionally blocked
+by the `github-pages` environment policy, while the merged `main` deployment is
+now successful.
+
+Main deployment after merge:
+
+- Merge commit: `d58d4e2` (followed by the translation-state bookkeeping commit
+  `9cce312`).
+- GitHub Pages deployment: [run 36132330770](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36132330770)
+  succeeded on `main`.
+- Public staging URL: <https://davidhmeng.github.io/energy-materials-lab-website/>
+- Live checks returned HTTP 200 for the English home page, Chinese `/zh/` route
+  and canonical uploaded image. The public HTML references the unique
+  `/images/uploads/4156020251853fig1.jpg` path and does not reference the removed
+  `-1.jpg` duplicate.
+- CDN response cache is `max-age=600`; allow up to about ten minutes for an
+  already-open browser tab or edge cache to refresh.
 
 
 ## EIT Production Server Migration V1.0 (2026-09-24)
