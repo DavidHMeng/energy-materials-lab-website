@@ -1,40 +1,40 @@
 - id: pi
-  label_en: Principal Investigator
   label_zh: 课题组负责人
+  label_en: Principal Investigator
   display: true
   order: 1
 - id: postdoctoral-researchers
-  label_en: Postdoctoral Researchers
   label_zh: 博士后
+  label_en: Postdoctoral Researchers
   display: true
   order: 2
+- id: research-staff
+  label_zh: 科研人员
+  label_en: Research Staff
+  display: true
+  order: 7
 - id: phd-students
-  label_en: PhD Students
   label_zh: 博士研究生
+  label_en: PhD Students
   display: true
   order: 3
 - id: master-students
-  label_en: Master Students
   label_zh: 硕士研究生
+  label_en: Master Students
   display: true
   order: 4
 - id: undergraduate-students
-  label_en: Undergraduate Students
   label_zh: 本科生
+  label_en: Undergraduate Students
   display: true
   order: 5
 - id: visiting-students
-  label_en: Visiting Students
   label_zh: 访问学生
+  label_en: Visiting Students
   display: true
   order: 6
-- id: research-staff
-  label_en: Research Staff
-  label_zh: 科研人员
-  display: true
-  order: 7
 - id: administrative-staff
-  label_en: Administrative Staff
   label_zh: 行政人员
+  label_en: Administrative Staff
   display: true
   order: 8
