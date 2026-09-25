@@ -3,40 +3,35 @@ introduction:
   eyebrow_zh: 课题组简介
   title_en: Where energy materials meet interfacial science
   title_zh: 能源材料与界面科学在此交汇
-  text_en: We explore materials, interfaces, and electrochemical processes that
-    can enable safer and more sustainable energy technologies. This structured
-    placeholder introduction can be replaced in Pages CMS without changing the
-    homepage layout.
+  text_en: We explore materials, interfaces, and electrochemical processes that can enable safer and more sustainable energy technologies. This structured placeholder introduction can be replaced in Pages CMS without changing the homepage layout.
   text_zh: 我们关注材料、界面与电化学过程，探索更安全、更可持续的能源技术。 此处为可在 Pages CMS 中直接替换的结构化课题组简介，不需要调整首页布局。
   autoplay_seconds: 6
   slides:
-    - image: /images/placeholders/graphical-abstract.svg
-      alt_zh: 展示能源材料研究概念的图文摘要占位图
-      alt_en: Placeholder graphical abstract showing an energy-materials research
-        concept
-      visual_type: graphical-abstract
-      caption_zh: 代表性图文摘要
-      caption_en: Representative graphical abstract
-      related_doi: https://doi.org/10.1021/jacs.5c22628
-      display: true
-      order: 1
-    - image: /images/placeholders/graphical-abstract-2.svg
-      alt_zh: 展示界面科学研究概念的图文摘要占位图
-      alt_en: Placeholder graphical abstract showing an interfacial-science research
-        concept
-      visual_type: graphical-abstract
-      caption_zh: 界面科学与储能研究
-      caption_en: Interfacial science and energy storage
-      display: true
-      order: 2
-    - image: /images/placeholders/campus.svg
-      alt_zh: 用于后续实验室或课题组合影的占位图
-      alt_en: Placeholder image for a future laboratory or group photograph
-      visual_type: lab-photo
-      caption_zh: 实验室或课题组合影
-      caption_en: Laboratory or group photograph
-      display: true
-      order: 3
+  - image: /images/placeholders/graphical-abstract.svg
+    alt_zh: 展示能源材料研究概念的图文摘要占位图
+    alt_en: Placeholder graphical abstract showing an energy-materials research concept
+    visual_type: graphical-abstract
+    caption_zh: 代表性图文摘要
+    caption_en: Representative graphical abstract
+    related_doi: 10.1021/jacs.5c22628
+    display: true
+    order: 1
+  - image: /images/placeholders/graphical-abstract-2.svg
+    alt_zh: 展示界面科学研究概念的图文摘要占位图
+    alt_en: Placeholder graphical abstract showing an interfacial-science research concept
+    visual_type: graphical-abstract
+    caption_zh: 界面科学与储能研究
+    caption_en: Interfacial science and energy storage
+    display: true
+    order: 2
+  - image: /images/placeholders/campus.svg
+    alt_zh: 用于后续实验室或课题组合影的占位图
+    alt_en: Placeholder image for a future laboratory or group photograph
+    visual_type: lab-photo
+    caption_zh: 实验室或课题组合影
+    caption_en: Laboratory or group photograph
+    display: true
+    order: 3
 highlights_heading_en: Highlights
 highlights_heading_zh: 课题组动态
 events_heading_en: Events

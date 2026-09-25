@@ -4,6 +4,6 @@
   description_zh: 占位说明：请替换为课题组对该论文的正式说明。
   image: /images/placeholders/graphical-abstract.svg
   tags:
-    - placeholder
-- id: 10.1021/jacs.5c22628
+  - placeholder
+- id: doi:10.1021/jacs.5c22628
   type: paper
