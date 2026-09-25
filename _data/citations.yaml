@@ -25,3 +25,32 @@
   - placeholder
   plugin: sources.py
   file: sources.yaml
+- id: doi:10.1093/nsr/nwag209
+  title: Hydrate/moisture co-assisted synthesis enables humid-air stability of halide
+    solid-state electrolytes
+  authors:
+  - Xiangzhen Zhu
+  - Chao Liu
+  - Xiaolong Yan
+  - Junyi Yue
+  - Mingying Zhang
+  - Simeng Zhang
+  - Yueyue Wang
+  - Han Wu
+  - Yue Gong
+  - Yanlong Wu
+  - Xinmiao Wang
+  - Shengjie Xia
+  - Shanshan Wang
+  - Zaifa Wang
+  - Changtai Zhao
+  - Jianwen Liang
+  - Songbai Han
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: National Science Review
+  date: '2026-04-22'
+  link: https://doi.org/hcknhk
+  type: paper
+  plugin: sources.py
+  file: sources.yaml

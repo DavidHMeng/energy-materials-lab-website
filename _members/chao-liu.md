@@ -14,7 +14,7 @@ personal_note_zh: 向下扎根，向上生长
 education_zh: 硕士/东北大学/2023-2026
 email: 13780866910@163.com
 representative_dois:
-  - https://doi.org/10.1093/nsr/nwag209
+- 10.1093/nsr/nwag209
 active: true
 display: true
 order: 1
