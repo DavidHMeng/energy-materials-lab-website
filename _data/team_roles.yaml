@@ -12,27 +12,27 @@
   label_zh: 科研人员
   label_en: Research Staff
   display: true
-  order: 7
+  order: 3
 - id: phd-students
   label_zh: 博士研究生
   label_en: PhD Students
   display: true
-  order: 3
+  order: 4
 - id: master-students
   label_zh: 硕士研究生
   label_en: Master Students
   display: true
-  order: 4
+  order: 5
 - id: undergraduate-students
   label_zh: 本科生
   label_en: Undergraduate Students
   display: true
-  order: 5
+  order: 6
 - id: visiting-students
   label_zh: 访问学生
   label_en: Visiting Students
   display: true
-  order: 6
+  order: 4
 - id: administrative-staff
   label_zh: 行政人员
   label_en: Administrative Staff
