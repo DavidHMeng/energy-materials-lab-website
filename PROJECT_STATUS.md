@@ -17,7 +17,7 @@ Evidence:
 
 - Final branch validation: [GitHub Actions run 36117027301](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117027301)
   passed after the CMS cleanup. The final documentation commit was then
-  revalidated by [run 36117463226](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117463226).
+  revalidated by [run 36117721593](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117721593).
 - Final staging artifact: [run 36117560928](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36117560928)
   produced `github-pages-staging` (3,665,258 bytes), digest
   `sha256:4582d3e7dc7947736ef0a5be712754a76bb21fcacdff0e9610b738fa2b726e42`,
