@@ -35,6 +35,12 @@ assets, language/navigation invariants, metadata and internal links, and runs HT
 Proofer without external-network checks. The staging artifact and manual Pages deploy
 use the staging layer and must retain the repository base path.
 
+CMS collection records are editorial data, not build fixtures. CI must accept an empty
+Research, News, Events, Team or Opportunities collection and must never require a
+placeholder slug, filename, record count or placeholder image. Records that remain are
+still checked for schema completeness, stable identifiers, valid references, dates,
+accessible image metadata and existing media paths.
+
 `Publish production static branch` runs only for `main`. Citation freshness,
 translation/fallback tests and content validation are independent prerequisites. Only
 after all three pass does it run the exact production Jekyll build, add `version.json`,

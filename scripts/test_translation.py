@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import unittest
 
-from translate_content import TranslationResult, digest, process_pair
+from translate_content import TranslationResult, digest, process_pair, prune_deleted_entries
 
 
 class TranslationStateTests(unittest.TestCase):
@@ -40,6 +40,17 @@ class TranslationStateTests(unittest.TestCase):
         process_pair(record, "title_zh", "title_en", state, lambda _: "Ignored", result)
         self.assertEqual(record["title_en"], "Human revision")
         self.assertEqual(state["status"], "manual")
+
+    def test_deleted_content_prunes_only_stale_state(self):
+        entries = {
+            "_members/current.md": {"position": {"status": "manual"}},
+            "_members/deleted-placeholder.md": {"position": {"status": "pending"}},
+        }
+        result = TranslationResult()
+        prune_deleted_entries(entries, {"_members/current.md"}, result)
+        self.assertEqual(set(entries), {"_members/current.md"})
+        self.assertEqual(result.pruned, 1)
+        self.assertTrue(result.changed_state)
 
 
 if __name__ == "__main__":

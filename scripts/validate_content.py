@@ -154,7 +154,6 @@ if not role_ids:
     ERRORS.append("_data/team_roles.yaml: at least one team role is required")
 
 member_ids = set()
-placeholder_phd_count = 0
 for path, data in records["_members"]:
     member_id = data.get("slug")
     if member_id in member_ids:
@@ -163,16 +162,11 @@ for path, data in records["_members"]:
     if data.get("role") not in role_ids:
         ERRORS.append(f"{path.relative_to(ROOT)}: invalid role {data.get('role')}")
     check_image(data.get("portrait", ""), path)
-    if str(member_id).startswith("phd-student-") and data.get("role") == "phd-students":
-        placeholder_phd_count += 1
     for retired_field in ("office", "phone", "biography_en", "biography_zh"):
         if retired_field in data:
             ERRORS.append(f"{path.relative_to(ROOT)}: retired member field {retired_field} remains in source")
     for doi in data.get("representative_dois", []) or []:
         checked_doi(doi, f"{path.relative_to(ROOT)}: invalid representative DOI")
-
-if placeholder_phd_count < 8:
-    ERRORS.append("_members: at least eight removable PhD placeholder records are required for layout QA")
 
 for path, data in records["_opportunities"]:
     if data.get("category") not in OPPORTUNITY_CATEGORIES:

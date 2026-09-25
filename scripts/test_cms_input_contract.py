@@ -43,10 +43,20 @@ class PagesCmsInputContractTests(unittest.TestCase):
             for path, field in walk_fields(entry.get("fields")):
                 self.assertTrue(set(field) <= allowed, f"unexpected schema key in {path}: {set(field) - allowed}")
 
+    def test_editorial_collections_do_not_disable_content_operations(self):
+        for entry_name in ("news", "events", "research", "team", "opportunities"):
+            operations = ENTRIES[entry_name].get("operations", {})
+            for operation in ("create", "rename", "delete"):
+                self.assertIsNot(
+                    operations.get(operation),
+                    False,
+                    f"{entry_name} must not disable the {operation} operation",
+                )
+
     def test_member_slug_is_a_stable_filename_safe_id(self):
         field = field_map("team")["slug"]
         pattern = re.compile(field["pattern"])
-        for value in ("jianwen-liang", "phd-student-08", "visitor-2026"):
+        for value in ("jianwen-liang", "doctoral-researcher-08", "visitor-2026"):
             self.assertIsNotNone(pattern.fullmatch(value), value)
         for value in ("Jianwen Liang", "梁剑文", "member_id", "member/one", ""):
             self.assertIsNone(pattern.fullmatch(value), value)

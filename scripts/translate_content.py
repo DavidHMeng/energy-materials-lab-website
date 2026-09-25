@@ -91,6 +91,21 @@ class TranslationResult:
     manual: int = 0
     needs_review: int = 0
     pending: int = 0
+    pruned: int = 0
+
+
+def prune_deleted_entries(
+    entries: dict[str, Any],
+    active_paths: set[str],
+    result: TranslationResult,
+) -> None:
+    """Remove translation state for CMS records that no longer exist."""
+    stale_paths = sorted(set(entries) - active_paths)
+    for relative in stale_paths:
+        del entries[relative]
+    if stale_paths:
+        result.pruned += len(stale_paths)
+        result.changed_state = True
 
 
 def process_pair(
@@ -208,8 +223,11 @@ def run(write: bool, translator: Callable[[str], str] | None) -> TranslationResu
     state = yaml.safe_load(STATE_PATH.read_text(encoding="utf-8")) or {"version": 1, "entries": {}}
     entries = state.setdefault("entries", {})
     result = TranslationResult()
+    files = list(selected_files())
+    active_paths = {path.relative_to(ROOT).as_posix() for path, _ in files}
+    prune_deleted_entries(entries, active_paths, result)
 
-    for path, allowed in selected_files():
+    for path, allowed in files:
         data, body = load_content(path)
         relative = path.relative_to(ROOT).as_posix()
         file_state = entries.setdefault(relative, {})

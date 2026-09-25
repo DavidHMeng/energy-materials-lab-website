@@ -39,6 +39,16 @@ Pages CMS 直接编辑 GitHub 仓库中的 Markdown/YAML 文件，没有独立�
 - 删除：`content: remove <filename>`
 - 重命名：`content: rename <old> to <new>`
 
+News、Events、Research、Team 和 Opportunities 都不设占位记录数量下限，也不要求
+保留特定 slug、文件名或占位图片。占位记录可以直接删除、通过 `display`/`active`
+隐藏，或逐字段替换为真实内容；删除记录后，翻译流程会清理对应的状态缓存。
+
+仍然保留的必要校验包括：中文必填字段、唯一且安全的 ID/slug、已配置的 Team Role、
+ISO 日期、有效 DOI 与跨记录引用、图片文件存在和图片中文 Alt。保留中的记录必须满足
+这些结构要求；若要删除一张共享图片，应先替换或删除所有引用该图片的记录。Homepage
+Introduction 和 Site Settings 是页面结构配置，不属于可整体删除的集合；首页仍需至少
+一张可显示的轮播图，站点身份、Logo、Header image 和 Typography 仍需保持有效。
+
 ### 2.2 检查构建
 
 保存后先等待 GitHub Actions 的 **Validate and build** 变为绿色。失败时不要发布；
@@ -184,8 +194,8 @@ Research 和 Team 都通过 DOI/成员 ID 引用同一出版物；不要在多�
 - `Affiliation EN / ZH` 显示在个人页姓名和身份下方；`Address EN / ZH` 显示在左侧
   联系信息栏。两者都可以留空。
 - ORCID 字段只填写 ORCID 标识，不要添加重复的展示文字。
-- `phd-student-01` 至 `phd-student-08` 是用于检查多人布局和末行居中的可删除占位
-  成员。录入真实成员后可逐条替换或删除，不要把占位内容当作真实人员信息。
+- Team 不要求保留任何占位成员或固定人数。删除、隐藏或替换成员不会因布局测试而阻断
+  CI；多人布局与末行居中由独立回归测试和浏览器验收负责。
 
 ### Team Role Labels
 

@@ -34,7 +34,7 @@
 截图中的 `Member ID / slug` 是路由和文件名标识，不是普通显示名称。只允许小写 ASCII 字母、数字和连字符：
 
 ```text
-正确：jianwen-liang、phd-student-08、visitor-2026
+正确：jianwen-liang、doctoral-researcher-08、visitor-2026
 错误：Jianwen Liang、梁剑文、member_id、member/one
 ```
 

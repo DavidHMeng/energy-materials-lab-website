@@ -65,9 +65,11 @@ Research Interests, Education, and the optional plain-text `personal_note_en` /
 absent. `representative_dois` is an identifier-only selection rendered through the
 shared citation component.
 
-Eight removable `phd-student-01` through `phd-student-08` records provide density and
-last-row-centering QA. They use the normal member schema and can be deleted or replaced
-through Pages CMS without touching templates.
+Team records are editorial content, not layout fixtures. There is no minimum member
+count and no required placeholder slug, filename or portrait. Pages CMS may delete,
+hide or replace any member record; an empty Team collection remains valid and empty
+categories remain hidden. Responsive density and last-row centering are verified by
+tests and browser QA rather than by production placeholder records.
 
 ## Typography settings
 

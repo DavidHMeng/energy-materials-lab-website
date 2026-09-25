@@ -3,6 +3,32 @@
 Updated: 2026-09-25
 Current release line: UI / CMS Workflow V1.6 on `main`
 
+## CMS placeholder independence correction (2026-09-25)
+
+CMS collection records are no longer treated as production build fixtures. The eight
+temporary PhD density records were removed through Pages CMS, exposing a validator bug
+that required all eight records even though the documented maintenance contract said
+they were removable. The content validator no longer checks a placeholder prefix or
+minimum placeholder count.
+
+The corrected contract is:
+
+- Research, News, Events, Team and Opportunities may contain zero or more records;
+- no placeholder slug, filename, record count, text value or placeholder image is a
+  production requirement;
+- records may be deleted, hidden or replaced through Pages CMS;
+- retained records still require valid schema fields, unique identifiers, configured
+  role references, dates, DOI references, existing image paths and localized alt text;
+- deleted editorial files are pruned from `_translation/state.yml` by the translation
+  workflow so stale per-record state does not accumulate;
+- Homepage Introduction and Site Settings remain structural file records and retain
+  their essential carousel, identity, accessibility and typography checks.
+
+CI now runs `scripts/test_cms_record_independence.py`, which removes all editable
+collection records in an isolated copy and requires `validate_content.py` to pass.
+Remote `main`, production publishing and Pages CMS deployment evidence is recorded
+after the corresponding GitHub Actions runs complete.
+
 ## CMS / Citation QA V1.6 (2026-09-25)
 
 The existing Framework V1.1 information architecture and Pages CMS model were
