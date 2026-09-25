@@ -1,8 +1,8 @@
 ---
-slug: alex-chen
+slug: tan-wang
 role: phd-students
-name_en: Alex Chen
-name_zh: 陈晓
+name_en: Tan Wang
+name_zh: 王坦
 position_en: PhD Student
 position_zh: 博士研究生
 portrait: /images/placeholders/portrait-student.svg
