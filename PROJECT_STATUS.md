@@ -3,6 +3,40 @@
 Updated: 2026-09-26
 Current release line: UI / CMS Workflow V1.6 on `main`
 
+## CMS member deployment and translation recovery (2026-09-26)
+
+Two real Team records saved successfully through Pages CMS but exposed two independent
+pipeline defects. The production build rendered optional English member fields directly,
+so CMS records that contained only the required Chinese source produced empty image alt
+text and omitted optional profile sections. At the same time, the translation scanner
+only recognized a Chinese/English pair when the optional English YAML key physically
+existed. Pages CMS omits blank optional keys, so the scanner incorrectly reported zero
+pending fields.
+
+The repair keeps the existing content model and introduces no new required fields:
+
+- all supported bilingual renderers now use the requested language first and the Chinese
+  source as a deployment-safe fallback when optional English is absent;
+- missing English YAML keys are discovered as translation candidates, not ignored;
+- deleted optional Profile Summary and Personal Note fields remain hidden and are no
+  longer treated as mandatory generated-site fixtures;
+- the translation action writes a clear job summary and records untranslated fields as
+  `pending` without blocking CI or deployment when provider credentials are absent.
+
+Evidence:
+
+- Repair commit [`716994f`](https://github.com/DavidHMeng/energy-materials-lab-website/commit/716994f3515c97af01815b572487a144dee82ce1).
+- Translation-state commit [`fd3c31c`](https://github.com/DavidHMeng/energy-materials-lab-website/commit/fd3c31c), which records 19 pending fields, including both newly edited Team members.
+- [Validate and build run 36163811121](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36163811121) passed the real Jekyll production build, EN/ZH generated-site checks and HTML validation.
+- [Publish production static branch run 36163811077](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36163811077) passed and refreshed `server-deploy` from the repaired source.
+- Automatic translation/fallback [run 36163811101](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36163811101) passed; a second manual Pages CMS invocation also passed as [run 36164002056](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36164002056).
+
+The GitHub repository currently has no Actions secrets or variables for translation.
+Therefore the translation button is now operational and deploy-safe, but actual persisted
+machine English remains intentionally disabled until an administrator configures
+`TRANSLATION_API_KEY` and `TRANSLATION_MODEL`. English pages continue to show the Chinese
+source instead of blank content in that state.
+
 ## CMS placeholder independence correction (2026-09-25)
 
 CMS collection records are no longer treated as production build fixtures. The eight
