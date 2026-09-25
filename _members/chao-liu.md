@@ -1,6 +1,6 @@
 ---
 slug: chao-liu
-role: engineer
+role: research-staff
 name_zh: 刘超
 position_zh: 工程师
 portrait: /images/uploads/9448481826c5f7bee9371a43f05db550.jpg
@@ -14,8 +14,9 @@ personal_note_zh: 向下扎根，向上生长
 education_zh: 硕士/东北大学/2023-2026
 email: 13780866910@163.com
 representative_dois:
-- 10.1093/nsr/nwag209
+  - 10.1093/nsr/nwag209
 active: true
 display: true
 order: 1
+name_en: chao liu
 ---
