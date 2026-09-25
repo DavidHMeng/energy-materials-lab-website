@@ -28,8 +28,15 @@ CI now runs `scripts/test_cms_record_independence.py`, which removes all editabl
 collection records in an isolated copy and requires `validate_content.py` to pass.
 The correction was published to remote `main` as commit `ccdf573`. GitHub Actions
 `Validate and build` run `36146321789` passed, and `Publish production static branch`
-run `36146321103` passed and refreshed `server-deploy`. A subsequent Pages CMS
-`Deploy website` run is recorded below after the CMS-triggered workflow completes.
+run `36146321103` passed and refreshed `server-deploy`. The documentation follow-up
+commit `30e14f3` also passed `Validate and build` run `36146473585` and production
+publish run `36146473408`. Pages CMS `Deploy website` then triggered successful
+GitHub Pages run `36157829647` on `main`. The resulting staging pages were checked
+at `https://davidhmeng.github.io/energy-materials-lab-website/` and
+`https://davidhmeng.github.io/energy-materials-lab-website/zh/`; both returned the
+expected bilingual navigation, Introduction carousel controls, Highlights and
+Events sections. Existing placeholder editorial records remain replaceable CMS
+content and are not validator fixtures.
 
 ## CMS / Citation QA V1.6 (2026-09-25)
 
