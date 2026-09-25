@@ -26,8 +26,10 @@ The corrected contract is:
 
 CI now runs `scripts/test_cms_record_independence.py`, which removes all editable
 collection records in an isolated copy and requires `validate_content.py` to pass.
-Remote `main`, production publishing and Pages CMS deployment evidence is recorded
-after the corresponding GitHub Actions runs complete.
+The correction was published to remote `main` as commit `ccdf573`. GitHub Actions
+`Validate and build` run `36146321789` passed, and `Publish production static branch`
+run `36146321103` passed and refreshed `server-deploy`. A subsequent Pages CMS
+`Deploy website` run is recorded below after the CMS-triggered workflow completes.
 
 ## CMS / Citation QA V1.6 (2026-09-25)
 
