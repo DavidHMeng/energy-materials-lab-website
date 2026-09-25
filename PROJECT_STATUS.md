@@ -1,6 +1,6 @@
 # Project status
 
-Updated: 2026-09-25
+Updated: 2026-09-26
 Current release line: UI / CMS Workflow V1.6 on `main`
 
 ## CMS placeholder independence correction (2026-09-25)
@@ -30,7 +30,7 @@ The correction was published to remote `main` as commit `ccdf573`. GitHub Action
 `Validate and build` run `36146321789` passed, and `Publish production static branch`
 run `36146321103` passed and refreshed `server-deploy`. The documentation follow-up
 commit `30e14f3` also passed `Validate and build` run `36146473585` and production
-publish run `36146473408`. The final `main` commit `932c9de` passed `Validate and
+publish run `36146473408`. The final functional `main` commit `932c9de` passed `Validate and
 build` run `36158147600` and production publish run `36158147337`; Pages CMS
 `Deploy website` then triggered successful GitHub Pages run `36158286684` on
 `main`. The resulting staging pages were checked
