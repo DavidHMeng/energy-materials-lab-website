@@ -19,7 +19,7 @@
   publication_visible: true
 - id: doi:10.1093/nsr/nwag209
   type: paper
-  publication_visible: false
+  publication_visible: true
 - id: doi:10.1016/j.jpowsour.2025.236189
   type: paper
   publication_visible: false
