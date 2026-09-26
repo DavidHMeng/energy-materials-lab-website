@@ -131,8 +131,13 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
   键盘操作和系统“减少动态效果”设置下暂停或停用自动播放。
 - `News items on homepage` 和 `Event items on homepage` 只控制首页显示数量。
 - News 和 Events 的完整记录仍在对应集合中维护。
-- 首页结构固定为 Introduction、Highlights、Events；不要在 CMS 中复制 Research
-  页的详细研究内容。
+- 首页结构保留 Introduction、Highlights、Events 的数据入口；当 Events 集合中没有
+  可发布的真实记录时，首页会完全跳过 Events section，不输出标题、Archive、divider
+  或空白区域。Events CMS、归档页和详情路由仍然保留。
+- 首页 Events 使用现有 `display` 作为发布开关，并额外排除 `published: false`、
+  `hidden: true`、`placeholder: true` 以及标题/类别中的 `placeholder`、`demo`、
+  `sample`、`draft`、`unpublished`、`占位` 标记。真实 Event 只需在 CMS 中保存并
+  打开 `display`，无需修改前端代码即可恢复首页展示。
 
 ### Highlights / News
 
@@ -147,6 +152,9 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 - Type 只能选 Academic 或 Group；Category 可填写更具体的 Seminar、Workshop 等。
 - 首页显示摘要卡片，归档页还会显示 Description 和 Gallery。
 - 单日活动可将 End date 留空；多日活动必须保证结束日期不早于开始日期。
+- 当前没有真实活动时，不要保留演示用 Event 记录；可直接删除，或关闭 `display`。
+  删除后首页不会留下空的 Events 标题、Archive 链接、分割线或占位空间，Events
+  归档页面和 CMS collection 仍然可用。
 
 ### Research
 

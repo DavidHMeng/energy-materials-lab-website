@@ -3,6 +3,26 @@
 Updated: 2026-09-26
 Current release line: UI / CMS Workflow V1.6 on `main`
 
+## Homepage Events data-driven visibility (2026-09-26)
+
+The two homepage demo records, `Placeholder Energy Materials Seminar` and
+`Placeholder Annual Group Workshop`, were removed from `_events/`. Their translation
+state entries were pruned without changing the Events CMS collection, archive page,
+detail routing, or event-card component.
+
+Both bilingual home routes now delegate Events rendering to
+`_includes/custom/home-events.html`. The include renders no section at all when the
+collection has no publishable real records: there is no heading, Archive link, divider,
+card, or reserved whitespace in the generated homepage DOM. It treats the existing
+`display` field as the CMS publish switch and also respects optional `published`,
+`hidden`, and `placeholder` flags plus demo/sample/placeholder/draft/unpublished title
+markers for older or externally edited records. A future real Event saved through Pages
+CMS with `display: true` automatically restores the section and uses the existing card
+layout.
+
+The Events archive and bilingual routes remain intact. A dedicated regression test covers
+empty collections, marker filtering, and preservation of the archive/CMS surface.
+
 ## Profile citation isolation and CMS/photo crash audit (2026-09-26)
 
 The profile `Representative Publications` section is now independent from the global

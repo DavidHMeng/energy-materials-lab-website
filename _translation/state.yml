@@ -59,40 +59,6 @@ entries:
       generated_hash: d96424f2b0c27d2a064959b5e30510135054a79ddca2d51b8914f6c9423355c9
       source_hash: e9dc521d32b8e03202e163d48605c151f239bd2ee9315414298eb5b8b0c7bab0
       status: auto
-  _events/2026-10-16-placeholder-seminar.md:
-    alt:
-      english_hash: 4173e5ad09e8cb39f117568700acc1b8b4a891873777aef3b91eb836e42fb7cf
-      source_hash: 21cbdb4a4b43ceebe0c16c42893a6a891369c6d74dd05ecd3fbb88ff4f1ea982
-      status: manual
-    description:
-      english_hash: 9980252f1c64e60fc398b2c670544cf050a6ef4e876ac2a0962b5f4359b2b78e
-      source_hash: b921cb46380344991959693686821bd2e9051f1b1a662998ac69a9223c557825
-      status: manual
-    location:
-      english_hash: 0cebe8c5d12117ddb333b529875ddc9f2974a6abf9f6171b2b2ee83eff0bb37f
-      source_hash: 67962307fe054abc4f1f148bd6474c87bc1475458bb77220d9a3a06524b6a6a1
-      status: manual
-    title:
-      english_hash: 934a02ea98198d7f7b794dbb49005842f4bbff468a014af8bfe5b73d7c0d309d
-      source_hash: 376df5b8704cad999200a9a2470a81160528caa7660605df1479e15cb7ac44ad
-      status: manual
-  _events/2026-11-07-placeholder-group-event.md:
-    alt:
-      english_hash: a1df1a13223ce8bf06c82025b77246d1b9376515ac3272b1291786dca8246e78
-      source_hash: 752f41a3f24c8596224a10795cb24b019cde5917b2b04f77c976cc4a7670017b
-      status: manual
-    description:
-      english_hash: 9a19eb24e3c5c4e10b28e7e5933990f7fb3d7cb39dd42c3744928fb2c68eb783
-      source_hash: 1560ec3463891f97b6db4756839260e395d365a00ce4a8cf43de1a37a5c91cd0
-      status: manual
-    location:
-      english_hash: bcab44989d5705fbe2fc23f8189e93d7f8e63aea46787a35c0211033d7beba2f
-      source_hash: e436142acad575131fecac581c50ac6f1f4703a7b26145ec2086ed950c418e1c
-      status: manual
-    title:
-      english_hash: e38ab6c1630766e6546a4124e05216e1ba0a9e4973c8a7f6ededd9aead2746b7
-      source_hash: a0adf999d3c99db593e620872a7bebfb7bb25df25f3933b87960d860c081001b
-      status: manual
   _members/alex-chen.md:
     address:
       english_hash: f7f068f28864c84cd6a8c4df4bc99fcc4e77c346e77cf2362c1cea45fff27222

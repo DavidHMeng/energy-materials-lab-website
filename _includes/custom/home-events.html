@@ -1,0 +1,48 @@
+{% assign candidate_events = include.events | default: site.events | sort: "date" | reverse %}
+{% assign visible_event_count = 0 %}
+
+{% comment %}
+  `display` is the existing Events CMS publish switch. Optional published,
+  hidden and placeholder flags are also respected when a record contains them.
+  The marker check keeps demo/sample records out of the homepage even when an
+  older CMS entry predates those optional fields.
+{% endcomment %}
+{% for item in candidate_events limit: include.limit %}
+  {% assign item_title_en = item.title_en | default: "" | strip %}
+  {% assign item_title_zh = item.title_zh | default: "" | strip %}
+  {% assign item_title = item_title_en %}
+  {% if item_title == "" %}{% assign item_title = item_title_zh %}{% endif %}
+  {% assign marker_probe = item_title_en | append: " " | append: item_title_zh | append: " " | append: item.category | downcase %}
+  {% assign event_visible = true %}
+  {% if item.display != true %}{% assign event_visible = false %}{% endif %}
+  {% if item.published == false %}{% assign event_visible = false %}{% endif %}
+  {% if item.hidden == true %}{% assign event_visible = false %}{% endif %}
+  {% if item.placeholder == true %}{% assign event_visible = false %}{% endif %}
+  {% if marker_probe contains "placeholder" or marker_probe contains "demo" or marker_probe contains "sample" or marker_probe contains "draft" or marker_probe contains "unpublished" or marker_probe contains "占位" %}{% assign event_visible = false %}{% endif %}
+  {% if event_visible and item_title != "" %}{% assign visible_event_count = visible_event_count | plus: 1 %}{% endif %}
+{% endfor %}
+
+{% if visible_event_count > 0 %}
+<section aria-labelledby="events-heading" data-reveal>
+  <div class="section-heading">
+    <h2 id="events-heading">{% if page.lang == "zh" %}{{ include.heading_zh }}{% else %}{{ include.heading_en }}{% endif %}</h2>
+    <a href="{% if page.lang == 'zh' %}{{ '/zh/events/' | relative_url }}{% else %}{{ '/events/' | relative_url }}{% endif %}">{% if page.lang == "zh" %}全部活动{% else %}Archive{% endif %} <span aria-hidden="true">→</span></a>
+  </div>
+  <div class="event-grid">
+    {% for item in candidate_events limit: include.limit %}
+      {% assign item_title_en = item.title_en | default: "" | strip %}
+      {% assign item_title_zh = item.title_zh | default: "" | strip %}
+      {% assign item_title = item_title_en %}
+      {% if item_title == "" %}{% assign item_title = item_title_zh %}{% endif %}
+      {% assign marker_probe = item_title_en | append: " " | append: item_title_zh | append: " " | append: item.category | downcase %}
+      {% assign event_visible = true %}
+      {% if item.display != true %}{% assign event_visible = false %}{% endif %}
+      {% if item.published == false %}{% assign event_visible = false %}{% endif %}
+      {% if item.hidden == true %}{% assign event_visible = false %}{% endif %}
+      {% if item.placeholder == true %}{% assign event_visible = false %}{% endif %}
+      {% if marker_probe contains "placeholder" or marker_probe contains "demo" or marker_probe contains "sample" or marker_probe contains "draft" or marker_probe contains "unpublished" or marker_probe contains "占位" %}{% assign event_visible = false %}{% endif %}
+      {% if event_visible and item_title != "" %}{% include custom/event-card.html item=item %}{% endif %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

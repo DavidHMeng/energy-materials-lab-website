@@ -7,7 +7,7 @@ page_class: homepage-page
 
 {% assign home = site.data.homepage %}
 {% assign news = site.news | where: "display", true | sort: "date" | reverse %}
-{% assign events = site.events | where: "display", true | sort: "date" %}
+{% assign events = site.events | sort: "date" %}
 
 {% include custom/homepage-introduction.html %}
 
@@ -21,12 +21,4 @@ page_class: homepage-page
   </div>
 </section>
 
-<section aria-labelledby="events-heading" data-reveal>
-  <div class="section-heading">
-    <h2 id="events-heading">{{ home.events_heading_zh }}</h2>
-    <a href="{{ '/zh/events/' | relative_url }}">全部活动 <span aria-hidden="true">→</span></a>
-  </div>
-  <div class="event-grid">
-    {% for item in events limit: home.events_limit %}{% include custom/event-card.html item=item %}{% endfor %}
-  </div>
-</section>
+{% include custom/home-events.html events=events heading_en=home.events_heading_en heading_zh=home.events_heading_zh limit=home.events_limit %}
