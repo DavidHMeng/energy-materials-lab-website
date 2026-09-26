@@ -162,6 +162,7 @@ content:
       - { name: description_zh, label: Custom note ZH, type: rich-text, options: { media: false } }
       - { name: image, label: Citation image, type: image, options: { media: images } }
       - { name: tags, label: Tags, type: string, list: true }
+      - { name: publication_visible, label: Show on Publications page, type: boolean, default: true, description: "Controls only the global Publications archive. Profile Representative Publications can remain independent when this is false." }
 
   - name: team
     label: Team

@@ -78,6 +78,14 @@ class PagesCmsSchemaTests(unittest.TestCase):
         ):
             self.assertEqual(fields(ENTRIES[entry_name])[image_name]["options"]["media"], "images")
 
+    def test_profile_publications_have_independent_archive_visibility(self):
+        publication = fields(ENTRIES["publications"])["publication_visible"]
+        self.assertEqual(publication["type"], "boolean")
+        self.assertTrue(publication["default"])
+        self.assertIn("global Publications archive", publication["description"])
+        for path in (ROOT / "publications" / "index.md", ROOT / "zh" / "publications" / "index.md"):
+            self.assertIn("publication_visible != false", path.read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()

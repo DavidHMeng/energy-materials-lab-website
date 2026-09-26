@@ -20,7 +20,7 @@
 | Highlights / News | 11 | 4 | category、日期、图片与 alt 配对 |
 | Events | 16 | 4 | Academic/Group、日期、结束日期不能早于开始日期 |
 | Research | 10 | 5 | Graphical Abstract、DOI 列表、顺序 |
-| Publications | 7 | 1 | DOI 是唯一必填标识，出版物内容不翻译 |
+| Publications | 8 | 1 | DOI 是唯一必填标识；可独立控制是否显示在 Publications 二级页 |
 | Team | 33 | 9 | slug、role、头像、中文核心字段、代表性 DOI |
 | Team Role Labels | 5 | 3 | role ID、中文标签、顺序 |
 | Opportunities | 14 | 7 | category、active override、日期、链接 |
@@ -75,6 +75,9 @@ DOI：10.1021/jacs.5c22628
 ```
 
 系统会去除前缀、统一大小写并写入共享 citation registry。Publication 的标题、作者、期刊、年份等不会走中文→英文自动翻译。
+Team 的 `representative_dois` 只用于个人 profile 的 Representative Publications；不会因为
+被成员引用就自动出现在 Publications 二级页。Publication 记录中的 `Show on Publications page`
+默认为开启，关闭后该 DOI 仍可在 profile/Research 中解析，但不会出现在全局列表。
 
 ### 4. 日期、数字和顺序
 

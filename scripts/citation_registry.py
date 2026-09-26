@@ -121,6 +121,7 @@ def synchronize(root: Path, write: bool = False) -> list[str]:
     root = root.resolve()
     changes: list[str] = []
     referenced: list[str] = []
+    non_publication_references: set[str] = set()
     pending_frontmatter: list[tuple[Path, dict, str]] = []
 
     def track_reference(doi: str) -> None:
@@ -134,6 +135,11 @@ def synchronize(root: Path, write: bool = False) -> list[str]:
             after = _normalize_list(before, f"{path.relative_to(root)}:{field}")
             for doi in after:
                 track_reference(doi)
+                # These references are used by profile/research pages, not as an
+                # instruction to publish the DOI in the global Publications archive.
+                # A maintainer can explicitly opt a source into that archive from
+                # the Publications CMS record via publication_visible: true.
+                non_publication_references.add(doi)
             if before != after:
                 data[field] = after
                 pending_frontmatter.append((path, data, body))
@@ -181,7 +187,11 @@ def synchronize(root: Path, write: bool = False) -> list[str]:
 
     for doi in referenced:
         if doi not in registry:
-            registry[doi] = {"id": f"doi:{doi}", "type": "paper"}
+            registry[doi] = {
+                "id": f"doi:{doi}",
+                "type": "paper",
+                **({"publication_visible": False} if doi in non_publication_references else {}),
+            }
             changes.append(f"register referenced DOI {doi}")
 
     normalized_sources = list(registry.values())

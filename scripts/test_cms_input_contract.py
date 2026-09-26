@@ -35,7 +35,7 @@ class PagesCmsInputContractTests(unittest.TestCase):
             {"homepage", "news", "events", "research", "publications", "team", "team-roles", "opportunities", "site"},
         )
         # Current contract inventory. The count includes nested object/list fields.
-        self.assertEqual(sum(len(field_map(name)) for name in ENTRIES), 146)
+        self.assertEqual(sum(len(field_map(name)) for name in ENTRIES), 147)
 
     def test_no_malformed_flow_mapping_fields(self):
         allowed = {"name", "label", "type", "required", "pattern", "description", "options", "default", "list", "fields"}
@@ -80,6 +80,11 @@ class PagesCmsInputContractTests(unittest.TestCase):
         ):
             self.assertIsNotNone(doi_pattern.fullmatch(value), value)
         self.assertIsNone(doi_pattern.fullmatch("not-a-doi"))
+
+    def test_publication_visibility_is_an_explicit_boolean_control(self):
+        field = field_map("publications")["publication_visible"]
+        self.assertEqual(field["type"], "boolean")
+        self.assertTrue(field["default"])
 
     def test_media_and_rich_text_boundaries_are_intentional(self):
         for entry_name, path in (

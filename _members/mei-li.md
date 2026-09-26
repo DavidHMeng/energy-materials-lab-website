@@ -5,7 +5,7 @@ name_en: Jianwen Liang
 name_zh: 梁剑文
 position_en: Principal Investigator
 position_zh: 课题组负责人
-portrait: /images/placeholders/portrait-pi.svg
+portrait: /images/uploads/getphotoimage.jpg
 portrait_alt_en: Principal Investigator
 portrait_alt_zh: 课题组负责人
 research_summary_zh: 无机固态电解质材料；固态离子传导机制；高能量密度全固态电池

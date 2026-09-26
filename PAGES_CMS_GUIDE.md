@@ -100,7 +100,7 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 | Highlights / News | 动态、获奖、成员、论文、项目和公告 | 必填中英文标题/摘要/日期；空外链自动隐藏 |
 | Events | 学术或课题组活动 | `Academic` 或 `Group`；结束日期不得早于开始日期 |
 | Research | 研究方向 | 图文、中英文简介、DOI 列表、显示和顺序 |
-| Publications | DOI 来源列表 | 可填裸 DOI 或 doi.org URL；系统统一规范化，不要手填作者、期刊或年份 |
+| Publications | DOI 来源列表 | 可填裸 DOI 或 doi.org URL；系统统一规范化；可单独控制是否显示在全局 Publications 页 |
 | Team | 成员、圆形头像、简短介绍与个人页 | 支持 Profile Summary 与代表作 DOI；`slug` 稳定且唯一；离组成员关闭 `active` 或 `display` |
 | Team Role Labels | 成员分类及其中英文标题 | 可维护博士后、访问学生等类别，也可新增未来类别 |
 | Opportunities | 招聘与机会 | 使用日期窗口和 `active_override`；空类别自动隐藏 |
@@ -159,15 +159,19 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 1. 在 DOI 字段填写裸 DOI、完整 doi.org 地址或 `DOI:` / `DOI：` 前缀，例如
    `10.1002/adma.202102415` 或 `https://doi.org/10.1002/adma.202102415`。
 2. 需要关联成员时，在 `member_ids` 填 Team 中对应的稳定 slug。
-3. 保存后，GitHub 会自动规范化 DOI、去重并汇入中央 Citation Registry；也可打开
+3. `Show on Publications page` 控制该记录是否出现在 Publications 二级页面，默认是开启。
+   关闭时 DOI 仍保留在中央 Citation Registry，Team profile 或 Research 页面仍可引用，
+   但不会进入全局 Publications 列表。
+4. 保存后，GitHub 会自动规范化 DOI、去重并汇入中央 Citation Registry；也可打开
    **Actions → Synchronize DOI citations** 手动刷新。
-4. 工作流从 DOI 获取书目信息；临时网络失败时保留缓存元数据，首次解析失败则显示
+5. 工作流从 DOI 获取书目信息；临时网络失败时保留缓存元数据，首次解析失败则显示
    `Publication metadata pending` 和 DOI 链接，不会让整站构建失败。
-5. 检查 PR 中作者、标题、期刊、年份和 DOI 后再合并。
-6. 合并并通过 CI 后，再执行 **Deploy website**。
+6. 检查 PR 中作者、标题、期刊、年份和 DOI 后再合并。
+7. 合并并通过 CI 后，再执行 **Deploy website**。
 
-Research 和 Team 都通过 DOI/成员 ID 引用同一出版物；不要在多个模块复制作者、
-题名、期刊和年份。
+Research 和 Team 都通过 DOI/成员 ID 引用同一元数据；不要在多个模块复制作者、题名、
+期刊和年份。Team 的 `Representative Publication DOIs` 不会自动创建全局 Publications
+条目；如果同一论文需要出现在两个位置，请在 Publications 中单独维护记录并打开上述开关。
 
 ### Team
 
@@ -185,9 +189,10 @@ Research 和 Team 都通过 DOI/成员 ID 引用同一出版物；不要在多�
   只允许纯文本和换行，不要粘贴图片、表格、HTML 或富文本。
 - `Profile Summary ZH` 是个人页顶部的学术背景简介，建议说明学术背景、当前方向与
   专业兴趣，不要重复下方 Education；English 可留空或手工覆盖。
-- `Representative Publication DOIs` 每行填写一个已经在 Publications 登记的 DOI，
-  通常选择 3–6 篇。也可直接粘贴 doi.org URL；保存后会自动规范化、登记并复用统一
-  Citation 组件，不手填书目信息；留空时整节隐藏。
+- `Representative Publication DOIs` 每行填写一个 DOI，通常选择 3–6 篇；不要求先在
+  Publications 二级页建立记录。也可直接粘贴 doi.org URL；保存后会自动规范化、登记并
+  复用统一 Citation 组件，但只在该成员 profile 的 Representative Publications 区域显示，
+  不会自动加入全局 Publications 列表；留空时整节隐藏。
 - 个人页不显示 Biography、Phone 或 Office；联系方式以 Email 为主。
 - Email、Address、Google Scholar、ORCID、ResearchGate、个人网站和 GitHub 为空时
   会自动隐藏，不会留下空图标或空白行。
@@ -310,6 +315,17 @@ OpenAI-compatible 配置：`TRANSLATION_PROVIDER=openai-compatible`，同时配�
 优先在 Pages CMS 恢复原字段并再次保存，这会留下清晰的修正历史。若文件已损坏或
 CMS 无法打开，由维护者在 GitHub 提交历史中对单个 commit 执行 revert。不要使用
 强制推送或 `git reset --hard` 清除共享历史。
+
+### Media upload and `Connection closed`
+
+如果 Pages CMS 显示 `Failed to get session`、`Connection closed` 或 Server Components
+render 错误，这发生在 CMS 会话/服务端初始化阶段，不是图片字段格式校验。先确认 GitHub
+仓库仍可读取，再在同一浏览器重新登录 Pages CMS；不要为此删除 `.pages.yml` 或改弱图片
+字段的必要校验。
+
+一次成功的成员照片上传应留下两项 Git 证据：`images/uploads/` 下新增图片的
+`content: add ...` commit，以及成员 Markdown 中 `portrait` 路径的 `content: update ...`
+commit。若历史中没有这两项记录，上传没有到达 GitHub，不能把现有其他成员照片误配给该成员。
 
 ### 网站仍是旧内容
 

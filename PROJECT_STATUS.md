@@ -3,6 +3,33 @@
 Updated: 2026-09-26
 Current release line: UI / CMS Workflow V1.6 on `main`
 
+## Profile citation isolation and CMS/photo crash audit (2026-09-26)
+
+The profile `Representative Publications` section is now independent from the global
+Publications archive. `_data/sources.yaml` and `_data/citations.yaml` retain one shared
+DOI metadata registry, while `publication_visible` controls only the archive list. New
+DOIs discovered from member representative references are created with
+`publication_visible: false`; a maintainer can explicitly enable the same DOI in the
+Publications CMS record. The bilingual archive templates filter only records whose flag
+is explicitly false, so profile citations continue to render without being duplicated
+on `/publications/` or `/zh/publications/`.
+
+The remote CMS history was updated while this repair was in progress: commit `f1e4634`
+added `images/uploads/getphotoimage.jpg`. The image is a formal portrait consistent
+with the Jianwen Liang profile, but the same CMS sequence left `_members/mei-li.md`
+pointing at the placeholder. The repair links that existing uploaded asset to the
+profile; no other member asset was reassigned. The Pages CMS browser session also
+reproduced `Connection closed`/`Failed to get session` and an indefinite loading state
+on the Jianwen edit route, which identifies a CMS session/server initialization outage
+rather than a content-schema or Jekyll build error. The upload itself had reached
+GitHub, but the follow-up profile-field update had not.
+
+The repair adds the CMS visibility field, source/citation regression tests, and guide
+instructions for separating profile-only citations and auditing uploads. Local checks
+pass: `py scripts/validate_content.py` and 27 repository unit tests. The authoritative
+Ubuntu Jekyll/HTML and remote Actions result must be recorded after this commit is
+published; the local Windows environment does not contain Ruby/Jekyll.
+
 ## DeepL translation provider integration (2026-09-26)
 
 The optional-English workflow now supports DeepL's native Translate API in addition to

@@ -189,6 +189,8 @@ for index, source in enumerate(sources):
     if normalized in source_dois:
         ERRORS.append(f"_data/sources.yaml: duplicate DOI {normalized}")
     source_dois.append(normalized)
+    if "publication_visible" in source and not isinstance(source["publication_visible"], bool):
+        ERRORS.append(f"_data/sources.yaml item {index + 1}: publication_visible must be boolean")
     for member_id in source.get("member_ids", []) or []:
         if member_id not in member_ids:
             ERRORS.append(f"_data/sources.yaml: unknown member_id {member_id}")
@@ -240,6 +242,9 @@ else:
         ERRORS.append(".pages.yml: Media must map images/uploads to /images/uploads")
 
 cms_entries = {entry.get("name"): entry for entry in cms.get("content", [])}
+publication_cms_fields = {field.get("name") for field in cms_entries.get("publications", {}).get("fields", [])}
+if "publication_visible" not in publication_cms_fields:
+    ERRORS.append(".pages.yml publications: missing publication_visible control")
 for collection_name, folder in {"news": "_news", "events": "_events", "research": "_research", "team": "_members", "opportunities": "_opportunities"}.items():
     cms_fields = {field.get("name") for field in cms_entries.get(collection_name, {}).get("fields", [])}
     missing_fields = (set(SCHEMAS[folder]) | set(CMS_EXPECTED_FIELDS[folder])) - cms_fields

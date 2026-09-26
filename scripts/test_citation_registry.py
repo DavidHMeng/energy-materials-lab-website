@@ -56,7 +56,28 @@ class CitationRegistryTests(unittest.TestCase):
             sources = yaml.safe_load((root / "_data" / "sources.yaml").read_text(encoding="utf-8"))
             ids = [entry["id"] for entry in sources]
             self.assertEqual(ids.count("doi:10.1021/jacs.5c22628"), 1)
+            profile_source = next(entry for entry in sources if entry["id"] == "doi:10.1021/jacs.5c22628")
+            self.assertFalse(profile_source["publication_visible"])
             self.assertEqual(synchronize(root, write=False), [])
+
+    def test_explicit_publication_visibility_is_preserved(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for folder in ("_data", "_members", "_research"):
+                (root / folder).mkdir()
+            (root / "_data" / "sources.yaml").write_text(
+                "- id: doi:10.1021/jacs.5c22628\n"
+                "  type: paper\n"
+                "  publication_visible: true\n",
+                encoding="utf-8",
+            )
+            (root / "_data" / "homepage.yaml").write_text("introduction: {}\n", encoding="utf-8")
+            (root / "_members" / "member.md").write_text(
+                "---\nrepresentative_dois:\n- 10.1021/jacs.5c22628\n---\n", encoding="utf-8"
+            )
+            synchronize(root, write=True)
+            sources = yaml.safe_load((root / "_data" / "sources.yaml").read_text(encoding="utf-8"))
+            self.assertTrue(sources[0]["publication_visible"])
 
 
 if __name__ == "__main__":

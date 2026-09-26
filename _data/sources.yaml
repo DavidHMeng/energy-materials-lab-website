@@ -5,33 +5,49 @@
   image: /images/placeholders/graphical-abstract.svg
   tags:
   - placeholder
+  publication_visible: true
 - id: doi:10.1093/nsr/nwag209
   type: paper
+  publication_visible: false
 - id: doi:10.1007/s40820-026-02232-6
   type: paper
+  publication_visible: false
 - id: doi:10.1016/j.ensm.2025.104512
   type: paper
+  publication_visible: false
 - id: doi:10.1016/j.jpowsour.2025.236189
   type: paper
+  publication_visible: false
 - id: doi:10.1016/j.electacta.2025.147756
   type: paper
+  publication_visible: false
 - id: doi:10.1016/j.jmat.2026.101312
   type: paper
+  publication_visible: false
 - id: doi:10.1038/s41560-025-01853-2
   type: paper
+  publication_visible: false
 - id: doi:10.1002/anie.5372994
   type: paper
+  publication_visible: false
 - id: doi:10.1002/anie.5596828
   type: paper
+  publication_visible: false
 - id: doi:10.1002/anie.4292495
   type: paper
+  publication_visible: false
 - id: doi:10.1038/s41467-026-71876-0
   type: paper
+  publication_visible: false
 - id: doi:10.1021/jacs.5c22628
   type: paper
+  publication_visible: false
 - id: doi:10.1021/jacs.5c21351
   type: paper
+  publication_visible: false
 - id: doi:10.1021/acs.accounts.6c00035
   type: paper
+  publication_visible: false
 - id: doi:10.1016/j.joule.2025.102260
   type: paper
+  publication_visible: false

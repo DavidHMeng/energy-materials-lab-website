@@ -25,10 +25,20 @@ authors, journal names, and dates remain in the publication's original language.
 `member_ids` connects citations to team profiles; Research records reference the same
 work through `doi_list`.
 
+`publication_visible` controls membership in the global Publications archive. It
+defaults to `true` for an explicitly maintained Publications CMS record. DOI records
+created only because a Team `representative_dois` or Research `doi_list` references
+them are marked `false` by the citation registry, so profile/research references do
+not silently become global publication entries. The profile representative section
+still resolves metadata from the shared citation registry; only the archive
+visibility is independent. A maintainer who wants the same DOI in both places can
+edit its Publications record and set `publication_visible: true`.
+
 Publication records, including custom publication notes, are completely excluded from
 the translation workflow. A member's optional `representative_dois` selects 3–6
 representative records from the same DOI/citation source; titles, authors, journals and
-dates are never copied into the member record.
+dates are never copied into the member record, and adding such a DOI does not make it
+appear in the global Publications archive.
 
 The checked-in citation seed must use real, verified bibliographic metadata. Placeholder
 members must not be assigned as authors of a real DOI merely to demonstrate linkage.
