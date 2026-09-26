@@ -1,0 +1,31 @@
+research:
+  title_zh: 研究方向
+  title_en: Research
+  intro_zh: 我们研究面向下一代储能体系的材料、界面与电化学过程。
+  intro_en: We study materials, interfaces, and electrochemical processes that shape next-generation energy storage.
+  description_zh: 课题组研究方向及 DOI 关联论文。
+  description_en: Research areas and related DOI-linked publications.
+
+publications:
+  title_zh: 论文发表
+  title_en: Publications
+  intro_zh: 书目信息由 DOI 自动解析并保留原文，仅课题组自定义说明提供双语版本。
+  intro_en: Bibliographic metadata is resolved from DOI records and retained in its original language.
+  description_zh: 以 DOI 为唯一数据源的论文列表；书目信息保留原文。
+  description_en: DOI-driven publication list with original bibliographic metadata.
+
+team:
+  title_zh: 团队成员
+  title_en: Team
+  intro_zh: 现有成员按岗位分类展示；无内容的分类会自动隐藏。
+  intro_en: Current members are grouped by role. Empty groups are hidden automatically.
+  description_zh: 课题组现有成员。
+  description_en: Current members of the research group.
+
+opportunities:
+  title_zh: 招聘机会
+  title_en: Opportunities
+  intro_zh: 以下为当前有效岗位；无有效内容的类别会自动隐藏。
+  intro_en: Open positions appear below while active. Categories without current openings are hidden.
+  description_zh: 课题组当前招聘信息。
+  description_en: Current openings in the research group.

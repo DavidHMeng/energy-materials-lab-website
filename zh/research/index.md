@@ -1,10 +1,9 @@
 ---
-title: 研究方向
-description: 课题组研究方向及 DOI 关联论文。
 permalink: /zh/research/
+page_key: research
 ---
 
-<div class="page-intro"><h1>研究方向</h1><p>我们研究面向下一代储能体系的材料、界面与电化学过程。</p></div>
+{% include custom/page-intro.html page_key="research" %}
 {% assign areas = site.research | where: "display", true | sort: "order" %}
 <div class="research-list">
   {% for area in areas %}

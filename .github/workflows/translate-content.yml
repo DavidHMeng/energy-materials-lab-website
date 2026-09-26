@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "_data/homepage.yaml"
+      - "_data/pages.yaml"
       - "_data/site.yaml"
       - "_data/team_roles.yaml"
       - "_news/**"
@@ -96,7 +97,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for path in _data/homepage.yaml _data/site.yaml _news _events _research _members _opportunities _translation/state.yml; do
+          for path in _data/homepage.yaml _data/pages.yaml _data/site.yaml _news _events _research _members _opportunities _translation/state.yml; do
             if [ -e "$path" ]; then
               git add -A -- "$path"
             fi

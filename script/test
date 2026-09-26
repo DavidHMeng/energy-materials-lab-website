@@ -15,6 +15,7 @@ python scripts/test_citation_registry.py
 python scripts/test_cms_schema.py
 python scripts/test_cms_input_contract.py
 python scripts/test_cms_record_independence.py
+python scripts/test_page_content.py
 python scripts/test_translation.py
 python scripts/test_translation_coverage.py
 python scripts/test_carousel_layout.py

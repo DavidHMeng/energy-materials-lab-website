@@ -1,5 +1,15 @@
 {% assign filename = page.path | split: "/" | last %}
-{% if page.lang == "zh" and page.name_zh %}
+{% assign page_content = nil %}
+{% if page.page_key and site.data.pages[page.page_key] %}
+  {% assign page_content = site.data.pages[page.page_key] %}
+{% endif %}
+{% if page_content %}
+  {% if page.lang == "zh" %}
+    {% assign title = page_content.title_zh | default: page_content.title_en %}
+  {% else %}
+    {% assign title = page_content.title_en | default: page_content.title_zh %}
+  {% endif %}
+{% elsif page.lang == "zh" and page.name_zh %}
   {% assign title = page.name_zh %}
 {% elsif page.name_en %}
   {% assign title = page.name_en %}
@@ -33,7 +43,16 @@
 {% if page.lang == "zh" %}
   {% assign site_description = site.data.site.description_zh | default: site.data.site.description_en | default: site.description %}
 {% endif %}
-{% assign description = page.description | default: site_description %}
+{% if page_content %}
+  {% if page.lang == "zh" %}
+    {% assign page_description = page_content.description_zh | default: page_content.description_en %}
+  {% else %}
+    {% assign page_description = page_content.description_en | default: page_content.description_zh %}
+  {% endif %}
+{% else %}
+  {% assign page_description = page.description %}
+{% endif %}
+{% assign description = page_description | default: site_description %}
 {% if subtitle %}
   {% capture description -%}
     {{ subtitle }}. {{ description }}

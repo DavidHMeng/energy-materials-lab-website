@@ -1,0 +1,9 @@
+{% assign page_content = site.data.pages[include.page_key] %}
+{% if page.lang == "zh" %}
+  {% assign page_title = page_content.title_zh | default: page_content.title_en %}
+  {% assign page_intro = page_content.intro_zh | default: page_content.intro_en %}
+{% else %}
+  {% assign page_title = page_content.title_en | default: page_content.title_zh %}
+  {% assign page_intro = page_content.intro_en | default: page_content.intro_zh %}
+{% endif %}
+<div class="page-intro"><h1>{{ page_title | escape }}</h1><p>{{ page_intro | escape }}</p></div>

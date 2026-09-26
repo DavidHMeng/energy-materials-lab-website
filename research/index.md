@@ -1,10 +1,9 @@
 ---
-title: Research
-description: Research areas and related DOI-linked publications.
 permalink: /research/
+page_key: research
 ---
 
-<div class="page-intro"><h1>Research</h1><p>We study materials, interfaces, and electrochemical processes that shape next-generation energy storage.</p></div>
+{% include custom/page-intro.html page_key="research" %}
 {% assign areas = site.research | where: "display", true | sort: "order" %}
 <div class="research-list">
   {% for area in areas %}

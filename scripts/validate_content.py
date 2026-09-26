@@ -38,6 +38,9 @@ CMS_EXPECTED_FIELDS = {
 NEWS_CATEGORIES = {"Publication", "Award", "Member", "Academic Achievement", "Funding", "Announcement"}
 EVENT_TYPES = {"Academic", "Group"}
 OPPORTUNITY_CATEGORIES = {"PhD Students", "Research Assistants", "Administrative Assistants", "Assistant Professors", "Postdoctoral Researchers", "Visiting Students", "Other"}
+PAGE_KEYS = ("research", "publications", "team", "opportunities")
+PAGE_ZH_FIELDS = ("title_zh", "intro_zh", "description_zh")
+PAGE_EN_FIELDS = ("title_en", "intro_en", "description_en")
 TYPOGRAPHY_PRESETS = {
     "heading_font": {"default", "sans-modern", "sans-academic", "serif-editorial"},
     "body_font": {"default", "sans", "serif"},
@@ -231,6 +234,7 @@ for path, data in records["_members"]:
 cms = load_yaml(ROOT / ".pages.yml") or {}
 cms_names = {entry.get("name") for entry in cms.get("content", [])}
 required_cms = {"homepage", "news", "events", "research", "publications", "team", "team-roles", "opportunities", "site"}
+required_cms.add("pages")
 missing = required_cms - cms_names
 if missing:
     ERRORS.append(f".pages.yml: missing CMS sections {sorted(missing)}")
@@ -242,6 +246,25 @@ else:
         ERRORS.append(".pages.yml: Media must map images/uploads to /images/uploads")
 
 cms_entries = {entry.get("name"): entry for entry in cms.get("content", [])}
+pages_cms = cms_entries.get("pages", {})
+if pages_cms.get("type") != "file" or pages_cms.get("path") != "_data/pages.yaml":
+    ERRORS.append(".pages.yml pages: must be a file mapped to _data/pages.yaml")
+pages_cms_fields = {field.get("name"): field for field in pages_cms.get("fields", [])}
+missing_page_sections = set(PAGE_KEYS) - set(pages_cms_fields)
+if missing_page_sections:
+    ERRORS.append(f".pages.yml pages: missing page sections {sorted(missing_page_sections)}")
+for page_key in PAGE_KEYS:
+    section = pages_cms_fields.get(page_key, {})
+    field_map = {field.get("name"): field for field in section.get("fields", [])}
+    missing_fields = set(PAGE_ZH_FIELDS + PAGE_EN_FIELDS) - set(field_map)
+    if missing_fields:
+        ERRORS.append(f".pages.yml pages.{page_key}: missing fields {sorted(missing_fields)}")
+    for field_name in PAGE_ZH_FIELDS:
+        if field_map.get(field_name, {}).get("required") is not True:
+            ERRORS.append(f".pages.yml pages.{page_key}.{field_name}: Chinese field must be required")
+    for field_name in PAGE_EN_FIELDS:
+        if field_map.get(field_name, {}).get("required") is True:
+            ERRORS.append(f".pages.yml pages.{page_key}.{field_name}: English field must remain optional")
 publication_cms_fields = {field.get("name") for field in cms_entries.get("publications", {}).get("fields", [])}
 if "publication_visible" not in publication_cms_fields:
     ERRORS.append(".pages.yml publications: missing publication_visible control")
@@ -324,6 +347,23 @@ else:
 homepage_cms_fields = {field.get("name") for field in cms_entries.get("homepage", {}).get("fields", [])}
 if "introduction" not in homepage_cms_fields:
     ERRORS.append(".pages.yml homepage: missing introduction fields")
+
+pages_data = load_yaml(ROOT / "_data" / "pages.yaml")
+if not isinstance(pages_data, dict):
+    ERRORS.append("_data/pages.yaml: expected a mapping of page keys")
+    pages_data = {}
+for page_key in PAGE_KEYS:
+    page_settings = pages_data.get(page_key)
+    if not isinstance(page_settings, dict):
+        ERRORS.append(f"_data/pages.yaml: missing mapping for {page_key}")
+        continue
+    for field_name in PAGE_ZH_FIELDS:
+        value = page_settings.get(field_name)
+        if not isinstance(value, str) or not value.strip():
+            ERRORS.append(f"_data/pages.yaml {page_key}.{field_name}: required non-empty string")
+    for field_name in PAGE_EN_FIELDS:
+        if field_name in page_settings and not isinstance(page_settings[field_name], str):
+            ERRORS.append(f"_data/pages.yaml {page_key}.{field_name}: English value must be a string when present")
 
 team_roles_cms_fields = {field.get("name") for field in cms_entries.get("team-roles", {}).get("fields", [])}
 missing_role_fields = {"id", "label_en", "label_zh", "display", "order"} - team_roles_cms_fields

@@ -32,10 +32,10 @@ class PagesCmsInputContractTests(unittest.TestCase):
     def test_all_editor_modules_and_field_inventory(self):
         self.assertEqual(
             set(ENTRIES),
-            {"homepage", "news", "events", "research", "publications", "team", "team-roles", "opportunities", "site"},
+            {"homepage", "pages", "news", "events", "research", "publications", "team", "team-roles", "opportunities", "site"},
         )
         # Current contract inventory. The count includes nested object/list fields.
-        self.assertEqual(sum(len(field_map(name)) for name in ENTRIES), 147)
+        self.assertEqual(sum(len(field_map(name)) for name in ENTRIES), 175)
 
     def test_no_malformed_flow_mapping_fields(self):
         allowed = {"name", "label", "type", "required", "pattern", "description", "options", "default", "list", "fields"}
@@ -85,6 +85,14 @@ class PagesCmsInputContractTests(unittest.TestCase):
         field = field_map("publications")["publication_visible"]
         self.assertEqual(field["type"], "boolean")
         self.assertTrue(field["default"])
+
+    def test_page_settings_keep_english_optional(self):
+        for page_key in ("research", "publications", "team", "opportunities"):
+            fields = field_map("pages")
+            for field_name in ("title_zh", "intro_zh", "description_zh"):
+                self.assertTrue(fields[f"{page_key}.{field_name}"]["required"])
+            for field_name in ("title_en", "intro_en", "description_en"):
+                self.assertIsNot(fields[f"{page_key}.{field_name}"].get("required"), True)
 
     def test_media_and_rich_text_boundaries_are_intentional(self):
         for entry_name, path in (

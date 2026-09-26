@@ -54,6 +54,57 @@ content:
       - { name: news_limit, label: News items on homepage, type: number, required: true }
       - { name: events_limit, label: Event items on homepage, type: number, required: true }
 
+  - name: pages
+    label: Page Settings
+    type: file
+    path: _data/pages.yaml
+    format: yaml
+    fields:
+      - name: research
+        label: Research Page
+        type: object
+        required: true
+        fields:
+          - { name: title_zh, label: "中文（必填）— 页面标题", type: string, required: true }
+          - { name: intro_zh, label: "中文（必填）— 标题下说明", type: text, required: true }
+          - { name: description_zh, label: "中文（必填）— SEO 描述", type: text, required: true }
+          - { name: title_en, label: "English (optional) — Page title", type: string, description: "Generated from Chinese when empty. Manual English always takes priority." }
+          - { name: intro_en, label: "English (optional) — Intro text", type: text, description: "Generated from Chinese when empty. Manual English always takes priority." }
+          - { name: description_en, label: "English (optional) — SEO description", type: text, description: "Generated from Chinese when empty. Manual English always takes priority." }
+      - name: publications
+        label: Publications Page
+        type: object
+        required: true
+        fields:
+          - { name: title_zh, label: "中文（必填）— 页面标题", type: string, required: true }
+          - { name: intro_zh, label: "中文（必填）— 标题下说明", type: text, required: true }
+          - { name: description_zh, label: "中文（必填）— SEO 描述", type: text, required: true }
+          - { name: title_en, label: "English (optional) — Page title", type: string, description: "Generated from Chinese when empty. Manual English always takes priority." }
+          - { name: intro_en, label: "English (optional) — Intro text", type: text, description: "Generated from Chinese when empty. Manual English always takes priority." }
+          - { name: description_en, label: "English (optional) — SEO description", type: text, description: "Generated from Chinese when empty. Manual English always takes priority." }
+      - name: team
+        label: Team Page
+        type: object
+        required: true
+        fields:
+          - { name: title_zh, label: "中文（必填）— 页面标题", type: string, required: true }
+          - { name: intro_zh, label: "中文（必填）— 标题下说明", type: text, required: true }
+          - { name: description_zh, label: "中文（必填）— SEO 描述", type: text, required: true }
+          - { name: title_en, label: "English (optional) — Page title", type: string, description: "Generated from Chinese when empty. Manual English always takes priority." }
+          - { name: intro_en, label: "English (optional) — Intro text", type: text, description: "Generated from Chinese when empty. Manual English always takes priority." }
+          - { name: description_en, label: "English (optional) — SEO description", type: text, description: "Generated from Chinese when empty. Manual English always takes priority." }
+      - name: opportunities
+        label: Opportunities Page
+        type: object
+        required: true
+        fields:
+          - { name: title_zh, label: "中文（必填）— 页面标题", type: string, required: true }
+          - { name: intro_zh, label: "中文（必填）— 标题下说明", type: text, required: true }
+          - { name: description_zh, label: "中文（必填）— SEO 描述", type: text, required: true }
+          - { name: title_en, label: "English (optional) — Page title", type: string, description: "Generated from Chinese when empty. Manual English always takes priority." }
+          - { name: intro_en, label: "English (optional) — Intro text", type: text, description: "Generated from Chinese when empty. Manual English always takes priority." }
+          - { name: description_en, label: "English (optional) — SEO description", type: text, description: "Generated from Chinese when empty. Manual English always takes priority." }
+
   - name: news
     label: Highlights / News
     type: collection

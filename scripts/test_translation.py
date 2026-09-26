@@ -7,7 +7,7 @@ import unittest
 from io import BytesIO
 from unittest.mock import patch
 
-from translate_content import DeepLTranslator, TranslationResult, configured_translator, digest, process_pair, prune_deleted_entries, walk_pairs
+from translate_content import DeepLTranslator, TranslationResult, configured_translator, digest, process_pair, prune_deleted_entries, translation_rules, walk_pairs
 
 
 class TranslationStateTests(unittest.TestCase):
@@ -18,6 +18,10 @@ class TranslationStateTests(unittest.TestCase):
         container, zh_key, en_key, field_path = pairs[0]
         self.assertIs(container, record)
         self.assertEqual((zh_key, en_key, field_path), ("title_zh", "title_en", "title"))
+
+    def test_page_settings_are_registered_as_auto_translatable_yaml_fields(self):
+        rules = dict(translation_rules())
+        self.assertEqual(rules["_data/pages.yaml"], {"title", "intro", "description"})
 
     def test_missing_english_key_becomes_pending_without_provider(self):
         record = {"title_zh": "中文"}

@@ -1,10 +1,9 @@
 ---
-title: Opportunities
-description: Current openings in the research group.
 permalink: /opportunities/
+page_key: opportunities
 ---
 
-<div class="page-intro"><h1>Opportunities</h1><p>Open positions appear below while active. Categories without current openings are hidden.</p></div>
+{% include custom/page-intro.html page_key="opportunities" %}
 {% include custom/opportunity-group.html category="PhD Students" label_en="PhD Students" label_zh="博士研究生" %}
 {% include custom/opportunity-group.html category="Research Assistants" label_en="Research Assistants" label_zh="科研助理" %}
 {% include custom/opportunity-group.html category="Administrative Assistants" label_en="Administrative Assistants" label_zh="行政助理" %}

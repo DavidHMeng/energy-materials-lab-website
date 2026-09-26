@@ -65,6 +65,7 @@ class TranslationCoverageTests(unittest.TestCase):
 
     def test_manual_only_fields_and_publications_never_enter_machine_rules(self):
         machine_fields = {pattern: fields for pattern, fields in translation_rules()}
+        self.assertEqual(machine_fields["_data/pages.yaml"], {"title", "intro", "description"})
         self.assertNotIn("_data/sources.yaml", machine_fields)
         self.assertNotIn("name", machine_fields["_members/*.md"])
         self.assertNotIn("label", machine_fields.get("_data/team_roles.yaml", set()))

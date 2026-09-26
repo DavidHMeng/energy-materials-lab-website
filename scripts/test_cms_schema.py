@@ -23,7 +23,7 @@ class PagesCmsSchemaTests(unittest.TestCase):
     def test_all_primary_editor_modules_exist(self):
         self.assertEqual(
             set(ENTRIES),
-            {"homepage", "news", "events", "research", "publications", "team", "team-roles", "opportunities", "site"},
+            {"homepage", "pages", "news", "events", "research", "publications", "team", "team-roles", "opportunities", "site"},
         )
 
     def test_media_preserves_uploaded_logo_formats(self):
@@ -58,6 +58,7 @@ class PagesCmsSchemaTests(unittest.TestCase):
     def test_visibility_order_bilingual_and_image_controls(self):
         expected = {
             "homepage": {"highlights_heading_zh", "highlights_heading_en", "news_limit", "events_limit"},
+            "pages": {"research", "publications", "team", "opportunities"},
             "news": {"title_zh", "title_en", "display", "image"},
             "events": {"title_zh", "title_en", "display", "cover_image"},
             "research": {"title_zh", "title_en", "display", "order", "graphical_abstract"},
@@ -77,6 +78,17 @@ class PagesCmsSchemaTests(unittest.TestCase):
             ("site", "school_logo"),
         ):
             self.assertEqual(fields(ENTRIES[entry_name])[image_name]["options"]["media"], "images")
+
+    def test_page_settings_are_chinese_required_and_english_optional(self):
+        for page_key in ("research", "publications", "team", "opportunities"):
+            page_fields = fields(ENTRIES["pages"])[page_key]
+            self.assertTrue(page_fields["required"])
+            section_fields = fields(page_fields)
+            for field_name in ("title_zh", "intro_zh", "description_zh"):
+                self.assertTrue(section_fields[field_name]["required"], f"{page_key}.{field_name}")
+            for field_name in ("title_en", "intro_en", "description_en"):
+                self.assertIsNot(section_fields[field_name].get("required"), True, f"{page_key}.{field_name}")
+                self.assertIn("Generated from Chinese", section_fields[field_name]["description"])
 
     def test_profile_publications_have_independent_archive_visibility(self):
         publication = fields(ENTRIES["publications"])["publication_visible"]

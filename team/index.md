@@ -1,9 +1,8 @@
 ---
-title: Team
-description: Current members of the research group.
 permalink: /team/
+page_key: team
 ---
 
-<div class="page-intro"><h1>Team</h1><p>Current members are grouped by role. Empty groups are hidden automatically.</p></div>
+{% include custom/page-intro.html page_key="team" %}
 {% assign roles = site.data.team_roles | where: "display", true | sort: "order" %}
 {% for role in roles %}{% include custom/team-grid.html role_id=role.id label_en=role.label_en label_zh=role.label_zh %}{% endfor %}

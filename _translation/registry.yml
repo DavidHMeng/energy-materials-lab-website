@@ -20,6 +20,12 @@ resources:
       - events_heading
     manual_fields: []
 
+  - id: pages
+    cms: pages
+    pattern: _data/pages.yaml
+    auto_fields: [title, intro, description]
+    manual_fields: []
+
   - id: highlights
     cms: news
     pattern: _news/*.md
