@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import unittest
+from pathlib import Path
 
 from check_translation_coverage import load_coverage
 from prepare_empty_english_fixture import remove_registered_english
@@ -68,6 +69,11 @@ class TranslationCoverageTests(unittest.TestCase):
         self.assertNotIn("name", machine_fields["_members/*.md"])
         self.assertNotIn("label", machine_fields.get("_data/team_roles.yaml", set()))
         self.assertNotIn("lab_name", machine_fields["_data/site.yaml"])
+
+    def test_translation_workflow_skips_absent_collection_directories(self):
+        workflow = (Path(__file__).resolve().parents[1] / ".github" / "workflows" / "translate-content.yml").read_text(encoding="utf-8")
+        self.assertIn('if [ -e "$path" ]', workflow)
+        self.assertNotIn("git add _data/homepage.yaml _data/site.yaml _news _events", workflow)
 
 
 if __name__ == "__main__":

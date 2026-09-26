@@ -93,7 +93,11 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add _data/homepage.yaml _data/site.yaml _news _events _research _members _opportunities _translation/state.yml
+          for path in _data/homepage.yaml _data/site.yaml _news _events _research _members _opportunities _translation/state.yml; do
+            if [ -e "$path" ]; then
+              git add -A -- "$path"
+            fi
+          done
           git commit -m "content: generate optional English [skip translate]"
           git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
