@@ -39,5 +39,5 @@ education_en: |+
   - Master’s Degree, Hebei University, 2023–2026
   - Bachelor’s Degree, Linyi University, 2018–2022
 
-name_en: xiqian song
+name_en: Xiqian Song
 ---
