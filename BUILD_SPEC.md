@@ -67,9 +67,13 @@ translation-provider outage cannot block a valid site build.
 Repository configuration:
 
 - Actions secret: `TRANSLATION_API_KEY`.
-- Repository variable: `TRANSLATION_MODEL` (required for generation).
-- Optional repository variables: `TRANSLATION_PROVIDER=openai-compatible` and
-  `TRANSLATION_API_BASE=https://api.openai.com/v1` (or a compatible endpoint).
+- Repository variable: `TRANSLATION_PROVIDER`, either `openai-compatible` (default) or
+  `deepl`.
+- OpenAI-compatible providers require `TRANSLATION_MODEL`; their optional
+  `TRANSLATION_API_BASE` defaults to `https://api.openai.com/v1`.
+- DeepL does not use `TRANSLATION_MODEL`. Its optional `TRANSLATION_API_BASE` defaults
+  to `https://api-free.deepl.com` for legacy `:fx` keys and `https://api.deepl.com`
+  otherwise. Set it explicitly when the account endpoint differs.
 
 The key is never exposed to Pages CMS, source YAML, client JavaScript, or the generated
 site. `github-actions[bot]` is excluded from the workflow job and the generated commit

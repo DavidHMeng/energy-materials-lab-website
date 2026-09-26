@@ -3,6 +3,20 @@
 Updated: 2026-09-26
 Current release line: UI / CMS Workflow V1.6 on `main`
 
+## DeepL translation provider integration (2026-09-26)
+
+The optional-English workflow now supports DeepL's native Translate API in addition to
+the existing OpenAI-compatible provider. `TRANSLATION_PROVIDER=deepl` selects the native
+`/v2/translate` request, Chinese source detection is fixed to `ZH`, the target is
+`EN-US`, formatting is preserved, and formal wording is preferred. DeepL does not
+require `TRANSLATION_MODEL`.
+
+The API key remains a repository Actions secret and is never written to the repository,
+CMS, generated site or logs. Without the key, all 19 currently missing English fields
+remain `pending`, English routes use the verified Chinese fallback, and CI/deployment
+remain operational. A repository administrator must add the key and provider variables
+before a real provider call can be verified.
+
 ## CMS member deployment and translation recovery (2026-09-26)
 
 Two real Team records saved successfully through Pages CMS but exposed two independent
@@ -31,11 +45,11 @@ Evidence:
 - [Publish production static branch run 36163811077](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36163811077) passed and refreshed `server-deploy` from the repaired source.
 - Automatic translation/fallback [run 36163811101](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36163811101) passed; a second manual Pages CMS invocation also passed as [run 36164002056](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36164002056).
 
-The GitHub repository currently has no Actions secrets or variables for translation.
-Therefore the translation button is now operational and deploy-safe, but actual persisted
-machine English remains intentionally disabled until an administrator configures
-`TRANSLATION_API_KEY` and `TRANSLATION_MODEL`. English pages continue to show the Chinese
-source instead of blank content in that state.
+The GitHub repository did not have Actions secrets or variables for translation at this
+recovery checkpoint. Therefore the translation button was operational and deploy-safe,
+but actual persisted machine English remained intentionally disabled. English pages
+continue to show the Chinese source instead of blank content whenever credentials are
+absent.
 
 ## CMS placeholder independence correction (2026-09-25)
 

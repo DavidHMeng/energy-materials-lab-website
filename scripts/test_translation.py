@@ -4,8 +4,10 @@
 from __future__ import annotations
 
 import unittest
+from io import BytesIO
+from unittest.mock import patch
 
-from translate_content import TranslationResult, digest, process_pair, prune_deleted_entries, walk_pairs
+from translate_content import DeepLTranslator, TranslationResult, configured_translator, digest, process_pair, prune_deleted_entries, walk_pairs
 
 
 class TranslationStateTests(unittest.TestCase):
@@ -68,6 +70,31 @@ class TranslationStateTests(unittest.TestCase):
         self.assertEqual(set(entries), {"_members/current.md"})
         self.assertEqual(result.pruned, 1)
         self.assertTrue(result.changed_state)
+
+    @patch.dict("os.environ", {"TRANSLATION_PROVIDER": "deepl", "TRANSLATION_API_KEY": "test-key:fx"}, clear=True)
+    def test_deepl_provider_does_not_require_model(self):
+        translator = configured_translator("deepl")
+        self.assertIsInstance(translator, DeepLTranslator)
+        self.assertEqual(translator.api_base, "https://api-free.deepl.com")
+
+    @patch.dict("os.environ", {"TRANSLATION_API_KEY": "test-key", "TRANSLATION_API_BASE": "https://api.deepl.test"}, clear=True)
+    @patch("urllib.request.urlopen")
+    def test_deepl_request_and_response(self, urlopen):
+        response = BytesIO(b'{"translations":[{"detected_source_language":"ZH","text":"Academic English"}]}')
+        response.__enter__ = lambda value: value
+        response.__exit__ = lambda *args: None
+        urlopen.return_value = response
+
+        translated = DeepLTranslator()("中文内容")
+
+        self.assertEqual(translated, "Academic English")
+        request = urlopen.call_args.args[0]
+        self.assertEqual(request.full_url, "https://api.deepl.test/v2/translate")
+        self.assertEqual(request.headers["Authorization"], "DeepL-Auth-Key test-key")
+        payload = __import__("json").loads(request.data)
+        self.assertEqual(payload["source_lang"], "ZH")
+        self.assertEqual(payload["target_lang"], "EN-US")
+        self.assertTrue(payload["preserve_formatting"])
 
 
 if __name__ == "__main__":

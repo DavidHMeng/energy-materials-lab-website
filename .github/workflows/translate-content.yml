@@ -50,7 +50,7 @@ jobs:
       - name: Generate pending English fields
         env:
           TRANSLATION_PROVIDER: ${{ vars.TRANSLATION_PROVIDER || 'openai-compatible' }}
-          TRANSLATION_API_BASE: ${{ vars.TRANSLATION_API_BASE || 'https://api.openai.com/v1' }}
+          TRANSLATION_API_BASE: ${{ vars.TRANSLATION_API_BASE }}
           TRANSLATION_MODEL: ${{ vars.TRANSLATION_MODEL }}
           TRANSLATION_API_KEY: ${{ secrets.TRANSLATION_API_KEY }}
         run: |
@@ -59,8 +59,10 @@ jobs:
           echo "$result"
           {
             echo "### Optional English generation"
-            if [ -z "$TRANSLATION_API_KEY" ] || [ -z "$TRANSLATION_MODEL" ]; then
+            if [ -z "$TRANSLATION_API_KEY" ] || { [ "$TRANSLATION_PROVIDER" = "openai-compatible" ] && [ -z "$TRANSLATION_MODEL" ]; }; then
               echo "Translation credentials are not configured. Chinese source fallback remains active and deployment is not blocked."
+            else
+              echo "Translation provider: $TRANSLATION_PROVIDER"
             fi
             echo '```json'
             echo "$result" | tail -n 1

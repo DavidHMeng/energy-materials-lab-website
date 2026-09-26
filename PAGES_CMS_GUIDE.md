@@ -272,12 +272,23 @@ style。这样可以在调整层级的同时保护手机端排版和中英文一
 8. 本项目不维护术语表；固定风格为简洁、自然、克制的学术机构网站英文，不使用夸张
    营销表达，也不增加中文原文没有的信息。
 
-自动生成需要仓库管理员在 GitHub 设置唯一机密项 `TRANSLATION_API_KEY`，并设置
-`TRANSLATION_MODEL` 变量。密钥只能存放在 GitHub Actions Secrets，不能写入 CMS、
-YAML、JavaScript、聊天截图或 Git 历史。未配置时其余编辑、CI、staging 和部署照常工作。
+自动生成需要仓库管理员在 GitHub 设置唯一机密项 `TRANSLATION_API_KEY`。
+密钥只能存放在 GitHub Actions Secrets，不能写入 CMS、YAML、JavaScript、
+聊天截图或 Git 历史。未配置时其余编辑、CI、staging 和部署照常工作。
 此时 **Generate pending English** 会成功完成检测与完整网站构建，并将字段记录为
 `pending`，但不会伪造英文；英文页面临时显示对应中文内容。按钮显示绿色只表示链路与
 构建正常，不表示已经调用了翻译模型。
+
+DeepL 配置（推荐用于当前项目）：
+
+1. Actions Secret：`TRANSLATION_API_KEY=<DeepL API key>`；
+2. Repository Variable：`TRANSLATION_PROVIDER=deepl`；
+3. Repository Variable：`TRANSLATION_API_BASE=https://api.deepl.com`；仅旧版
+   API Free `:fx` 密钥使用 `https://api-free.deepl.com`；
+4. DeepL 不需要 `TRANSLATION_MODEL`。若仓库中保留该变量，DeepL 适配器也会忽略它。
+
+OpenAI-compatible 配置：`TRANSLATION_PROVIDER=openai-compatible`，同时配置
+`TRANSLATION_MODEL` 和可选的 `TRANSLATION_API_BASE`。
 
 ## 7. 出错与回退
 

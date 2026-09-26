@@ -187,7 +187,7 @@ class OpenAICompatibleTranslator:
     def __init__(self) -> None:
         self.api_key = os.environ["TRANSLATION_API_KEY"]
         self.model = os.environ["TRANSLATION_MODEL"]
-        self.api_base = os.environ.get("TRANSLATION_API_BASE", "https://api.openai.com/v1").rstrip("/")
+        self.api_base = (os.environ.get("TRANSLATION_API_BASE") or "https://api.openai.com/v1").rstrip("/")
         self.style = STYLE_PATH.read_text(encoding="utf-8")
 
     def __call__(self, source: str) -> str:
@@ -214,6 +214,56 @@ class OpenAICompatibleTranslator:
             return data["choices"][0]["message"]["content"]
         except (KeyError, IndexError, TypeError) as exc:
             raise RuntimeError("translation provider returned an unsupported response") from exc
+
+
+class DeepLTranslator:
+    """Translate Chinese editorial text with DeepL's native Translate API."""
+
+    def __init__(self) -> None:
+        self.api_key = os.environ["TRANSLATION_API_KEY"]
+        default_base = "https://api-free.deepl.com" if self.api_key.endswith(":fx") else "https://api.deepl.com"
+        self.api_base = (os.environ.get("TRANSLATION_API_BASE") or default_base).rstrip("/")
+
+    def __call__(self, source: str) -> str:
+        payload = {
+            "text": [source],
+            "source_lang": "ZH",
+            "target_lang": "EN-US",
+            "formality": "prefer_more",
+            "preserve_formatting": True,
+        }
+        request = urllib.request.Request(
+            f"{self.api_base}/v2/translate",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={
+                "Authorization": f"DeepL-Auth-Key {self.api_key}",
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=60) as response:
+                data = json.load(response)
+        except (urllib.error.URLError, TimeoutError, KeyError, ValueError) as exc:
+            raise RuntimeError(f"translation provider request failed: {exc}") from exc
+        try:
+            return data["translations"][0]["text"]
+        except (KeyError, IndexError, TypeError) as exc:
+            raise RuntimeError("translation provider returned an unsupported response") from exc
+
+
+def configured_translator(provider: str) -> Callable[[str], str] | None:
+    """Return a configured provider, or None when credentials are intentionally absent."""
+
+    if provider == "openai-compatible":
+        if os.environ.get("TRANSLATION_API_KEY") and os.environ.get("TRANSLATION_MODEL"):
+            return OpenAICompatibleTranslator()
+        return None
+    if provider == "deepl":
+        if os.environ.get("TRANSLATION_API_KEY"):
+            return DeepLTranslator()
+        return None
+    raise SystemExit(f"unsupported TRANSLATION_PROVIDER: {provider}")
 
 
 def selected_files() -> Iterable[tuple[Path, set[str]]]:
@@ -255,14 +305,11 @@ def main() -> int:
     if args.write == args.dry_run:
         parser.error("choose exactly one of --write or --dry-run")
 
-    provider = os.environ.get("TRANSLATION_PROVIDER", "openai-compatible")
+    provider = os.environ.get("TRANSLATION_PROVIDER", "openai-compatible").strip().lower()
     translator: Callable[[str], str] | None = None
     if args.write:
-        if provider != "openai-compatible":
-            raise SystemExit(f"unsupported TRANSLATION_PROVIDER: {provider}")
-        if os.environ.get("TRANSLATION_API_KEY") and os.environ.get("TRANSLATION_MODEL"):
-            translator = OpenAICompatibleTranslator()
-        else:
+        translator = configured_translator(provider)
+        if translator is None:
             print("::warning::Translation credentials are absent; English fallback remains active.")
 
     result = run(args.write, translator)
