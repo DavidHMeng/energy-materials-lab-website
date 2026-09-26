@@ -1,24 +1,5 @@
 # DO NOT EDIT, GENERATED AUTOMATICALLY
 
-- id: doi:10.1002/adma.202102415
-  title: "Reducing Water Activity by Zeolite Molecular Sieve Membrane for Long\u2010\
-    Life Rechargeable Zinc Battery"
-  authors:
-  - Huijun Yang
-  - Yu Qiao
-  - Zhi Chang
-  - Han Deng
-  - Xingyu Zhu
-  - Ruijie Zhu
-  - Zetao Xiong
-  - Ping He
-  - Haoshen Zhou
-  publisher: Advanced Materials
-  date: '2021-08-02'
-  link: https://doi.org/gm2s6k
-  type: paper
-  plugin: sources.py
-  file: sources.yaml
 - id: doi:10.1002/anie.5372994
   title: "Tailoring Local Anion Chemistry Affinity Enables Stable Halide\u2013Sulfide\
     \ Interfaces and Fast Ion Transport in Dual\u2010Electrolyte all\u2010Solid\u2010\
