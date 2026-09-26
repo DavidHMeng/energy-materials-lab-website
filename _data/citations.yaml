@@ -149,6 +149,194 @@
   type: paper
   plugin: sources.py
   file: sources.yaml
+- id: doi:10.1021/jacs.5c21351
+  title: Design for an Interface in Oxyhalide-Based All-Solid-State Lithium Metal
+    Batteries
+  authors:
+  - Yanlong Wu
+  - Yang Yang
+  - Xinmiao Wang
+  - Xingyu Wang
+  - Yulong Cai
+  - Shengzhao Wang
+  - Junyi Yue
+  - Yueyue Wang
+  - Xiangzhen Zhu
+  - Xu Han
+  - Hongyang Zhang
+  - Changtai Zhao
+  - Jianwen Liang
+  - Jiantao Wang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Journal of the American Chemical Society
+  date: '2026-04-15'
+  link: https://doi.org/hckp69
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1021/acs.accounts.6c00035
+  title: Precision Chemical Routes to Achieve Superior Oxyhalide Solid Electrolytes
+    in Advanced All-Solid-State Batteries
+  authors:
+  - Han Wu
+  - Chong Liu
+  - Simeng Zhang
+  - Jianwen Liang
+  - Xiaona Li
+  publisher: Accounts of Chemical Research
+  date: '2026-04-01'
+  link: https://doi.org/hckp7b
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1016/j.joule.2025.102260
+  title: Advances in non/low-crystalline solid-state electrolytes enabled by halide-based
+    electrolytes
+  authors:
+  - Jie Qu
+  - Han Wu
+  - Xingyu Wang
+  - Simeng Zhang
+  - Junyi Yue
+  - Chong Liu
+  - Jianwen Liang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Joule
+  date: '2026-02-01'
+  link: https://doi.org/hckp7c
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1016/j.joule.2025.102233
+  title: Boosting ionic conductivity of fluoride electrolytes by polyanion coordination
+    chemistry enabling 5 V-Class all-solid-state batteries
+  authors:
+  - Huaimin Jin
+  - Xingyu Wang
+  - Simeng Zhang
+  - Xiangzhen Zhu
+  - Chong Liu
+  - Junyi Yue
+  - Jie Qu
+  - Bei Wu
+  - Xu Han
+  - Yueyue Wang
+  - Yang Xu
+  - Han Wu
+  - Liyu Zhou
+  - Mingying Zhang
+  - Hao Lai
+  - Shuo Wang
+  - Jianwen Liang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Joule
+  date: '2026-01-01'
+  link: https://doi.org/hckqf6
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1016/j.jechem.2025.11.057
+  title: Pre-fabricated interfaces for lithium/lanthanide halide solid-state electrolytes
+  authors:
+  - Shanshan Wang
+  - Xiangzhen Zhu
+  - Yanlong Wu
+  - Simeng Zhang
+  - Yang Xu
+  - Jianwen Liang
+  - Huamei Li
+  - Xiaolong Yan
+  - Yongrui Luo
+  - Shou-Hang Bo
+  - Xiangzhong Ren
+  - Xiaona Li
+  publisher: Journal of Energy Chemistry
+  date: '2026-04-01'
+  link: https://doi.org/hckqf7
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1016/j.cej.2025.171135
+  title: 'X-ray photoelectron spectroscopy insights into interfacial degradation pathways
+    of halide based all-solid-state batteries: A review'
+  authors:
+  - Hao Lai
+  - Han Wu
+  - Wenshu Huang
+  - Wenyu Huang
+  - Muzi Yang
+  - Si Chen
+  - Jian Chen
+  - Shaohong Liu
+  - Fangyan Xie
+  - Jianwen Liang
+  - Hui Meng
+  publisher: Chemical Engineering Journal
+  date: '2025-12-01'
+  link: https://doi.org/hckqf8
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1002/anie.202518966
+  title: "An All\u2010Solid\u2010State Li\u2013Cu Battery via Cuprous/Lithium\u2010\
+    Ion Halide Solid Electrolyte"
+  authors:
+  - Yueyue Wang
+  - Limin Wang
+  - Xiaolong Yan
+  - Yang Xu
+  - Xingyu Wang
+  - Xiangzhen Zhu
+  - Yanlong Wu
+  - Xu Han
+  - Changtai Zhao
+  - Congying Fang
+  - Xiaokang Tan
+  - Mengying Zhang
+  - Yinzhuang Fang
+  - Yingying Jiang
+  - Biwei Xiao
+  - Xiaona Li
+  - Jianwen Liang
+  - Tao Mei
+  publisher: Angewandte Chemie International Edition
+  date: '2025-11-11'
+  link: https://doi.org/hckqb8
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1038/s41467-025-64726-y
+  title: Mechanically robust halide electrolytes for high-performance all-solid-state
+    batteries
+  authors:
+  - Xu Han
+  - Yang Xu
+  - Huamei Li
+  - Zaifa Wang
+  - Junyi Yue
+  - Xiaolong Yan
+  - Simeng Zhang
+  - Jiamin Fu
+  - Yu Xia
+  - Liyu Zhou
+  - Saiqi Wei
+  - Xinyi Liu
+  - Xingyu Wang
+  - Changtai Zhao
+  - Xiaona Li
+  - Shou-Hang Bo
+  - Jiantao Wang
+  - Xueliang Sun
+  - Jianwen Liang
+  publisher: Nature Communications
+  date: '2025-11-05'
+  link: https://doi.org/hckqb7
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
 - id: doi:10.1007/s40820-026-02232-6
   title: "Breaking the Limitations of Sulfur Redox Kinetics by Accelerated Li+-Desolvation\
     \ in Lithium\u2013Sulfur Batteries"
@@ -232,66 +420,6 @@
   type: paper
   plugin: sources.py
   file: sources.yaml
-- id: doi:10.1021/jacs.5c21351
-  title: Design for an Interface in Oxyhalide-Based All-Solid-State Lithium Metal
-    Batteries
-  authors:
-  - Yanlong Wu
-  - Yang Yang
-  - Xinmiao Wang
-  - Xingyu Wang
-  - Yulong Cai
-  - Shengzhao Wang
-  - Junyi Yue
-  - Yueyue Wang
-  - Xiangzhen Zhu
-  - Xu Han
-  - Hongyang Zhang
-  - Changtai Zhao
-  - Jianwen Liang
-  - Jiantao Wang
-  - Xueliang Sun
-  - Xiaona Li
-  publisher: Journal of the American Chemical Society
-  date: '2026-04-15'
-  link: https://doi.org/hckp69
-  type: paper
-  plugin: sources.py
-  file: sources.yaml
-- id: doi:10.1021/acs.accounts.6c00035
-  title: Precision Chemical Routes to Achieve Superior Oxyhalide Solid Electrolytes
-    in Advanced All-Solid-State Batteries
-  authors:
-  - Han Wu
-  - Chong Liu
-  - Simeng Zhang
-  - Jianwen Liang
-  - Xiaona Li
-  publisher: Accounts of Chemical Research
-  date: '2026-04-01'
-  link: https://doi.org/hckp7b
-  type: paper
-  plugin: sources.py
-  file: sources.yaml
-- id: doi:10.1016/j.joule.2025.102260
-  title: Advances in non/low-crystalline solid-state electrolytes enabled by halide-based
-    electrolytes
-  authors:
-  - Jie Qu
-  - Han Wu
-  - Xingyu Wang
-  - Simeng Zhang
-  - Junyi Yue
-  - Chong Liu
-  - Jianwen Liang
-  - Xueliang Sun
-  - Xiaona Li
-  publisher: Joule
-  date: '2026-02-01'
-  link: https://doi.org/hckp7c
-  type: paper
-  plugin: sources.py
-  file: sources.yaml
 - id: doi:10.1016/j.electacta.2025.147756
   title: A high-energy-density, long-cycling lithium-ion battery with a unique current
     collector-free integrated cathode
@@ -354,63 +482,6 @@
   publisher: Advanced Materials
   date: '2025-06-02'
   link: https://doi.org/hbkhd8
-  type: paper
-  plugin: sources.py
-  file: sources.yaml
-- id: doi:10.1038/s41467-025-64726-y
-  title: Mechanically robust halide electrolytes for high-performance all-solid-state
-    batteries
-  authors:
-  - Xu Han
-  - Yang Xu
-  - Huamei Li
-  - Zaifa Wang
-  - Junyi Yue
-  - Xiaolong Yan
-  - Simeng Zhang
-  - Jiamin Fu
-  - Yu Xia
-  - Liyu Zhou
-  - Saiqi Wei
-  - Xinyi Liu
-  - Xingyu Wang
-  - Changtai Zhao
-  - Xiaona Li
-  - Shou-Hang Bo
-  - Jiantao Wang
-  - Xueliang Sun
-  - Jianwen Liang
-  publisher: Nature Communications
-  date: '2025-11-05'
-  link: https://doi.org/hckqb7
-  type: paper
-  plugin: sources.py
-  file: sources.yaml
-- id: doi:10.1002/anie.202518966
-  title: "An All\u2010Solid\u2010State Li\u2013Cu Battery via Cuprous/Lithium\u2010\
-    Ion Halide Solid Electrolyte"
-  authors:
-  - Yueyue Wang
-  - Limin Wang
-  - Xiaolong Yan
-  - Yang Xu
-  - Xingyu Wang
-  - Xiangzhen Zhu
-  - Yanlong Wu
-  - Xu Han
-  - Changtai Zhao
-  - Congying Fang
-  - Xiaokang Tan
-  - Mengying Zhang
-  - Yinzhuang Fang
-  - Yingying Jiang
-  - Biwei Xiao
-  - Xiaona Li
-  - Jianwen Liang
-  - Tao Mei
-  publisher: Angewandte Chemie International Edition
-  date: '2025-11-11'
-  link: https://doi.org/hckqb8
   type: paper
   plugin: sources.py
   file: sources.yaml
