@@ -18,7 +18,7 @@ education_zh: |+
 email: xqsong@eitech.edu.cn
 active: true
 display: true
-order: 3
+order: 5
 position_en: Research Assistant
 portrait_alt_en: Research Assistant
 research_summary_en: Solid-State Thin-Film Batteries
