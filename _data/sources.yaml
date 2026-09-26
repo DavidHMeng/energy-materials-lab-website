@@ -14,9 +14,9 @@
   type: paper
   image: /images/uploads/nwag209fig1.jpeg
   publication_visible: true
-- id: doi:10.1016/j.ensm.2025.104512
+- id: 10.1038/s41467-026-71876-0
   type: paper
-  publication_visible: false
+  publication_visible: true
 - id: doi:10.1093/nsr/nwag209
   type: paper
   publication_visible: false
