@@ -26,9 +26,23 @@ GitHub, but the follow-up profile-field update had not.
 
 The repair adds the CMS visibility field, source/citation regression tests, and guide
 instructions for separating profile-only citations and auditing uploads. Local checks
-pass: `py scripts/validate_content.py` and 27 repository unit tests. The authoritative
-Ubuntu Jekyll/HTML and remote Actions result must be recorded after this commit is
-published; the local Windows environment does not contain Ruby/Jekyll.
+pass: `py scripts/validate_content.py`, citation-registry normalization, and 27
+repository unit tests. Remote evidence for `0408df9` is complete: [Validate and build
+run 36228338517](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36228338517),
+[Synchronize DOI citation registry run
+36228338660](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36228338660),
+[Generate optional English run
+36228338679](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36228338679),
+and [Publish production static branch run
+36228338616](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36228338616)
+all passed. The subsequent citation metadata refresh `760a9c6` was fast-forwarded into
+the local checkout without changing visibility flags. [GitHub Pages staging run
+36228469981](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36228469981)
+also passed; the profile and bilingual Publications pages were checked at
+<https://davidhmeng.github.io/energy-materials-lab-website/team/jianwen-liang/> and
+<https://davidhmeng.github.io/energy-materials-lab-website/publications/>.
+The local Windows environment still does not contain Ruby/Jekyll; Ubuntu Actions is
+the authoritative production build evidence.
 
 ## DeepL translation provider integration (2026-09-26)
 
