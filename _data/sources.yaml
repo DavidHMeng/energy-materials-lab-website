@@ -6,6 +6,10 @@
   type: paper
 - id: doi:10.1093/nsr/nwag209
   type: paper
+- id: doi:10.1038/s41467-026-71876-0
+  type: paper
+- id: doi:10.1021/jacs.5c22628
+  type: paper
 - id: doi:10.1007/s40820-026-02232-6
   type: paper
 - id: doi:10.1016/j.ensm.2025.104512
@@ -13,10 +17,6 @@
 - id: doi:10.1016/j.jpowsour.2025.236189
   type: paper
 - id: doi:10.1038/s41560-025-01853-2
-  type: paper
-- id: doi:10.1038/s41467-026-71876-0
-  type: paper
-- id: doi:10.1021/jacs.5c22628
   type: paper
 - id: doi:10.1021/jacs.5c21351
   type: paper
