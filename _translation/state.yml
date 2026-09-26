@@ -450,16 +450,16 @@ entries:
       status: auto
   _opportunities/phd-students.md:
     content:
-      english_hash: 1c94537c186aff10dd626fd3399beb925f4b9ccee6ad325d48c0b54cc7a61093
-      source_hash: 3ea922af787a3c8c2b2e38e772f72e50f7d73f7dea93c58c7a37253d706fad14
+      english_hash: 792c4814f543717d6a2e147927f23dde4d9894f1224ea1adf619635aaaf2061e
+      source_hash: 3ce4dbcf28774c00200f8b3889a40c9eb3ab5ad27c4f5752c2a078098887bf06
       status: manual
     links[0].label:
       english_hash: a8412d1f6eba1e4c6895d332d84b08758307cf4fe292e5dda8bf7756757126ca
       source_hash: c033e6eeed9571481b80a8b35cb57178e686988ccdd537781bb34db76ac588ec
       status: manual
     title:
-      english_hash: 3d0e5425d3f686d70f6521b37be1434f9ebe6c72770c1c441953d2c95f783d7c
-      source_hash: 06c900bf1899a3b6eef7ad0a59244612ac84b4e374aae57a0244a362ae3be3c1
+      english_hash: bc5b3cc17f4fcc16ee1e367117050e99778345c6bf6f957396f37a2979baf0b2
+      source_hash: ee37aafa37e0e9746816fcfa427b48a23a779d7ef4a694d8bfc1e70b40abdc79
       status: manual
   _opportunities/visiting-students-expired.md:
     content:
