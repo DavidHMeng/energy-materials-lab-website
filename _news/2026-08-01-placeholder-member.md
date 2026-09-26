@@ -7,4 +7,6 @@ image: /images/placeholders/news.svg
 alt_en: Abstract placeholder graphic for a member update
 alt_zh: 成员动态抽象占位图
 display: true
+title_en: The Research Group’s Postdoctoral Proposal and Midterm Defense Sessions Were Successfully Held
+summary_en: Congratulations to Postdoc Wang Tan on successfully passing his proposal defense!
 ---

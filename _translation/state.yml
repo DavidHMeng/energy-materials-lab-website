@@ -17,24 +17,26 @@ entries:
       source_hash: 499b8cb5a9373e38f6d800c6b47490bed23dd033142df347e498f086af7267cc
       status: manual
     introduction.slides[0].caption:
-      english_hash: 16bebdc0773358087412ef845423b6bd2264a551e89d01d608de49f9ea811502
-      source_hash: 0bf44bc22c83c0cdc1546e3ac5041e1460d1637ebe23cdd07e53fea14e185734
+      english_hash: 5edb30f199d26b0680d1354ee83be41ec137f46c9af16e526cab65f601c46654
+      source_hash: 5edb30f199d26b0680d1354ee83be41ec137f46c9af16e526cab65f601c46654
       status: manual
     introduction.slides[1].alt:
       english_hash: 42bc08855f7cd844b656b0e07b7ace3c0f9931d5dc7a9917b69d931357c957d6
-      source_hash: 92eec41e87edf3934a58409fe82239728e4c0cf675e398d52e8778c39d33cff6
-      status: manual
+      generated_hash: 1f6115333c2be5145c6c1645d1c15ad5f539c75b1c6e9bfb3f40378459e509d3
+      source_hash: 56b81c0146ef7e08f6ee4151ab51b31da116da6df929390b76eb2f000d007922
+      status: auto
     introduction.slides[1].caption:
-      english_hash: 5c82408e036a5639b96f003592620bf7732f4a812b104d787b6fc0be2d43ca2c
-      source_hash: 7c5348bc1a6c622ef27f052581c4e595979d19200ab324d7c250989df0f30497
+      english_hash: 0d655a0a9f62cd9d3cce3ebfeba9233e194621c67c32dc121453e857ba1868f1
+      source_hash: 0d655a0a9f62cd9d3cce3ebfeba9233e194621c67c32dc121453e857ba1868f1
       status: manual
     introduction.slides[2].alt:
       english_hash: 17dcc6a9812d9d67799e52359e7735eb19fb05fa293e42cc5128274667e94719
-      source_hash: 14963cfd4ac870afc92c17555680b03f497d0c11e9bf4dfbcc17f3766125d739
-      status: manual
+      generated_hash: 8e1db70ffebf5cce8a626586d630d9f90ed9d44ae0e7c95e17f3650dd6d22c0b
+      source_hash: 7e5f493128a9c08582167074d0a943859d6aee5278f15668d9dcbb6e829cd129
+      status: auto
     introduction.slides[2].caption:
-      english_hash: 533525a50d8c65b670fb9f438f499acdd10f38dc0975b06e59e0f8b5ff9bf221
-      source_hash: feff6b695b426c0ab2cbf4805dde2798edb2fc0aa49b7b4ffcea1867655898b6
+      english_hash: 61b704f50b54d4c138b747e2e9e6c7b03df68723649b4b9f9b91d21a10f78dda
+      source_hash: 61b704f50b54d4c138b747e2e9e6c7b03df68723649b4b9f9b91d21a10f78dda
       status: manual
     introduction.text:
       english_hash: 85adc107ad1a42db7e7d6447a1c65701a18766f7a1cc479ae7b8cd0ec424ff3d
@@ -369,25 +371,14 @@ entries:
       status: manual
     summary:
       english_hash: 2ba1a515004a0aa8de837f78661629c2cba5ff753bb6bbccba81568cb48427ff
-      source_hash: 16e9b3239d15b59e92e411f049a3a766d54308282cb0a29ff285579494565534
-      status: manual
+      generated_hash: 45c64801e9b00aed6dc819bb10a61e549b2eb773347065fc4a4dfb54be5c999e
+      source_hash: 53455110b578d46beeed6d445cc55f6430e34d7626332ad336db42e16293e274
+      status: auto
     title:
       english_hash: 7c5bc1976f438daa4058c5bdbfbf1d6720c94f0b9fc5185cfca58be39309fbfb
-      source_hash: a466688c160c2f9b7d75d90b468a3813fb767ca57844ab9ec30df742eb7de60f
-      status: manual
-  _news/2026-08-28-placeholder-award.md:
-    alt:
-      english_hash: 0cc6332c125f32e9f6740856ef028b6310b9228531c40d3011daa2af05c0dc80
-      source_hash: 785ebeea14809ca01e442174af57c5468156282d638473a1843accb8652d50d5
-      status: manual
-    summary:
-      english_hash: b186d5edc3e470c31bc2eea7e8ccbf927380fdd02b29683128385a7d913a8aa9
-      source_hash: 91d62b0fd8e23cca928440065d39b31d44aa86f3e75ca736b53bc8e743ae0f33
-      status: manual
-    title:
-      english_hash: df4db6694c943aedd2700e554b96917b1545f63a53c25efc12bead83c6083787
-      source_hash: 19616350e50d8f8781c03c671e8627b3acac8199545a9a9d2513a39c65e39ec8
-      status: manual
+      generated_hash: ada1b1f13446f99216c56078bb9d64f2ab9d9d369776ef655d4c45cff570b0ae
+      source_hash: 80ceebd4e903c17f505e3496dad47b90977d611cb395401c9be5ba6ded9128cb
+      status: auto
   _news/2026-09-15-placeholder-publication.md:
     alt:
       english_hash: cda6644feb0ef639185eac411d91c393ad1e013c12a3fa16671e16ae588d00c4
@@ -395,12 +386,14 @@ entries:
       status: manual
     summary:
       english_hash: b8be21c32ca259551a75d35e9d24bba280a110fb330b9705272e7e81b8de9b31
-      source_hash: 6bc5affd1e871d0054494914ac64668d7dffd55b6ca4c35d5174b43ba0fd0b1f
-      status: manual
+      generated_hash: 01d35ddd1ba1354c22289a439b28385e3069688257e7d8a114601e3fc0e380e9
+      source_hash: 43ca9b53b41c808b0ffd75311f06350ec2ac9e4ba65e2461ed24ae8939f00110
+      status: auto
     title:
       english_hash: 9ff08d903f7671f059495a865774c95c73fbb158e4f1ba6a70a05a5c67590bf9
-      source_hash: ecf9f89186c611c93a0640b3a1bb18983d7b7c834bafdc7d5d489718d1ccab37
-      status: manual
+      generated_hash: 81abcd6004e6e370a5400cfe96fe83dec92a536577ffb7221a07b2c7ac4c004d
+      source_hash: 6ab52297df83152c16587f277beff2a3f2f40d23e0ddeab333ea615dbfc468ac
+      status: auto
   _opportunities/phd-students.md:
     content:
       english_hash: 1c94537c186aff10dd626fd3399beb925f4b9ccee6ad325d48c0b54cc7a61093

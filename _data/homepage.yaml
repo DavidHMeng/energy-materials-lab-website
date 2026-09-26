@@ -28,6 +28,7 @@ introduction:
     related_doi: 10.1002/anie.5372994
     display: true
     order: 2
+    alt_en: 'Home Page: Image and Text Summary 2'
   - image: /images/uploads/anie73531-fig-0001-m.jpg
     alt_zh: 首页图文摘要3
     visual_type: graphical-abstract
@@ -36,6 +37,7 @@ introduction:
     related_doi: 10.1002/anie.5596828
     display: true
     order: 3
+    alt_en: 'Home Page: Text and Image Summary 3'
 highlights_heading_en: Highlights
 highlights_heading_zh: 课题组动态
 events_heading_en: Events
