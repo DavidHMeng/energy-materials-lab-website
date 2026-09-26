@@ -1,28 +1,22 @@
 # DO NOT EDIT, GENERATED AUTOMATICALLY
 
-- id: doi:10.1002/adma.202102415
-  title: "Reducing Water Activity by Zeolite Molecular Sieve Membrane for Long\u2010\
-    Life Rechargeable Zinc Battery"
+- id: doi:10.1002/anie.5372994.
+  title: "Tailoring Local Anion Chemistry Affinity Enables Stable Halide\u2013Sulfide\
+    \ Interfaces and Fast Ion Transport in Dual\u2010Electrolyte all\u2010Solid\u2010\
+    State Batteries"
   authors:
-  - Huijun Yang
-  - Yu Qiao
-  - Zhi Chang
-  - Han Deng
-  - Xingyu Zhu
-  - Ruijie Zhu
-  - Zetao Xiong
-  - Ping He
-  - Haoshen Zhou
-  publisher: Advanced Materials
-  date: '2021-08-02'
-  link: https://doi.org/gm2s6k
+  - Jie Qu
+  - Xingyu Wang
+  - Huaimin Jin
+  - Changtai Zhao
+  - Jianwen Liang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Angewandte Chemie International Edition
+  date: '2026-09-21'
+  link: https://doi.org/10.1002/anie.5372994.
   type: paper
-  description_en: Placeholder note describing why this publication is highlighted.
-  description_zh: "\u5360\u4F4D\u8BF4\u660E\uFF1A\u8BF7\u66FF\u6362\u4E3A\u8BFE\u9898\
-    \u7EC4\u5BF9\u8BE5\u8BBA\u6587\u7684\u6B63\u5F0F\u8BF4\u660E\u3002"
-  image: /images/placeholders/graphical-abstract.svg
-  tags:
-  - placeholder
+  image: /images/uploads/anie74845-fig-0001-m-1.jpg
   publication_visible: true
   plugin: sources.py
   file: sources.yaml
