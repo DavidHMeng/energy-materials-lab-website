@@ -230,8 +230,13 @@ for publication_path in (site / "publications" / "index.html", site / "zh" / "pu
             errors.append(f"publication route is missing page-specific sizing class in {publication_path.relative_to(site).as_posix()}")
 
 for archive in (site / "news" / "index.html", site / "events" / "index.html", site / "zh" / "news" / "index.html", site / "zh" / "events" / "index.html"):
-    if archive.is_file() and "data-search=" not in archive.read_text(encoding="utf-8", errors="replace"):
-        errors.append(f"search index marker missing in {archive.relative_to(site).as_posix()}")
+    if archive.is_file():
+        archive_html = archive.read_text(encoding="utf-8", errors="replace")
+        # Empty CMS archives are valid. Require the search marker only when the
+        # archive actually contains a rendered card that should be searchable.
+        has_card = 'class="news-card"' in archive_html or 'class="event-card"' in archive_html
+        if has_card and "data-search=" not in archive_html:
+            errors.append(f"search index marker missing in {archive.relative_to(site).as_posix()}")
 
 for html in site.rglob("*.html"):
     rendered = html.read_text(encoding="utf-8", errors="replace")

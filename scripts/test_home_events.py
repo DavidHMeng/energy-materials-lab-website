@@ -34,6 +34,11 @@ class HomepageEventsTests(unittest.TestCase):
             self.assertIn("site.events", path.read_text(encoding="utf-8"))
         self.assertFalse(list((ROOT / "_events").glob("*placeholder*")))
 
+    def test_generated_site_checks_allow_empty_event_archive(self):
+        checks = (ROOT / "scripts" / "check_generated_site.py").read_text(encoding="utf-8")
+        self.assertIn("Empty CMS archives are valid", checks)
+        self.assertIn("has_card", checks)
+
 
 if __name__ == "__main__":
     unittest.main()
