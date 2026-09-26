@@ -1,44 +1,16 @@
-# User-owned Publications membership and presentation metadata.
-# DOI identity is a lowercase bare DOI; bibliographic metadata is generated in
-# _data/citations.yaml and shared with Research/Profile without page membership.
-- doi: 10.1002/adma.202102415
-  type: paper
-  image: /images/placeholders/graphical-abstract.svg
-  description_zh: "占位说明：请替换为课题组对该论文的正式说明。"
-  description_en: Placeholder note describing why this publication is highlighted.
-  tags:
-  - placeholder
-  member_ids: []
-  display: true
 - doi: 10.1002/anie.5372994
   type: paper
   image: /images/uploads/anie74845-fig-0001-m-1.jpg
-  description_zh: ""
-  description_en: ""
-  tags: []
-  member_ids: []
   display: true
 - doi: 10.1002/anie.5596828
   type: paper
   image: /images/uploads/anie73531-fig-0001-m-1.jpg
-  description_zh: ""
-  description_en: ""
-  tags: []
-  member_ids: []
   display: true
 - doi: 10.1002/anie.4292495
   type: paper
   image: /images/uploads/anie73423-fig-0001-m-1.jpg
-  description_zh: ""
-  description_en: ""
-  tags: []
-  member_ids: []
   display: true
 - doi: 10.1093/nsr/nwag209
   type: paper
   image: /images/uploads/nwag209fig1.jpeg
-  description_zh: ""
-  description_en: ""
-  tags: []
-  member_ids: []
   display: true
