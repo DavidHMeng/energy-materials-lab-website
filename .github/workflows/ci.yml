@@ -34,3 +34,15 @@ jobs:
           SITE_ENVIRONMENT: production
           BASEURL: ""
         run: bash script/test
+      - name: Validate all-English-empty fallback build
+        env:
+          JEKYLL_CONFIG: _config.yml,_config.production.yml
+          ORIGIN: https://jliang.eitech.edu.cn
+          CANONICAL_ORIGIN: https://jliang.eitech.edu.cn
+          SITE_ENVIRONMENT: production
+          BASEURL: ""
+        run: |
+          python scripts/prepare_empty_english_fixture.py
+          JEKYLL_ENV=production bundle _2.5.6_ exec jekyll build --config "$JEKYLL_CONFIG" --destination _site-empty-en --trace
+          python scripts/check_generated_site.py _site-empty-en --baseurl "$BASEURL" --origin "$ORIGIN" --canonical-origin "$CANONICAL_ORIGIN" --environment "$SITE_ENVIRONMENT"
+          bundle _2.5.6_ exec htmlproofer _site-empty-en --disable-external --ignore-urls "/example\\.edu/"

@@ -6,12 +6,16 @@ on:
     paths:
       - "_data/homepage.yaml"
       - "_data/site.yaml"
+      - "_data/team_roles.yaml"
       - "_news/**"
       - "_events/**"
       - "_research/**"
       - "_members/**"
       - "_opportunities/**"
       - "scripts/translate_content.py"
+      - "scripts/check_translation_coverage.py"
+      - "_translation/registry.yml"
+      - ".pages.yml"
       - "TRANSLATION_STYLE.md"
   workflow_dispatch:
     inputs:
@@ -69,6 +73,8 @@ jobs:
             echo "$result" | tail -n 1
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: Audit CMS translation coverage
+        run: python scripts/check_translation_coverage.py
       - name: Validate generated content and production site
         env:
           JEKYLL_CONFIG: _config.yml,_config.production.yml

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generate optional English editorial fields without overwriting manual English.
 
-The state sidecar distinguishes generated English from manual content. Publication
-sources and resolved citation metadata are intentionally absent from FILE_RULES.
+The central registry is shared with build-time fallback and coverage QA. Publication
+sources and resolved citation metadata are explicitly excluded there.
 """
 
 from __future__ import annotations
@@ -24,18 +24,25 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 STATE_PATH = ROOT / "_translation" / "state.yml"
 STYLE_PATH = ROOT / "TRANSLATION_STYLE.md"
+REGISTRY_PATH = ROOT / "_translation" / "registry.yml"
 
-# Only these editorial field stems can be translated. Names, official site identity,
-# identifiers, URLs, chemical formulae and all publication records are excluded.
-FILE_RULES: tuple[tuple[str, set[str]], ...] = (
-    ("_data/homepage.yaml", {"eyebrow", "title", "text", "alt", "caption", "highlights_heading", "events_heading"}),
-    ("_data/site.yaml", {"address", "copyright", "description"}),
-    ("_news/*.md", {"title", "summary", "alt"}),
-    ("_events/*.md", {"title", "location", "description", "alt"}),
-    ("_research/*.md", {"title", "alt", "short_intro"}),
-    ("_members/*.md", {"position", "portrait_alt", "research_summary", "affiliation", "address", "profile_summary", "research_interests", "education", "personal_note"}),
-    ("_opportunities/*.md", {"title", "content", "label"}),
-)
+
+def load_registry() -> dict[str, Any]:
+    registry = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8")) or {}
+    if registry.get("version") != 1 or not isinstance(registry.get("resources"), list):
+        raise ValueError("_translation/registry.yml must contain version 1 resources")
+    return registry
+
+
+def translation_rules() -> tuple[tuple[str, set[str]], ...]:
+    rules: list[tuple[str, set[str]]] = []
+    for resource in load_registry()["resources"]:
+        if resource.get("exclude_all"):
+            continue
+        fields = {str(field) for field in resource.get("auto_fields", [])}
+        if fields:
+            rules.append((str(resource["pattern"]), fields))
+    return tuple(rules)
 
 
 def digest(value: str) -> str:
@@ -94,6 +101,7 @@ class TranslationResult:
     manual: int = 0
     needs_review: int = 0
     pending: int = 0
+    failed: int = 0
     pruned: int = 0
 
 
@@ -133,11 +141,23 @@ def process_pair(
             result.pending += 1
             result.changed_state = True
             return
-        translated = translator(source).strip()
+        try:
+            translated = translator(source).strip()
+        except Exception:
+            field_state.update({"status": "pending", "source_hash": source_hash, "last_error": "provider-unavailable"})
+            result.pending += 1
+            result.failed += 1
+            result.changed_state = True
+            return
         if not translated:
-            raise RuntimeError(f"translator returned empty text for {en_key}")
+            field_state.update({"status": "pending", "source_hash": source_hash, "last_error": "empty-provider-response"})
+            result.pending += 1
+            result.failed += 1
+            result.changed_state = True
+            return
         container[en_key] = translated
         field_state.update({"status": "auto", "source_hash": source_hash, "generated_hash": digest(translated)})
+        field_state.pop("last_error", None)
         result.changed_content = result.changed_state = True
         result.generated += 1
         return
@@ -163,9 +183,23 @@ def process_pair(
                 result.pending += 1
                 result.changed_state = True
                 return
-            translated = translator(source).strip()
+            try:
+                translated = translator(source).strip()
+            except Exception:
+                field_state.update({"status": "auto-stale", "source_hash": source_hash, "last_error": "provider-unavailable"})
+                result.pending += 1
+                result.failed += 1
+                result.changed_state = True
+                return
+            if not translated:
+                field_state.update({"status": "auto-stale", "source_hash": source_hash, "last_error": "empty-provider-response"})
+                result.pending += 1
+                result.failed += 1
+                result.changed_state = True
+                return
             container[en_key] = translated
             field_state.update({"status": "auto", "source_hash": source_hash, "generated_hash": digest(translated)})
+            field_state.pop("last_error", None)
             result.changed_content = result.changed_state = True
             result.refreshed += 1
         return
@@ -267,7 +301,7 @@ def configured_translator(provider: str) -> Callable[[str], str] | None:
 
 
 def selected_files() -> Iterable[tuple[Path, set[str]]]:
-    for pattern, allowed in FILE_RULES:
+    for pattern, allowed in translation_rules():
         for path in sorted(ROOT.glob(pattern)):
             yield path, allowed
 
@@ -313,6 +347,8 @@ def main() -> int:
             print("::warning::Translation credentials are absent; English fallback remains active.")
 
     result = run(args.write, translator)
+    if result.failed:
+        print(f"::warning::{result.failed} translation request(s) failed; Chinese fallback remains active.")
     print(json.dumps(result.__dict__, sort_keys=True))
     return 0
 

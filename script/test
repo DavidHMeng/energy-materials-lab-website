@@ -16,7 +16,11 @@ python scripts/test_cms_schema.py
 python scripts/test_cms_input_contract.py
 python scripts/test_cms_record_independence.py
 python scripts/test_translation.py
+python scripts/test_translation_coverage.py
+python scripts/test_carousel_layout.py
+python scripts/check_translation_coverage.py
 python scripts/translate_content.py --dry-run
+bundle _${BUNDLER_VERSION}_ exec ruby scripts/test_translation_fallback.rb
 JEKYLL_ENV=production bundle _${BUNDLER_VERSION}_ exec jekyll build \
   --config "$JEKYLL_CONFIG" --destination "$DESTINATION" --trace "$@"
 check_args=("$DESTINATION" --baseurl "$BASEURL" --origin "$ORIGIN" \

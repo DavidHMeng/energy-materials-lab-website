@@ -39,9 +39,9 @@
                 {% assign related_citation = slide.related_doi | find_citation_by_doi: site.data.citations %}
                 {% assign normalized_related_doi = slide.related_doi | normalize_doi %}
               {% endif %}
-              {% if caption and caption != "" or related_citation or normalized_related_doi != "" %}
-                <figcaption>
-                  {% if caption and caption != "" %}<span>{{ caption }}</span>{% endif %}
+              <figcaption class="visual-slide-caption">
+                <span class="visual-slide-title">{% if caption and caption != "" %}{{ caption }}{% endif %}</span>
+                <span class="visual-slide-meta">
                   {% if related_citation %}
                     <a href="{{ related_citation.link }}" target="_blank" rel="noopener noreferrer">
                       {{ related_citation.publisher }} · {{ related_citation.date | date: "%Y" }}
@@ -51,8 +51,8 @@
                       {% if page.lang == "zh" %}论文元数据待更新{% else %}Publication metadata pending{% endif %} · DOI: {{ normalized_related_doi }}
                     </a>
                   {% endif %}
-                </figcaption>
-              {% endif %}
+                </span>
+              </figcaption>
             </figure>
           {% endfor %}
         </div>

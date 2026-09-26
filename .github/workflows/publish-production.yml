@@ -50,6 +50,8 @@ jobs:
       - name: Validate translation state and fallback mode
         run: |
           python scripts/test_translation.py
+          python scripts/test_translation_coverage.py
+          python scripts/check_translation_coverage.py
           python scripts/translate_content.py --dry-run
 
   content:

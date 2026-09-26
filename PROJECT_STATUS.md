@@ -1,7 +1,29 @@
 # Project status
 
 Updated: 2026-09-26
-Current release line: UI / CMS Workflow V1.6 on `main`
+Current release line: CMS Translation Coverage + Graphical Abstract Normalization V1.7 on `main`
+
+## Translation coverage and fixed scientific canvas (2026-09-26)
+
+Translation policy is centralized in `_translation/registry.yml`; the asynchronous
+translator, Jekyll in-memory fallback and coverage QA share the same classification.
+All 38 Pages CMS Chinese/English pairs are registered with zero required English fields.
+Team names, role labels and official site identity are manual-only, and Publications
+remain excluded. Provider errors and timeouts now become warnings plus pending or
+auto-stale state instead of terminating translation; CMS commits and normal builds stay
+independent.
+
+The all-English-empty QA exercises every auto field with generated English, absent
+credentials and a simulated timeout. A Ruby fixture verifies Chinese fallback for both
+empty and omitted English keys, including manual-only names. The coverage guard checks
+new CMS `*_zh` fields against the registry.
+
+Homepage Graphical Abstract slides now share one responsive scientific canvas. Desktop
+height is bounded at 560–780 px around a 1.4:1 target; tablet is 420–540 px and mobile
+280–380 px. Images use centered `contain` rendering on a near-white canvas in both
+themes. A fixed caption block reserves a two-line title and one metadata row, eliminating
+intrinsic-image and missing-metadata height changes. Existing autoplay, pause, swipe,
+arrows, dots and reduced-motion behavior remain unchanged.
 
 ## Homepage Events data-driven visibility (2026-09-26)
 

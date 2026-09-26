@@ -112,11 +112,20 @@ Images use `object-fit: contain` so scientific annotations are not cropped. Auto
 limited to 5–12 seconds, pauses during hover/focus, supports touch swiping and manual
 controls, and is disabled when the visitor requests reduced motion.
 
-The visible scientific-image region uses an approximately `1.65:1` aspect ratio. If a
+The visible scientific-image region uses a fixed responsive scientific canvas with an
+approximately `1.4:1` desktop target, 420–540 px tablet height and 280–380 px mobile
+height. Images remain centered with `object-fit: contain` on a white/near-white canvas
+in both themes. The caption always reserves a two-line title row and one metadata row,
+so intrinsic image proportions and missing DOI metadata cannot move later sections. If a
 Graphical Abstract has a `related_doi`, journal and year are resolved from
 `_data/citations.yaml`; bibliographic metadata is never duplicated into Homepage data.
 
 ## Translation state
+
+`_translation/registry.yml` is the only translation coverage registry. Every Pages CMS
+Chinese/English pair is classified as `auto_fields`, `manual_fields`, or an excluded
+collection. The translator and the Jekyll fallback plugin consume this registry; adding
+a bilingual CMS field therefore requires one registry entry rather than a new workflow.
 
 `_translation/state.yml` is a non-editorial sidecar maintained by
 `scripts/translate_content.py`. Each eligible field records a Chinese source hash, an
@@ -132,6 +141,12 @@ English hash, and one of `auto`, `manual`, `needs-review`, `pending`, or `auto-s
 The provider is configured only through GitHub repository variables and the
 `TRANSLATION_API_KEY` Actions secret. No secret or terminology glossary is stored in
 content or Git history.
+
+Names, Team Role Labels, and official laboratory, university and college names are
+manual-English-only. Missing English for these fields falls back to Chinese without
+romanization or guessing. Publication source/citation records and custom publication
+notes are excluded from automatic translation. Email addresses, URLs, identifiers,
+dates, image paths, filenames, DOI values and chemical formulae are never candidates.
 
 ## Collection summaries
 

@@ -50,7 +50,7 @@ the workflow listens only to `main`, publishing the generated branch cannot loop
 
 Generated-site checks also enforce the project typography attributes, a single load of
 the project stylesheet, the compact profile contact layout, normal-flow profile hero,
-profile summaries, the 1.65:1 contained-image carousel, and the absence of retired
+profile summaries, the fixed scientific carousel canvas, and the absence of retired
 phone/office output. Python regression tests exercise translation-state transitions
 before every Jekyll build. Production checks also enforce production canonical,
 OpenGraph, Twitter, JSON-LD, reciprocal hreflang, sitemap and robots values; reject
@@ -85,6 +85,36 @@ workflow records pending state and exits without compromising CI.
 
 The citation refresh is also manual-only during staging. Enable its schedule only after
 the target repository, branch protections and desired pull-request cadence are confirmed.
+
+`_translation/registry.yml` is the central coverage source for every Pages CMS
+collection. It classifies field stems as machine-translatable, manual-English-only or
+collection-excluded. `scripts/check_translation_coverage.py` warns when a new `*_zh`
+field has no matching optional `*_en` field or no registry decision. The asynchronous
+translator, build-time fallback and QA tests consume the same registry.
+
+Provider errors, missing credentials, empty responses and timeouts are non-blocking.
+Affected blank fields remain `pending`; stale automatic English becomes `auto-stale`;
+the workflow emits a warning and Jekyll renders Chinese fallback on English routes.
+Manual English is never replaced. Names and official role/site identity fields are
+manual-only, while all publication records are excluded.
+
+The all-English-empty fixture covers Homepage, Highlights, Events, Research, Team,
+Team Role Labels, Opportunities and Site Settings. It verifies CMS optionality,
+successful generation, provider-unavailable fallback and registry exclusions. A Ruby
+fixture also verifies fallback for missing, rather than merely blank, English keys.
+
+## Homepage scientific carousel
+
+The carousel uses one stable scientific canvas per viewport. Its desktop target is
+approximately 1.4:1, with a responsive height capped at 780 px; tablet uses 420–540 px
+and mobile uses 280–380 px. Every image uses `object-fit: contain` and
+`object-position: center` on a near-white canvas in both themes. Original pixels are
+not cropped or stretched.
+
+Each slide always contains the fixed canvas followed by a fixed-height caption region.
+Titles are clamped to two lines and the metadata row reserves its height even when no
+DOI metadata exists. Pagination remains outside the viewport, keeping the following
+Highlights position stable while tall, medium and wide images switch.
 
 ## UI and performance policy
 

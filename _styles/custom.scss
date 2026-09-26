@@ -414,6 +414,7 @@ header nav > a:focus-visible::after {
 }
 
 .visual-carousel {
+  --scientific-canvas-height: clamp(560px, 69vw, 780px);
   position: relative;
   width: min(100%, 1120px);
   margin-inline: auto;
@@ -430,12 +431,15 @@ header nav > a:focus-visible::after {
 
 .visual-carousel-track {
   display: flex;
+  align-items: stretch;
   transition: transform 600ms var(--motion-ease);
   will-change: transform;
 }
 
 .visual-slide {
+  display: grid;
   flex: 0 0 100%;
+  grid-template-rows: var(--scientific-canvas-height) 6.25rem;
   width: 100%;
   margin: 0;
 }
@@ -444,14 +448,21 @@ header nav > a:focus-visible::after {
   position: relative;
   display: grid;
   width: 100%;
-  aspect-ratio: 1.65 / 1;
+  height: var(--scientific-canvas-height);
+  aspect-ratio: 1.4 / 1;
+  min-height: 0;
   padding: clamp(0.75rem, 2vw, 1.4rem);
+  overflow: hidden;
+  background: #fbfcfd;
   place-items: center;
 }
 
 .visual-slide img {
+  display: block;
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   object-position: center;
 }
@@ -461,9 +472,9 @@ header nav > a:focus-visible::after {
   top: 0.85rem;
   left: 0.85rem;
   padding: 0.35rem 0.6rem;
-  color: var(--text);
-  background: color-mix(in srgb, var(--surface-raised) 88%, transparent);
-  border: 1px solid var(--border);
+  color: #18303a;
+  background: rgb(255 255 255 / 90%);
+  border: 1px solid rgb(24 48 58 / 18%);
   border-radius: 999px;
   font-size: 0.72rem;
   font-weight: var(--bold);
@@ -472,22 +483,43 @@ header nav > a:focus-visible::after {
   backdrop-filter: blur(8px);
 }
 
-.visual-slide figcaption {
-  min-height: 2.6rem;
-  padding: 0.65rem 1rem;
+.visual-slide-caption {
+  display: grid;
+  height: 6.25rem;
+  padding: 0.75rem 1rem;
   color: var(--muted);
   border-top: 1px solid var(--border);
   font-size: var(--font-caption);
+  grid-template-rows: minmax(2.4rem, auto) 1.35rem;
+  align-content: center;
   text-align: center;
 }
 
-.visual-slide figcaption span,
-.visual-slide figcaption a {
+.visual-slide-title,
+.visual-slide-meta,
+.visual-slide-caption a {
   display: block;
 }
 
-.visual-slide figcaption a {
-  margin-top: 0.15rem;
+.visual-slide-title {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1.25;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.visual-slide-meta {
+  min-height: 1.35rem;
+  overflow: hidden;
+  line-height: 1.35rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.visual-slide-caption a {
   color: var(--primary);
   font-size: 0.92em;
   text-decoration: none;
@@ -496,7 +528,7 @@ header nav > a:focus-visible::after {
 .carousel-arrow {
   position: absolute;
   z-index: 2;
-  top: calc(50% - 1.3rem);
+  top: calc(var(--scientific-canvas-height) / 2);
   display: grid;
   width: 2.6rem;
   height: 2.6rem;
@@ -1158,6 +1190,10 @@ html[lang="zh"] body {
 }
 
 @media (max-width: 900px) {
+  .visual-carousel {
+    --scientific-canvas-height: clamp(420px, 60vw, 540px);
+  }
+
   .footer-identity img {
     height: 56px;
     max-width: min(280px, 46vw);
@@ -1232,6 +1268,18 @@ html[lang="zh"] body {
 }
 
 @media (max-width: 700px) {
+  .visual-carousel {
+    --scientific-canvas-height: clamp(280px, 88vw, 380px);
+  }
+
+  .visual-slide {
+    grid-template-rows: var(--scientific-canvas-height) 6.75rem;
+  }
+
+  .visual-slide-caption {
+    height: 6.75rem;
+  }
+
   .footer-identity {
     align-items: flex-start;
     flex-direction: column;

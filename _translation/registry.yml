@@ -1,0 +1,80 @@
+version: 1
+
+# Central source of truth for Chinese-primary editorial fields.
+#
+# auto_fields are eligible for asynchronous machine translation. manual_fields
+# use Chinese as the English-route fallback until an editor supplies official
+# English. exclude_all keeps publication metadata outside both translation and
+# fallback mutation.
+resources:
+  - id: homepage
+    cms: homepage
+    pattern: _data/homepage.yaml
+    auto_fields:
+      - eyebrow
+      - title
+      - text
+      - alt
+      - caption
+      - highlights_heading
+      - events_heading
+    manual_fields: []
+
+  - id: highlights
+    cms: news
+    pattern: _news/*.md
+    auto_fields: [title, summary, alt]
+    manual_fields: []
+
+  - id: events
+    cms: events
+    pattern: _events/*.md
+    auto_fields: [title, location, description, alt]
+    manual_fields: []
+
+  - id: research
+    cms: research
+    pattern: _research/*.md
+    auto_fields: [title, alt, short_intro]
+    manual_fields: []
+
+  - id: publications
+    cms: publications
+    pattern: _data/sources.yaml
+    auto_fields: []
+    manual_fields: []
+    exclude_all: true
+    excluded_reason: Publication metadata and notes remain in their maintained original language.
+
+  - id: team
+    cms: team
+    pattern: _members/*.md
+    auto_fields:
+      - position
+      - portrait_alt
+      - research_summary
+      - affiliation
+      - address
+      - profile_summary
+      - research_interests
+      - education
+      - personal_note
+    manual_fields: [name]
+
+  - id: team_roles
+    cms: team-roles
+    pattern: _data/team_roles.yaml
+    auto_fields: []
+    manual_fields: [label]
+
+  - id: opportunities
+    cms: opportunities
+    pattern: _opportunities/*.md
+    auto_fields: [title, content, label]
+    manual_fields: []
+
+  - id: site
+    cms: site
+    pattern: _data/site.yaml
+    auto_fields: [address, copyright, description]
+    manual_fields: [lab_name, school, college]

@@ -1,5 +1,28 @@
 # Pages CMS 网站维护使用手册
 
+## 中文主导编辑与翻译覆盖
+
+中文是必填的内容源，对应英文字段可留空。Pages CMS 的 Save 只提交内容，不等待
+DeepL、文献同步、Jekyll 或部署；**Generate pending English** 在 GitHub Actions 中异步运行。
+
+- 英文为空且翻译服务可用时，生成学术英语。
+- 已有人工作者英文时永远优先，自动流程不覆盖。
+- 缺少密钥、接口错误或超时时，Save 和网站构建仍有效；英文页面临时显示中文 fallback。
+- 成员姓名、Team Role Labels、实验室/学校/学院官方名称只允许人工英文，不生成拼音或猜测。
+- Publications、DOI/引文元数据、邮箱、URL、日期、ID 和图片路径不进入翻译。
+
+逐字段结果见 `TRANSLATION_COVERAGE_REPORT.md`。新增双语 CMS 字段时，只需在
+`_translation/registry.yml` 注册字段 stem；覆盖检查会提示缺少 `*_en` 或未分类的
+`*_zh` 字段。
+
+## Homepage Graphical Abstract 科学画布
+
+可上传不同原始比例的科研图，无需裁切或拉伸。网站把每张图放入稳定的近白色科学
+画布，并使用 `object-fit: contain` 居中完整显示；需要时允许留白。Desktop 目标约
+1.4:1，Tablet 和 Mobile 使用受限的响应式高度。Caption 固定保留两行标题和一行
+期刊/年份，因此切换图片不会推动 Highlights 上下跳动。Dark Mode 下科研图画布仍
+保持浅色，以保护黑色文字、细线和图例的可读性。
+
 适用仓库：`DavidHMeng/energy-materials-lab-website`  
 默认分支：`main`  
 Staging 预览：<https://davidhmeng.github.io/energy-materials-lab-website/>

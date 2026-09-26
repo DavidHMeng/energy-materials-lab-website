@@ -220,8 +220,17 @@ for marker in (
 ):
     if marker not in custom_css:
         errors.append(f"compiled custom CSS is missing {marker}")
-if "aspect-ratio:1.65/1" not in compact_custom_css:
-    errors.append("compiled custom CSS is missing the 1.65:1 carousel ratio")
+for marker in (
+    "--scientific-canvas-height:clamp(560px,69vw,780px)",
+    "aspect-ratio:1.4/1",
+    ".visual-slide-image",
+    "object-fit:contain",
+    "object-position:center",
+    ".visual-slide-caption",
+    "-webkit-line-clamp:2",
+):
+    if marker not in compact_custom_css:
+        errors.append(f"compiled custom CSS is missing fixed scientific canvas marker {marker}")
 
 for publication_path in (site / "publications" / "index.html", site / "zh" / "publications" / "index.html"):
     if publication_path.is_file():

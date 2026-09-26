@@ -36,6 +36,19 @@ class TranslationStateTests(unittest.TestCase):
         self.assertEqual(record["title_en"], "EN:中文")
         self.assertEqual(state["status"], "auto")
 
+    def test_provider_failure_does_not_raise_or_break_fallback(self):
+        record = {"title_zh": "中文", "title_en": ""}
+        state = {}
+        result = TranslationResult()
+
+        def unavailable(_: str) -> str:
+            raise RuntimeError("simulated outage")
+
+        process_pair(record, "title_zh", "title_en", state, unavailable, result)
+        self.assertEqual(record["title_en"], "")
+        self.assertEqual(state["status"], "pending")
+        self.assertEqual(result.failed, 1)
+
     def test_manual_english_is_never_overwritten(self):
         record = {"title_zh": "新版中文", "title_en": "Official English"}
         state = {"status": "manual", "source_hash": digest("旧版中文"), "english_hash": digest("Official English")}
