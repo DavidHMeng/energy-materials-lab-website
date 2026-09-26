@@ -419,16 +419,19 @@ entries:
   _research/aqueous-electrochemistry.md:
     alt:
       english_hash: e8c2618a1b2ca184ba79a333a33fadcd7f88b220d743db8fbb6b140c0e414d63
-      source_hash: 8c2cc51ebdd17e06e1b76278b114ea0039fd4e7126131b6a20b284930f4d2351
-      status: manual
+      generated_hash: 74bce63de5590df6df9948958ab5081c31d55f18b8f61e4d76bb8939ff9bb0d7
+      source_hash: 7fdc09be4aa159bdfb62eba66fbfb3d68818adbc4963225d1b0984f3569955bc
+      status: auto
     short_intro:
       english_hash: 13501ce47baf71b7c30099945cbdbbeaa360c0bb0dde9eabd2c590f9c5fe7e20
-      source_hash: 333b9cd8bb68dbee0faeb17d727d79250e5e314df8e75980348d23e6007e7cc8
-      status: manual
+      generated_hash: c3d448ffa85d3dba29dec21df88e5029574e0a2077a92ef201284eafa1730535
+      source_hash: 43d704f3eed4e746c1c613138f2efca0e4450f4efdc29085ceeca1ce31c9cafc
+      status: auto
     title:
       english_hash: 40978b0832f2fa569c1fe281adea18e941521cd4ef375763892678d4f0a69a5b
-      source_hash: c51e37cd7a45d88ce3c8ee0db35c35992c9e30e4ea6d935d3e1f31f6ff0f57d4
-      status: manual
+      generated_hash: e48d6432b378f2f09d289bbe3db9b1ea79175e6f38e61f56a60141762103d4f7
+      source_hash: 7fdc09be4aa159bdfb62eba66fbfb3d68818adbc4963225d1b0984f3569955bc
+      status: auto
   _research/solid-electrolyte-interfaces.md:
     alt:
       english_hash: a1f50623e57a5d310911168784f504b3bfa3e152e9b86c491c7bf90e7f8631d1
