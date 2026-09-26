@@ -12,25 +12,32 @@ profile_summary_zh: 在硕士阶段开展锂离子电池失效机制相关研究
 address_zh: 化学实验楼231
 research_interests_zh: 高功率/高比能锂离子电池开发
 personal_note_zh: 宁拙毋巧，宁朴毋华
-education_zh: '- 硕士，中北大学，2014.09-2018.06
-
+education_zh: |+
+  - 硕士，中北大学，2014.09-2018.06
   - 博士，燕山大学，2018.09-2021.06
 
-
-  '
 email: zmxue@eitech.edu.cn
 active: true
 display: true
-order: 5
+order: 3
 position_en: Engineer
 portrait_alt_en: Engineer
 research_summary_en: Development of High-Power/High-Energy-Density Lithium-Ion Batteries
 affiliation_en: Innovation Center
-profile_summary_en: During my master’s program, I conducted research on the failure mechanisms of lithium-ion batteries; after graduation, I worked at Zhengli New Energy and Weilan New Energy, where I was involved in the development of high-energy-density, high-power lithium-ion batteries. With deep expertise in battery material systems and cell process R&D, he has accumulated engineering experience ranging from material selection and cell design to failure analysis, and is dedicated to the practical implementation of high-performance power battery technologies.
+profile_summary_en: During my master’s program, I conducted research on the
+  failure mechanisms of lithium-ion batteries; after graduation, I worked at
+  Zhengli New Energy and Weilan New Energy, where I was involved in the
+  development of high-energy-density, high-power lithium-ion batteries. With
+  deep expertise in battery material systems and cell process R&D, he has
+  accumulated engineering experience ranging from material selection and cell
+  design to failure analysis, and is dedicated to the practical implementation
+  of high-performance power battery technologies.
 address_en: Room 231, Chemistry Lab Building
 research_interests_en: Development of High-Power/High-Energy-Density Lithium-Ion Batteries
 personal_note_en: Better to be unrefined than clever; better to be simple than flashy.
-education_en: '- Master’s Degree, North China University of Technology, September 2014–June 2018
+education_en: >+
+  - Master’s Degree, North China University of Technology, September 2014–June
+  2018
 
-  - Ph.D., Yanshan University, September 2018–June 2021'
+  - Ph.D., Yanshan University, September 2018–June 2021
 ---
