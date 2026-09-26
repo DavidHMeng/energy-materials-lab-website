@@ -107,6 +107,15 @@ class PagesCmsInputContractTests(unittest.TestCase):
         for entry_name, path in (("publications", "description_en"), ("events", "description_zh"), ("team", "education_zh")):
             self.assertFalse(field_map(entry_name)[path]["options"]["media"])
 
+    def test_header_logo_field_preserves_fallback_and_replacement_warning(self):
+        field = field_map("site")["lab_logo_header"]
+        self.assertEqual(field["type"], "image")
+        self.assertIsNot(field.get("required"), True)
+        self.assertEqual(field["options"]["media"], "images")
+        description = field["description"].lower()
+        for keyword in ("leave blank", "lab logo", "replace", "clear"):
+            self.assertIn(keyword, description)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -3,7 +3,7 @@
 Updated: 2026-09-26
 Current release line: CMS Translation Coverage + Graphical Abstract Normalization V1.7 on `main`
 
-## Header logo proportional layout (local, not pushed)
+## Header logo proportional layout — deployed 2026-09-26
 
 The header now uses an optional `lab_logo_header` asset for the current Logo because
 the original 1254 × 1254 PNG contains a visible alpha bounding box of only 1168 × 950
@@ -12,8 +12,8 @@ unchanged; the header-specific PNG is a lossless transparent-margin trim. Header
 compact states size the `.logo` container, while `img`/`svg` use intrinsic dimensions,
 `contain`, and centered positioning without fixed width/height stretching. The local
 regression test is `scripts/test_header_logo_layout.py` and is included in `script/test`.
-This work is intentionally not pushed yet; Jekyll/HTMLProofer still require the Ubuntu
-Actions environment because this Windows checkout has no Bash/Ruby/Bundler.
+Production validation and build passed for commit `aafb9fa0d4650b4ff8b900e552e85367c1ca04f0`,
+and that commit is deployed to `server-deploy` and production.
 
 ## Build-local DOI citation preparation (2026-09-26)
 

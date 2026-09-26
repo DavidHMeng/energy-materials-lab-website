@@ -75,6 +75,7 @@ class PagesCmsSchemaTests(unittest.TestCase):
             ("research", "graphical_abstract"),
             ("team", "portrait"),
             ("site", "lab_logo"),
+            ("site", "lab_logo_header"),
             ("site", "school_logo"),
         ):
             self.assertEqual(fields(ENTRIES[entry_name])[image_name]["options"]["media"], "images")

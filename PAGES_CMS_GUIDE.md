@@ -193,6 +193,8 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
   它只去掉外围透明像素，不改变 Logo 本体。当前仓库已提供对应裁切资源。
 - 如果以后替换 `Lab logo`，而新资源四周也有明显透明留白，可同时上传一份裁切版到该字段；
   如果留空，Header 会自动回退到 `Lab logo`。
+- 替换 `Lab logo` 时，如果 `Header logo (trimmed, optional)` 已设置，也必须同步替换或清空该字段，
+  否则 Header 会继续优先使用旧的 trimmed logo。
 - Header 的容器负责不同状态的尺寸，图片使用等比例 `contain`，因此不要上传已经拉伸或强制改比例的版本。
 
 ### Publications
