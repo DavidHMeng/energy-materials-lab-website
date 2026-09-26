@@ -54,3 +54,27 @@
   type: paper
   image: /images/uploads/41467202564726fig5html.webp
   display: true
+- doi: 10.1038/s41560-025-01853-2
+  type: paper
+  image: /images/uploads/4156020251853fig1-1.jpg
+  display: true
+- doi: 10.1039/d5ee03490f
+  type: paper
+  image: /images/uploads/d5ee03490f-ga.png
+  display: true
+- doi: 10.1002/adma.202502067
+  type: paper
+  image: /images/uploads/adma202502067-fig-0003-m.jpg
+  display: true
+- doi: 10.1002/smll.202408824
+  type: paper
+  image: /images/uploads/smll202408824-fig-0001-m.jpg
+  display: true
+- doi: 10.1002/adma.202410402
+  type: paper
+  image: /images/uploads/adma202410402-fig-0001-m.jpg
+  display: true
+- doi: 10.1002/anie.202401373
+  type: paper
+  image: /images/uploads/anie202401373-fig-0001-m.jpg
+  display: true
