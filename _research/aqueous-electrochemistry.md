@@ -9,7 +9,7 @@ doi_list:
   - 10.1002/anie.202518966
 display: true
 order: 2
-title_en: Interface Control in All-Solid-State Batteries
+title_en: Interface Modulation in All-Solid-State Batteries
 alt_en: Interface Modulation in All-Solid-State Batteries
 short_intro_en: The research team is also studying the interfacial reactions,
   stress evolution, and failure mechanisms between solid-state electrolytes,
