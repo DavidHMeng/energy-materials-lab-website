@@ -18,6 +18,7 @@ python scripts/test_cms_record_independence.py
 python scripts/test_translation.py
 python scripts/test_translation_coverage.py
 python scripts/test_carousel_layout.py
+python scripts/test_research_layout.py
 python scripts/check_translation_coverage.py
 python scripts/translate_content.py --dry-run
 bundle _${BUNDLER_VERSION}_ exec ruby scripts/test_translation_fallback.rb
