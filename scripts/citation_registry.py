@@ -93,11 +93,13 @@ def _normalize_list(values: object, label: str) -> list[str]:
     return normalized
 
 
-def _merge_source(target: dict, incoming: dict, doi: str) -> None:
+def _merge_publication(target: dict, incoming: dict, doi: str) -> None:
+    """Merge duplicate user records without silently choosing conflicting values."""
+
     for key, value in incoming.items():
-        if key == "id" or value in (None, "", []):
+        if key == "doi" or value in (None, "", []):
             continue
-        if key in {"member_ids", "tags"}:
+        if key in {"tags", "member_ids"}:
             merged = list(target.get(key) or [])
             for item in value if isinstance(value, list) else [value]:
                 if item not in merged:
@@ -107,26 +109,57 @@ def _merge_source(target: dict, incoming: dict, doi: str) -> None:
             target[key] = value
         elif target[key] != value:
             raise CitationRegistryError(
-                f"duplicate source {doi} has conflicting {key!r} values; merge it manually"
+                f"duplicate publication {doi} has conflicting {key!r} values; merge it manually"
             )
 
 
 def synchronize(root: Path, write: bool = False) -> list[str]:
-    """Synchronize all DOI entry points into ``_data/sources.yaml``.
+    """Build the generated DOI registry from independent page memberships.
 
-    Returns human-readable change descriptions. No file is modified unless ``write``
-    is true.
+    ``_data/publications.yaml`` is the only user-owned Publications membership file.
+    ``_data/sources.yaml`` is rebuilt from the union of Publications, Research,
+    Profile, and Homepage DOI references and intentionally contains only provider
+    identity/type data. No existing source presentation fields are carried forward.
     """
 
     root = root.resolve()
     changes: list[str] = []
     referenced: list[str] = []
-    non_publication_references: set[str] = set()
+    publication_types: dict[str, str] = {}
     pending_frontmatter: list[tuple[Path, dict, str]] = []
 
     def track_reference(doi: str) -> None:
         if doi not in referenced:
             referenced.append(doi)
+
+    publications_path = root / "_data" / "publications.yaml"
+    publications = _read_yaml(publications_path) or []
+    if not isinstance(publications, list) or not all(isinstance(entry, dict) for entry in publications):
+        raise CitationRegistryError("_data/publications.yaml must contain a list of mappings")
+
+    normalized_publications: list[dict] = []
+    publication_by_doi: OrderedDict[str, dict] = OrderedDict()
+    for index, entry in enumerate(publications, start=1):
+        try:
+            doi = normalize_doi(entry.get("doi"))
+        except CitationRegistryError as exc:
+            raise CitationRegistryError(f"_data/publications.yaml[{index}]: {exc}") from exc
+        normalized_entry = dict(entry)
+        normalized_entry["doi"] = doi
+        if doi in publication_by_doi:
+            _merge_publication(publication_by_doi[doi], normalized_entry, doi)
+            changes.append(f"deduplicate _data/publications.yaml:{doi}")
+        else:
+            publication_by_doi[doi] = normalized_entry
+        if entry.get("doi") != doi:
+            changes.append(f"normalize _data/publications.yaml:{doi}")
+
+    normalized_publications = list(publication_by_doi.values())
+    publications_changed = normalized_publications != publications
+    for entry in normalized_publications:
+        doi = entry["doi"]
+        publication_types[doi] = str(entry.get("type") or "paper")
+        track_reference(doi)
 
     for folder, field in (("_members", "representative_dois"), ("_research", "doi_list")):
         for path in sorted((root / folder).glob("*.md")):
@@ -135,11 +168,6 @@ def synchronize(root: Path, write: bool = False) -> list[str]:
             after = _normalize_list(before, f"{path.relative_to(root)}:{field}")
             for doi in after:
                 track_reference(doi)
-                # These references are used by profile/research pages, not as an
-                # instruction to publish the DOI in the global Publications archive.
-                # A maintainer can explicitly opt a source into that archive from
-                # the Publications CMS record via publication_visible: true.
-                non_publication_references.add(doi)
             if before != after:
                 data[field] = after
                 pending_frontmatter.append((path, data, body))
@@ -168,40 +196,22 @@ def synchronize(root: Path, write: bool = False) -> list[str]:
     if not isinstance(sources, list) or not all(isinstance(entry, dict) for entry in sources):
         raise CitationRegistryError("_data/sources.yaml must contain a list of mappings")
 
-    registry: OrderedDict[str, dict] = OrderedDict()
-    for index, entry in enumerate(sources, start=1):
-        try:
-            doi = normalize_doi(entry.get("id"))
-        except CitationRegistryError as exc:
-            raise CitationRegistryError(f"_data/sources.yaml[{index}]: {exc}") from exc
-        normalized_entry = dict(entry)
-        normalized_entry["id"] = f"doi:{doi}"
-        if doi in registry:
-            _merge_source(registry[doi], normalized_entry, doi)
-            changes.append(f"deduplicate _data/sources.yaml:{doi}")
-        else:
-            registry[doi] = normalized_entry
-        if entry.get("id") != normalized_entry["id"]:
-            changes.append(f"normalize _data/sources.yaml:{doi}")
-        track_reference(doi)
+    normalized_sources = [
+        {"id": f"doi:{doi}", "type": publication_types.get(doi, "paper")}
+        for doi in referenced
+    ]
 
-    for doi in referenced:
-        if doi not in registry:
-            registry[doi] = {
-                "id": f"doi:{doi}",
-                "type": "paper",
-                **({"publication_visible": False} if doi in non_publication_references else {}),
-            }
-            changes.append(f"register referenced DOI {doi}")
-
-    normalized_sources = list(registry.values())
     sources_changed = normalized_sources != sources
+    if sources_changed:
+        changes.append("rebuild generated _data/sources.yaml")
 
     if write:
         for path, data, body in pending_frontmatter:
             _write_frontmatter(path, data, body)
         if homepage_changed:
             _write_yaml(homepage_path, homepage)
+        if publications_changed:
+            _write_yaml(publications_path, normalized_publications)
         if sources_changed:
             _write_yaml(sources_path, normalized_sources)
 

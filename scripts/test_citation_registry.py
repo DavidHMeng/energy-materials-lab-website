@@ -35,8 +35,13 @@ class CitationRegistryTests(unittest.TestCase):
             root = Path(directory)
             for folder in ("_data", "_members", "_research"):
                 (root / folder).mkdir()
+            (root / "_data" / "publications.yaml").write_text(
+                "- doi: DOI:10.1002/JACS.5C22628\n  type: paper\n  image: /images/a.png\n  tags: [one]\n  member_ids: []\n  display: true\n",
+                encoding="utf-8",
+            )
             (root / "_data" / "sources.yaml").write_text(
-                "- id: doi:10.1002/adma.202102415\n  type: paper\n", encoding="utf-8"
+                "- id: doi:10.1002/adma.202102415\n  type: paper\n  image: /images/old.png\n  publication_visible: true\n",
+                encoding="utf-8",
             )
             (root / "_data" / "homepage.yaml").write_text(
                 "introduction:\n  slides:\n  - related_doi: https://doi.org/10.1021/jacs.5c22628\n",
@@ -56,28 +61,47 @@ class CitationRegistryTests(unittest.TestCase):
             sources = yaml.safe_load((root / "_data" / "sources.yaml").read_text(encoding="utf-8"))
             ids = [entry["id"] for entry in sources]
             self.assertEqual(ids.count("doi:10.1021/jacs.5c22628"), 1)
-            profile_source = next(entry for entry in sources if entry["id"] == "doi:10.1021/jacs.5c22628")
-            self.assertFalse(profile_source["publication_visible"])
+            self.assertEqual(ids.count("doi:10.1002/adma.202102415"), 0)
+            self.assertTrue(all(set(entry) == {"id", "type"} for entry in sources))
+            publication = yaml.safe_load((root / "_data" / "publications.yaml").read_text(encoding="utf-8"))[0]
+            self.assertEqual(publication["doi"], "10.1002/jacs.5c22628")
             self.assertEqual(synchronize(root, write=False), [])
 
-    def test_explicit_publication_visibility_is_preserved(self):
+    def test_publication_delete_does_not_remove_other_membership(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             for folder in ("_data", "_members", "_research"):
                 (root / folder).mkdir()
-            (root / "_data" / "sources.yaml").write_text(
-                "- id: doi:10.1021/jacs.5c22628\n"
-                "  type: paper\n"
-                "  publication_visible: true\n",
-                encoding="utf-8",
+            (root / "_data" / "publications.yaml").write_text(
+                "- doi: 10.1021/jacs.5c22628\n  type: paper\n  display: true\n", encoding="utf-8"
             )
+            (root / "_data" / "sources.yaml").write_text("[]\n", encoding="utf-8")
             (root / "_data" / "homepage.yaml").write_text("introduction: {}\n", encoding="utf-8")
             (root / "_members" / "member.md").write_text(
                 "---\nrepresentative_dois:\n- 10.1021/jacs.5c22628\n---\n", encoding="utf-8"
             )
             synchronize(root, write=True)
             sources = yaml.safe_load((root / "_data" / "sources.yaml").read_text(encoding="utf-8"))
-            self.assertTrue(sources[0]["publication_visible"])
+            self.assertEqual(sources[0], {"id": "doi:10.1021/jacs.5c22628", "type": "paper"})
+            (root / "_data" / "publications.yaml").write_text("[]\n", encoding="utf-8")
+            synchronize(root, write=True)
+            sources = yaml.safe_load((root / "_data" / "sources.yaml").read_text(encoding="utf-8"))
+            self.assertEqual(sources[0]["id"], "doi:10.1021/jacs.5c22628")
+
+    def test_duplicate_publication_conflict_is_not_silent(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for folder in ("_data", "_members", "_research"):
+                (root / folder).mkdir()
+            (root / "_data" / "publications.yaml").write_text(
+                "- doi: 10.1021/jacs.5c22628\n  type: paper\n  display: true\n"
+                "- doi: https://doi.org/10.1021/JACS.5C22628\n  type: review\n  display: true\n",
+                encoding="utf-8",
+            )
+            (root / "_data" / "sources.yaml").write_text("[]\n", encoding="utf-8")
+            (root / "_data" / "homepage.yaml").write_text("introduction: {}\n", encoding="utf-8")
+            with self.assertRaisesRegex(CitationRegistryError, "conflicting 'type'"):
+                synchronize(root, write=True)
 
 
 if __name__ == "__main__":

@@ -40,7 +40,7 @@ class PagesCmsSchemaTests(unittest.TestCase):
         doi_fields = [
             slide_fields["related_doi"],
             fields(ENTRIES["research"])["doi_list"],
-            fields(ENTRIES["publications"])["id"],
+            fields(ENTRIES["publications"])["doi"],
             fields(ENTRIES["team"])["representative_dois"],
         ]
         for field in doi_fields:
@@ -51,7 +51,7 @@ class PagesCmsSchemaTests(unittest.TestCase):
             self.assertTrue(re.fullmatch(pattern, "DOI：10.1021/JACS.5C22628"))
             self.assertFalse(re.fullmatch(pattern, "not-a-doi"))
         self.assertTrue(re.fullmatch(slide_fields["related_doi"]["pattern"]["regex"], ""))
-        self.assertFalse(re.fullmatch(fields(ENTRIES["publications"])["id"]["pattern"]["regex"], ""))
+        self.assertFalse(re.fullmatch(fields(ENTRIES["publications"])["doi"]["pattern"]["regex"], ""))
         self.assertTrue(fields(ENTRIES["research"])["doi_list"]["list"])
         self.assertTrue(fields(ENTRIES["team"])["representative_dois"]["list"])
 
@@ -90,13 +90,12 @@ class PagesCmsSchemaTests(unittest.TestCase):
                 self.assertIsNot(section_fields[field_name].get("required"), True, f"{page_key}.{field_name}")
                 self.assertIn("Generated from Chinese", section_fields[field_name]["description"])
 
-    def test_profile_publications_have_independent_archive_visibility(self):
-        publication = fields(ENTRIES["publications"])["publication_visible"]
-        self.assertEqual(publication["type"], "boolean")
-        self.assertTrue(publication["default"])
-        self.assertIn("global Publications archive", publication["description"])
+    def test_publications_have_independent_membership_source(self):
+        self.assertEqual(ENTRIES["publications"]["path"], "_data/publications.yaml")
+        self.assertIn("display", fields(ENTRIES["publications"]))
+        self.assertNotIn("publication_visible", fields(ENTRIES["publications"]))
         for path in (ROOT / "publications" / "index.md", ROOT / "zh" / "publications" / "index.md"):
-            self.assertIn("publication_visible != false", path.read_text(encoding="utf-8"))
+            self.assertIn("publication.display != false", path.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

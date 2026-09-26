@@ -191,9 +191,10 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 1. 在 DOI 字段填写裸 DOI、完整 doi.org 地址或 `DOI:` / `DOI：` 前缀，例如
    `10.1002/adma.202102415` 或 `https://doi.org/10.1002/adma.202102415`。
 2. 需要关联成员时，在 `member_ids` 填 Team 中对应的稳定 slug。
-3. `Show on Publications page` 控制该记录是否出现在 Publications 二级页面，默认是开启。
-   关闭时 DOI 仍保留在中央 Citation Registry，Team profile 或 Research 页面仍可引用，
-   但不会进入全局 Publications 列表。
+3. `Display on Publications page` 只控制该 Publications 记录是否出现在 Publications
+   二级页面，默认是开启。删除记录也只删除 Publications membership；只要 Research、
+   Team profile 或 Homepage 仍引用该 DOI，中央 generated Citation Registry 会继续保留。
+   不要在 CMS 中编辑 `_data/sources.yaml`，它是由 workflow 生成的 provider registry。
 4. 保存后，GitHub 会自动规范化 DOI、去重并汇入中央 Citation Registry；生产和
    staging 构建会在自己的工作区再次执行同样的规范化与 citation metadata 生成，
    因此不需要等待异步 citation-sync commit。也可打开 **Actions → Synchronize DOI
@@ -204,9 +205,11 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 7. 合并并通过 CI 后，再执行 **Deploy website**；该部署同样会在当前工作区准备 DOI
    registry，不依赖另一个 workflow 先完成。
 
-Research 和 Team 都通过 DOI/成员 ID 引用同一元数据；不要在多个模块复制作者、题名、
-期刊和年份。Team 的 `Representative Publication DOIs` 不会自动创建全局 Publications
-条目；如果同一论文需要出现在两个位置，请在 Publications 中单独维护记录并打开上述开关。
+Research 和 Team 都通过 DOI/成员 ID 引用同一共享书目元数据；不要在多个模块复制作者、
+题名、期刊和年份。Team 的 `Representative Publication DOIs` 不会自动创建全局
+Publications 条目；如果同一论文需要出现在两个位置，请在 Publications 中单独维护
+记录。Publications 的 `Citation image` 只在 Publications 页面显式渲染，Profile 与
+Research 永远不会继承该图片。
 
 ### Team
 

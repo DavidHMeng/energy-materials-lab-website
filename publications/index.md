@@ -5,8 +5,10 @@ page_class: publications-page
 ---
 
 {% include custom/page-intro.html page_key="publications" %}
-{% assign publications = site.data.citations | where_exp: "citation", "citation.publication_visible != false" | sort: "date" | reverse %}
-{% for citation in publications %}
-  {% include citation.html lookup=citation.id style="rich" %}
-  {% if citation.description_en %}<p class="citation-custom-note">{{ citation.description_en }}</p>{% endif %}
+{% assign sorted_citations = site.data.citations | sort: "date" | reverse %}
+{% for citation in sorted_citations %}
+  {% assign publication = citation.id | find_publication_by_doi: site.data.publications %}
+  {% if publication and publication.display != false %}
+    {% include citation.html lookup=citation.id style="rich" image=publication.image description=publication.description_en tags=publication.tags %}
+  {% endif %}
 {% endfor %}

@@ -29,6 +29,15 @@ module LabCustomFilters
     end
   end
 
+  def find_publication_by_doi(doi, publications)
+    needle = normalize_doi(doi)
+    return nil if needle.empty?
+
+    Array(publications).find do |publication|
+      normalize_doi(publication.fetch("doi", "")) == needle
+    end
+  end
+
   def normalize_doi(value)
     candidate = CGI.unescape(value.to_s.strip)
     previous = nil

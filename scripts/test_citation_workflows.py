@@ -34,6 +34,12 @@ class CitationWorkflowTests(unittest.TestCase):
         self.assertIn("group: citation-sync-${{ github.ref }}", workflow)
         self.assertIn("cancel-in-progress: false", workflow)
 
+    def test_citation_sync_tracks_publications_source(self):
+        schedule = (ROOT / ".github" / "workflows" / "citation-schedule.yml").read_text(encoding="utf-8")
+        update = (ROOT / ".github" / "workflows" / "update-citations.yaml").read_text(encoding="utf-8")
+        self.assertIn('"_data/publications.yaml"', schedule)
+        self.assertIn("_data/publications.yaml", update)
+
 
 if __name__ == "__main__":
     unittest.main()

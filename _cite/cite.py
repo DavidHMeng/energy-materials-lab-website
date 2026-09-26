@@ -200,6 +200,21 @@ for index, source in enumerate(sources):
     # preserve fields from input source, overriding existing fields
     citation.update(source)
 
+    # Page-specific presentation and membership belong to the Publications CMS
+    # record or the page that references a DOI, never to shared citation metadata.
+    # Strip legacy cached/source fields so a stale provider cache cannot leak a
+    # graphical abstract into Profile or Research renders.
+    for page_field in (
+        "image",
+        "description_en",
+        "description_zh",
+        "tags",
+        "member_ids",
+        "display",
+        "publication_visible",
+    ):
+        citation.pop(page_field, None)
+
     # ensure date in proper format for correct date sorting
     if get_safe(citation, "date", ""):
         citation["date"] = format_date(get_safe(citation, "date", ""))

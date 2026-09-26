@@ -10,7 +10,13 @@
 
 <div class="citation-container">
   <div class="citation">
-    {% if include.style == "rich" and citation.image %}
+    {% assign citation_image = include.image %}
+    {% assign citation_description = citation.description %}
+    {% if include.description != nil %}{% assign citation_description = include.description %}{% endif %}
+    {% assign citation_tags = citation.tags %}
+    {% if include.tags != nil %}{% assign citation_tags = include.tags %}{% endif %}
+
+    {% if include.style == "rich" and citation_image %}
       <a
         {% if citation.link %}
           href="{{ citation.link | relative_url | uri_escape }}"
@@ -19,7 +25,7 @@
         aria-label="{{ citation.title | default: "citation link" | regex_strip }}"
       >
         <img
-          src="{{ citation.image | relative_url | uri_escape }}"
+          src="{{ citation_image | relative_url | uri_escape }}"
           alt="{{ citation.title | default: "citation image" | regex_strip }}"
           loading="lazy"
           {% include fallback.html %}
@@ -74,10 +80,10 @@
       </div>
 
       {% if include.style == "rich" %}
-        {% if citation.description %}
+        {% if citation_description %}
           <div class="citation-description">
             {{
-              citation.description
+              citation_description
               | markdownify
               | remove: "<p>"
               | remove: "</p>"
@@ -100,8 +106,8 @@
           </div>
         {% endif %}
 
-        {% if citation.tags.size > 0 or citation.repo %}
-          {% include tags.html tags=citation.tags repo=citation.repo %}
+        {% if citation_tags.size > 0 or citation.repo %}
+          {% include tags.html tags=citation_tags repo=citation.repo %}
         {% endif %}
       {% endif %}
     </div>

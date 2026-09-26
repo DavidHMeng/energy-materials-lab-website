@@ -76,8 +76,10 @@ DOI：10.1021/jacs.5c22628
 
 系统会去除前缀、统一大小写并写入共享 citation registry。Publication 的标题、作者、期刊、年份等不会走中文→英文自动翻译。
 Team 的 `representative_dois` 只用于个人 profile 的 Representative Publications；不会因为
-被成员引用就自动出现在 Publications 二级页。Publication 记录中的 `Show on Publications page`
-默认为开启，关闭后该 DOI 仍可在 profile/Research 中解析，但不会出现在全局列表。
+被成员引用就自动出现在 Publications 二级页。Publication 记录中的 `Display on Publications
+page` 默认为开启，关闭后该 DOI 仍可在 profile/Research 中解析，但不会出现在全局列表。
+Publications CMS 写入 `_data/publications.yaml`；`_data/sources.yaml` 由 citation workflow
+生成，不能作为 CMS 编辑入口。
 
 ### 4. 日期、数字和顺序
 

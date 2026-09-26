@@ -65,6 +65,7 @@ jobs:
         uses: tj-actions/verify-changed-files@v20
         with:
           files: |
+            _data/publications.yaml
             _data/sources.yaml
             _data/citations.yaml
             _data/homepage.yaml
@@ -105,7 +106,7 @@ jobs:
           github.event.number == ''
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          file_pattern: "_data/sources.yaml _data/citations.yaml _data/homepage.yaml _members/*.md _research/*.md"
+          file_pattern: "_data/publications.yaml _data/sources.yaml _data/citations.yaml _data/homepage.yaml _members/*.md _research/*.md"
           commit_message: "content: synchronize DOI citations [skip citation-sync]"
 
       - name: Open pull request with citations
@@ -129,5 +130,5 @@ jobs:
           github.event.pull_request.head.repo.full_name == github.repository
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          file_pattern: "_data/sources.yaml _data/citations.yaml _data/homepage.yaml _members/*.md _research/*.md"
+          file_pattern: "_data/publications.yaml _data/sources.yaml _data/citations.yaml _data/homepage.yaml _members/*.md _research/*.md"
           commit_message: "content: synchronize DOI citations [skip citation-sync]"

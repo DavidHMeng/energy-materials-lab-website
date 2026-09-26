@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "_data/sources.yaml"
+      - "_data/publications.yaml"
       - "_data/homepage.yaml"
       - "_members/**"
       - "_research/**"

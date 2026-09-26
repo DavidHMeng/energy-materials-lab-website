@@ -19,22 +19,25 @@ Pages CMS reads `.pages.yml`, which is authoritative for editor-visible fields.
 
 ## Publications
 
-`_data/sources.yaml` is the only manually maintained publication source. Each `id` must
-be `doi:<DOI>`. `_cite/cite.py` resolves metadata into `_data/citations.yaml`. Titles,
-authors, journal names, and dates remain in the publication's original language.
-`member_ids` connects citations to team profiles; Research records reference the same
-work through `doi_list`.
+`_data/publications.yaml` is the only user-maintained Publications membership and
+presentation source. Each `doi` is a lowercase bare DOI; `display` controls only the
+Publications archive and `image`, descriptions and tags are used only by that page.
+`member_ids` is optional paper-to-member metadata and never creates or edits a Team
+member's `representative_dois`.
 
-`publication_visible` controls membership in the global Publications archive. It
-defaults to `true` for an explicitly maintained Publications CMS record. DOI records
-created only because a Team `representative_dois` or Research `doi_list` references
-them are marked `false` by the citation registry, so profile/research references do
-not silently become global publication entries. The profile representative section
-still resolves metadata from the shared citation registry; only the archive
-visibility is independent. A maintainer who wants the same DOI in both places can
-edit its Publications record and set `publication_visible: true`.
+`_data/sources.yaml` is generated from the union of Publications, Research, Profile and
+Homepage DOI references. It contains only provider identity/type data (`id: doi:<DOI>`
+and `type`) and must not be edited through Pages CMS. `_cite/cite.py` resolves this
+registry into the shared bibliographic `_data/citations.yaml`; shared citations do not
+carry page presentation fields such as images, descriptions, tags or display flags.
 
-Publication records, including custom publication notes, are completely excluded from
+Publications, Research and Profile therefore have independent membership: a DOI can be
+removed from one page without being removed from the others. Titles, authors, journal
+names and dates remain in the shared citation metadata and are never copied into page
+records.
+
+Publication records, including custom publication notes and Graphical Abstract images,
+are completely excluded from
 the translation workflow. A member's optional `representative_dois` selects 3–6
 representative records from the same DOI/citation source; titles, authors, journals and
 dates are never copied into the member record, and adding such a DOI does not make it

@@ -55,16 +55,34 @@ layout.
 The Events archive and bilingual routes remain intact. A dedicated regression test covers
 empty collections, marker filtering, and preservation of the archive/CMS surface.
 
+## Publications membership and citation image isolation (2026-09-26)
+
+Publications CMS now writes `_data/publications.yaml`; `_data/sources.yaml` is a
+generated DOI registry built from the independent Publications, Research, Profile and
+Homepage memberships. `_data/citations.yaml` remains shared bibliographic metadata and
+no longer carries publication images, descriptions, tags or visibility flags. The
+Publications templates join citations to publication records by canonical DOI and pass
+the image explicitly. Profile representative citations and Research compact citations
+remain text-only, even if an old cached citation once contained an image.
+
+The requested DOI pair `10.1038/s41467-026-71876-0` and `10.1021/jacs.5c22628` is not a
+duplicate: canonicalization leaves two distinct DOI identities, so it was not merged.
+The three existing Angewandte images were mapped from Git history; `nwag209fig1.jpeg`
+is absent from both the current tree and history, so its publication record remains
+image-empty until the asset is supplied.
+
+Local regression verification for this refactor passed with `python -m unittest discover
+-s scripts -p 'test_*.py'` (71 tests, one generated-site test skipped because `_site` is
+not present). `scripts/validate_content.py`, `scripts/citation_registry.py --check`,
+workflow YAML parsing and `git diff --check` also pass. The Windows checkout has no
+Ruby/Bundler or Bash, so the Jekyll/HTMLProofer build remains an Ubuntu Actions gate and
+has not been claimed as locally executed.
+
 ## Profile citation isolation and CMS/photo crash audit (2026-09-26)
 
-The profile `Representative Publications` section is now independent from the global
-Publications archive. `_data/sources.yaml` and `_data/citations.yaml` retain one shared
-DOI metadata registry, while `publication_visible` controls only the archive list. New
-DOIs discovered from member representative references are created with
-`publication_visible: false`; a maintainer can explicitly enable the same DOI in the
-Publications CMS record. The bilingual archive templates filter only records whose flag
-is explicitly false, so profile citations continue to render without being duplicated
-on `/publications/` or `/zh/publications/`.
+The profile `Representative Publications` section remains independent from the global
+Publications archive. The legacy visibility flag has been removed from the CMS, source
+registry, generated citations and archive templates.
 
 The remote CMS history was updated while this repair was in progress: commit `f1e4634`
 added `images/uploads/getphotoimage.jpg`. The image is a formal portrait consistent
@@ -76,8 +94,8 @@ on the Jianwen edit route, which identifies a CMS session/server initialization 
 rather than a content-schema or Jekyll build error. The upload itself had reached
 GitHub, but the follow-up profile-field update had not.
 
-The repair adds the CMS visibility field, source/citation regression tests, and guide
-instructions for separating profile-only citations and auditing uploads. Local checks
+The earlier repair added source/citation regression tests and guide instructions for
+separating profile-only citations and auditing uploads. Local checks
 pass: `py scripts/validate_content.py`, citation-registry normalization, and 27
 repository unit tests. Remote evidence for `0408df9` is complete: [Validate and build
 run 36228338517](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36228338517),
@@ -88,7 +106,7 @@ run 36228338517](https://github.com/DavidHMeng/energy-materials-lab-website/acti
 and [Publish production static branch run
 36228338616](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36228338616)
 all passed. The subsequent citation metadata refresh `760a9c6` was fast-forwarded into
-the local checkout without changing visibility flags. [GitHub Pages staging run
+the local checkout without changing the deployed archive membership. [GitHub Pages staging run
 36228469981](https://github.com/DavidHMeng/energy-materials-lab-website/actions/runs/36228469981)
 also passed; the profile and bilingual Publications pages were checked at
 <https://davidhmeng.github.io/energy-materials-lab-website/team/jianwen-liang/> and

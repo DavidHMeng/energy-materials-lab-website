@@ -27,6 +27,10 @@ SCHEMAS = {
     "_opportunities": ["category", "title_zh", "content_zh", "links", "active_override", "display_order", "display"],
 }
 
+PUBLICATION_FIELDS = {
+    "doi", "type", "image", "description_zh", "description_en", "tags", "member_ids", "display"
+}
+
 CMS_EXPECTED_FIELDS = {
     "_research": ["title_en", "alt_en", "short_intro_en"],
     "_news": ["title_en", "summary_en"],
@@ -181,6 +185,34 @@ for path, data in records["_opportunities"]:
     if opening and closing and closing < opening:
         ERRORS.append(f"{path.relative_to(ROOT)}: closing_date precedes opening_date")
 
+publications = load_yaml(ROOT / "_data" / "publications.yaml") or []
+if not isinstance(publications, list):
+    ERRORS.append("_data/publications.yaml: must contain a list of mappings")
+    publications = []
+publication_dois = set()
+for index, publication in enumerate(publications, start=1):
+    if not isinstance(publication, dict):
+        ERRORS.append(f"_data/publications.yaml item {index}: must be a mapping")
+        continue
+    normalized = checked_doi(publication.get("doi"), f"_data/publications.yaml item {index}: doi")
+    if normalized:
+        if normalized in publication_dois:
+            ERRORS.append(f"_data/publications.yaml: duplicate Publication DOI {normalized}")
+        publication_dois.add(normalized)
+    if not isinstance(publication.get("display"), bool):
+        ERRORS.append(f"_data/publications.yaml item {index}: display must be boolean")
+    if publication.get("image"):
+        check_image(publication["image"], ROOT / "_data" / "publications.yaml")
+    for field in ("tags", "member_ids"):
+        if publication.get(field) not in (None, "") and not isinstance(publication.get(field), list):
+            ERRORS.append(f"_data/publications.yaml item {index}: {field} must be a list")
+    for member_id in publication.get("member_ids", []) or []:
+        if member_id not in member_ids:
+            ERRORS.append(f"_data/publications.yaml: unknown member_id {member_id}")
+    unknown = set(publication) - PUBLICATION_FIELDS
+    if unknown:
+        ERRORS.append(f"_data/publications.yaml item {index}: unexpected fields {sorted(unknown)}")
+
 sources = load_yaml(ROOT / "_data" / "sources.yaml") or []
 citations = load_yaml(ROOT / "_data" / "citations.yaml") or []
 source_dois = []
@@ -192,17 +224,19 @@ for index, source in enumerate(sources):
     if normalized in source_dois:
         ERRORS.append(f"_data/sources.yaml: duplicate DOI {normalized}")
     source_dois.append(normalized)
-    if "publication_visible" in source and not isinstance(source["publication_visible"], bool):
-        ERRORS.append(f"_data/sources.yaml item {index + 1}: publication_visible must be boolean")
-    for member_id in source.get("member_ids", []) or []:
-        if member_id not in member_ids:
-            ERRORS.append(f"_data/sources.yaml: unknown member_id {member_id}")
+    forbidden = {"image", "publication_visible", "description_en", "description_zh", "display", "tags", "member_ids"}
+    leaked = sorted(forbidden.intersection(source))
+    if leaked:
+        ERRORS.append(f"_data/sources.yaml item {index + 1}: generated registry contains presentation fields {leaked}")
 
 citation_dois = set()
 for index, item in enumerate(citations, start=1):
     normalized = checked_doi(item.get("id"), f"_data/citations.yaml item {index}")
     if normalized:
         citation_dois.add(normalized)
+    leaked = sorted({"image", "publication_visible", "description_en", "description_zh", "display", "tags", "member_ids"}.intersection(item))
+    if leaked:
+        ERRORS.append(f"_data/citations.yaml item {index}: shared citation contains page fields {leaked}")
 source_doi_set = set(source_dois)
 for doi in source_doi_set - citation_dois:
     WARNINGS.append(f"_data/sources.yaml: DOI {doi} metadata is pending in citations.yaml")
@@ -265,9 +299,14 @@ for page_key in PAGE_KEYS:
     for field_name in PAGE_EN_FIELDS:
         if field_map.get(field_name, {}).get("required") is True:
             ERRORS.append(f".pages.yml pages.{page_key}.{field_name}: English field must remain optional")
-publication_cms_fields = {field.get("name") for field in cms_entries.get("publications", {}).get("fields", [])}
-if "publication_visible" not in publication_cms_fields:
-    ERRORS.append(".pages.yml publications: missing publication_visible control")
+publications_cms = cms_entries.get("publications", {})
+if publications_cms.get("type") != "file" or publications_cms.get("path") != "_data/publications.yaml":
+    ERRORS.append(".pages.yml publications: must be a file mapped to _data/publications.yaml")
+publication_cms_fields = {field.get("name") for field in publications_cms.get("fields", [])}
+if publication_cms_fields != PUBLICATION_FIELDS:
+    ERRORS.append(f".pages.yml publications: fields must be {sorted(PUBLICATION_FIELDS)}, got {sorted(publication_cms_fields)}")
+if "publication_visible" in publication_cms_fields:
+    ERRORS.append(".pages.yml publications: deprecated publication_visible field remains exposed")
 for collection_name, folder in {"news": "_news", "events": "_events", "research": "_research", "team": "_members", "opportunities": "_opportunities"}.items():
     cms_fields = {field.get("name") for field in cms_entries.get(collection_name, {}).get("fields", [])}
     missing_fields = (set(SCHEMAS[folder]) | set(CMS_EXPECTED_FIELDS[folder])) - cms_fields

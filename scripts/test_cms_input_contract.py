@@ -81,8 +81,8 @@ class PagesCmsInputContractTests(unittest.TestCase):
             self.assertIsNotNone(doi_pattern.fullmatch(value), value)
         self.assertIsNone(doi_pattern.fullmatch("not-a-doi"))
 
-    def test_publication_visibility_is_an_explicit_boolean_control(self):
-        field = field_map("publications")["publication_visible"]
+    def test_publication_display_is_an_explicit_boolean_control(self):
+        field = field_map("publications")["display"]
         self.assertEqual(field["type"], "boolean")
         self.assertTrue(field["default"])
 
