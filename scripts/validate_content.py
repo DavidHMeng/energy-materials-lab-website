@@ -364,7 +364,7 @@ site_optional_english = {"lab_name_en", "school_en", "college_en", "address_en",
 for key in site_required:
     if not site_data.get(key):
         ERRORS.append(f"_data/site.yaml: missing {key}")
-for key in ("header_image", "lab_logo", "school_logo"):
+for key in ("header_image", "lab_logo", "lab_logo_header", "school_logo"):
     check_image(site_data.get(key, ""), ROOT / "_data" / "site.yaml")
 typography = site_data.get("typography") or {}
 for key, allowed in TYPOGRAPHY_PRESETS.items():

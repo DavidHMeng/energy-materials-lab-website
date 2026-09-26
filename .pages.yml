@@ -339,6 +339,7 @@ content:
       - { name: email, label: Email, type: string, required: true }
       - { name: header_image, label: Header campus image, type: image, required: true, options: { media: images } }
       - { name: lab_logo, label: Lab logo, type: image, required: true, options: { media: images } }
+      - { name: lab_logo_header, label: "Header logo (trimmed, optional)", type: image, description: "Optional transparent-margin-trimmed variant for the header. Leave blank to use Lab logo.", options: { media: images } }
       - { name: school_logo, label: School logo, type: image, required: true, options: { media: images } }
       - { name: copyright_zh, label: Copyright ZH, type: string, required: true }
       - { name: copyright_en, label: "Copyright EN (optional)", type: string, description: "Generated from Chinese when empty." }

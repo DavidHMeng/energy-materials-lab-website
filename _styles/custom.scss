@@ -31,6 +31,10 @@ html {
 :root {
   --font-lab-name: clamp(2rem, 3.1vw, 2.35rem);
   --font-navigation: clamp(1.1rem, 1.45vw, 1.19rem);
+  --logo-hero-box: clamp(88px, 8vw, 100px);
+  --logo-nav-box: clamp(58px, 5vw, 66px);
+  --logo-nav-box-scrolled: clamp(52px, 4.4vw, 58px);
+  --logo-mobile-box: clamp(42px, 12vw, 48px);
   --font-page-title: clamp(2rem, 3.5vw, 2.75rem);
   --font-section-title: clamp(1.45rem, 2.25vw, 1.9rem);
   --font-body: 1rem;
@@ -177,7 +181,7 @@ header.background[data-big] {
 }
 
 header.background[data-big] .home {
-  gap: 0.6rem;
+  gap: clamp(0.8rem, 1.4vw, 1rem);
 }
 
 header.background[data-big] .title-text {
@@ -200,8 +204,9 @@ header.background[data-big] .subtitle {
 
 header .home .logo {
   display: grid;
-  width: 64px;
-  height: 64px;
+  flex: 0 0 auto;
+  width: var(--logo-nav-box);
+  height: var(--logo-nav-box);
   place-items: center;
   background: transparent;
   border: 0;
@@ -212,28 +217,50 @@ header .home .logo {
 
 header .home .logo img,
 header .home .logo svg {
-  width: 52px;
-  height: 52px;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
+  object-position: center;
+  aspect-ratio: auto;
   background: transparent;
+  border: 0;
+  box-shadow: none;
   filter: none;
 }
 
-header.background:not([data-big]) .home .logo {
-  width: 54px;
-  height: 54px;
-  transition: width 220ms var(--motion-ease), height 220ms var(--motion-ease);
+header.background[data-big] .home .logo {
+  width: var(--logo-hero-box);
+  height: var(--logo-hero-box);
 }
 
-header.background:not([data-big]).is-scrolled .home .logo {
-  width: 48px;
-  height: 48px;
+header.background[data-big] .home .logo img,
+header.background[data-big] .home .logo svg {
+  max-width: min(100%, 84px);
+  max-height: min(100%, 84px);
+}
+
+header.background:not([data-big]) .home .logo {
+  transition: width 220ms var(--motion-ease), height 220ms var(--motion-ease);
 }
 
 header.background:not([data-big]) .home .logo img,
 header.background:not([data-big]) .home .logo svg {
-  width: 44px;
-  height: 44px;
+  max-width: min(100%, 56px);
+  max-height: min(100%, 56px);
+}
+
+header.background:not([data-big]).is-scrolled .home .logo {
+  width: var(--logo-nav-box-scrolled);
+  height: var(--logo-nav-box-scrolled);
+}
+
+header.background:not([data-big]).is-scrolled .home .logo img,
+header.background:not([data-big]).is-scrolled .home .logo svg {
+  max-width: min(100%, 50px);
+  max-height: min(100%, 50px);
 }
 
 header nav {
@@ -1231,14 +1258,26 @@ html[lang="zh"] body {
   }
 
   header.background:not([data-big]) .home .logo {
-    width: 46px;
-    height: 46px;
+    width: clamp(52px, 8vw, 60px);
+    height: clamp(52px, 8vw, 60px);
     flex-shrink: 0;
   }
 
+  header.background:not([data-big]) .home .logo img,
+  header.background:not([data-big]) .home .logo svg {
+    max-width: min(100%, 56px);
+    max-height: min(100%, 56px);
+  }
+
   header.background:not([data-big]).is-scrolled .home .logo {
-    width: 40px;
-    height: 40px;
+    width: clamp(48px, 7vw, 54px);
+    height: clamp(48px, 7vw, 54px);
+  }
+
+  header.background:not([data-big]).is-scrolled .home .logo img,
+  header.background:not([data-big]).is-scrolled .home .logo svg {
+    max-width: min(100%, 50px);
+    max-height: min(100%, 50px);
   }
 
   header.background:not([data-big]) .title {
@@ -1332,19 +1371,25 @@ html[lang="zh"] body {
   }
 
   header.background:not([data-big]) .home .logo {
-    width: 40px;
-    height: 40px;
-  }
-
-  header.background:not([data-big]).is-scrolled .home .logo {
-    width: 36px;
-    height: 36px;
+    width: var(--logo-mobile-box);
+    height: var(--logo-mobile-box);
   }
 
   header.background:not([data-big]) .home .logo img,
   header.background:not([data-big]) .home .logo svg {
-    width: 36px;
-    height: 36px;
+    max-width: min(100%, 40px);
+    max-height: min(100%, 40px);
+  }
+
+  header.background:not([data-big]).is-scrolled .home .logo {
+    width: clamp(38px, 10vw, 44px);
+    height: clamp(38px, 10vw, 44px);
+  }
+
+  header.background:not([data-big]).is-scrolled .home .logo img,
+  header.background:not([data-big]).is-scrolled .home .logo svg {
+    max-width: min(100%, 40px);
+    max-height: min(100%, 40px);
   }
 
   header.background:not([data-big]) .title {

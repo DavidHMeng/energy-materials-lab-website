@@ -35,7 +35,7 @@ class PagesCmsInputContractTests(unittest.TestCase):
             {"homepage", "pages", "news", "events", "research", "publications", "team", "team-roles", "opportunities", "site"},
         )
         # Current contract inventory. The count includes nested object/list fields.
-        self.assertEqual(sum(len(field_map(name)) for name in ENTRIES), 175)
+        self.assertEqual(sum(len(field_map(name)) for name in ENTRIES), 176)
 
     def test_no_malformed_flow_mapping_fields(self):
         allowed = {"name", "label", "type", "required", "pattern", "description", "options", "default", "list", "fields"}
@@ -100,6 +100,7 @@ class PagesCmsInputContractTests(unittest.TestCase):
             ("research", "graphical_abstract"),
             ("team", "portrait"),
             ("site", "lab_logo"),
+            ("site", "lab_logo_header"),
             ("site", "school_logo"),
         ):
             self.assertEqual(field_map(entry_name)[path]["options"]["media"], "images")

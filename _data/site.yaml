@@ -8,6 +8,8 @@ address_zh: 浙江省宁波市镇海区蛟川街道海江大道2911号
 email: news@eitech.edu.cn
 header_image: /images/uploads/codex-2026924-130010.png
 lab_logo: /images/uploads/dd28de32-e182-4799-bf9c-9a3730a7e4eb.png
+# Optional transparent-margin-trimmed variant used by the header at all sizes.
+lab_logo_header: /images/uploads/dd28de32-e182-4799-bf9c-9a3730a7e4eb-header.png
 school_logo: /images/uploads/08ffe46c-f9ad-4ba5-9fc3-6ceb5c7ca741.png
 copyright_en: Solid-State Energy Laboratory
 copyright_zh: 固态能源实验室

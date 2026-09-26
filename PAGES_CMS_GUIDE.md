@@ -128,7 +128,7 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 | Team | 成员、圆形头像、简短介绍与个人页 | 支持 Profile Summary 与代表作 DOI；`slug` 稳定且唯一；离组成员关闭 `active` 或 `display` |
 | Team Role Labels | 成员分类及其中英文标题 | 可维护博士后、访问学生等类别，也可新增未来类别 |
 | Opportunities | 招聘与机会 | 使用日期窗口和 `active_override`；空类别自动隐藏 |
-| Site Settings | 名称、学校、地址、邮箱、Logo、页头图和站点描述 | 替换占位内容时同时完成中英文信息 |
+| Site Settings | 名称、学校、地址、邮箱、Logo、页头图和站点描述 | `Header logo (trimmed, optional)` 仅用于去除透明边距；留空时回退到 `Lab logo` |
 | Media | 上传站点图片 | 上传后在内容记录中选择，并填写双语 Alt |
 | Actions | 构建、发布和 DOI 更新 | 先 CI，后发布；DOI 更新会创建 PR |
 
@@ -185,6 +185,15 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 - `Graphical Abstract` 使用统一比例的正式研究图。
 - `DOI list` 每行只写 DOI，例如 `10.1002/adma.202102415`，不要复制书目信息。
 - `Order` 越小越靠前；`display` 关闭后整条研究方向隐藏。
+
+### Site Settings / Header logo
+
+- `Lab logo` 保留原始站点 Logo 资源，供站点设置和其他需要原图的场景使用。
+- `Header logo (trimmed, optional)` 是给首页 Hero、普通导航栏和滚动导航栏使用的透明边距裁切版；
+  它只去掉外围透明像素，不改变 Logo 本体。当前仓库已提供对应裁切资源。
+- 如果以后替换 `Lab logo`，而新资源四周也有明显透明留白，可同时上传一份裁切版到该字段；
+  如果留空，Header 会自动回退到 `Lab logo`。
+- Header 的容器负责不同状态的尺寸，图片使用等比例 `contain`，因此不要上传已经拉伸或强制改比例的版本。
 
 ### Publications
 
