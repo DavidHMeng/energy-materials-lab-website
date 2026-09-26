@@ -20,6 +20,8 @@ class CarouselLayoutTests(unittest.TestCase):
         self.assertRegex(CSS, r"\.visual-slide-image\s*\{[^}]*height:\s*var\(--scientific-canvas-height\)")
         image_rule = re.search(r"\.visual-slide img\s*\{(.*?)\}", CSS, re.S)
         self.assertIsNotNone(image_rule)
+        self.assertIn("min-width: 0", image_rule.group(1))
+        self.assertIn("min-height: 0", image_rule.group(1))
         self.assertIn("object-fit: contain", image_rule.group(1))
         self.assertIn("object-position: center", image_rule.group(1))
         self.assertNotIn("object-fit: cover", image_rule.group(1))
@@ -33,7 +35,8 @@ class CarouselLayoutTests(unittest.TestCase):
 
     def test_responsive_canvas_ranges_and_reduced_motion_remain(self):
         self.assertIn("--scientific-canvas-height: clamp(420px, 60vw, 540px)", CSS)
-        self.assertIn("--scientific-canvas-height: clamp(280px, 88vw, 380px)", CSS)
+        self.assertIn("--scientific-canvas-height: min(calc(71.428vw - 0.714rem), 380px)", CSS)
+        self.assertIn("width: min(calc(100vw - 1rem), 532px)", CSS)
         self.assertIn("@media (prefers-reduced-motion: reduce)", CSS)
         self.assertIn("reducedMotion.matches", (ROOT / "_scripts" / "custom.js").read_text(encoding="utf-8"))
 

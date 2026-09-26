@@ -19,7 +19,8 @@ DeepL、文献同步、Jekyll 或部署；**Generate pending English** 在 GitHu
 
 可上传不同原始比例的科研图，无需裁切或拉伸。网站把每张图放入稳定的近白色科学
 画布，并使用 `object-fit: contain` 居中完整显示；需要时允许留白。Desktop 目标约
-1.4:1，Tablet 和 Mobile 使用受限的响应式高度。Caption 固定保留两行标题和一行
+1.4:1，Tablet 使用受限的响应式高度，Mobile 使用接近视口宽度且最高 532 × 380 px
+的 1.4:1 画布。Caption 固定保留两行标题和一行
 期刊/年份，因此切换图片不会推动 Highlights 上下跳动。Dark Mode 下科研图画布仍
 保持浅色，以保护黑色文字、细线和图例的可读性。
 

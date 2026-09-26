@@ -107,7 +107,7 @@ fixture also verifies fallback for missing, rather than merely blank, English ke
 
 The carousel uses one stable scientific canvas per viewport. Its desktop target is
 approximately 1.4:1, with a responsive height capped at 780 px; tablet uses 420–540 px
-and mobile uses 280–380 px. Every image uses `object-fit: contain` and
+and mobile uses a nearly viewport-wide 1.4:1 canvas capped at 532 × 380 px. Every image uses `object-fit: contain` and
 `object-position: center` on a near-white canvas in both themes. Original pixels are
 not cropped or stretched.
 

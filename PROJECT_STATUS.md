@@ -19,8 +19,9 @@ empty and omitted English keys, including manual-only names. The coverage guard 
 new CMS `*_zh` fields against the registry.
 
 Homepage Graphical Abstract slides now share one responsive scientific canvas. Desktop
-height is bounded at 560–780 px around a 1.4:1 target; tablet is 420–540 px and mobile
-280–380 px. Images use centered `contain` rendering on a near-white canvas in both
+height is bounded at 560–780 px around a 1.4:1 target; tablet is 420–540 px. Mobile uses
+a nearly viewport-wide 1.4:1 canvas capped at 532 × 380 px, shrinking proportionally on
+very narrow screens. Images use centered `contain` rendering on a near-white canvas in both
 themes. A fixed caption block reserves a two-line title and one metadata row, eliminating
 intrinsic-image and missing-metadata height changes. Existing autoplay, pause, swipe,
 arrows, dots and reduced-motion behavior remain unchanged.

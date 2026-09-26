@@ -113,8 +113,8 @@ limited to 5–12 seconds, pauses during hover/focus, supports touch swiping and
 controls, and is disabled when the visitor requests reduced motion.
 
 The visible scientific-image region uses a fixed responsive scientific canvas with an
-approximately `1.4:1` desktop target, 420–540 px tablet height and 280–380 px mobile
-height. Images remain centered with `object-fit: contain` on a white/near-white canvas
+approximately `1.4:1` target, 420–540 px tablet height and a nearly viewport-wide
+mobile canvas capped at 532 × 380 px. Images remain centered with `object-fit: contain` on a white/near-white canvas
 in both themes. The caption always reserves a two-line title row and one metadata row,
 so intrinsic image proportions and missing DOI metadata cannot move later sections. If a
 Graphical Abstract has a `related_doi`, journal and year are resolved from
