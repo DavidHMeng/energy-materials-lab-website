@@ -51,3 +51,21 @@
 - id: doi:10.1016/j.joule.2025.102260
   type: paper
   publication_visible: false
+- id: doi:10.1002/adma.202502067
+  type: paper
+  publication_visible: false
+- id: doi:10.1038/s41467-025-64726-y
+  type: paper
+  publication_visible: false
+- id: doi:10.1002/anie.202518966
+  type: paper
+  publication_visible: false
+- id: doi:10.1021/jacs.3c01955
+  type: paper
+  publication_visible: false
+- id: doi:10.1002/anie.202306433
+  type: paper
+  publication_visible: false
+- id: doi:10.1038/s41467-023-43886-9
+  type: paper
+  publication_visible: false

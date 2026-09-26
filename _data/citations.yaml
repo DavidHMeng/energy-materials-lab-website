@@ -369,3 +369,164 @@
   publication_visible: false
   plugin: sources.py
   file: sources.yaml
+- id: doi:10.1002/adma.202502067
+  title: "Revealing the Underlying Role of Li\n                    <sub>2</sub>\n\
+    \                    CO\n                    <sub>3</sub>\n                  \
+    \  in Enhancing Performance of Oxyhalide\u2010Based Solid\u2010State Batteries"
+  authors:
+  - Han Wu
+  - Jie Qu
+  - Xiaolong Yan
+  - Simeng Zhang
+  - Xingyu Wang
+  - Jianwen Liang
+  - Nian Zhang
+  - Bona Dai
+  - Junyi Yue
+  - Tianlu Pang
+  - Tao Mei
+  - Yongrui Luo
+  - Hao Lai
+  - Xinmiao Wang
+  - Liyu Zhou
+  - Shuo Wang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Advanced Materials
+  date: '2025-06-02'
+  link: https://doi.org/hbkhd8
+  type: paper
+  publication_visible: false
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1038/s41467-025-64726-y
+  title: Mechanically robust halide electrolytes for high-performance all-solid-state
+    batteries
+  authors:
+  - Xu Han
+  - Yang Xu
+  - Huamei Li
+  - Zaifa Wang
+  - Junyi Yue
+  - Xiaolong Yan
+  - Simeng Zhang
+  - Jiamin Fu
+  - Yu Xia
+  - Liyu Zhou
+  - Saiqi Wei
+  - Xinyi Liu
+  - Xingyu Wang
+  - Changtai Zhao
+  - Xiaona Li
+  - Shou-Hang Bo
+  - Jiantao Wang
+  - Xueliang Sun
+  - Jianwen Liang
+  publisher: Nature Communications
+  date: '2025-11-05'
+  link: https://doi.org/hckqb7
+  type: paper
+  publication_visible: false
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1002/anie.202518966
+  title: "An All\u2010Solid\u2010State Li\u2013Cu Battery via Cuprous/Lithium\u2010\
+    Ion Halide Solid Electrolyte"
+  authors:
+  - Yueyue Wang
+  - Limin Wang
+  - Xiaolong Yan
+  - Yang Xu
+  - Xingyu Wang
+  - Xiangzhen Zhu
+  - Yanlong Wu
+  - Xu Han
+  - Changtai Zhao
+  - Congying Fang
+  - Xiaokang Tan
+  - Mengying Zhang
+  - Yinzhuang Fang
+  - Yingying Jiang
+  - Biwei Xiao
+  - Xiaona Li
+  - Jianwen Liang
+  - Tao Mei
+  publisher: Angewandte Chemie International Edition
+  date: '2025-11-11'
+  link: https://doi.org/hckqb8
+  type: paper
+  publication_visible: false
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1021/jacs.3c01955
+  title: Hopping Rate and Migration Entropy as the Origin of Superionic Conduction
+    within Solid-State Electrolytes
+  authors:
+  - Xiaona Li
+  - Honggang Liu
+  - Changtai Zhao
+  - Jung Tae Kim
+  - Jiamin Fu
+  - Xiaoge Hao
+  - Weihan Li
+  - Ruying Li
+  - Ning Chen
+  - Duanyun Cao
+  - Zhenwei Wu
+  - Yuefeng Su
+  - Jianwen Liang
+  - Xueliang Sun
+  publisher: Journal of the American Chemical Society
+  date: '2023-05-17'
+  link: https://doi.org/hckqb5
+  type: paper
+  publication_visible: false
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1002/anie.202306433
+  title: "The Universal Super Cation\u2010Conductivity in Multiple\u2010cation Mixed\
+    \ Chloride Solid\u2010State Electrolytes"
+  authors:
+  - Xiaona Li
+  - Yang Xu
+  - Changtai Zhao
+  - Duojie Wu
+  - Limin Wang
+  - Matthew Zheng
+  - Xu Han
+  - Simeng Zhang
+  - Junyi Yue
+  - Biwei Xiao
+  - Wei Xiao
+  - Ligen Wang
+  - Tao Mei
+  - Meng Gu
+  - Jianwen Liang
+  - Xueliang Sun
+  publisher: Angewandte Chemie International Edition
+  date: '2023-10-23'
+  link: https://doi.org/hckqb6
+  type: paper
+  publication_visible: false
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1038/s41467-023-43886-9
+  title: Structural regulation of halide superionic conductors for all-solid-state
+    lithium batteries
+  authors:
+  - Xiaona Li
+  - Jung Tae Kim
+  - Jing Luo
+  - Changtai Zhao
+  - Yang Xu
+  - Tao Mei
+  - Ruying Li
+  - Jianwen Liang
+  - Xueliang Sun
+  publisher: Nature Communications
+  date: '2024-01-02'
+  link: https://doi.org/gtfx9v
+  type: paper
+  publication_visible: false
+  plugin: sources.py
+  file: sources.yaml
