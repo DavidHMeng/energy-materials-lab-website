@@ -14,7 +14,10 @@ on:
       - "_opportunities/**"
       - "scripts/translate_content.py"
       - "scripts/check_translation_coverage.py"
+      - "scripts/test_translation_coverage.py"
       - "_translation/registry.yml"
+      - "_plugins/custom_translation_fallback.rb"
+      - ".github/workflows/translate-content.yml"
       - ".pages.yml"
       - "TRANSLATION_STYLE.md"
   workflow_dispatch:
