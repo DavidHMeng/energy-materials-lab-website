@@ -2,47 +2,119 @@ research:
   title_zh: 研究方向
   title_en: Research
   intro_zh: 我们研究面向下一代储能体系的材料、界面与电化学过程。
-  intro_en: We study materials, interfaces, and electrochemical processes that
-    shape next-generation energy storage.
+  intro_en: We study materials, interfaces, and electrochemical processes that shape next-generation energy storage.
   description_zh: 卤化物固态电解质
+  description_en: Halide Solid-State Electrolytes
 publications:
   title_zh: 论文发表
   title_en: Publications
   intro_zh: 我们分享围绕固态离子学与先进储能开展的研究成果。
-  description_zh: |-
-    https://doi.org/10.1021/jacs.3c01955
+  description_zh: 'https://doi.org/10.1021/jacs.3c01955
+
     https://doi.org/10.1002/anie.202306433
+
     https://doi.org/10.1021/acs.accounts.3c00484
+
     https://doi.org/10.1038/s41467-023-43886-9
+
     https://doi.org/10.1002/anie.202401373
+
     https://doi.org/10.1002/adma.202410402
+
     https://doi.org/10.1002/smll.202408824
+
     https://doi.org/10.1002/adma.202502067
+
     https://doi.org/10.1016/j.matt.2025.102458
+
     https://doi.org/10.1039/d5ee03490f
+
     https://doi.org/10.1038/s41560-025-01853-2
+
     https://doi.org/10.1038/s41467-025-64726-y
+
     https://doi.org/10.1002/anie.202518966
+
     https://doi.org/10.1016/j.cej.2025.171135
+
     https://doi.org/10.1016/j.jechem.2025.11.057
+
     https://doi.org/10.1016/j.joule.2025.102233
+
     https://doi.org/10.1016/j.joule.2025.102260
+
     https://doi.org/10.1021/acs.accounts.6c00035
+
     https://doi.org/10.1021/jacs.5c21351
+
     https://doi.org/10.1093/nsr/nwag209
+
     https://doi.org/10.1021/jacs.5c22628
+
     https://doi.org/10.1038/s41467-026-71876-0
+
     https://doi.org/10.1002/anie.4292495
-    https://doi.org/10.1002/anie.5596828
+
+    https://doi.org/10.1002/anie.5596828'
+  intro_en: We are sharing our research findings on solid-state ionics and advanced energy storage.
+  description_en: 'https://doi.org/10.1021/jacs.3c01955
+
+    https://doi.org/10.1002/anie.202306433
+
+    https://doi.org/10.1021/acs.accounts.3c00484
+
+    https://doi.org/10.1038/s41467-023-43886-9
+
+    https://doi.org/10.1002/anie.202401373
+
+    https://doi.org/10.1002/adma.202410402
+
+    https://doi.org/10.1002/smll.202408824
+
+    https://doi.org/10.1002/adma.202502067
+
+    https://doi.org/10.1016/j.matt.2025.102458
+
+    https://doi.org/10.1039/d5ee03490f
+
+    https://doi.org/10.1038/s41560-025-01853-2
+
+    https://doi.org/10.1038/s41467-025-64726-y
+
+    https://doi.org/10.1002/anie.202518966
+
+    https://doi.org/10.1016/j.cej.2025.171135
+
+    https://doi.org/10.1016/j.jechem.2025.11.057
+
+    https://doi.org/10.1016/j.joule.2025.102233
+
+    https://doi.org/10.1016/j.joule.2025.102260
+
+    https://doi.org/10.1021/acs.accounts.6c00035
+
+    https://doi.org/10.1021/jacs.5c21351
+
+    https://doi.org/10.1093/nsr/nwag209
+
+    https://doi.org/10.1021/jacs.5c22628
+
+    https://doi.org/10.1038/s41467-026-71876-0
+
+    https://doi.org/10.1002/anie.4292495
+
+    https://doi.org/10.1002/anie.5596828'
 team:
   title_zh: 团队成员
   title_en: Team
   intro_zh: 我们由具有多元背景的研究人员组成，共同推进材料与能源科学研究。
   description_zh: 课题组现有成员。
   description_en: Current members of the research group.
+  intro_en: We are a group of researchers from diverse backgrounds who work together to advance scientific research in materials and energy.
 opportunities:
   title_zh: 招聘机会
   title_en: Opportunities
   intro_zh: 我们欢迎对材料科学、固态离子学与先进储能感兴趣的研究人员加入团队。
   description_zh: 课题组当前招聘信息。
   description_en: Current openings in the research group.
+  intro_en: We welcome researchers interested in materials science, solid-state ionics, and advanced energy storage to join our team.
