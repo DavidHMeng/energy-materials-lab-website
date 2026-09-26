@@ -169,6 +169,43 @@ entries:
       generated_hash: 71dcca729382e141a0b30338643940277f0015fb8c081d933ae31eb7e0ecd9cf
       source_hash: e6b9f8949b23786aef376c04c59859e8b3f077983eee7a0ba4b4d18fb7cb1b6c
       status: auto
+  _members/hairui weng.md:
+    address:
+      generated_hash: d1f08488940a549ad1fe59789d122543818a22057ff623395b1bbc73c5ff3b8f
+      source_hash: fa17eca3030acc44e70cad0cafb78b77262172899409e6bed76829a7ac7f03f5
+      status: auto
+    affiliation:
+      generated_hash: 6c7d555f8165fcc06a5fef5d2f1166b5b3afa1fd4b85468f3d2f6d1043d5935b
+      source_hash: b03717e4627526f62e634c10d5ae5e197b6f1e1bc948eb01ac176cba85027de2
+      status: auto
+    education:
+      generated_hash: 826e97651005489e5c45cd8551b91d662be5de706b66cad1f0a9fb5aaee3c046
+      source_hash: dd32b5a4ad9f8ac786692206d8c545b1d75045c10a7723b9fe27dbaa1aebb029
+      status: auto
+    personal_note:
+      generated_hash: ad265663472836b2a684a9782cc83e0dd39ac2257a4e1d20207bfe1459cfd335
+      source_hash: 28f52f0947b2ad79037bfd0a72ca4cc74f2febe52a067f1ee24efc5410da14ff
+      status: auto
+    portrait_alt:
+      generated_hash: d93352a70395db3de0632a6b203cbc58aebb331e74bc417e7d75d4c6e8997434
+      source_hash: bc2f82f27d245369ef4a9f2390255f88b800c93f1244fc7565e9fa565f6b7119
+      status: auto
+    position:
+      generated_hash: d93352a70395db3de0632a6b203cbc58aebb331e74bc417e7d75d4c6e8997434
+      source_hash: bc2f82f27d245369ef4a9f2390255f88b800c93f1244fc7565e9fa565f6b7119
+      status: auto
+    profile_summary:
+      generated_hash: 4b6a12d881c3de87827cf986b619b384a88ce25dd8309ee2639e140b0608c204
+      source_hash: 20a7eedca742f4ff347f2fd460f21c214ca56e1e7dcb6555a3ad5cadced353d4
+      status: auto
+    research_interests:
+      generated_hash: f6cdb0ddb7a3596ad5e485d769b567f5670c0d04da50605607acfe748d6501b5
+      source_hash: 6f7d5587b9519821eff143f5103eec602c252997c766af795cd3d02b2b599078
+      status: auto
+    research_summary:
+      generated_hash: f6cdb0ddb7a3596ad5e485d769b567f5670c0d04da50605607acfe748d6501b5
+      source_hash: 6f7d5587b9519821eff143f5103eec602c252997c766af795cd3d02b2b599078
+      status: auto
   _members/mei-li.md:
     address:
       english_hash: 10ab9b9dd5c25667e713181c2669807332d843ac6516bf21709d42b7212e990c
