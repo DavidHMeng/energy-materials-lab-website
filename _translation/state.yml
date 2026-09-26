@@ -280,6 +280,43 @@ entries:
       generated_hash: b3b945088237443ad0d9a403a2a335fc1f03d8321e42ede380fdd4f5d7e91aa8
       source_hash: 2545d3ba2fc22a650b9e7c24116e9bd37a86e615c9c8ddbc14cb405a472f6423
       status: auto
+  _members/zhimin xue.md:
+    address:
+      generated_hash: dff9072a57096f5bfda402bda8ec9a3bc7e4da15cf91b0dd0ba825921f1e180b
+      source_hash: 8a7a412aa38cc2ce52af5905cd719ae032925699924be4ff23e4be7c3476ce5f
+      status: auto
+    affiliation:
+      generated_hash: 6c7d555f8165fcc06a5fef5d2f1166b5b3afa1fd4b85468f3d2f6d1043d5935b
+      source_hash: b03717e4627526f62e634c10d5ae5e197b6f1e1bc948eb01ac176cba85027de2
+      status: auto
+    education:
+      generated_hash: fad24bcc3a304ae98c8e575be2205cf665ef5e3a246788208819a80416bf2640
+      source_hash: 5a8d7d4dd7063f7d4aa4d6a2e6bfc15989bdb2998d3444c4ae0569765d9d7e9e
+      status: auto
+    personal_note:
+      generated_hash: a320866777ef47696bc006bea62b41f2ed988977c75671b0a4951d71fc261e88
+      source_hash: 6fab5ebe35d4b7510b50db0658e201e35f7496f3c74962c85cd27978a5f98197
+      status: auto
+    portrait_alt:
+      generated_hash: d93352a70395db3de0632a6b203cbc58aebb331e74bc417e7d75d4c6e8997434
+      source_hash: bc2f82f27d245369ef4a9f2390255f88b800c93f1244fc7565e9fa565f6b7119
+      status: auto
+    position:
+      generated_hash: d93352a70395db3de0632a6b203cbc58aebb331e74bc417e7d75d4c6e8997434
+      source_hash: bc2f82f27d245369ef4a9f2390255f88b800c93f1244fc7565e9fa565f6b7119
+      status: auto
+    profile_summary:
+      generated_hash: 0d9e057f90b4b5c7e017ae937291f20b0f21aa7f4bf0d66fb8840c01c0b052dd
+      source_hash: d887fa616ff980a86b6258ea1dc3cf81a7190832835fe6a33e2d8a8a2ea2edea
+      status: auto
+    research_interests:
+      generated_hash: bb54ae1d7632d80d1a090da93b4cf0dbc98fcf00904b8c29fc074ac5c9e4cd7e
+      source_hash: 3ead01bab6980379132153c599c8ab5bc6f4e9ff9e4990b446fd245a30190b51
+      status: auto
+    research_summary:
+      generated_hash: bb54ae1d7632d80d1a090da93b4cf0dbc98fcf00904b8c29fc074ac5c9e4cd7e
+      source_hash: 3ead01bab6980379132153c599c8ab5bc6f4e9ff9e4990b446fd245a30190b51
+      status: auto
   _members/ziyan wang.md:
     address:
       generated_hash: d1f08488940a549ad1fe59789d122543818a22057ff623395b1bbc73c5ff3b8f
