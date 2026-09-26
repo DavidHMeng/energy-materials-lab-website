@@ -2,11 +2,65 @@
   type: paper
   image: /images/uploads/anie74845-fig-0001-m-1.jpg
   publication_visible: true
-- id: 10.1002/anie.5596828
+- id: doi:10.1002/anie.5596828
   type: paper
   image: /images/uploads/anie73531-fig-0001-m-1.jpg
   publication_visible: true
-- id: 10.1002/anie.4292495
+- id: doi:10.1002/anie.4292495
   type: paper
   image: /images/uploads/anie73423-fig-0001-m-1.jpg
   publication_visible: true
+- id: doi:10.1007/s40820-026-02232-6
+  type: paper
+  publication_visible: false
+- id: doi:10.1016/j.ensm.2025.104512
+  type: paper
+  publication_visible: false
+- id: doi:10.1093/nsr/nwag209
+  type: paper
+  publication_visible: false
+- id: doi:10.1016/j.jpowsour.2025.236189
+  type: paper
+  publication_visible: false
+- id: doi:10.1038/s41560-025-01853-2
+  type: paper
+  publication_visible: false
+- id: doi:10.1038/s41467-026-71876-0
+  type: paper
+  publication_visible: false
+- id: doi:10.1021/jacs.5c22628
+  type: paper
+  publication_visible: false
+- id: doi:10.1021/jacs.5c21351
+  type: paper
+  publication_visible: false
+- id: doi:10.1021/acs.accounts.6c00035
+  type: paper
+  publication_visible: false
+- id: doi:10.1016/j.joule.2025.102260
+  type: paper
+  publication_visible: false
+- id: doi:10.1016/j.electacta.2025.147756
+  type: paper
+  publication_visible: false
+- id: doi:10.1016/j.jmat.2026.101312
+  type: paper
+  publication_visible: false
+- id: doi:10.1002/adma.202502067
+  type: paper
+  publication_visible: false
+- id: doi:10.1038/s41467-025-64726-y
+  type: paper
+  publication_visible: false
+- id: doi:10.1002/anie.202518966
+  type: paper
+  publication_visible: false
+- id: doi:10.1021/jacs.3c01955
+  type: paper
+  publication_visible: false
+- id: doi:10.1002/anie.202306433
+  type: paper
+  publication_visible: false
+- id: doi:10.1038/s41467-023-43886-9
+  type: paper
+  publication_visible: false
