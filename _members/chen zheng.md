@@ -22,5 +22,5 @@ education_zh: |+
 email: chenzheng@eitech.edu.cn
 active: true
 display: true
-order: 6
+order: 1
 ---
