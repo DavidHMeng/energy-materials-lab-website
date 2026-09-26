@@ -47,16 +47,18 @@ entries:
   _data/site.yaml:
     address:
       english_hash: 835c952f8f5c553085914ab433bb63ef7144c300f2b6b02e515a38e7825f152d
+      generated_hash: 1ec5bed52e35b19ab62e0e52dd00db2322abb861ee9752277958f5e3e06d4467
       source_hash: 307dec0e0089a36451b0909f27688f76f68d5f2ea05e629a9eb609deb4240372
-      status: pending
+      status: auto
     copyright:
       english_hash: 051eecf58b6358350a18bd36df91f1d7b8ce51a88064ecb57b3a290943d64cda
       source_hash: 87caf2867174142499b4be2b462ede6cafc82030410500eb71f8c3263881f579
       status: manual
     description:
       english_hash: 5cf5713477aa4b6978e03913660b3281afba64a5f27602080c3d9fc6aa8f4604
+      generated_hash: d96424f2b0c27d2a064959b5e30510135054a79ddca2d51b8914f6c9423355c9
       source_hash: e9dc521d32b8e03202e163d48605c151f239bd2ee9315414298eb5b8b0c7bab0
-      status: pending
+      status: auto
   _events/2026-10-16-placeholder-seminar.md:
     alt:
       english_hash: 4173e5ad09e8cb39f117568700acc1b8b4a891873777aef3b91eb836e42fb7cf
@@ -130,32 +132,41 @@ entries:
       status: pending
   _members/chao-liu.md:
     address:
+      generated_hash: d1f08488940a549ad1fe59789d122543818a22057ff623395b1bbc73c5ff3b8f
       source_hash: fa17eca3030acc44e70cad0cafb78b77262172899409e6bed76829a7ac7f03f5
-      status: pending
+      status: auto
     affiliation:
+      generated_hash: 6c7d555f8165fcc06a5fef5d2f1166b5b3afa1fd4b85468f3d2f6d1043d5935b
       source_hash: b03717e4627526f62e634c10d5ae5e197b6f1e1bc948eb01ac176cba85027de2
-      status: pending
+      status: auto
     education:
+      generated_hash: 82cbf27534e55e567e4f25e04f3da850dc536c908f28084f22bac8648aa53ab8
       source_hash: bd58466814d83397209abeb8e16186259151d550e8fa8f354379a329c780440e
-      status: pending
+      status: auto
     personal_note:
+      generated_hash: a00ad513b29b4a3b9a55ac07c5f518d0cd008be0365089a2c79f5247572ea1ca
       source_hash: b9523472a2c30a015b77aae6b29913e96b76d6a6da484a880ac047be476718e5
-      status: pending
+      status: auto
     portrait_alt:
+      generated_hash: ae5e3aa7fe9b0167db49dfa1fde24d7173c9551abcef4221bfe786f261dfe6f7
       source_hash: 9d205c891caec52e1892bfb8cc113dde31aa8f01c1ee09e6fff9a0bcc5d6c927
-      status: pending
+      status: auto
     position:
+      generated_hash: d93352a70395db3de0632a6b203cbc58aebb331e74bc417e7d75d4c6e8997434
       source_hash: bc2f82f27d245369ef4a9f2390255f88b800c93f1244fc7565e9fa565f6b7119
-      status: pending
+      status: auto
     profile_summary:
+      generated_hash: 0ea130892cbd3fef896893c47b0b19fe78af04c07e401dd6ef8f74433302c1fa
       source_hash: 1e51cec59d3914812f088b8adf8c8763cf88304f2c28ae55f4491dbe6b09289b
-      status: pending
+      status: auto
     research_interests:
+      generated_hash: e1cb09ab980ee1f653bf33508ffabbae711cb5e339ca3fe483097f49701c78a5
       source_hash: e8b52e2363c5f7dde9da6b4f13d3b8d0a7b1ec9776d5a83fda624703078ac84a
-      status: pending
+      status: auto
     research_summary:
+      generated_hash: 71dcca729382e141a0b30338643940277f0015fb8c081d933ae31eb7e0ecd9cf
       source_hash: e6b9f8949b23786aef376c04c59859e8b3f077983eee7a0ba4b4d18fb7cb1b6c
-      status: pending
+      status: auto
   _members/mei-li.md:
     address:
       english_hash: 10ab9b9dd5c25667e713181c2669807332d843ac6516bf21709d42b7212e990c

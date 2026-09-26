@@ -14,9 +14,18 @@ personal_note_zh: 向下扎根，向上生长
 education_zh: 硕士/东北大学/2023-2026
 email: 13780866910@163.com
 representative_dois:
-  - 10.1093/nsr/nwag209
+- 10.1093/nsr/nwag209
 active: true
 display: true
 order: 1
 name_en: chao liu
+position_en: Engineer
+portrait_alt_en: Solid-State Battery Engineer
+research_summary_en: System Design and Quantitative Synthesis of Halide Solid-State Electrolytes
+affiliation_en: Innovation Center
+profile_summary_en: 'After completing coursework in the first year of the master’s program, I participated in a joint training program at Northeastern University and the YUGEN (Guangdong) New Materials Technology Research Institute from May 2024 to June 2026, conducting systematic research on halide solid-state electrolytes: Design and synthesize electrolyte materials with high ionic conductivity; conduct fundamental research ranging from material mechanisms to performance tuning; and participate in the exploration of scalable fabrication processes for electrolytes, thereby gaining comprehensive research experience spanning from fundamental research to engineering-scale application.'
+address_en: Room 202, Chemistry Materials Building
+research_interests_en: Halide Solid-State Electrolytes
+personal_note_en: Roots Down, Growth Up
+education_en: Master's Degree / Northeastern University / 2023–2026
 ---
