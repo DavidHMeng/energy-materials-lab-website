@@ -423,8 +423,10 @@ for relative in deployment_files:
 
 production_workflow = (ROOT / ".github" / "workflows" / "publish-production.yml").read_text(encoding="utf-8")
 for marker in (
-    "branches: [main]", "needs: [citations, translation, content]", "contents: write",
-    "_config.yml,_config.production.yml", "HEAD:server-deploy", "--require-version",
+    "branches: [main]", "needs: [translation, content]", "contents: write",
+    "Prepare citation workspace from current content", "citation_registry.py --write",
+    "python _cite/cite.py", "_config.yml,_config.production.yml", "HEAD:server-deploy",
+    "--require-version",
 ):
     if marker not in production_workflow:
         ERRORS.append(f"production workflow is missing required marker: {marker}")

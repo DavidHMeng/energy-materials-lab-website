@@ -27,7 +27,13 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-      - run: python -m pip install PyYAML==6.0.3
+          cache-dependency-path: _cite/requirements.txt
+      - name: Prepare citation workspace from current content
+        run: |
+          python -m pip install --requirement _cite/requirements.txt
+          python scripts/citation_registry.py --write
+          python _cite/cite.py
+          python scripts/citation_registry.py --check
       - name: Build and validate staging artifact
         env:
           JEKYLL_CONFIG: _config.yml,_config.staging.yml
@@ -36,7 +42,6 @@ jobs:
           SITE_ENVIRONMENT: staging
           BASEURL: /energy-materials-lab-website
         run: |
-          python scripts/citation_registry.py --check
           bash script/test
       - uses: actions/upload-artifact@v4
         with:

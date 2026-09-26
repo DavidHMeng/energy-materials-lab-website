@@ -41,12 +41,20 @@ placeholder slug, filename, record count or placeholder image. Records that rema
 still checked for schema completeness, stable identifiers, valid references, dates,
 accessible image metadata and existing media paths.
 
-`Publish production static branch` runs only for `main`. Citation freshness,
-translation/fallback tests and content validation are independent prerequisites. Only
-after all three pass does it run the exact production Jekyll build, add `version.json`,
-check root-path output, upload the artifact, and replace `server-deploy`. The publish
-job alone has `contents: write`; failed gates leave `server-deploy` unchanged. Because
-the workflow listens only to `main`, publishing the generated branch cannot loop.
+`Publish production static branch` runs only for `main`. Translation/fallback tests and
+structured content validation are independent prerequisites. The build job then installs
+the citation dependencies and runs `citation_registry.py --write`, `_cite/cite.py`, and
+`citation_registry.py --check` in the same workspace immediately before the production
+Jekyll build. A CMS commit containing a new valid DOI therefore does not depend on the
+separate citation-sync commit arriving first. Only after these gates does it add
+`version.json`, check root-path output, upload the artifact, and replace `server-deploy`.
+The publish job alone has `contents: write`; failed gates leave `server-deploy` unchanged.
+Because the workflow listens only to `main`, publishing the generated branch cannot loop.
+
+The manual GitHub Pages workflows use the same build-local citation preparation. The
+separate citation schedule remains responsible for normalizing and committing the cache
+back to `main`; its per-ref concurrency group serializes consecutive CMS saves without
+making production or staging wait for that asynchronous commit.
 
 Generated-site checks also enforce the project typography attributes, a single load of
 the project stylesheet, the compact profile contact layout, normal-flow profile hero,
@@ -83,8 +91,10 @@ translation commit, the translation workflow therefore dispatches `ci.yml` and
 `publish-production.yml` explicitly. Without the required provider credentials, the
 workflow records pending state and exits without compromising CI.
 
-The citation refresh is also manual-only during staging. Enable its schedule only after
-the target repository, branch protections and desired pull-request cadence are confirmed.
+The citation-schedule workflow remains an optional cache-commit path during staging;
+the staging build itself always prepares citations locally and does not wait for it.
+Enable any scheduled refresh only after the target repository, branch protections and
+desired pull-request cadence are confirmed.
 
 `_translation/registry.yml` is the central coverage source for every Pages CMS
 collection. It classifies field stems as machine-translatable, manual-English-only or

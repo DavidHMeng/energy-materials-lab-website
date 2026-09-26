@@ -22,6 +22,10 @@ permissions:
   # The CMS caller keeps the permission compatible but passes open-pr: false.
   pull-requests: write
 
+concurrency:
+  group: citation-sync-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   refresh:
     if: github.actor != 'github-actions[bot]' && !contains(github.event.head_commit.message, '[skip citation-sync]')

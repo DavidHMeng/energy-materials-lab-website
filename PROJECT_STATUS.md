@@ -3,6 +3,15 @@
 Updated: 2026-09-26
 Current release line: CMS Translation Coverage + Graphical Abstract Normalization V1.7 on `main`
 
+## Build-local DOI citation preparation (2026-09-26)
+
+Production and manual/staging Pages builds now normalize DOI inputs and regenerate
+`_data/citations.yaml` inside the build workspace immediately before Jekyll. They no
+longer require the asynchronous citation-schedule workflow to commit its cache first.
+The schedule remains responsible for committing normalized sources/citations to `main`
+and is serialized per ref with `citation-sync-${{ github.ref }}` concurrency. Invalid
+DOIs and actual registry/citation generation errors still fail their validation gates.
+
 ## Translation coverage and fixed scientific canvas (2026-09-26)
 
 Translation policy is centralized in `_translation/registry.yml`; the asynchronous

@@ -194,12 +194,15 @@ GitHub Pages 可能缓存静态资源约十分钟。文字通常立即更新；�
 3. `Show on Publications page` 控制该记录是否出现在 Publications 二级页面，默认是开启。
    关闭时 DOI 仍保留在中央 Citation Registry，Team profile 或 Research 页面仍可引用，
    但不会进入全局 Publications 列表。
-4. 保存后，GitHub 会自动规范化 DOI、去重并汇入中央 Citation Registry；也可打开
-   **Actions → Synchronize DOI citations** 手动刷新。
+4. 保存后，GitHub 会自动规范化 DOI、去重并汇入中央 Citation Registry；生产和
+   staging 构建会在自己的工作区再次执行同样的规范化与 citation metadata 生成，
+   因此不需要等待异步 citation-sync commit。也可打开 **Actions → Synchronize DOI
+   citations** 手动刷新中央缓存。
 5. 工作流从 DOI 获取书目信息；临时网络失败时保留缓存元数据，首次解析失败则显示
    `Publication metadata pending` 和 DOI 链接，不会让整站构建失败。
 6. 检查 PR 中作者、标题、期刊、年份和 DOI 后再合并。
-7. 合并并通过 CI 后，再执行 **Deploy website**。
+7. 合并并通过 CI 后，再执行 **Deploy website**；该部署同样会在当前工作区准备 DOI
+   registry，不依赖另一个 workflow 先完成。
 
 Research 和 Team 都通过 DOI/成员 ID 引用同一元数据；不要在多个模块复制作者、题名、
 期刊和年份。Team 的 `Representative Publication DOIs` 不会自动创建全局 Publications

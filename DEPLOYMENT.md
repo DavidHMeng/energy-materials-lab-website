@@ -26,8 +26,11 @@ metadata, indexable robots policy, and a `version.json` provenance record.
 ## GitHub release contract
 
 The workflow `.github/workflows/publish-production.yml` listens only to pushes on
-`main`. Citation freshness, translation/fallback tests and content validation must all
-pass before the production build. The build command is:
+`main`. Translation/fallback tests and structured content validation run first. The
+build job then normalizes the current workspace's DOI references, regenerates citation
+metadata, checks the result, and only then runs the production build. This makes a CMS
+commit containing a new valid DOI self-contained; it does not wait for the separate
+citation-schedule commit. The build command is:
 
 ```bash
 bundle _2.5.6_ exec jekyll build \

@@ -32,7 +32,14 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: python -m pip install PyYAML==6.0.3
+          cache: pip
+          cache-dependency-path: _cite/requirements.txt
+      - name: Prepare citation workspace from current content
+        run: |
+          python -m pip install --requirement _cite/requirements.txt
+          python scripts/citation_registry.py --write
+          python _cite/cite.py
+          python scripts/citation_registry.py --check
       - uses: actions/configure-pages@v6
         id: pages
       - name: Verify GitHub Pages remains staging
