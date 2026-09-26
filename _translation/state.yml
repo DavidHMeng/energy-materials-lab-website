@@ -142,8 +142,8 @@ entries:
       source_hash: b03717e4627526f62e634c10d5ae5e197b6f1e1bc948eb01ac176cba85027de2
       status: auto
     education:
-      generated_hash: 82cbf27534e55e567e4f25e04f3da850dc536c908f28084f22bac8648aa53ab8
-      source_hash: bd58466814d83397209abeb8e16186259151d550e8fa8f354379a329c780440e
+      generated_hash: e51c19a682a4bdec229fa06207e0ecbc801e47dbe5bc0a0098e6c4a173e385e9
+      source_hash: 7a25495c4e05e023c0acac5f4b5f7d606d6e3a4611f222e0b2bfdde47e9ad5ea
       status: auto
     personal_note:
       generated_hash: a00ad513b29b4a3b9a55ac07c5f518d0cd008be0365089a2c79f5247572ea1ca
