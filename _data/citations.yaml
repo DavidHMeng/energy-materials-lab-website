@@ -337,6 +337,179 @@
   type: paper
   plugin: sources.py
   file: sources.yaml
+- id: doi:10.1038/s41560-025-01853-2
+  title: Universal superionic conduction via solid dissociation of salts in van der
+    Waals materials
+  authors:
+  - Junyi Yue
+  - Simeng Zhang
+  - Xingyu Wang
+  - Jiamin Fu
+  - Yang Xu
+  - Suting Weng
+  - Ye Zhu
+  - Changtai Zhao
+  - Matthew Zheng
+  - Yueyue Wang
+  - Xiangzhen Zhu
+  - Han Wu
+  - Guanzhi Wang
+  - Yu Xia
+  - Mengyan Cao
+  - Qihang Jing
+  - Xuefeng Wang
+  - Wei Xia
+  - Jianwen Liang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Nature Energy
+  date: '2025-10-20'
+  link: https://doi.org/hbj6gz
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1039/d5ee03490f
+  title: "A new class of carbonate\u2013oxychloride solid electrolytes for high-performance\
+    \ sodium-ion all-solid-state batteries"
+  authors:
+  - Xinmiao Wang
+  - Simeng Zhang
+  - Junyi Yue
+  - Xingyu Wang
+  - Yang Xu
+  - Yue Gong
+  - Liyu Zhou
+  - Changtai Zhao
+  - Jianwen Liang
+  - Xiangzhen Zhu
+  - Han Wu
+  - Xiaolong Yan
+  - Biwei Xiao
+  - Meng Li
+  - Chenxiang Li
+  - Shuo Wang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Energy &amp; Environmental Science
+  date: '2025-01-01'
+  link: https://doi.org/hbkhd4
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1002/adma.202502067
+  title: "Revealing the Underlying Role of Li\n                    <sub>2</sub>\n\
+    \                    CO\n                    <sub>3</sub>\n                  \
+    \  in Enhancing Performance of Oxyhalide\u2010Based Solid\u2010State Batteries"
+  authors:
+  - Han Wu
+  - Jie Qu
+  - Xiaolong Yan
+  - Simeng Zhang
+  - Xingyu Wang
+  - Jianwen Liang
+  - Nian Zhang
+  - Bona Dai
+  - Junyi Yue
+  - Tianlu Pang
+  - Tao Mei
+  - Yongrui Luo
+  - Hao Lai
+  - Xinmiao Wang
+  - Liyu Zhou
+  - Shuo Wang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Advanced Materials
+  date: '2025-06-02'
+  link: https://doi.org/hbkhd8
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1002/smll.202408824
+  title: "Cross\u2010Linked Polyamide\u2010Integrated Argyrodite Li\n            \
+    \        <sub>6</sub>\n                    PS\n                    <sub>5</sub>\n\
+    \                    Cl for All\u2010Solid\u2010State Lithium Metal Batteries"
+  authors:
+  - Yang Xu
+  - Zhiqiang Fang
+  - Junyi Yue
+  - Limin Wang
+  - Zaifa Wang
+  - Simeng Zhang
+  - Mengzhu Liu
+  - Zimujun Ye
+  - Ran Liu
+  - Xiaolong Yan
+  - Xu Han
+  - Yueyue Wang
+  - Changtai Zhao
+  - Biwei Xiao
+  - Xianbao Wang
+  - Wei Xiao
+  - Xiaona Li
+  - Tao Mei
+  - Jianwen Liang
+  publisher: Small
+  date: '2024-11-22'
+  link: https://doi.org/hckqf9
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1002/adma.202410402
+  title: "Oxychloride Polyanion Clustered Solid\u2010State Electrolytes via Hydrate\u2010\
+    Assisted Synthesis for All\u2010Solid\u2010State Batteries"
+  authors:
+  - Guanzhi Wang
+  - Simeng Zhang
+  - Han Wu
+  - Matthew Zheng
+  - Changtai Zhao
+  - Jianwen Liang
+  - Liyu Zhou
+  - Junyi Yue
+  - Xiangzhen Zhu
+  - Yang Xu
+  - Nian Zhang
+  - Tianlu Pang
+  - Jiamin Fu
+  - Weihan Li
+  - Yuanguang Xia
+  - Wen Yin
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Advanced Materials
+  date: '2024-11-12'
+  link: https://doi.org/g9gv2n
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1002/anie.202401373
+  title: "A Universal Self\u2010Propagating Synthesis of Aluminum\u2010Based Oxyhalide\
+    \ Solid\u2010State Electrolytes"
+  authors:
+  - Simeng Zhang
+  - Yang Xu
+  - Han Wu
+  - Tianlu Pang
+  - Nian Zhang
+  - Changtai Zhao
+  - Junyi Yue
+  - Jiamin Fu
+  - Shengjie Xia
+  - Xiangzhen Zhu
+  - Guanzhi Wang
+  - Hui Duan
+  - Biwei Xiao
+  - Tao Mei
+  - Jianwen Liang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Angewandte Chemie International Edition
+  date: '2024-05-27'
+  link: https://doi.org/gtr75j
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
 - id: doi:10.1007/s40820-026-02232-6
   title: "Breaking the Limitations of Sulfur Redox Kinetics by Accelerated Li+-Desolvation\
     \ in Lithium\u2013Sulfur Batteries"
@@ -389,37 +562,6 @@
   type: paper
   plugin: sources.py
   file: sources.yaml
-- id: doi:10.1038/s41560-025-01853-2
-  title: Universal superionic conduction via solid dissociation of salts in van der
-    Waals materials
-  authors:
-  - Junyi Yue
-  - Simeng Zhang
-  - Xingyu Wang
-  - Jiamin Fu
-  - Yang Xu
-  - Suting Weng
-  - Ye Zhu
-  - Changtai Zhao
-  - Matthew Zheng
-  - Yueyue Wang
-  - Xiangzhen Zhu
-  - Han Wu
-  - Guanzhi Wang
-  - Yu Xia
-  - Mengyan Cao
-  - Qihang Jing
-  - Xuefeng Wang
-  - Wei Xia
-  - Jianwen Liang
-  - Xueliang Sun
-  - Xiaona Li
-  publisher: Nature Energy
-  date: '2025-10-20'
-  link: https://doi.org/hbj6gz
-  type: paper
-  plugin: sources.py
-  file: sources.yaml
 - id: doi:10.1016/j.electacta.2025.147756
   title: A high-energy-density, long-cycling lithium-ion battery with a unique current
     collector-free integrated cathode
@@ -453,35 +595,6 @@
   publisher: Journal of Materiomics
   date: '2026-08-01'
   link: https://doi.org/hckpvn
-  type: paper
-  plugin: sources.py
-  file: sources.yaml
-- id: doi:10.1002/adma.202502067
-  title: "Revealing the Underlying Role of Li\n                    <sub>2</sub>\n\
-    \                    CO\n                    <sub>3</sub>\n                  \
-    \  in Enhancing Performance of Oxyhalide\u2010Based Solid\u2010State Batteries"
-  authors:
-  - Han Wu
-  - Jie Qu
-  - Xiaolong Yan
-  - Simeng Zhang
-  - Xingyu Wang
-  - Jianwen Liang
-  - Nian Zhang
-  - Bona Dai
-  - Junyi Yue
-  - Tianlu Pang
-  - Tao Mei
-  - Yongrui Luo
-  - Hao Lai
-  - Xinmiao Wang
-  - Liyu Zhou
-  - Shuo Wang
-  - Xueliang Sun
-  - Xiaona Li
-  publisher: Advanced Materials
-  date: '2025-06-02'
-  link: https://doi.org/hbkhd8
   type: paper
   plugin: sources.py
   file: sources.yaml
