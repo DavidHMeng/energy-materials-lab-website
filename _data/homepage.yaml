@@ -23,27 +23,23 @@ introduction:
       alt_en: Placeholder graphical abstract showing an energy-materials research
         concept
       visual_type: graphical-abstract
-      caption_zh: 代表性图文摘要
-      caption_en: Representative graphical abstract
+      caption_zh: Universal superionic conduction via solid dissociation of salts in
+        van der Waals materials
+      caption_en: Universal superionic conduction via solid dissociation of salts in
+        van der Waals materials
+      related_doi: https://doi.org/10.1038/s41560-025-01853-2
       display: true
       order: 1
-    - image: /images/placeholders/graphical-abstract-2.svg
-      alt_zh: 展示界面科学研究概念的图文摘要占位图
-      alt_en: Placeholder graphical abstract showing an interfacial-science research
-        concept
+    - image: /images/uploads/ja5c213510001.png
+      alt_zh: 首页图文摘要2
       visual_type: graphical-abstract
-      caption_zh: 界面科学与储能研究
-      caption_en: Interfacial science and energy storage
+      caption_zh: Design for an Interface in Oxyhalide-Based All-Solid-State Lithium
+        Metal Batteries
+      caption_en: Design for an Interface in Oxyhalide-Based All-Solid-State Lithium
+        Metal Batteries
+      related_doi: https://doi.org/10.1021/jacs.5c21351
       display: true
       order: 2
-    - image: /images/placeholders/campus.svg
-      alt_zh: 用于后续实验室或课题组合影的占位图
-      alt_en: Placeholder image for a future laboratory or group photograph
-      visual_type: lab-photo
-      caption_zh: 实验室或课题组合影
-      caption_en: Laboratory or group photograph
-      display: true
-      order: 3
 highlights_heading_en: Highlights
 highlights_heading_zh: 课题组动态
 events_heading_en: Events
