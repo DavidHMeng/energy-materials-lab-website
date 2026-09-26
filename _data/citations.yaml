@@ -106,3 +106,39 @@
   type: paper
   plugin: sources.py
   file: sources.yaml
+- id: doi:10.1016/j.electacta.2025.147756
+  title: A high-energy-density, long-cycling lithium-ion battery with a unique current
+    collector-free integrated cathode
+  authors:
+  - Kaisi Liao
+  - Ziyan Wang
+  - Xing Xin
+  - Kun Zheng
+  - "Konrad \u015Awierczek"
+  - Zoran Mandic
+  - Rui Liu
+  - Xufeng Yan
+  - Shanshan Sun
+  - Mingjiong Zhou
+  publisher: Electrochimica Acta
+  date: '2026-01-01'
+  link: https://doi.org/hckpvm
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1016/j.jmat.2026.101312
+  title: 'Organic-inorganic composite solid-state electrolytes: Filler-specific design
+    strategies and practical prospects'
+  authors:
+  - Chao Wang
+  - Ziyan Wang
+  - Shutao Zhang
+  - Xueliang Sun
+  - Yipeng Sun
+  - Changhong Wang
+  publisher: Journal of Materiomics
+  date: '2026-08-01'
+  link: https://doi.org/hckpvn
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
