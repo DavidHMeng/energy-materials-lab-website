@@ -432,14 +432,17 @@ entries:
   _research/solid-electrolyte-interfaces.md:
     alt:
       english_hash: a1f50623e57a5d310911168784f504b3bfa3e152e9b86c491c7bf90e7f8631d1
-      source_hash: be36aea01363ff7be11375b7b730b079256c60e92057df4cb35e1dfb29e5cbf3
-      status: manual
+      generated_hash: 0dc56266f80fd719f16474b8a616b5e81cf94629c264240310afddb4c9600092
+      source_hash: c046bc617df023b09a835c08169ed38fb86d6fa0600358ef4deee77667fa8734
+      status: auto
     short_intro:
       english_hash: 2bc57d8bee5f9491765cea090999c89f3276d67394d1a471e4d14041e05159fa
-      source_hash: ee6b98b51da92baa2fb01d8562ff2167a3a17aa3f5cbc64c49a01a4b81ffd53b
-      status: manual
+      generated_hash: f53bc4466ea6bc18c1645b87626b24682747ec027d87f0766a3e1a49226a9f1c
+      source_hash: 30d5a2668c6cb098a71fd535bfd00e43c0c702be1acb2e1ab798217d273be902
+      status: auto
     title:
       english_hash: 979fd8ca8d1fa899c9ff3fa17bbca34ec4083f12e16b2af392fd9576c7bd8edd
-      source_hash: 3affa6b2e4764712eae52d0d9119fc6523730406327faaac78964781ec734378
-      status: manual
+      generated_hash: f7dc49fff979175ad8cd9e9669b1f2ab2c3bbba5fd34b16b725a4644359fbbb7
+      source_hash: da923eceb6fe20233f21c4256d680e74caec1b3f9dab258c3aadcf7cc7647675
+      status: auto
 version: 1
