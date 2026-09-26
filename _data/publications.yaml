@@ -22,3 +22,35 @@
   type: paper
   image: /images/uploads/ja5c226280001.png
   display: true
+- doi: 10.1021/jacs.5c21351
+  type: paper
+  image: /images/uploads/mja5c213510008.png
+  display: true
+- doi: 10.1021/acs.accounts.6c00035
+  type: paper
+  image: /images/uploads/mar6c000350008.png
+  display: true
+- doi: 10.1016/j.joule.2025.102260
+  type: paper
+  image: /images/uploads/fx1lrg.jpg
+  display: true
+- doi: 10.1016/j.joule.2025.102233
+  type: paper
+  image: /images/uploads/fx1lrg-1.jpg
+  display: true
+- doi: 10.1016/j.jechem.2025.11.057
+  type: paper
+  image: /images/uploads/1-s20-s2095495625010034-gr1.jpg
+  display: true
+- doi: 10.1016/j.cej.2025.171135
+  type: paper
+  image: /images/uploads/1-s20-s1385894725119815-ga1.jpg
+  display: true
+- doi: 10.1002/anie.202518966
+  type: paper
+  image: /images/uploads/anie70281-gra-0001-m.jpg
+  display: true
+- doi: 10.1038/s41467-025-64726-y
+  type: paper
+  image: /images/uploads/41467202564726fig5html.webp
+  display: true
