@@ -13,30 +13,31 @@ profile_summary_zh: 博士期间主要围绕锂硫电池中单原子催化剂的
 address_zh: 化学材料楼231室
 research_interests_zh: 卤化物固态电解质的设计
 personal_note_zh: 去拥抱陌生，去期待惊喜！
-education_zh: |+
-  - 博士，北京理工大学，2022-2026
+education_zh: '- 博士，北京理工大学，2022-2026
+
   - 硕士，渤海大学，2019-2022
+
   - 学士，渤海大学，2014-2018
 
+
+  '
 email: tanwang@eitech.edu.cn
 active: true
 display: true
 order: 1
 representative_dois:
-  - 10.1007/s40820-026-02232-6
-  - 10.1016/j.ensm.2025.104512
+- 10.1007/s40820-026-02232-6
+- 10.1016/j.ensm.2025.104512
 portrait_alt_en: Postdoctoral Fellow
 research_summary_en: All-Solid-State Lithium-Ion Batteries
 affiliation_en: Solid-State Energy Laboratory
-profile_summary_en: During doctoral studies, my research focused primarily on
-  the structural regulation of single-atom catalysts in lithium-sulfur batteries
-  and the kinetics of catalytic conversions of lithium polysulfides. I published
-  seven SCI papers as the first author. I hold six authorized national invention
-  patents, two national design patents, and two Australian invention patents. I
-  have received the National Scholarship, and have been recognized as an
-  Outstanding Graduate of Beijing Institute of Technology, an Outstanding
-  Graduate of Liaoning Province, and the recipient of the Liaoning Province
-  Outstanding Master’s Thesis Award.
+profile_summary_en: During doctoral studies, my research focused primarily on the structural regulation of single-atom catalysts in lithium-sulfur batteries and the kinetics of catalytic conversions of lithium polysulfides. I published seven SCI papers as the first author. I hold six authorized national invention patents, two national design patents, and two Australian invention patents. I have received the National Scholarship, and have been recognized as an Outstanding Graduate of Beijing Institute of Technology, an Outstanding Graduate of Liaoning Province, and the recipient of the Liaoning Province Outstanding Master’s Thesis Award.
 address_en: Room 231, Chemistry Materials Building
 research_interests_en: Design of Halide Solid-State Electrolytes
+personal_note_en: Go out and embrace the unknown—and look forward to surprises!
+education_en: '- Ph.D., Beijing Institute of Technology, 2022–2026
+
+  - M.S., Bohai University, 2019–2022
+
+  - B.S., Bohai University, 2014–2018'
 ---

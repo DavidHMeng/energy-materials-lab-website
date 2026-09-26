@@ -104,12 +104,14 @@ entries:
       status: pending
     education:
       english_hash: 5a96c7cee5408d1baa62b4213ec7164619dab75356a5f9550a62c5722a391c72
+      generated_hash: 53aa686e808787d298f7fd2fb96fec3d19769fc3967ea34ead6641377d1bcae0
       source_hash: 4e68284183e99940f5e679d4e53dd2bcf1e5f3d9262ca13e617cc37851244525
-      status: pending
+      status: auto
     personal_note:
       english_hash: 63a66ab1c4eadcf85a4750425c2035016e55e1d5a634bd025c58254bc5abb838
-      source_hash: 33a3c0d89c83ebce2146640aad9d6b57743028361854ce517eaedbfc527430d2
-      status: pending
+      generated_hash: 6c2f7eda54e08cfa8873f829ae8fd44d6844ddac9c9a06e4f298029b714fc3f6
+      source_hash: 465a7f61c961de3f0de2c0a3dfcb086ee4acced2fd94a71de93d86f5e6294ef7
+      status: auto
     portrait_alt:
       english_hash: d75c67dd952e4135499651fbed8e642102de11666afdd8b5c041a2f092733eb4
       source_hash: d9bee4557f86cc73d29ebeda5c8b42b792094f2bd16b41624df7586c6a25f503
