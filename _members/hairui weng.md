@@ -22,5 +22,5 @@ representative_dois:
   - 10.1016/j.jpowsour.2025.236189
 active: true
 display: true
-order: 4
+order: 2
 ---
