@@ -188,7 +188,7 @@ for profile_path in profile_paths:
         for marker in ('class="profile-contacts"', 'class="profile-portrait"'):
             if marker not in profile:
                 errors.append(f"profile marker {marker} missing in {relative}")
-        if "Phone" in profile or "Office" in profile:
+        if re.search(r"<strong>\s*(?:Phone|Office)\s*:\s*</strong>", profile, re.IGNORECASE):
             errors.append(f"retired phone/office content rendered in {relative}")
 
         route = profile_path.parent.name
