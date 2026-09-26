@@ -169,6 +169,43 @@ entries:
       generated_hash: 71dcca729382e141a0b30338643940277f0015fb8c081d933ae31eb7e0ecd9cf
       source_hash: e6b9f8949b23786aef376c04c59859e8b3f077983eee7a0ba4b4d18fb7cb1b6c
       status: auto
+  _members/chen zheng.md:
+    address:
+      generated_hash: d1f08488940a549ad1fe59789d122543818a22057ff623395b1bbc73c5ff3b8f
+      source_hash: fa17eca3030acc44e70cad0cafb78b77262172899409e6bed76829a7ac7f03f5
+      status: auto
+    affiliation:
+      generated_hash: 6c7d555f8165fcc06a5fef5d2f1166b5b3afa1fd4b85468f3d2f6d1043d5935b
+      source_hash: b03717e4627526f62e634c10d5ae5e197b6f1e1bc948eb01ac176cba85027de2
+      status: auto
+    education:
+      generated_hash: 5201eced2f8d7772b68f5f75284afc48eaa88ae7a9742b0cab0e89d8ae1ba3f9
+      source_hash: 5412f331467a925e76df27e1e5eb3c413f047e0290c095ed2ead57fe517b1bb8
+      status: auto
+    personal_note:
+      generated_hash: 8edd59c806e36aba9924b74a564d4dfc37ce48dd49d77d1071c84515c183b7b4
+      source_hash: a4c2701d82fc20cf5d2c6aaab98bd128db80926a54a90a1b857d31129a1909b0
+      status: auto
+    portrait_alt:
+      generated_hash: 200e9c6d7adc7d36ce93edb531091d5997f353ca998b95e98cba39b8cde90204
+      source_hash: a48a97f8f94772f462a7390f9119d205740a01a4dff57d31704d2facfa7145f3
+      status: auto
+    position:
+      generated_hash: 200e9c6d7adc7d36ce93edb531091d5997f353ca998b95e98cba39b8cde90204
+      source_hash: a48a97f8f94772f462a7390f9119d205740a01a4dff57d31704d2facfa7145f3
+      status: auto
+    profile_summary:
+      generated_hash: 5f86c5bc5cfe7f4f8113047eeeb436241ef68e4ab25812fd03f5cc1230f0b662
+      source_hash: a140432c3748dc45b0ba39eb5a097c327e4a7224bbf0c695330d13845f7df3fb
+      status: auto
+    research_interests:
+      generated_hash: 4f5ce6bc71600601221611ad5b02c6dced293b05abbcfe07f60beee0a4f72116
+      source_hash: bca7a484998e58918bd7bdaf9483dcb7e4751da11b7d25d12dea5442ed363831
+      status: auto
+    research_summary:
+      generated_hash: 4f5ce6bc71600601221611ad5b02c6dced293b05abbcfe07f60beee0a4f72116
+      source_hash: bca7a484998e58918bd7bdaf9483dcb7e4751da11b7d25d12dea5442ed363831
+      status: auto
   _members/hairui weng.md:
     address:
       generated_hash: d1f08488940a549ad1fe59789d122543818a22057ff623395b1bbc73c5ff3b8f
