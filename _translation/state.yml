@@ -255,8 +255,9 @@ entries:
       status: manual
     education:
       english_hash: 2edfbc4d3e45afe01f3553bfb5c0615b2d9e5863dd0b5b4a740e805b80fff986
-      source_hash: e0282fa153cb3d7f368ba5a9e9172018259278780ad3d71b1d3f1efe16be9894
-      status: manual
+      generated_hash: 9fa5cbe5640f2f600dadb6e9742629a8f5804117e080f8316d94e78b4fa76fe8
+      source_hash: 762df8f1d1e4cb6c71511dfd7230c22c95348fbcd9941f30141532973c9b62e7
+      status: auto
     personal_note:
       english_hash: a28e0f716dd9f5fbe42c817b9ab100a16fd040583f5bc1b1ad2ad699bf92b1b4
       source_hash: 60605af9c91029a3344f8b4206b27f30c8ee7d9a177102a015c41895f381312d
