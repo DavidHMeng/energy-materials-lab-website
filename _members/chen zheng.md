@@ -1,6 +1,6 @@
 ---
 slug: chen-zheng
-role: research-staff
+role: administrative-staff
 name_zh: 郑晨
 name_en: Chen Zheng
 position_zh: 行政助理
