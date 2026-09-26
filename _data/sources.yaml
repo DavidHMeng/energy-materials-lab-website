@@ -10,9 +10,10 @@
   type: paper
   image: /images/uploads/anie73423-fig-0001-m-1.jpg
   publication_visible: true
-- id: doi:10.1007/s40820-026-02232-6
+- id: 10.1093/nsr/nwag209
   type: paper
-  publication_visible: false
+  image: /images/uploads/nwag209fig1.jpeg
+  publication_visible: true
 - id: doi:10.1016/j.ensm.2025.104512
   type: paper
   publication_visible: false
