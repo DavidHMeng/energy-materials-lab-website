@@ -11,7 +11,9 @@ profile_summary_zh: 硕士第一年完成课程学习后，于2024.05–2026.06�
 address_zh: 化学材料楼202
 research_interests_zh: 卤化物固态电解质
 personal_note_zh: 向下扎根，向上生长
-education_zh: 硕士/东北大学/2023-2026
+education_zh: |+
+  - 硕士，东北大学，2023-2026
+
 email: 13780866910@163.com
 representative_dois:
   - 10.1093/nsr/nwag209
