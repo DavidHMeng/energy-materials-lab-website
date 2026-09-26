@@ -142,3 +142,214 @@
   type: paper
   plugin: sources.py
   file: sources.yaml
+- id: doi:10.1038/s41560-025-01853-2
+  title: Universal superionic conduction via solid dissociation of salts in van der
+    Waals materials
+  authors:
+  - Junyi Yue
+  - Simeng Zhang
+  - Xingyu Wang
+  - Jiamin Fu
+  - Yang Xu
+  - Suting Weng
+  - Ye Zhu
+  - Changtai Zhao
+  - Matthew Zheng
+  - Yueyue Wang
+  - Xiangzhen Zhu
+  - Han Wu
+  - Guanzhi Wang
+  - Yu Xia
+  - Mengyan Cao
+  - Qihang Jing
+  - Xuefeng Wang
+  - Wei Xia
+  - Jianwen Liang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Nature Energy
+  date: '2025-10-20'
+  link: https://doi.org/hbj6gz
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1002/anie.5372994
+  title: "Tailoring Local Anion Chemistry Affinity Enables Stable Halide\u2013Sulfide\
+    \ Interfaces and Fast Ion Transport in Dual\u2010Electrolyte all\u2010Solid\u2010\
+    State Batteries"
+  authors:
+  - Jie Qu
+  - Xingyu Wang
+  - Huaimin Jin
+  - Changtai Zhao
+  - Jianwen Liang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Angewandte Chemie International Edition
+  date: '2026-09-21'
+  link: https://doi.org/hckp64
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1002/anie.5596828
+  title: "A Cellulose\u2010Derived Polymer Additive for Stabilizing Thick Cathodes\
+    \ in All\u2010Solid\u2010State Batteries"
+  authors:
+  - Tiantian Liu
+  - "Rong\u2010Hao Wang"
+  - "Shao\u2010Xiong Yang"
+  - Xiangzhen Zhu
+  - Xiaolong Yan
+  - Yueyue Wang
+  - Yang Xu
+  - Xu Han
+  - Simeng Zhang
+  - Junyi Yue
+  - Changtai Zhao
+  - Xiaona Li
+  - Jianwen Liang
+  - "Li\u2010Feng Chen"
+  publisher: Angewandte Chemie International Edition
+  date: '2026-07-09'
+  link: https://doi.org/hckp65
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1002/anie.4292495
+  title: "Chloride\u2010Regulated Depolymerization of Aluminosilicate Networks for\
+    \ Fast Ion Transport Compliant Interfaces in Sustainable All\u2010Solid\u2010\
+    State Sodium Batteries"
+  authors:
+  - Liyu Zhou
+  - Xingyu Wang
+  - Rui Yang
+  - Yang Xu
+  - Simeng Zhang
+  - Meng Li
+  - Han Wu
+  - Xinmiao Wang
+  - Junyi Yue
+  - Yueyue Wang
+  - Huaimin Jin
+  - Xiangzhen Zhu
+  - Mingying Zhang
+  - Chenxiang Li
+  - Xuan Yang
+  - Xiaoyang Yuan
+  - Wen Yin
+  - Wei Xia
+  - Changtai Zhao
+  - Jianwen Liang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Angewandte Chemie International Edition
+  date: '2026-07-02'
+  link: https://doi.org/hckp66
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1038/s41467-026-71876-0
+  title: Functional modules for enhanced amorphous composite halide solid electrolytes
+    for low-temperature all-solid-state lithium batteries
+  authors:
+  - Yanlong Wu
+  - Xinmiao Wang
+  - Xingyu Wang
+  - Yulong Cai
+  - Junyi Yue
+  - Simeng Zhang
+  - Xiangzhen Zhu
+  - Shanshan Wang
+  - Meng Li
+  - Xu Han
+  - Yi Duan
+  - Changtai Zhao
+  - Rong Yang
+  - Jianwen Liang
+  - Xiaona Li
+  - Xueliang Sun
+  - Jiantao Wang
+  publisher: Nature Communications
+  date: '2026-05-27'
+  link: https://doi.org/hckp68
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1021/jacs.5c22628
+  title: Multifunctional Chloride-Oxide Additive Enabling Simultaneous Ionic/Electronic
+    Conduction for High-Rate All-Solid-State NCM Cathodes
+  authors:
+  - Mingying Zhang
+  - Xingyu Wang
+  - Chunmeng Gu
+  - Shutao Zhang
+  - Xiangzhen Zhu
+  - Jianwen Liang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Journal of the American Chemical Society
+  date: '2026-05-08'
+  link: https://doi.org/hckkf5
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1021/jacs.5c21351
+  title: Design for an Interface in Oxyhalide-Based All-Solid-State Lithium Metal
+    Batteries
+  authors:
+  - Yanlong Wu
+  - Yang Yang
+  - Xinmiao Wang
+  - Xingyu Wang
+  - Yulong Cai
+  - Shengzhao Wang
+  - Junyi Yue
+  - Yueyue Wang
+  - Xiangzhen Zhu
+  - Xu Han
+  - Hongyang Zhang
+  - Changtai Zhao
+  - Jianwen Liang
+  - Jiantao Wang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Journal of the American Chemical Society
+  date: '2026-04-15'
+  link: https://doi.org/hckp69
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1021/acs.accounts.6c00035
+  title: Precision Chemical Routes to Achieve Superior Oxyhalide Solid Electrolytes
+    in Advanced All-Solid-State Batteries
+  authors:
+  - Han Wu
+  - Chong Liu
+  - Simeng Zhang
+  - Jianwen Liang
+  - Xiaona Li
+  publisher: Accounts of Chemical Research
+  date: '2026-04-01'
+  link: https://doi.org/hckp7b
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
+- id: doi:10.1016/j.joule.2025.102260
+  title: Advances in non/low-crystalline solid-state electrolytes enabled by halide-based
+    electrolytes
+  authors:
+  - Jie Qu
+  - Han Wu
+  - Xingyu Wang
+  - Simeng Zhang
+  - Junyi Yue
+  - Chong Liu
+  - Jianwen Liang
+  - Xueliang Sun
+  - Xiaona Li
+  publisher: Joule
+  date: '2026-02-01'
+  link: https://doi.org/hckp7c
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
