@@ -243,6 +243,43 @@ entries:
       english_hash: a47f65c126470c1b89f5526159cb8106919222349dd39b1b312117665117f023
       source_hash: d1ed93ebce60e3375868fd896944998e5e01658322fe0dbf8d8e629236b8f7ea
       status: manual
+  _members/xiqian song.md:
+    address:
+      generated_hash: d1f08488940a549ad1fe59789d122543818a22057ff623395b1bbc73c5ff3b8f
+      source_hash: fa17eca3030acc44e70cad0cafb78b77262172899409e6bed76829a7ac7f03f5
+      status: auto
+    affiliation:
+      generated_hash: 6c7d555f8165fcc06a5fef5d2f1166b5b3afa1fd4b85468f3d2f6d1043d5935b
+      source_hash: b03717e4627526f62e634c10d5ae5e197b6f1e1bc948eb01ac176cba85027de2
+      status: auto
+    education:
+      generated_hash: fc052b81cc08ba38896222cdf1d1a37cd6755115f9a6b1074f1ba70bb63fe12a
+      source_hash: edf1b3f4c5376d7eed409044428e410dc26518fec668eace80c5d1c619fd2f90
+      status: auto
+    personal_note:
+      generated_hash: 9b0ebb0644ae3b23d2befc47cbd6dd6aa6e478994f3e5b7cf54a9bd140221c29
+      source_hash: b336a174cd1fad055d036f9c66be5a70588c5fd3d6a12534497e52b3acc7a2e8
+      status: auto
+    portrait_alt:
+      generated_hash: 0195f308f8bffb079eebc7e5cace86e200c94e3598b000e6caeb585536dbf071
+      source_hash: 289825456c5837d6144a1e250fb2ae91dfc9097df6208009de05f9709f26021f
+      status: auto
+    position:
+      generated_hash: 0195f308f8bffb079eebc7e5cace86e200c94e3598b000e6caeb585536dbf071
+      source_hash: 289825456c5837d6144a1e250fb2ae91dfc9097df6208009de05f9709f26021f
+      status: auto
+    profile_summary:
+      generated_hash: 79aa7837e6ad01e9e4989b79eeb726c34d116ee873a1cccd86cfc39c3512de34
+      source_hash: 8f17fba52cb649294e22160c98b0f126f396119f613750f5b1c0bf4d08928519
+      status: auto
+    research_interests:
+      generated_hash: b3b945088237443ad0d9a403a2a335fc1f03d8321e42ede380fdd4f5d7e91aa8
+      source_hash: 2545d3ba2fc22a650b9e7c24116e9bd37a86e615c9c8ddbc14cb405a472f6423
+      status: auto
+    research_summary:
+      generated_hash: b3b945088237443ad0d9a403a2a335fc1f03d8321e42ede380fdd4f5d7e91aa8
+      source_hash: 2545d3ba2fc22a650b9e7c24116e9bd37a86e615c9c8ddbc14cb405a472f6423
+      status: auto
   _news/2026-08-01-placeholder-member.md:
     alt:
       english_hash: 51074b07f17f4970727cd90b365eac9ab471b1b5b08286973e5524363cd5eb24
