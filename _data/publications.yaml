@@ -12,7 +12,7 @@
   display: true
 - doi: 10.1002/anie.5372994
   type: paper
-  image: /images/uploads/anie74845-fig-0001-m.jpg
+  image: /images/uploads/anie74845-fig-0001-m-1.jpg
   description_zh: ""
   description_en: ""
   tags: []
@@ -20,7 +20,7 @@
   display: true
 - doi: 10.1002/anie.5596828
   type: paper
-  image: /images/uploads/anie73531-fig-0001-m.jpg
+  image: /images/uploads/anie73531-fig-0001-m-1.jpg
   description_zh: ""
   description_en: ""
   tags: []
@@ -28,7 +28,7 @@
   display: true
 - doi: 10.1002/anie.4292495
   type: paper
-  image: /images/uploads/anie73423-fig-0001-m.jpg
+  image: /images/uploads/anie73423-fig-0001-m-1.jpg
   description_zh: ""
   description_en: ""
   tags: []
@@ -36,7 +36,7 @@
   display: true
 - doi: 10.1093/nsr/nwag209
   type: paper
-  image: ""
+  image: /images/uploads/nwag209fig1.jpeg
   description_zh: ""
   description_en: ""
   tags: []

@@ -67,9 +67,10 @@ remain text-only, even if an old cached citation once contained an image.
 
 The requested DOI pair `10.1038/s41467-026-71876-0` and `10.1021/jacs.5c22628` is not a
 duplicate: canonicalization leaves two distinct DOI identities, so it was not merged.
-The three existing Angewandte images were mapped from Git history; `nwag209fig1.jpeg`
-is absent from both the current tree and history, so its publication record remains
-image-empty until the asset is supplied.
+The three Angewandte images were mapped from Git history. The subsequent remote CMS
+commit `9a2b4eb` supplied the exact `-1` image variants and `nwag209fig1.jpeg`; all four
+assets are now referenced by `_data/publications.yaml` without copying them into shared
+citations.
 
 Local regression verification for this refactor passed with `python -m unittest discover
 -s scripts -p 'test_*.py'` (71 tests, one generated-site test skipped because `_site` is
