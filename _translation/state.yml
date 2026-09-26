@@ -46,6 +46,55 @@ entries:
       english_hash: 7a89b75a7fa7aa507a3c9ed2053920cf5905fad962152173f0ce27a098e83549
       source_hash: f7a81966b8fae14d0113717488d82b40c63fc23074eb062479dcd7eb1dda659f
       status: manual
+  _data/pages.yaml:
+    opportunities.description:
+      english_hash: aef7ed342fde1d09690c54357c8ac853e0008e1b2fa869cbb31cd39ffef6470d
+      source_hash: 8a62fd61aa402098c9574c2ed757f49454d5b0462a8359d343a55c6c09a764dd
+      status: manual
+    opportunities.intro:
+      english_hash: bb6b29a97c4107ba785a0cee4e7daf49c568a40d3c178b2abb6b46f742d7e7a6
+      source_hash: d0fedd554b046d69c09e1f9e7480e0ff008854413c36876e4fb579334f8c6894
+      status: manual
+    opportunities.title:
+      english_hash: 1e6e878c9dc923dd426430fcf3ef1417674ef8f3ed6e828d72004743ff372340
+      source_hash: 54f093163587e0bcd274906362d0abbc696518b94aa15d771b0b05cb83334d12
+      status: manual
+    publications.description:
+      english_hash: 19d442e232b0ebca4957ae69f503b584d251d58ff2eae4490bf216b91a32a243
+      source_hash: 0ddc5a1fb61435e602c63671f267600bb0d304a1d3ae6102ef74c607d7a01430
+      status: manual
+    publications.intro:
+      english_hash: 21576ff397ea4a2274a54f29cd93e4e3c36a797992171a6dd6d70b917c1440e1
+      source_hash: 6be9e0713a0b4eeb09fbe2833a75f0ca3eae265dad90be6676b0aca4e9b8222b
+      status: manual
+    publications.title:
+      english_hash: 82b2eb07aaea1da81684fdbaf171f0ef11c109a086a1040e84851d67ad01856e
+      source_hash: fb4a6da5c7b0ca0f1872fd6cd5e217a50b71452cfedeac7ded77bbef01c82e92
+      status: manual
+    research.description:
+      english_hash: 2d00e4a319c13071e7ed773a8314c459150f371ac0348676f4f3a36da7b09a09
+      source_hash: 9643ab21d7b21eb14675b54d634c453dcd41bccfca082eccd54b03a5367d75b8
+      status: manual
+    research.intro:
+      english_hash: e9a4457e9e2330739ed53d50252a7e1981d8094937e4f73c2194a113deccd37d
+      source_hash: ca3ef9da0bf6acfb88f4e94f0244c26b9acb8fbc58d17bd76c42a0ca3e7a1da2
+      status: manual
+    research.title:
+      english_hash: 979d6300fd9884ff8d8e03391d524fed8e88cd5560788f065ba2444db3b7b20c
+      source_hash: aae70e7db4ed3f86178a95afb99abbaef9952ec0036d0cf8d21c17fc4a90c8b1
+      status: manual
+    team.description:
+      english_hash: 0447b95e444e2369e8980f8c4d69bde0826036b43cb89e88e4788d9a03487253
+      source_hash: e20a68d890be7a44ef92f57f1ae4ad0be14d88ee66535c8efe1f428f8d08bdd7
+      status: manual
+    team.intro:
+      english_hash: 5d8493c5306fc8008989fd6d7f39e613cd8470319a9704b960292b3c15c17e27
+      source_hash: 5e1c2f7cadb16570ce6b846ac1ab77dded7b78e2c7402df87a24334894e7fe3f
+      status: manual
+    team.title:
+      english_hash: 5985039f106df054b43c3529139613bf7c2372937539f344c7c5ee47d00a0d63
+      source_hash: 2e6bfec616ad6945aaa2510e200609d743e7cf6eb3293f7b6cc618f3238e8e77
+      status: manual
   _data/site.yaml:
     address:
       english_hash: 835c952f8f5c553085914ab433bb63ef7144c300f2b6b02e515a38e7825f152d
