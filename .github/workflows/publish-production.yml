@@ -1,6 +1,7 @@
 name: Publish production static branch
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
 

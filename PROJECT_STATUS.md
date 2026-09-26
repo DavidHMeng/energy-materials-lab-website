@@ -12,10 +12,14 @@ the existing OpenAI-compatible provider. `TRANSLATION_PROVIDER=deepl` selects th
 require `TRANSLATION_MODEL`.
 
 The API key remains a repository Actions secret and is never written to the repository,
-CMS, generated site or logs. Without the key, all 19 currently missing English fields
-remain `pending`, English routes use the verified Chinese fallback, and CI/deployment
-remain operational. A repository administrator must add the key and provider variables
-before a real provider call can be verified.
+CMS, generated site or logs. Without the key, missing English fields remain `pending`,
+English routes use the verified Chinese fallback, and CI/deployment remain operational.
+
+Live DeepL verification generated 11 fields and reduced the current pending count to
+zero. Because commits pushed with GitHub's built-in workflow token do not emit further
+`push` workflow runs, the workflow now explicitly dispatches CI and production
+publication whenever it creates a translation commit. Staging deployment remains a
+separate manual Pages CMS action.
 
 ## CMS member deployment and translation recovery (2026-09-26)
 

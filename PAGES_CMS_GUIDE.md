@@ -287,6 +287,12 @@ DeepL 配置（推荐用于当前项目）：
    API Free `:fx` 密钥使用 `https://api-free.deepl.com`；
 4. DeepL 不需要 `TRANSLATION_MODEL`。若仓库中保留该变量，DeepL 适配器也会忽略它。
 
+当 DeepL 真正写回英文并产生 `content: generate optional English` commit 时，
+翻译工作流会显式触发 `Validate and build` 和
+`Publish production static branch`。这是必要的，因为 GitHub 不会为内置令牌
+推送的 commit 自动再触发 `push` 工作流。GitHub Pages staging 仍保持
+手动 `Deploy website`，避免 CMS 每次保存都立即公开发布。
+
 OpenAI-compatible 配置：`TRANSLATION_PROVIDER=openai-compatible`，同时配置
 `TRANSLATION_MODEL` 和可选的 `TRANSLATION_API_BASE`。
 

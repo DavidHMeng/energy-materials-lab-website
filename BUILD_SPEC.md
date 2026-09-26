@@ -77,8 +77,11 @@ Repository configuration:
 
 The key is never exposed to Pages CMS, source YAML, client JavaScript, or the generated
 site. `github-actions[bot]` is excluded from the workflow job and the generated commit
-uses `[skip translate]`, preventing a translation commit loop. Without the secret/model,
-the workflow records pending state and exits without compromising CI.
+uses `[skip translate]`, preventing a translation commit loop. GitHub does not emit new
+`push` workflow runs for commits created with the built-in `GITHUB_TOKEN`; after a real
+translation commit, the translation workflow therefore dispatches `ci.yml` and
+`publish-production.yml` explicitly. Without the required provider credentials, the
+workflow records pending state and exits without compromising CI.
 
 The citation refresh is also manual-only during staging. Enable its schedule only after
 the target repository, branch protections and desired pull-request cadence are confirmed.

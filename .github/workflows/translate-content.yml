@@ -22,6 +22,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 env:
   BUNDLE_FROZEN: true
@@ -77,9 +78,11 @@ jobs:
           BASEURL: ""
         run: bash script/test
       - name: Commit generated English when changed
+        id: commit_translation
         run: |
           if git diff --quiet; then
             echo "No generated translation changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
@@ -87,3 +90,11 @@ jobs:
           git add _data/homepage.yaml _data/site.yaml _news _events _research _members _opportunities _translation/state.yml
           git commit -m "content: generate optional English [skip translate]"
           git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Trigger validation and production publication for generated commit
+        if: steps.commit_translation.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run ci.yml --ref main
+          gh workflow run publish-production.yml --ref main
