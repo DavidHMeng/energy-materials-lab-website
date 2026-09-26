@@ -23,9 +23,9 @@
   image: /images/placeholders/graphical-abstract.svg
   tags:
   - placeholder
+  publication_visible: true
   plugin: sources.py
   file: sources.yaml
-  publication_visible: true
 - id: doi:10.1093/nsr/nwag209
   title: Hydrate/moisture co-assisted synthesis enables humid-air stability of halide
     solid-state electrolytes
