@@ -90,3 +90,19 @@
   type: paper
   plugin: sources.py
   file: sources.yaml
+- id: doi:10.1016/j.jpowsour.2025.236189
+  title: Enhancing performance in all-solid-state lithium batteries with tape cast
+    sandwich-like flexible composite solid electrolyte membranes
+  authors:
+  - Hairui Weng
+  - Yuhao Zou
+  - Chenyao Wang
+  - Mingjuan Li
+  - Luyi Sun
+  - Xinzhi Chen
+  publisher: Journal of Power Sources
+  date: '2025-03-01'
+  link: https://doi.org/hckptp
+  type: paper
+  plugin: sources.py
+  file: sources.yaml
