@@ -266,6 +266,14 @@ entries:
       source_hash: 6f7d5587b9519821eff143f5103eec602c252997c766af795cd3d02b2b599078
       status: auto
   _members/huaimin jin.md:
+    address:
+      generated_hash: c300395b925d39129d5684c851479aa40054e701c15467eca92d562715d70fc6
+      source_hash: 81d2af4a2152059094f9e82ff1cd55fd571279f5926dc9860807c49f66b8112f
+      status: auto
+    affiliation:
+      generated_hash: 051eecf58b6358350a18bd36df91f1d7b8ce51a88064ecb57b3a290943d64cda
+      source_hash: 87caf2867174142499b4be2b462ede6cafc82030410500eb71f8c3263881f579
+      status: auto
     education:
       generated_hash: 749ee613a5ebb1cf9af55b1cb04beaf7359ee58150adf12a2284703d01c59004
       source_hash: bd7961703f7e2d18d8b3289b1f96e7f1d451328a094214f2f4b01169e5ccb921
