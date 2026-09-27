@@ -17,7 +17,7 @@ education_zh: |+
 email: hmjin@eitech.edu.cn
 active: true
 display: true
-order: 0
+order: 1
 position_en: Research Assistant Professor
 portrait_alt_en: Research Assistant Professor
 research_summary_en: Design and Material Development of Halide Solid-State Electrolytes
