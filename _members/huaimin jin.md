@@ -33,9 +33,11 @@ research_interests_en: Design and Material Development of Halide Solid-State
   Electrolytes; Research on the Interface Between High-Voltage Cathodes and
   Solid-State Electrolytes
 personal_note_en: None at this time
-education_en: |-
+education_en: |+
   - Ph.D., University of Science and Technology of China, 2019–2024
   - B.S., Southwest Jiaotong University, 2019–2024
+
 affiliation_zh: 固态能源实验室
 address_zh: 化学材料楼231室
+name_en: Huaimin Jin
 ---
