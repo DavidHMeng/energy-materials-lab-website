@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jliang.eitech.edu.cn/sitemap.xml
+
