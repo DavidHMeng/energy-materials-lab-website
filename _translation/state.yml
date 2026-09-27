@@ -265,6 +265,35 @@ entries:
       generated_hash: f6cdb0ddb7a3596ad5e485d769b567f5670c0d04da50605607acfe748d6501b5
       source_hash: 6f7d5587b9519821eff143f5103eec602c252997c766af795cd3d02b2b599078
       status: auto
+  _members/huaimin jin.md:
+    education:
+      generated_hash: 749ee613a5ebb1cf9af55b1cb04beaf7359ee58150adf12a2284703d01c59004
+      source_hash: bd7961703f7e2d18d8b3289b1f96e7f1d451328a094214f2f4b01169e5ccb921
+      status: auto
+    personal_note:
+      generated_hash: 9b0ebb0644ae3b23d2befc47cbd6dd6aa6e478994f3e5b7cf54a9bd140221c29
+      source_hash: b336a174cd1fad055d036f9c66be5a70588c5fd3d6a12534497e52b3acc7a2e8
+      status: auto
+    portrait_alt:
+      generated_hash: 1be98da16d7316e927d6ac662ce5aabd69ddb07f5908cde184916faebc53c67a
+      source_hash: 830b713efd2df5165315b1be243348bebcbf20b65843e95c329e733d2de8b0bc
+      status: auto
+    position:
+      generated_hash: 1be98da16d7316e927d6ac662ce5aabd69ddb07f5908cde184916faebc53c67a
+      source_hash: 830b713efd2df5165315b1be243348bebcbf20b65843e95c329e733d2de8b0bc
+      status: auto
+    profile_summary:
+      generated_hash: b70eb83765a4e67fcfbd3ad34db290e6ae4069acce97aa5dc8715111a5dd1766
+      source_hash: 7557caccbdfb7e9f375f97333bae40e6d4deec3d5de59faf1bd00a9bf3edc3a5
+      status: auto
+    research_interests:
+      generated_hash: 1d5711085a684141a851ad44f097d1daf162623b49af7b12c7d2beb7a9d0ceb6
+      source_hash: 35c5d86b48df0a1f20af732e2c080dd3d1c080a3676efc3f2ceeae84b5a97f83
+      status: auto
+    research_summary:
+      generated_hash: d3b868bdec06f4cdc1a2569bf000dd06ed2e362b0b46aa9d8549521b532c59a4
+      source_hash: fa5096ff0ec5eb378ff0c588c53f54dd4386a5af20f7b8d5980192576fba5d61
+      status: auto
   _members/mei-li.md:
     address:
       english_hash: 10ab9b9dd5c25667e713181c2669807332d843ac6516bf21709d42b7212e990c
